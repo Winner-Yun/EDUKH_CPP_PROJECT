@@ -1,6 +1,6 @@
-#include "../include/Header_School/HinsyOOP"
-using namespace HinsyOOP;
+#include "../include/Header_EDU/Login_Form.h"
+
+using namespace std;
 int main(){
-    string name;
-    cout << "Enter Number of Nume" ; HLVInput::inputNumber(name);
+    test();
 }
