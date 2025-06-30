@@ -7,7 +7,6 @@ using namespace HinsyOOP;
 
 void test() {
     string num;
-    
     cout << "Enter Number of NUm";HLVInput::inputNumber(num);
    
 }
