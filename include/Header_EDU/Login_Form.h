@@ -81,6 +81,24 @@ public:
             H::delay(40);
         }
 
+        H::drawBoxSingleLine(135,34,50,6,7);
+
+        H::setcolor(11);
+        H::gotoxy(140, 35); cout << "DEVELOPED BY:";
+        H::setcolor(2);
+
+        H::gotoxy(140, 36); cout << " [1] YUN WINNER  "; Sleep(50);
+        H::gotoxy(140, 37); cout << " [2] RY KIMCHHAY "; Sleep(50);
+        H::gotoxy(140, 38); cout << " [3] VANNA NICHH "; Sleep(50);
+        H::gotoxy(140, 39); cout << " [4] SLES ROFATH "; Sleep(50);
+
+        H::setcolor(7);
+        H::gotoxy(140, 40);
+        for (const char* msg = "[ THANKS FOR USING EDUMASTER-KH SYSTEM! ]"; *msg; msg++) {
+            cout << *msg;
+            Sleep(10);
+        }
+
         int fireColors[] = {4, 6, 12, 14};
         bool footerCleared = false;
 
@@ -154,17 +172,6 @@ public:
             H::drawBoxSingleLine(163,16,1,2,i+18);   
             H::drawBoxSingleLine(169,16,1,2,i+24);    
             H::drawBoxSingleLine(175,16,1,2,i+30);   
-
-            H::drawBoxSingleLine(135,34,50,6,7);
-            H::setcolor(11);
-            H::gotoxy(140, 35); cout << "DEVELOPED BY:";
-            H::setcolor(2);
-            H::gotoxy(140, 36); cout << " [1] YUN WINNER  ";
-            H::gotoxy(140, 37); cout << " [2] RY KIMCHHAY ";
-            H::gotoxy(140, 38); cout << " [3] VANNA NICHH ";
-            H::gotoxy(140, 39); cout << " [4] SLES ROFATH ";
-            H::setcolor(7);
-            H::gotoxy(140, 40); cout << "[ THANKS FOR USING EDUMASTER-KH SYSTEM! ]";
             
             H::delay(60);
         }
