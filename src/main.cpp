@@ -64,7 +64,6 @@ void Title_Function() {
         H::delay(60);
     }
 
-
     system("cls");
 }
 
