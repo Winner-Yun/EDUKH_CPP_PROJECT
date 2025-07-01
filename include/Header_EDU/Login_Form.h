@@ -140,14 +140,29 @@ public:
             H::gotoxy(97,40);cout<<R"(                                  | )";
             H::gotoxy(97,41);cout<<R"( +--------------------------------+ )";
 
+            
+            H::drawBoxSingleLine(29,0,1,14,i);      
+            H::drawBoxSingleLine(26,14,1,2,i+6);     
+            H::drawBoxSingleLine(32,14,1,2,i+12);    
+            H::drawBoxSingleLine(23,16,1,2,i+18);   
+            H::drawBoxSingleLine(29,16,1,2,i+24);    
+            H::drawBoxSingleLine(35,16,1,2,i+30);  
+
+            H::drawBoxSingleLine(169,0,1,14,i);      
+            H::drawBoxSingleLine(166,14,1,2,i+6);     
+            H::drawBoxSingleLine(172,14,1,2,i+12);    
+            H::drawBoxSingleLine(163,16,1,2,i+18);   
+            H::drawBoxSingleLine(169,16,1,2,i+24);    
+            H::drawBoxSingleLine(175,16,1,2,i+30);   
+
             H::drawBoxSingleLine(135,34,50,6,7);
             H::setcolor(11);
             H::gotoxy(140, 35); cout << "DEVELOPED BY:";
-            H::setcolor(i-80);
-            H::gotoxy(140, 36); cout << " [1] YUN WINNER                          ";
-            H::gotoxy(140, 37); cout << " [2] RY KIMCHHAY                         ";
-            H::gotoxy(140, 38); cout << " [3] VANNA NICHH                         ";
-            H::gotoxy(140, 39); cout << " [4] SLES ROFATH                         ";
+            H::setcolor(2);
+            H::gotoxy(140, 36); cout << " [1] YUN WINNER  ";
+            H::gotoxy(140, 37); cout << " [2] RY KIMCHHAY ";
+            H::gotoxy(140, 38); cout << " [3] VANNA NICHH ";
+            H::gotoxy(140, 39); cout << " [4] SLES ROFATH ";
             H::setcolor(7);
             H::gotoxy(140, 40); cout << "[ THANKS FOR USING EDUMASTER-KH SYSTEM! ]";
             
