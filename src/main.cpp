@@ -69,7 +69,6 @@ void Title_Function() {
 
 
 int main() {
-    cout<<"Hello";
     H::DisableScreenResize();
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
