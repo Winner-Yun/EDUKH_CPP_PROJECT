@@ -173,6 +173,7 @@ public:
             H::drawBoxSingleLine(169,16,1,2,i+24);    
             H::drawBoxSingleLine(175,16,1,2,i+30);   
             
+            H::setcolor(1);
             H::delay(60);
         }
         system("cls");
