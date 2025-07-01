@@ -1,92 +1,79 @@
-#include <iostream>
-#include <conio.h>
 #include <windows.h>
+#include <conio.h>
+#include <iostream>
+#include "../include/Header_School/ANTHinsyOOP"
+using namespace ANTHinsyOOP;
 
-using namespace std;
+//Welcome Loading Page
+void Title_Function() {
+    H::setcolor(5);
+    H::gotoxy(55,8);cout<<R"(  _____                                                                         _____  )";
+    H::gotoxy(55,9);cout<<R"( ( ___ )                                                                       ( ___ ) )";
+    H::setcolor(6);
+    H::gotoxy(55,10);cout<<R"(  |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   |  )";
+    H::gotoxy(55,11);cout<<R"(  |   |                                                                         |   |  )";
+    H::gotoxy(55,12);cout<<R"(  |   |                                                                         |   |  )";
+    H::gotoxy(55,13);cout<<R"(  |   |                                                                         |   |  )";
+    H::gotoxy(55,14);cout<<R"(  |   |                                                                         |   |  )";
+    H::gotoxy(55,15);cout<<R"(  |   |                                                                         |   |  )"; 
+    H::gotoxy(55,16);cout<<R"(  |   |                                                                         |   |  )"; 
+    H::gotoxy(55,17);cout<<R"(  |   |                                                                         |   |  )"; 
+    H::gotoxy(55,18);cout<<R"(  |   |                                                                         |   |  )"; 
+    H::gotoxy(55,19);cout<<R"(  |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___|  )"; 
+    H::setcolor(5);
+    H::gotoxy(55,20);cout<<R"( (_____)                                                                       (_____) )";
 
-void Name(){
-	string name;
-	cout<<"name : "; cin>>name;
-	cout<<"\n\n";
-}
+    string flameLines[] = {
+        R"(      (                *             (                (          )    )  )",
+        R"(      )\ )           (  `     (      )\ )  *   )      )\ )    ( /( ( /(  )",
+        R"(  (  (()/(      (    )\))(    )\    (()/(` )  /( (   (()/(    )\()))\()) )",
+        R"(  )\  /(_)) )(  )\  ((_)()\((((_)(   /(_))( )(_)))\  /(_))  ((_)\((_)_)  )",
+        R"( ((_)(_))_ (_) ((_) (_()((_))\ _ )  (_)) (_(_())((_) (_))   (_((_)_((_)  )"
+    };
 
-void foreColor(int color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
-}
+    int fireColors[] = {4, 6, 12, 14};
 
-void gotoxy(int x, int y) {
-    COORD coordinates;
-    coordinates.X = x;
-    coordinates.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
-}
+    int a = 5, b = 6;
+    srand((unsigned)time(0));
+    H::drawBoxSingleLine(54, 24, 89, 2);
+    H::gotoxy(55,25);cout<<"LOADING...";
+    
+    for (int i = 55; i <= 175; i++) {
+        for (int l = 0; l < 5; l++) {
+            H::gotoxy(62, 11 + l);
+            for (char ch : flameLines[l]) {
+                if (ch == ' ') {
+                    cout << ' ';
+                } else {
+                    H::setcolor(fireColors[rand() % 4]);
+                    cout << ch;
+                }
+            }
+        }
 
-void cls() {
+        H::setcolor(5);
+        H::gotoxy(62,16); cout<<R"( | __||   \ | | | | |  \/  |  /_\   / __||_   _|| __|| _ \  | |/ /| || | )"; 
+        H::gotoxy(62,17); cout<<R"( | _| | |) || |_| | | |\/| | / _ \  \__ \  | |  | _| |   /  | ' < | __ | )"; 
+        H::gotoxy(62,18); cout<<R"( |___||___/  \___/  |_|  |_|/_/ \_\ |___/  |_|  |___||_|_\  |_|\_\|_||_| )"; 
+
+        if(i<140){
+            H::HLine(i, 26, 1, 15, 177);
+            cout<<i-40<<"%";
+        }
+    
+        H::delay(60);
+    }
+
+
     system("cls");
 }
+
 
 int main() {
-    again:
-    int option;
-    static int j = 0;
-    system("cls");
-
-    do {
-        foreColor(14);
-        gotoxy(17, 7);
-        cout << "-- MENU --" << endl;
-        gotoxy(9, 9);
-        cout << "1 - OPTION 1" << endl;
-        gotoxy(9, 11);
-        cout << "2 - OPTION 2" << endl;
-        gotoxy(9, 13);
-        cout << "3 - OPTION 3" << endl;
-
-        gotoxy(9, 17);
-        cout << "USE UP AND DOWN ARROW KEYS...";
-
-        if (j == 0) {
-            foreColor(5);
-            gotoxy(9, 9);
-            cout << "1 - OPTION 1" << endl;
-        }
-        if (j == 1) {
-            foreColor(5);
-            gotoxy(9, 11);
-            cout << "2 - OPTION 2" << endl;
-        }
-        if (j == 2) {
-            foreColor(5);
-            gotoxy(9, 13);
-            cout << "3 - OPTION 3" << endl;
-        }
-
-        option = getch();
-        switch (option) {
-            case 80: j++; if (j > 2) j = 0; break;
-            case 72: j--; if (j < 0) j = 2; break;
-        }
-    } while (option != 13);
-
-    switch (j) {
-        case 0:
-            cls();
-            cout << " Handle OPTION 1 ";
-            getch();
-            break;
-        case 1:
-            cls();
-            cout << " Handle OPTION 2 ";
-            getch();
-            break;
-        case 2:
-            cls();
-            Name();
-          //  cout << " Handle OPTION 3 ";
-            getch();
-            break;
-    }
+    H::DisableScreenResize();
+    H::DisableButtonMaximized();
+    H::setFixedScreenConsole(200,45);
+    Title_Function();
     getch();
     return 0;
 }

@@ -1,14 +1,14 @@
 #ifndef TEST_HPP
 #define TEST_HPP
 
-#include "../Header_School/HinsyOOP"
+#include "../Header_School/ANTHinsyOOP"
 
-using namespace HinsyOOP;
+using namespace ANTHinsyOOP;
 
 void test() {
     string num;
-    cout << "Enter Number of NUm";HLVInput::inputNumber(num);
+    cout << "Enter Number of NUm";H::inputNumber(num);
    
 }
 
-#endif // TEST_HPP
+#endif
