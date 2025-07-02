@@ -8,7 +8,7 @@ using namespace ANTHinsyOOP;
 int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
-    H::setFixedScreenConsole(200,45);
+    H::setFixedScreenConsole(200,46);
     Loading_Design::mainTile();
     getch();
     return 0;
