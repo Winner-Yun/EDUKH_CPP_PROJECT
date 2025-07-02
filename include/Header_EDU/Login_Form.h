@@ -5,8 +5,14 @@
 using namespace ANTHinsyOOP;
 
 class Loading_Design {
+
 public:
-    static void mainTile() {
+    // loading process and all of its design
+    static void loadingProcess();
+};
+
+
+void Loading_Design::loadingProcess() {
         H::setcolor(5);
         H::gotoxy(55,8);cout<<R"(  _____                                                                         _____  )";
         H::gotoxy(55,9);cout<<R"( ( ___ )                                                                       ( ___ ) )";
@@ -178,8 +184,5 @@ public:
         }
         system("cls");
     }
-
-    
-};
 
 #endif
