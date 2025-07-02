@@ -4,15 +4,53 @@
 #include "../Header_School/ANTHinsyOOP"
 using namespace ANTHinsyOOP;
 
-class Loading_Design {
+class Login_Design {
+    private:
+        char strGmail[40];
+        char strPassword[20];
 
-public:
-    // loading process and all of its design
-    static void loadingProcess();
-};
+    public:
+        // loading process and all of its design
+        static void loadingProcess();
+        static void loginDesignCon();
 
 
-void Loading_Design::loadingProcess() {
+        void MainLogin();
+    };
+
+   void Login_Design::MainLogin(){
+
+        loadingProcess();   // call design of loading function
+        
+        loginDesignCon();   //call design of  login
+
+        //email form
+        
+        while(true){
+            H::drawBoxSingleLineWithBG(123,26,53,1,0);
+            H::drawBoxSingleLineWithBG(123,33,53,1,0);
+            H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
+
+
+            //password form
+            H::gotoxy(123,34);H::setcolor(15);HLVInput::inputUNumber(this->strPassword, 21);
+
+            if(strcmp(strGmail, "winner@gmail.com") == 0 && strcmp(strPassword, "123") == 0){
+                H::gotoxy(135,38);H::setcolor(15);cout<<"         SUCCESS!!         ";
+                break;
+            }
+            else{
+                H::gotoxy(135,38);H::setcolor(4);cout<<"[!] WRONG EMAIL OR PASSWORD";
+             }
+        }
+
+
+
+     
+    }
+
+
+void Login_Design::loadingProcess() {
         H::setcolor(5);
         H::gotoxy(55,8);cout<<R"(  _____                                                                         _____  )";
         H::gotoxy(55,9);cout<<R"( ( ___ )                                                                       ( ___ ) )";
@@ -184,5 +222,142 @@ void Loading_Design::loadingProcess() {
         }
         system("cls");
     }
+
+    void Login_Design::loginDesignCon(){
+
+        H::setcolor(15);H::gotoxy(4,1);cout<<R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--.    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,2);cout<<R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,3);cout<<R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ \/ /   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,4);cout<<R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'\/ /    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,5);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,6);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,7);cout<<R"(  \/ /                                                                                    \/ /    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,8);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,9);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(4,10);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(15);H::gotoxy(4,11);cout<<R"(  \/_/ ---------------------------------------------------------------------------------- \/_/    )";H::delay(30);
+
+
+        H::setcolor(15);H::gotoxy(100,13);cout<<R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--.    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,14);cout<<R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,15);cout<<R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ \/ /   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,16);cout<<R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'\/ /    )";H::delay(30);
+        H::setcolor(10);H::gotoxy(100,17);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(10);H::gotoxy(100,18);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,19);cout<<R"(  \/ /                                                                                    \/ /    )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,20);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,21);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,22);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,23);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,24);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,25);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,26);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,27);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,28);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,29);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,30);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,31);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,32);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,33);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(2);H::gotoxy(100,34);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,35);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,36);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(1);H::gotoxy(100,37);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,38);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,39);cout<<R"( / /\ \                                                                                  / /\ \   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,40);cout<<R"( \ \/ /                                                                                  \ \/ /   )";H::delay(30);
+        H::setcolor(6);H::gotoxy(100,41);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
+        H::setcolor(15);H::gotoxy(100,42);cout<<R"(  \/_/ ---------------------------------------------------------------------------------- \/_/    )";H::delay(30);
+   
+        H::setcolor(15);H::gotoxy(11, 5); cout << R"(         __        __  _____   _        ____    ___    __  __   _____            )";H::delay(100);
+        H::setcolor(1);H::gotoxy(11, 6); cout << R"(         \ \      / / | ____| | |      / ___|  / _ \  |  \/  | | ____|           )";H::delay(100);
+        H::setcolor(1);H::gotoxy(11, 7); cout << R"(          \ \ /\ / /  |  _|   | |     | |     | | | | | |\/| | |  _|             )";H::delay(100);
+        H::setcolor(1);H::gotoxy(11, 8); cout << R"(           \ V  V /   | |___  | |___  | |___  | |_| | | |  | | | |___            )";H::delay(100);
+        H::setcolor(15);H::gotoxy(11, 9); cout << R"(            \_/\_/    |_____| |_____|  \____|  \___/  |_|  |_| |_____|           )";H::delay(100);
+        H::setcolor(15);H::gotoxy(11, 10); cout << R"(                                                                                )";
+
+        H::setcolor(15);H::gotoxy(92, 5); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--    )";H::delay(100);
+        H::setcolor(1);H::gotoxy(92, 6); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \  \   )";H::delay(100);
+        H::setcolor(1);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
+        H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100); 
+        
+        H::setcolor(15);H::gotoxy(0, 26); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--.--.   )";H::delay(100);
+        H::setcolor(10);H::gotoxy(0, 27); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \..\   /   )";H::delay(100);
+        H::setcolor(10);H::gotoxy(0, 28); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
+        H::setcolor(15);H::gotoxy(0, 29); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'  )";H::delay(100);
+        
+        H::setcolor(15);H::gotoxy(120, 17); cout << R"(  _     _____ _____  _ ____    _     ____  _____ _  _    _ )";H::delay(100);
+        H::setcolor(10);H::gotoxy(120, 18); cout << R"( / \   /  __//__ __\|// ___\  / \   /  _ \/  __// \/ \  /| )";H::delay(100);
+        H::setcolor(10);H::gotoxy(120, 19); cout << R"( | |   |  \    / \    |    \  | |   | / \|| |  _| || |\ || )";H::delay(100);
+        H::setcolor(10);H::gotoxy(120, 20); cout << R"( | |_/\|  /_   | |    \___ |  | |_/\| \_/|| |_//| || | \|| )";H::delay(100);
+        H::setcolor(15);H::gotoxy(120, 21); cout << R"( \____/\____\  \_/    \____/  \____/\____/\____\\_/\_/  \| )";H::delay(100);
+
+
+        //About System
+        H::HLine(6, 11, 93, 8, 205);              
+        H::drawBoxSingleLineWithBG(5, 13, 94, 11, 17); 
+
+
+        H::setcolor(15);
+        H::drawBoxDoubleLineWithBG(30, 13, 40, 3, 9);
+
+        H::gotoxy(35, 14); std::cout << "[ ABOUT EDUMASTER-KH SYSTEM ]";
+
+        H::setcolor(11);
+        H::gotoxy(9, 16); std::cout << "                                                                                     ";
+        H::gotoxy(9, 17); std::cout << "           EDUMASTER-KH is a comprehensive school management system.                 ";
+        H::gotoxy(9, 18); std::cout << "           It offers tools for students, teachers, and administrators                ";
+        H::gotoxy(9, 19); std::cout << "           to manage academic records, schedules, and communication.                 ";
+
+        H::drawBoxSingleLine(10,20,83,1,7);
+        H::setcolor(10);
+        H::gotoxy(9, 21); std::cout << "                                                                                     ";
+        H::gotoxy(9, 22); std::cout << "          DEVELOPED BY: YUN WINNER, RY KIMCHHAY, VANNA NICHH, SLES ROFATH            ";
+        H::gotoxy(9, 23); std::cout << "                                                                                     ";
+
+
+        //Control
+         
+        H::drawBoxSingleLineWithBG(5, 31, 94, 11, 42); 
+
+        H::setcolor(15);
+        H::drawBoxDoubleLineWithBG(30, 31, 40, 3, 10);
+
+        H::setcolor(10);H::gotoxy(38, 32); std::cout << "[ CONTROLER IN SYSTEM ]";
+
+        H::setcolor(11);
+        H::gotoxy(9, 34); std::cout << "                                                                                     ";
+        H::gotoxy(9, 35); std::cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
+        H::gotoxy(9, 36); std::cout << "                     offers Keys Arrow For Control Left and Right Menu in System     ";
+        H::gotoxy(9, 37); std::cout << "            Key for BACK and        key For select the option or submit              ";
+
+        H::drawBoxSingleLine(10,38,83,1,7);
+        H::setcolor(10);
+        H::gotoxy(9, 39); std::cout << "                                                                                     ";
+        H::gotoxy(9, 40); std::cout << "     ALL OF THESE CAN BE MADE BECAUSE OF                              THANKS YOU     ";
+        H::gotoxy(9, 41); std::cout << "                                                                                     ";
+
+
+        // IMPORTANT TEXT
+        H::setcolor(103);H::gotoxy(17,35);cout<<"UP & DOWN";
+        H::setcolor(23);H::gotoxy(17,36);cout<<"LEFT & RIGHT";
+        H::setcolor(71);H::gotoxy(17,37);cout<<"ESC";
+        H::setcolor(87);H::gotoxy(39,37);cout<<"ENTER";
+        H::setcolor(215);H::gotoxy(50,40);cout<<" ANT SCHOOL, CBRD FUND, PTC.";
+
+
+        // BOX LOGIN Field 
+        H::drawBoxDoubleLineWithBG(122,25,55,3,47);
+        H::setcolor(15);H::gotoxy(121,25);cout<<"->  Email             :   ";
+        H::drawBoxDoubleLineWithBG(122,32,55,3,31);
+        H::setcolor(15);H::gotoxy(121,32);cout<<"->  Password          :   ";
+    }
+
+ 
+
+ \
+
+    
+
 
 #endif
