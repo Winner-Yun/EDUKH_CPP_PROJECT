@@ -281,12 +281,6 @@ void Login_Design::loadingProcess() {
         H::setcolor(1);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
         H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100);
 
-        H::drawBoxSingleLineWithBG(105,10,83,0,31);
-        H::setcolor(15);H::gotoxy(158,10);cout<<"                               ";
-        H::setcolor(15);H::gotoxy(104,11);cout<<"                               ";
-        H::drawBoxSingleLineWithBG(105,2,83,0,47);
-        H::setcolor(15);H::gotoxy(104,2);cout<<"                               ";
-        H::setcolor(15);H::gotoxy(158,3);cout<<"                               ";
         
         H::setcolor(15);H::gotoxy(0, 26); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--.--.   )";H::delay(100);
         H::setcolor(4);H::gotoxy(0, 27); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \..\   /   )";H::delay(100);
@@ -359,11 +353,18 @@ void Login_Design::loadingProcess() {
         H::drawBoxDoubleLineWithBG(122,32,55,3,31);
         H::setcolor(15);H::gotoxy(121,32);cout<<"->  Password          :   ";
 
+        H::drawBoxSingleLineWithBG(105,10,83,0,31);
+        H::setcolor(15);H::gotoxy(158,10);cout<<"                               ";
+        H::setcolor(15);H::gotoxy(104,11);cout<<"                               ";
+        H::drawBoxSingleLineWithBG(105,2,83,0,47);
+        H::setcolor(15);H::gotoxy(104,2);cout<<"                               ";
+        H::setcolor(15);H::gotoxy(158,3);cout<<"                               ";
+
     }
 
  
 
- \
+ 
 
     
 
