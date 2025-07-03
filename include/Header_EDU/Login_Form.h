@@ -335,7 +335,7 @@ void Login_Design::loadingProcess() {
         H::setcolor(11);
         H::gotoxy(9, 33); std::cout << "                                                                                     ";
         H::gotoxy(9, 34); std::cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
-        H::gotoxy(9, 35); std::cout << "                     offers Keys Arrow For Control Left and Right Menu in System     ";
+        H::gotoxy(9, 35); std::cout << "                      Keys Arrow For Control Left and Right Menu in System     ";
         H::gotoxy(9, 36); std::cout << "            Key for BACK and        key For select the option or submit              ";
 
         H::drawBoxSingleLine(10,37,83,1,7);
