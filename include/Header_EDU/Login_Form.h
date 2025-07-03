@@ -20,7 +20,7 @@ class Login_Design {
 
    void Login_Design::MainLogin(){
 
-        loadingProcess();   // call design of loading function
+        // loadingProcess();   // call design of loading function
         
         loginDesignCon();   //call design of  login
 
@@ -279,11 +279,18 @@ void Login_Design::loadingProcess() {
         H::setcolor(15);H::gotoxy(92, 5); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--    )";H::delay(100);
         H::setcolor(1);H::gotoxy(92, 6); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \  \   )";H::delay(100);
         H::setcolor(1);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
-        H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100); 
+        H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100);
+
+        H::drawBoxSingleLineWithBG(105,10,83,0,31);
+        H::setcolor(15);H::gotoxy(158,10);cout<<"                               ";
+        H::setcolor(15);H::gotoxy(104,11);cout<<"                               ";
+        H::drawBoxSingleLineWithBG(105,2,83,0,47);
+        H::setcolor(15);H::gotoxy(104,2);cout<<"                               ";
+        H::setcolor(15);H::gotoxy(158,3);cout<<"                               ";
         
         H::setcolor(15);H::gotoxy(0, 26); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--.--.   )";H::delay(100);
-        H::setcolor(10);H::gotoxy(0, 27); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \..\   /   )";H::delay(100);
-        H::setcolor(10);H::gotoxy(0, 28); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
+        H::setcolor(4);H::gotoxy(0, 27); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \..\   /   )";H::delay(100);
+        H::setcolor(4);H::gotoxy(0, 28); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
         H::setcolor(15);H::gotoxy(0, 29); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'  )";H::delay(100);
         
         H::setcolor(15);H::gotoxy(120, 17); cout << R"(  _     _____ _____  _ ____    _     ____  _____ _  _    _ )";H::delay(100);
@@ -318,32 +325,32 @@ void Login_Design::loadingProcess() {
 
         //Control
          
-        H::drawBoxSingleLineWithBG(5, 31, 94, 11, 42); 
+        H::drawBoxSingleLineWithBG(5, 30, 94, 11, 42); 
 
         H::setcolor(15);
-        H::drawBoxDoubleLineWithBG(30, 31, 40, 3, 10);
+        H::drawBoxDoubleLineWithBG(30, 30, 40, 3, 10);
 
-        H::setcolor(10);H::gotoxy(38, 32); std::cout << "[ CONTROLER IN SYSTEM ]";
+        H::setcolor(10);H::gotoxy(38, 31); std::cout << "[ CONTROLER IN SYSTEM ]";
 
         H::setcolor(11);
-        H::gotoxy(9, 34); std::cout << "                                                                                     ";
-        H::gotoxy(9, 35); std::cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
-        H::gotoxy(9, 36); std::cout << "                     offers Keys Arrow For Control Left and Right Menu in System     ";
-        H::gotoxy(9, 37); std::cout << "            Key for BACK and        key For select the option or submit              ";
+        H::gotoxy(9, 33); std::cout << "                                                                                     ";
+        H::gotoxy(9, 34); std::cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
+        H::gotoxy(9, 35); std::cout << "                     offers Keys Arrow For Control Left and Right Menu in System     ";
+        H::gotoxy(9, 36); std::cout << "            Key for BACK and        key For select the option or submit              ";
 
-        H::drawBoxSingleLine(10,38,83,1,7);
+        H::drawBoxSingleLine(10,37,83,1,7);
         H::setcolor(10);
-        H::gotoxy(9, 39); std::cout << "                                                                                     ";
-        H::gotoxy(9, 40); std::cout << "     ALL OF THESE CAN BE MADE BECAUSE OF                              THANKS YOU     ";
-        H::gotoxy(9, 41); std::cout << "                                                                                     ";
+        H::gotoxy(9, 38); std::cout << "                                                                                     ";
+        H::gotoxy(9, 39); std::cout << "     ALL OF THESE CAN BE MADE BECAUSE OF                              THANKS YOU     ";
+        H::gotoxy(9, 40); std::cout << "                                                                                     ";
 
 
         // IMPORTANT TEXT
-        H::setcolor(103);H::gotoxy(17,35);cout<<"UP & DOWN";
-        H::setcolor(23);H::gotoxy(17,36);cout<<"LEFT & RIGHT";
-        H::setcolor(71);H::gotoxy(17,37);cout<<"ESC";
-        H::setcolor(87);H::gotoxy(39,37);cout<<"ENTER";
-        H::setcolor(215);H::gotoxy(50,40);cout<<" ANT SCHOOL, CBRD FUND, PTC.";
+        H::setcolor(103);H::gotoxy(17,34);cout<<"UP & DOWN";
+        H::setcolor(23);H::gotoxy(17,35);cout<<"LEFT & RIGHT";
+        H::setcolor(71);H::gotoxy(17,36);cout<<"ESC";
+        H::setcolor(87);H::gotoxy(39,36);cout<<"ENTER";
+        H::setcolor(215);H::gotoxy(50,39);cout<<" ANT SCHOOL, CBRD FUND, PTC.";
 
 
         // BOX LOGIN Field 
@@ -351,6 +358,7 @@ void Login_Design::loadingProcess() {
         H::setcolor(15);H::gotoxy(121,25);cout<<"->  Email             :   ";
         H::drawBoxDoubleLineWithBG(122,32,55,3,31);
         H::setcolor(15);H::gotoxy(121,32);cout<<"->  Password          :   ";
+
     }
 
  
