@@ -20,7 +20,7 @@ class Login_Design {
 
    void Login_Design::MainLogin(){
 
-        // loadingProcess();   // call design of loading function
+        loadingProcess();   // call design of loading function
         
         loginDesignCon();   //call design of  login
 
