@@ -1,30 +1,6 @@
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
+#include "../include/Header_School/ANTHinsyOOP"
 
-using namespace std;
-
-void Name(){
-	string name;
-	cout<<"name : "; cin>>name;
-	cout<<"\n\n";
-}
-
-void foreColor(int color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
-}
-
-void gotoxy(int x, int y) {
-    COORD coordinates;
-    coordinates.X = x;
-    coordinates.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
-}
-
-void cls() {
-    system("cls");
-}
+using namespace ANTHinsyOOP;
 
 int main() {
     
@@ -33,32 +9,32 @@ int main() {
     system("cls");
 
     do {
-        foreColor(14);
-        gotoxy(17, 7);
+        H::setcolor(14);
+        H::gotoxy(17, 7);
         cout << "-- MENU --" << endl;
-        gotoxy(9, 9);
+        H::gotoxy(9, 9);
         cout << "1 - OPTION 1" << endl;
-        gotoxy(30, 9);
+        H::gotoxy(30, 9);
         cout << "2 - OPTION 2" << endl;
-        gotoxy(51, 9);
+        H::gotoxy(51, 9);
         cout << "3 - OPTION 3" << endl;
 
-        gotoxy(9, 17);
+        H::gotoxy(9, 17);
         cout << "USE UP AND DOWN ARROW KEYS...";
 
         if (j == 0) {
-            foreColor(5);
-            gotoxy(9, 9);
+            H::setcolor(5);
+            H::gotoxy(9, 9);
             cout << "1 - OPTION 1" << endl;
         }
         if (j == 1) {
-            foreColor(5);
-            gotoxy(30, 9);
+            H::setcolor(5);
+            H::gotoxy(30, 9);
             cout << "2 - OPTION 2" << endl;
         }
         if (j == 2) {
-            foreColor(5);
-            gotoxy(51, 9);
+            H::setcolor(5);
+            H::gotoxy(51, 9);
             cout << "3 - OPTION 3" << endl;
         }
 
@@ -71,18 +47,18 @@ int main() {
 
     switch (j) {
         case 0:
-            cls();
+            H::cls();
             cout << " Handle OPTION 1 ";
             getch();
             break;
         case 1:
-            cls();
+            H::cls();
             cout << " Handle OPTION 2 ";
             getch();
             break;
         case 2:
-            cls();
-            Name();
+            H::cls();
+//            Name();
           //  cout << " Handle OPTION 3 ";
             getch();
             break;

@@ -16,6 +16,7 @@ class Login_Design {
 
 
         void MainLogin();
+        void MainLogin_NoLoading();
     };
 
    void Login_Design::MainLogin(){
@@ -25,7 +26,7 @@ class Login_Design {
         loginDesignCon();   //call design of  login
 
         //email form
-        
+        int attmp=0;
         while(true){
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
             H::drawBoxSingleLineWithBG(123,33,53,1,0);
@@ -40,8 +41,55 @@ class Login_Design {
                 break;
             }
             else{
+                attmp ++;
                 H::gotoxy(135,38);H::setcolor(4);cout<<"[!] WRONG EMAIL OR PASSWORD";
              }
+
+            if(attmp==3){
+                for(int i = 60 ; i>= 0; i--){
+                    H::gotoxy(120,38);H::setcolor(4);cout<<"[!] YOUR TRY MANY ATTEMPTS, PLEASE WAIT "<<i<<"s TO INPUT AGAIN" ;
+                    H::delay(1000);
+                }
+                H::gotoxy(120,38);H::setcolor(4);cout<<"                                                                " ;
+            }
+        }
+
+
+
+     
+    }
+
+   void Login_Design::MainLogin_NoLoading(){
+
+        
+        loginDesignCon();   //call design of  login
+
+        //email form
+        int attmp=0;
+        while(true){
+            H::drawBoxSingleLineWithBG(123,26,53,1,0);
+            H::drawBoxSingleLineWithBG(123,33,53,1,0);
+            H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
+
+
+            //password form
+            H::gotoxy(123,34);H::setcolor(15);HLVInput::inputUNumber(this->strPassword, 21);
+
+            if(strcmp(strGmail, "winner@gmail.com") == 0 && strcmp(strPassword, "123") == 0){
+                H::gotoxy(135,38);H::setcolor(15);cout<<"         SUCCESS!!         ";
+                break;
+            }
+            else{
+                attmp++;
+                H::gotoxy(135,38);H::setcolor(4);cout<<"[!] WRONG EMAIL OR PASSWORD";
+             }
+            if(attmp==3){
+                for(int i = 60 ; i>= 0; i--){
+                    H::gotoxy(120,38);H::setcolor(4);cout<<"[!] YOUR TRY MANY ATTEMPTS, PLEASE WAIT "<<i<<"s TO INPUT AGAIN" ;
+                    H::delay(1000);
+                }
+                H::gotoxy(120,38);H::setcolor(4);cout<<"                                                                " ;
+            }
         }
 
 
@@ -289,7 +337,7 @@ void Login_Design::loadingProcess() {
 
         //About System
         H::HLine(6, 11, 93, 8, 205);              
-        H::drawBoxSingleLineWithBG(5, 13, 94, 11, 143); 
+        H::drawBoxSingleLineWithBG(5, 13, 94, 11, 31); 
 
 
         H::setcolor(15);
@@ -312,7 +360,7 @@ void Login_Design::loadingProcess() {
 
         //Control
          
-        H::drawBoxSingleLineWithBG(5, 28, 94, 11, 143); 
+        H::drawBoxSingleLineWithBG(5, 28, 94, 11, 47); 
 
         H::setcolor(15);
         H::drawBoxDoubleLineWithBG(30, 28, 40, 3, 10);
