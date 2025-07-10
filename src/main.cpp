@@ -15,7 +15,7 @@ int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45); 
-    EdumasterCustom::LoadingPage(1,3,140,20);
+    EdumasterCustom::LoadingPage(23,3,140,20);
     // subSche.Header();
     // menu.Main_menu();
     
