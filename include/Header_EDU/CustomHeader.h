@@ -5,8 +5,8 @@ using namespace ANTHinsyOOP;
 
 class EdumasterCustom{
     public:
-        static int ArrowKeyConTrol(int maxOption, int _stepDown_UP, int fchoice,int option) ;
-        static void LoadingPage(int x, int y, int width, int speed);
+        static int ArrowKeyConTrol(int maxOption, int _stepDown_UP, int fchoice,int option) ; // For all arrow key control data need : Max OPtion, step of up and down arrow, fchoice selected and option number
+        static void LoadingPage(int x, int y, int width, int speed); // for make loading bar need x, y , width , speed of loading
 };
 
 int EdumasterCustom::ArrowKeyConTrol(int maxOption, int _stepDown_UP, int fchoice, int option){
@@ -63,6 +63,5 @@ void EdumasterCustom::LoadingPage(int x, int y, int width, int speed) {
         H::delay(speed);
     }
 }
-
 
 #endif
