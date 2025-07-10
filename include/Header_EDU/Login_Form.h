@@ -1,5 +1,5 @@
-#ifndef TEST_HPP
-#define TEST_HPP
+#ifndef __LOGIN_PAGE_WITH_LOADING__
+#define __LOGIN_PAGE_WITH_LOADING__
 
 #include "../Header_School/ANTHinsyOOP"
 using namespace ANTHinsyOOP;
@@ -396,12 +396,6 @@ void Login_Design::loadingProcess() {
 
 
     }
-
- 
-
- 
-
-    
 
 
 #endif
