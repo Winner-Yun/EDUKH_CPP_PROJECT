@@ -8,16 +8,16 @@
 #include "../include/Header_EDU/CustomHeader.h"
 using namespace ANTHinsyOOP;
 Login_Design logD;
-MenuDsign menu;
+Edu_Main_Menu menu;
 Sub_ScheduleDesign subSche;
 
 int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45); 
-    EdumasterCustom::LoadingPage(23,3,140,20);
-    // subSche.Header();
-    // menu.Main_menu();
+    // EdumasterCustom::LoadingPage(23,3,140,20);
+//   subSche.Main_ScheduleSubMenu();
+     menu.Main_menu();
     
 //    logD.MainLogin();
     getch();

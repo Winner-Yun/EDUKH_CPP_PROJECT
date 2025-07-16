@@ -10,13 +10,15 @@ class Login_Design {
         char strPassword[20];
 
     public:
+    
+        void MainLogin();
+        void MainLogin_NoLoading();
         // loading process and all of its design
         static void loadingProcess();
         static void loginDesignCon();
 
 
-        void MainLogin();
-        void MainLogin_NoLoading();
+      
     };
 
    void Login_Design::MainLogin(){
@@ -315,16 +317,16 @@ void Login_Design::loadingProcess() {
         H::setcolor(6);H::gotoxy(100,39);cout<<R"(  / /\                                                                                    / /\    )";H::delay(30);
         H::setcolor(15);H::gotoxy(100,40);cout<<R"(  \/_/ ---------------------------------------------------------------------------------- \/_/    )";H::delay(30);
    
-        H::setcolor(15);H::gotoxy(11, 5); cout << R"(         __        __  _____   _        ____    ___    __  __   _____            )";H::delay(100);
-        H::setcolor(15);H::gotoxy(11, 6); cout << R"(         \ \      / / | ____| | |      / ___|  / _ \  |  \/  | | ____|           )";H::delay(100);
-        H::setcolor(15);H::gotoxy(11, 7); cout << R"(          \ \ /\ / /  |  _|   | |     | |     | | | | | |\/| | |  _|             )";H::delay(100);
-        H::setcolor(15);H::gotoxy(11, 8); cout << R"(           \ V  V /   | |___  | |___  | |___  | |_| | | |  | | | |___            )";H::delay(100);
+        H::setcolor(7);H::gotoxy(11, 5); cout << R"(         __        __  _____   _        ____    ___    __  __   _____            )";H::delay(100);
+        H::setcolor(7);H::gotoxy(11, 6); cout << R"(         \ \      / / | ____| | |      / ___|  / _ \  |  \/  | | ____|           )";H::delay(100);
+        H::setcolor(10);H::gotoxy(11, 7); cout << R"(          \ \ /\ / /  |  _|   | |     | |     | | | | | |\/| | |  _|             )";H::delay(100);
+        H::setcolor(10);H::gotoxy(11, 8); cout << R"(           \ V  V /   | |___  | |___  | |___  | |_| | | |  | | | |___            )";H::delay(100);
         H::setcolor(8);H::gotoxy(11, 9); cout << R"(            \_/\_/    |_____| |_____|  \____|  \___/  |_|  |_| |_____|           )";H::delay(100);
         H::setcolor(15);H::gotoxy(11, 10); cout << R"(                                                                                )";
 
         H::setcolor(15);H::gotoxy(92, 5); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--    )";H::delay(100);
-        H::setcolor(1);H::gotoxy(92, 6); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \  \   )";H::delay(100);
-        H::setcolor(1);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
+        H::setcolor(8);H::gotoxy(92, 6); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \  \   )";H::delay(100);
+        H::setcolor(8);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
         H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100);
 
         
