@@ -108,7 +108,6 @@ void Student::System(){
 }
 
 void Student::Menu(const string& titleType) {
-	H::setConsoleTitle("<------------------------ STUDENT MANAGEMENT ------------------------>");
     H::setFixedScreenConsole(200, 50);
     H::cls();
     
