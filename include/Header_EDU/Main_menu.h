@@ -5,6 +5,9 @@
 #include "Login_Form.h"
 #include "CustomHeader.h"
 #include "Manage_schedule.h"
+#include "Manage_student_teacher_menu.h"
+
+
 using namespace ANTHinsyOOP;
 
 class Edu_Main_Menu{
@@ -132,8 +135,8 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             system("cls");
-            cout << " Handle OPTION 1 ";
-            getch();
+            SubMENU_manage_stu_tech s;
+            s.Main_SubMenuMangeStuTech();
             break;
         }
 

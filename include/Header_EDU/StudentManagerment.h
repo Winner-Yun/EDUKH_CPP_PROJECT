@@ -46,29 +46,28 @@ int Student::lastId = 0;
 
 void Student::System(){
 	// H::setConsoleTitle("<------------------------ STUDENT MANAGEMENT ------------------------>");
-	H::setFixedScreenConsole(200, 50);
 	for (int i = 8; i <= 120; i++) {
 		H::foreColor(4);
-		H::gotoxy(i - 3, 7);  cout << R"(  _____    _       )";
-		H::gotoxy(i - 3, 8);  cout << R"( | ____|__| |_   _ )";
-		H::gotoxy(i - 3, 9);  cout << R"( |  _| / _` | | | |)";
-		H::gotoxy(i - 3, 10);  cout << R"( | |__| (_| | |_| |)";
-		H::gotoxy(i - 3, 11);  cout << R"( |_____\__,_|\__,_|)";
+		H::gotoxy(i - 3, 13);  cout << R"(  _____    _       )";
+		H::gotoxy(i - 3, 14);  cout << R"( | ____|__| |_   _ )";
+		H::gotoxy(i - 3, 15);  cout << R"( |  _| / _` | | | |)";
+		H::gotoxy(i - 3, 16);  cout << R"( | |__| (_| | |_| |)";
+		H::gotoxy(i - 3, 17);  cout << R"( |_____\__,_|\__,_|)";
 		
 		H::foreColor(1);
-		H::gotoxy(70, 15);  cout << R"( __  __           _            _  ___   _ )";
-		H::gotoxy(70, 16);  cout << R"(|  \/  | __ _ ___| |_ ___ _ __| |/ / | | |)";
-		H::gotoxy(70, 17);  cout << R"(| |\/| |/ _` / __| __/ _ \ '__| ' /| |_| |)";
-		H::gotoxy(70, 18);  cout << R"(| |  | | (_| \__ \ ||  __/ |  | . \|  _  |)";
-		H::gotoxy(70, 19);  cout << R"(|_|  |_|\__,_|___/\__\___|_|  |_|\_\_| |_|)";
+		H::gotoxy(70, 20);  cout << R"( __  __           _            _  ___   _ )";
+		H::gotoxy(70, 21);  cout << R"(|  \/  | __ _ ___| |_ ___ _ __| |/ / | | |)";
+		H::gotoxy(70, 22);  cout << R"(| |\/| |/ _` / __| __/ _ \ '__| ' /| |_| |)";
+		H::gotoxy(70, 23);  cout << R"(| |  | | (_| \__ \ ||  __/ |  | . \|  _  |)";
+		H::gotoxy(70, 24);  cout << R"(|_|  |_|\__,_|___/\__\___|_|  |_|\_\_| |_|)";
 		
 		H::foreColor(6);
-		H::gotoxy(150 - i, 24); cout << R"( ____            _                     )";
-		H::gotoxy(150 - i, 25); cout << R"(/ ___| _   _ ___| |_ ___ _ __ ___     )";
-		H::gotoxy(150 - i, 26); cout << R"(\___ \| | | / __| __/ _ \ '_ ` _ \    )";
-		H::gotoxy(150 - i, 27); cout << R"( ___) | |_| \__ \ ||  __/ | | | | |   )";
-		H::gotoxy(150 - i, 28); cout << R"(|____/ \__, |___/\__\___|_| |_| |_|   )";
-		H::gotoxy(150 - i, 29); cout << R"(        |___/                         )";
+		H::gotoxy(150 - i, 27); cout << R"( ____            _                     )";
+		H::gotoxy(150 - i, 28); cout << R"(/ ___| _   _ ___| |_ ___ _ __ ___     )";
+		H::gotoxy(150 - i, 29); cout << R"(\___ \| | | / __| __/ _ \ '_ ` _ \    )";
+		H::gotoxy(150 - i, 30); cout << R"( ___) | |_| \__ \ ||  __/ | | | | |   )";
+		H::gotoxy(150 - i, 31); cout << R"(|____/ \__, |___/\__\___|_| |_| |_|   )";
+		H::gotoxy(150 - i, 32); cout << R"(        |___/                         )";
 		
 		H::delay(5);
 	}
@@ -80,12 +79,12 @@ void Student::System(){
 	  H::HLine(12, 2, i, 31, ' ');       
 	  H::HLine(10, 3, i, 204, ' ');      
 	
-	  H::HLine(196 - i, 37, 1, 204, ' '); 
-	  H::HLine(194 - i, 38, 1, 31, ' ');  
-	  H::HLine(192 - i, 39, 1, 34, ' ');  
+	  H::HLine(196 - i, 41, 1, 204, ' '); 
+	  H::HLine(194 - i, 42, 1, 31, ' ');  
+	  H::HLine(192 - i, 43, 1, 34, ' ');  
 	}
 	
-	for (int i = 5; i <= 30; i++){
+	for (int i = 5; i <= 36; i++){
 	  H::VLine(5, 6, i - 3, 224, ' ');   
 	  H::VLine(6, 6, i - 3, 224, ' ');   
 	  H::VLine(7, 5, i - 1, 31, ' ');    
@@ -108,7 +107,6 @@ void Student::System(){
 }
 
 void Student::Menu(const string& titleType) {
-    H::setFixedScreenConsole(200, 50);
     H::cls();
     
     if (titleType == "DELETE") {
@@ -168,17 +166,17 @@ void Student::Menu(const string& titleType) {
 	H::gotoxy(0, 8);  cout << R"(   | | | |)";        H::gotoxy(x, 8);  cout << R"(     | | | |)";
 	H::gotoxy(0, 9);  cout << R"(   | | | |)";        H::gotoxy(x, 9);  cout << R"(     | | | |)";
 	
-	for (int i = 10; i <= 40; ++i) {
+	for (int i = 10; i <= 36; ++i) {
 	    H::gotoxy(0, i); cout << R"(   | | | |)";
 	    H::gotoxy(x+2, i); cout << R"(   | | | |)";
 	}
 	
-	H::gotoxy(0, 41); cout << R"(  /_______\)";       H::gotoxy(x, 41); cout << R"(    /_______\)";
-	H::gotoxy(0, 42); cout << R"(  |       |)";       H::gotoxy(x, 42); cout << R"(    |       |)";
-	H::gotoxy(0, 43); cout << R"(  |_______|)";       H::gotoxy(x, 43); cout << R"(    |_______|)";
-	H::gotoxy(0, 44); cout << R"(  |_______|)";       H::gotoxy(x, 44); cout << R"(    |_______|)";
-	H::gotoxy(0, 45); cout << R"( /-_-_-_-_-\)";      H::gotoxy(x, 45); cout << R"(   /-_-_-_-_-\)";
-	H::gotoxy(0, 46); cout << R"(/___________\)";     H::gotoxy(x, 46); cout << R"(  /___________\)";
+	H::gotoxy(0, 37); cout << R"(  /_______\)";       H::gotoxy(x, 37); cout << R"(    /_______\)";
+	H::gotoxy(0, 38); cout << R"(  |       |)";       H::gotoxy(x, 38); cout << R"(    |       |)";
+	H::gotoxy(0, 39); cout << R"(  |_______|)";       H::gotoxy(x, 39); cout << R"(    |_______|)";
+	H::gotoxy(0, 40); cout << R"(  |_______|)";       H::gotoxy(x, 40); cout << R"(    |_______|)";
+	H::gotoxy(0, 41); cout << R"( /-_-_-_-_-\)";      H::gotoxy(x, 41); cout << R"(   /-_-_-_-_-\)";
+	H::gotoxy(0, 42); cout << R"(/___________\)";     H::gotoxy(x, 42); cout << R"(  /___________\)";
 	
 	H::setcolor(4);
     H::gotoxy(15, 0); cout << R"( | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |)";
@@ -198,13 +196,13 @@ void Student::Menu(const string& titleType) {
 	H::gotoxy(134,15); cout << "ACADEMIC YEAR";
 	H::gotoxy(162,15); cout << "EMAIL";
 	
-	H::setcolor(159); H::gotoxy(14, 44); cout << "<---"; H::setcolor(103); H::gotoxy(20, 44); cout << "[Previous Page]";
-	H::setcolor(159); H::gotoxy(182, 44); cout << "--->";  H::setcolor(103); H::gotoxy(165, 44); cout << "[Previous Page]";
+	// H::setcolor(159); H::gotoxy(14, 44); cout << "<---"; H::setcolor(103); H::gotoxy(20, 44); cout << "[Previous Page]";
+	// H::setcolor(159); H::gotoxy(182, 44); cout << "--->";  H::setcolor(103); H::gotoxy(165, 44); cout << "[Previous Page]";
 	
-	//Bottom
-	H::HLine(0, 47, 200, 6, 223);
-	H::gotoxy(58, 48); H::setcolor(10); cout << "[Right Arrow] Back        [Left Arrow] Next       [Enter] Select       [ESC] Exit";
-	H::HLine(0, 49, 200, 6, 220);
+	// //Bottom
+	H::HLine(0, 42, 200, 6, 223);
+	H::gotoxy(58, 43); H::setcolor(10); cout << "[Right Arrow] Back        [Left Arrow] Next       [Enter] Select       [ESC] Exit";
+	H::HLine(0, 44, 200, 6, 220);
 	showAllStudents();
 }
 
@@ -440,7 +438,7 @@ void Student::Update() {
     char updateId[10];
     H::cls();
     Menu("UPDATE");
-    H::gotoxy(82, 44); H::setcolor(11); cout << "Enter Student ID to Update: ";
+    H::gotoxy(70, 12); H::setcolor(11); cout << "Enter Student ID to Update: ";
     H::inputUNumber(updateId, 10);
 
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -473,7 +471,7 @@ void Student::Update() {
     if (updated) {
         H::gotoxy(85, 44); H::setcolor(10); cout << "Student updated successfully!";
     } else {
-        H::gotoxy(85, 44); H::setcolor(4); cout << "Student ID not found!";
+        H::gotoxy(105, 12); H::setcolor(4); cout << "Student ID not found!";
     }
 	updateSharedFileFromStudentData();
     getch();
@@ -483,7 +481,7 @@ void Student::Delete() {
     char deleteId[10];
     H::cls();
     Menu("DELETE");
-    H::gotoxy(82, 44); H::setcolor(7); cout << "Enter Student ID to Delete: ";
+    H::gotoxy(70, 12); H::setcolor(7); cout << "Enter Student ID to Delete: ";
     H::inputUNumber(deleteId, 10);
 
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -524,7 +522,7 @@ void Student::Search() {
     char searchId[10];
     H::cls();
     Menu("SEARCH");
-    H::gotoxy(70, 44); H::setcolor(11); cout << "Enter Student ID to Search: ";
+    H::gotoxy(70, 12); H::setcolor(11); cout << "Enter Student ID to Search: ";
     H::inputUNumber(searchId, 5);
 
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -628,21 +626,22 @@ void Student::Sort() {
 
 void Student::Main_StudentManage() {
 	int x = 0;
+    bool loop = true;
     char option;
     H::cls();
     s.System();
     s.Menu("DEFAULT");
-    do {
+    while(loop) {
         H::setcursor(false, 1);
         s.Button();
         H::foreColor(7);
         switch(x) {
-            case 0: H::drawBoxSingleLine(15, 10, 8, 1, 78); H::gotoxy(15, 11); cout << "  BACK  "; break;
-            case 1: H::drawBoxSingleLine(35, 10, 9, 1, 30); H::gotoxy(35, 11); cout << "   SORT  "; break;
-            case 2: H::drawBoxSingleLine(115, 10, 9, 1, 30); H::gotoxy(115, 11); cout << "   ADD   "; break;
-            case 3: H::drawBoxSingleLine(135, 10, 10, 1, 30); H::gotoxy(135, 11); cout << "  UPDATE  "; break;
-            case 4: H::drawBoxSingleLine(155, 10, 10, 1, 30); H::gotoxy(155, 11); cout << "  DELETE  "; break;
-            case 5: H::drawBoxSingleLine(175, 10, 10, 1, 30); H::gotoxy(175, 11); cout << "  SEARCH  "; break;
+            case 0: H::drawBoxSingleLine(15, 10, 8, 1, 4); H::gotoxy(15, 11); cout << "  BACK  "; break;
+            case 1: H::drawBoxSingleLine(35, 10, 9, 1, 1); H::gotoxy(35, 11); cout << "   SORT  "; break;
+            case 2: H::drawBoxSingleLine(115, 10, 9, 1, 1); H::gotoxy(115, 11); cout << "   ADD   "; break;
+            case 3: H::drawBoxSingleLine(135, 10, 10, 1, 1); H::gotoxy(135, 11); cout << "  UPDATE  "; break;
+            case 4: H::drawBoxSingleLine(155, 10, 10, 1, 1); H::gotoxy(155, 11); cout << "  DELETE  "; break;
+            case 5: H::drawBoxSingleLine(175, 10, 10, 1, 1); H::gotoxy(175, 11); cout << "  SEARCH  "; break;
         }
         option = getch();
         switch(option) {
@@ -655,14 +654,15 @@ void Student::Main_StudentManage() {
                 if (x > 5) x = 0;
                 break;
             case 27:
-            	exit(0);
+            	loop = false;
             case 13:
                 H::setcolor(1);
                 H::setcursor(true, 1);
                 H::cls();
                 switch(x) {
                     case 0: // BACK
-                        exit(0);
+                        loop = false;
+                        break;
                     case 1:
                     	s.Sort();
                     	break;
@@ -687,7 +687,9 @@ void Student::Main_StudentManage() {
                 s.Menu("DEFAULT");
                 break;
         }
-    } while(true);
+    } 
+
+    H::cls();
 }
 
 

@@ -7,10 +7,12 @@
 #include "../include/Header_EDU/Manage_schedule.h"
 #include "../include/Header_EDU/CustomHeader.h"
 #include "../include/Header_EDU/StudentManagerment.h"
+#include "../include/Header_EDU/Manage_student_teacher_menu.h"
 using namespace ANTHinsyOOP;
 Login_Design logD;
 Edu_Main_Menu menu;
 Sub_ScheduleDesign subSche;
+SubMENU_manage_stu_tech subStuTech;
 
 int main() {
     H::DisableScreenResize();	
@@ -18,10 +20,11 @@ int main() {
     H::setFixedScreenConsole(200,45); 
     // EdumasterCustom::LoadingPage(23,3,140,20);
 //   subSche.Main_ScheduleSubMenu();
-//     menu.Main_menu();
-     s.Main_StudentManage();
+     menu.Main_menu();
+    // s.Main_StudentManage();
     
-//    logD.MainLogin();
+//   logD.MainLogin();
+    // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
 }
