@@ -26,7 +26,6 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
 
         int choice = 1;
         
-        
 
         do{
             H::drawBoxDoubleLineWithBG(79,11,40,1,47);
@@ -214,7 +213,7 @@ void Sub_ScheduleDesign::Footer(){
     H::setcolor(2);H::gotoxy(59,37);cout<<R"(  '                                                                            '  )";
     H::setcolor(15);H::gotoxy(59,38);cout<<R"(  '                  [!] USE ALL ARROWS TO SELCT THE OPTIONS                   '  )";
     H::setcolor(2);H::gotoxy(59,39);cout<<R"(  '                                                                            '  )";
-    H::setcolor(15);H::gotoxy(59,40);cout<<R"(  '                     <------------------------------->                      '  )";
+    H::setcolor(15);H::gotoxy(59,40);cout<<R"(  '                    USE [ESC] KEY TO BACK TO MAIN MENU                      '  )";
     H::setcolor(2);H::gotoxy(59,41);cout<<R"(  '                                                                            '  )";
     H::setcolor(2);H::gotoxy(59,42);cout<<R"(  ------------------------------------------------------------------------------  )";
 }

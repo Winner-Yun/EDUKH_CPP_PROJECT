@@ -163,8 +163,12 @@ namespace ANTHinsyOOP /* Start of Namespace */
 			static string input4Tel(string&  std_string, UINT16 size);
 			static string inputUNumber(string&  std_string,  UINT16 size);
 			static string inputEmail(string&  std_string,  UINT16 size);
-			static string inputPasswordMaskMin8(string&  std_string, UINT16 size);//Password minimum length should be 8. At least one uppercase letter, one lowercase letter, one digits, and one special character
-					
+			static string inputPasswordMaskMin8(string&  std_string, UINT16 size);//Password minimum length should be 8. At least one uppercase letter, one lowercase letter, one digits, and one special character		
+			// Add New Feature 15-July-2025            
+			static char* inputNumber(char* charArray, UINT16 size, bool isDecimalPoint);// false for integral, true for double or float
+			static char* inputUNumber(char* charArray,  UINT16 size, bool isDecimalPoint);// false for integral, true for double or float
+			static string inputNumber(string&  std_string, UINT16 size, bool isDecimalPoint);// false for integral, true for double or float
+			static string inputUNumber(string&  std_string,  UINT16 size, bool isDecimalPoint);// false for integral, true for double or float
 	};
 	//------------------------------------
 	class DLLIMPORT DisableWindowsConsole
