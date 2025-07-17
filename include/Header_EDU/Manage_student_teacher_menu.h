@@ -213,7 +213,7 @@ void SubMENU_manage_stu_tech::Footer(){
 
     H::setcolor(1);H::gotoxy(59,36);cout<<R"(  ------------------------------------------------------------------------------  )";
     H::setcolor(1);H::gotoxy(59,37);cout<<R"(  '                                                                            '  )";
-    H::setcolor(15);H::gotoxy(59,38);cout<<R"(  '                  [!] USE ALL ARROWS TO SELCT THE OPTIONS                   '  )";
+    H::setcolor(15);H::gotoxy(59,38);cout<<R"(  '                 [!] USE ALL ARROWS TO SELECT THE OPTIONS                   '  )";
     H::setcolor(1);H::gotoxy(59,39);cout<<R"(  '                                                                            '  )";
     H::setcolor(15);H::gotoxy(59,40);cout<<R"(  '                     <------------------------------->                      '  )";
     H::setcolor(1);H::gotoxy(59,41);cout<<R"(  '                                                                            '  )";
