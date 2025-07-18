@@ -20,9 +20,9 @@ class Login_Design {
         static void loadingProcess(); // loading process
         static void loginDesignCon(); // login design
         static void LoadingHeader(int id);
-        static bool startsWith(const string& str, const string& prefix);   // check and return role
+        // login process function
+        static bool startsWith(const string& str, const string& prefix);   // compare first word of email to define the role
         static bool compareCredentials(const char* inputEmail, const char* inputPassword); // compare email and password of each file
-        static bool compareAdminCredentials(const char* inputEmail, const char* inputPassword); //compare for login as admin control
       
     };
 
@@ -36,7 +36,7 @@ class Login_Design {
 
    void Login_Design::MainLogin(){
 
-        //admin email and password
+        //Admin email and password
         const string adminEmail = "edu.master.admin@gmail.com";
         const string adminPassword= "admin123";
 
