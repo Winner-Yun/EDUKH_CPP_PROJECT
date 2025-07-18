@@ -2,7 +2,6 @@
 #define ___MAIN_MENU_CPP_HEADER__
 
 #include "../Header_School/ANTHinsyOOP"
-#include "Login_Form.h"
 #include "CustomHeader.h"
 #include "Manage_schedule.h"
 #include "Manage_student_teacher_menu.h"
@@ -20,8 +19,7 @@ class Edu_Main_Menu{
 
 void Edu_Main_Menu::Main_menu(){
     bool work = true;
-    while (work)
-    {
+    while (work){
         designPage();  // call design
 
     
@@ -188,12 +186,12 @@ void Edu_Main_Menu::Main_menu(){
     }
     }
     
+    //exit loop
+
     system("cls");
-    Login_Design logD; //declare class
     LoadingHeader(1);
     EdumasterCustom::LoadingPage(30,30,135,20);
     H::cls();
-    logD.MainLogin_NoLoading();
 
 }
 

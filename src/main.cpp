@@ -20,10 +20,10 @@ int main() {
     H::setFixedScreenConsole(200,45); 
     // EdumasterCustom::LoadingPage(23,3,140,20);
 //   subSche.Main_ScheduleSubMenu();
-     menu.Main_menu();
+    //  menu.Main_menu();
     // s.Main_StudentManage();
     
-//   logD.MainLogin();
+   logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

@@ -2,6 +2,9 @@
 #define __LOGIN_PAGE_WITH_LOADING__
 
 #include "../Header_School/ANTHinsyOOP"
+#include "Main_menu.h"
+#include "CustomHeader.h"
+
 using namespace ANTHinsyOOP;
 
 class Login_Design {
@@ -14,38 +17,76 @@ class Login_Design {
         void MainLogin();
         void MainLogin_NoLoading();
         // loading process and all of its design
-        static void loadingProcess();
-        static void loginDesignCon();
-
-
+        static void loadingProcess(); // loading process
+        static void loginDesignCon(); // login design
+        static void LoadingHeader(int id);
+        static bool startsWith(const string& str, const string& prefix);   // check and return role
+        static bool compareCredentials(const char* inputEmail, const char* inputPassword); // compare email and password of each file
+        static bool compareAdminCredentials(const char* inputEmail, const char* inputPassword); //compare for login as admin control
       
     };
 
+    // Define the Student structure used for binary reading
+    struct Student_form {
+        char id[6], name[19], gender[7], bdate[11], grade[3], tel[10], sYear[5], email[30], pw[19];
+        int No;
+    };
+
+    // -------------------------------------<< Login Main Process >>----------------------------------------
+
    void Login_Design::MainLogin(){
 
-        loadingProcess();   // call design of loading function
+        //admin email and password
+        const string adminEmail = "edu.master.admin@gmail.com";
+        const string adminPassword= "admin123";
+
+        // loadingProcess();   // call design of loading function
         
         loginDesignCon();   //call design of  login
 
         //email form
         int attmp=0;
+        
         while(true){
+        	
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
             H::drawBoxSingleLineWithBG(123,33,53,1,0);
             H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
 
 
             //password form
-            H::gotoxy(123,34);H::setcolor(15);HLVInput::inputUNumber(this->strPassword, 21);
+            H::gotoxy(123,34);H::setcolor(15);H::inputPasswordMask(this->strPassword,19);
 
-            if(strcmp(strGmail, "winner@gmail.com") == 0 && strcmp(strPassword, "123") == 0){
-                H::gotoxy(135,38);H::setcolor(15);cout<<"         SUCCESS!!         ";
-                break;
+            if(string(this->strGmail) == adminEmail && string(this->strPassword) == adminPassword){
+                system("cls");
+                LoadingHeader(1);
+                EdumasterCustom::LoadingPage(30,21,135,20);
+                system("cls");
+                Edu_Main_Menu eduMenu;
+                eduMenu.Main_menu();
+                loginDesignCon();
             }
-            else{
-                attmp ++;
-                H::gotoxy(135,38);H::setcolor(4);cout<<"[!] WRONG EMAIL OR PASSWORD";
-             }
+            else if (compareCredentials(this->strGmail,this->strPassword)) {
+
+                if (startsWith(this->strGmail, "stu")) {
+                    system("cls");
+                    cout << "[Student Account Detected]\n";
+                } else if (startsWith(this->strPassword, "tech")) {
+                    system("cls");
+                    cout << "[Teacher Account Detected]\n";
+                    getch();
+                } else {
+                    system("cls");
+                    cout << "[Unknown Role]\n";
+                    getch();
+                }
+
+            } else {
+                attmp++;
+                H::setcolor(4);H::gotoxy(120,38) ;cout << "             [!] INVALID EMAIL OR PASSWORD               ";
+                H::delay(1000);
+                H::setcolor(4);H::gotoxy(120,38) ;cout << "                                                         ";
+            }
 
             if(attmp==3){
                 for(int i = 60 ; i>= 0; i--){
@@ -56,10 +97,32 @@ class Login_Design {
             }
         }
 
-
-
-     
     }
+
+    //for cheack which devide we are login as
+    bool Login_Design::startsWith(const string& str, const string& prefix) {
+        return str.compare(0, prefix.length(), prefix) == 0;   // compare (position , length, other string )
+    }
+
+    //read compare login process
+    bool Login_Design::compareCredentials(const char* inputEmail, const char* inputPassword) {
+    ifstream file("../data/TeacherAndStudent_data.bin", ios::binary);
+    if (!file) {
+        cout << "Failed to open file.\n";
+        return false;
+    }
+
+    Student_form s;   // structure for from in file
+    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student))) {
+        if (strcmp(s.email, inputEmail) == 0 && strcmp(s.pw, inputPassword) == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 
    void Login_Design::MainLogin_NoLoading(){
 
@@ -94,9 +157,6 @@ class Login_Design {
             }
         }
 
-
-
-     
     }
 
 
@@ -345,19 +405,19 @@ void Login_Design::loadingProcess() {
         H::setcolor(15);
         H::drawBoxDoubleLineWithBG(30, 13, 40, 3, 9);
 
-        H::gotoxy(35, 14); std::cout << "[ ABOUT EDUMASTER-KH SYSTEM ]";
+        H::gotoxy(35, 14); cout << "[ ABOUT EDUMASTER-KH SYSTEM ]";
 
         H::setcolor(11);
-        H::gotoxy(9, 16); std::cout << "                                                                                     ";
-        H::gotoxy(9, 17); std::cout << "           EDUMASTER-KH is a comprehensive school management system.                 ";
-        H::gotoxy(9, 18); std::cout << "           It offers tools for students, teachers, and administrators                ";
-        H::gotoxy(9, 19); std::cout << "           to manage academic records, schedules, and communication.                 ";
+        H::gotoxy(9, 16); cout << "                                                                                     ";
+        H::gotoxy(9, 17); cout << "           EDUMASTER-KH is a comprehensive school management system.                 ";
+        H::gotoxy(9, 18); cout << "           It offers tools for students, teachers, and administrators                ";
+        H::gotoxy(9, 19); cout << "           to manage academic records, schedules, and communication.                 ";
 
         H::drawBoxSingleLine(10,20,83,1,7);
         H::setcolor(10);
-        H::gotoxy(9, 21); std::cout << "                                                                                     ";
-        H::gotoxy(9, 22); std::cout << "          DEVELOPED BY: YUN WINNER, RY KIMCHHAY, VANNA NICHH, SLES ROFATH            ";
-        H::gotoxy(9, 23); std::cout << "                                                                                     ";
+        H::gotoxy(9, 21); cout << "                                                                                     ";
+        H::gotoxy(9, 22); cout << "          DEVELOPED BY: YUN WINNER, RY KIMCHHAY, VANNA NICHH, SLES ROFATH            ";
+        H::gotoxy(9, 23); cout << "                                                                                     ";
 
 
         //Control
@@ -367,19 +427,19 @@ void Login_Design::loadingProcess() {
         H::setcolor(15);
         H::drawBoxDoubleLineWithBG(30, 28, 40, 3, 10);
 
-        H::setcolor(10);H::gotoxy(38, 29); std::cout << "[ CONTROLER IN SYSTEM ]";
+        H::setcolor(10);H::gotoxy(38, 29); cout << "[ CONTROLER IN SYSTEM ]";
 
         H::setcolor(11);
-        H::gotoxy(9, 31); std::cout << "                                                                                     ";
-        H::gotoxy(9, 32); std::cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
-        H::gotoxy(9, 33); std::cout << "                      Keys Arrow For Control Left and Right Menu in System           ";
-        H::gotoxy(9, 34); std::cout << "            Key for BACK and        key For select the option or submit              ";
+        H::gotoxy(9, 31); cout << "                                                                                     ";
+        H::gotoxy(9, 32); cout << "                  Keys Arrow For Control Up and Down Menu in System                  ";
+        H::gotoxy(9, 33); cout << "                      Keys Arrow For Control Left and Right Menu in System           ";
+        H::gotoxy(9, 34); cout << "            Key for BACK and        key For select the option or submit              ";
 
         H::drawBoxSingleLine(10,35,83,1,7);
         H::setcolor(10);
-        H::gotoxy(9, 36); std::cout << "                                                                                     ";
-        H::gotoxy(9, 37); std::cout << "     ALL OF THESE CAN BE MADE BECAUSE OF                              THANKS YOU     ";
-        H::gotoxy(9, 38); std::cout << "                                                                                     ";
+        H::gotoxy(9, 36); cout << "                                                                                     ";
+        H::gotoxy(9, 37); cout << "     ALL OF THESE CAN BE MADE BECAUSE OF                              THANKS YOU     ";
+        H::gotoxy(9, 38); cout << "                                                                                     ";
 
 
         // IMPORTANT TEXT
@@ -399,5 +459,22 @@ void Login_Design::loadingProcess() {
 
     }
 
+    void Login_Design::LoadingHeader(int id){
+    if(id == 1){
+        H::setcolor(1);H::gotoxy(48,15);cout << R"(   __   ____  __________  __  ___   ____  ___   ___  __  ________  __ )";
+        H::setcolor(1);H::gotoxy(48,16);cout << R"(  / /  / __ \/ ___/  _/ |/ / / _ | / __/ / _ | / _ \/  |/  /  _/ |/ / )";
+        H::setcolor(1);H::gotoxy(48,17);cout << R"( / /__/ /_/ / (_ // //    / / __ |_\ \  / __ |/ // / /|_/ // //    /  )";
+        H::setcolor(7);H::gotoxy(48,18);cout << R"(/____/\____/\___/___/_/|_/ /_/ |_/___/ /_/ |_/____/_/  /_/___/_/|_/   )";
+    }
+    else if(id == 2){
+        H::setcolor(2);H::gotoxy(49,12);cout << R"( ______________     ___________________________________________________________________                    )";
+        H::setcolor(2);H::gotoxy(49,13);cout << R"( 7     77     7     7     77  _  77     77     77     77     77     77  77     77     7                    )";
+        H::setcolor(2);H::gotoxy(49,14);cout << R"( |  7  ||  _  |     |  -  ||    _||  7  ||  ___!|  ___!|  ___!|  ___!|  ||  _  ||   __!                    )";
+        H::setcolor(2);H::gotoxy(49,15);cout << R"( |  |  ||  7  |     |  ___!|  _ \ |  |  ||  7___|  __|_!__   7!__   7|  ||  7  ||  !  7                    )";
+        H::setcolor(7);H::gotoxy(49,16);cout << R"( |  !  ||  |  |     |  7   |  7  ||  !  ||     7|     77     |7     ||  ||  |  ||     |     ____________   )";
+        H::setcolor(7);H::gotoxy(49,17);cout << R"( !_____!!__!__!     !__!   !__!__!!_____!!_____!!_____!!_____!!_____!!__!!__!__!!_____!     7__77__77__7   )";
+    }
+
+}
 
 #endif
