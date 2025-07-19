@@ -17,12 +17,13 @@ class Login_Design {
         void MainLogin();
         void MainLogin_NoLoading();
         // loading process and all of its design
+        static void processLogin(const char* inputEmail, const char* inputPassword, int& attmp);
         static void loadingProcess(); // loading process
         static void loginDesignCon(); // login design
         static void LoadingHeader(int id);
         // login process function
         static bool startsWith(const string& str, const string& prefix);   // compare first word of email to define the role
-        static bool compareCredentials(const char* inputEmail, const char* inputPassword); // compare email and password of each file
+        static bool compareCredentials_STU(const char* inputEmail, const char* inputPassword); // compare email and password of each file
       
     };
 
@@ -36,9 +37,6 @@ class Login_Design {
 
    void Login_Design::MainLogin(){
 
-        //Admin email and password
-        const string adminEmail = "edu.master.admin@gmail.com";
-        const string adminPassword= "admin123";
 
         // loadingProcess();   // call design of loading function
         
@@ -52,52 +50,81 @@ class Login_Design {
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
             H::drawBoxSingleLineWithBG(123,33,53,1,0);
             H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
-
-
             //password form
             H::gotoxy(123,34);H::setcolor(15);H::inputPasswordMask(this->strPassword,19);
-
-            if(string(this->strGmail) == adminEmail && string(this->strPassword) == adminPassword){
-                system("cls");
-                LoadingHeader(1);
-                EdumasterCustom::LoadingPage(30,21,135,20);
-                system("cls");
-                Edu_Main_Menu eduMenu;
-                eduMenu.Main_menu();
-                loginDesignCon();
-            }
-            else if (compareCredentials(this->strGmail,this->strPassword)) {
-
-                if (startsWith(this->strGmail, "stu")) {
-                    system("cls");
-                    cout << "[Student Account Detected]\n";
-                } else if (startsWith(this->strPassword, "tech")) {
-                    system("cls");
-                    cout << "[Teacher Account Detected]\n";
-                    getch();
-                } else {
-                    system("cls");
-                    cout << "[Unknown Role]\n";
-                    getch();
-                }
-
-            } else {
-                attmp++;
-                H::setcolor(4);H::gotoxy(120,38) ;cout << "             [!] INVALID EMAIL OR PASSWORD               ";
-                H::delay(1000);
-                H::setcolor(4);H::gotoxy(120,38) ;cout << "                                                         ";
-            }
-
-            if(attmp==3){
-                for(int i = 60 ; i>= 0; i--){
-                    H::gotoxy(120,38);H::setcolor(4);cout<<"[!] YOUR TRY MANY ATTEMPTS, PLEASE WAIT "<<i<<"s TO INPUT AGAIN" ;
-                    H::delay(1000);
-                }
-                H::gotoxy(120,38);H::setcolor(4);cout<<"                                                                " ;
-            }
+            processLogin(strGmail , strPassword , attmp);
+            
         }
 
     }
+
+    void Login_Design::processLogin(const char* inputEmail, const char* inputPassword, int& attmp) {
+        string adminEmail = "edu.master.admin@gmail.com";
+        string adminPassword = "admin123";
+
+        if (inputEmail == adminEmail && inputPassword == adminPassword) {
+            system("cls");
+            LoadingHeader(1);
+            EdumasterCustom::LoadingPage(30, 21, 135, 20);
+            system("cls");
+            Edu_Main_Menu eduMenu;
+            eduMenu.Main_menu();
+            loginDesignCon();
+        }
+        else if (startsWith(inputEmail, "stu")) {
+            if (compareCredentials_STU(inputEmail, inputPassword)) {
+                system("cls");
+                cout << "[Student Account Detected]\n";
+            }
+            else {
+                attmp++;
+                H::setcolor(4);
+                H::gotoxy(120, 38);
+                cout << "             [!] INVALID EMAIL OR PASSWORD               ";
+                H::delay(1000);
+                H::gotoxy(120, 38);
+                cout << "                                                         ";
+            }
+        }
+        else if (startsWith(inputEmail, "te")) {
+            if (compareCredentials_STU(inputEmail, inputPassword)) {
+                system("cls");
+                cout << "[Student Account Detected]\n";
+            }
+            else {
+                attmp++;
+                H::setcolor(4);
+                H::gotoxy(120, 38);
+                cout << "             [!] INVALID EMAIL OR PASSWORD               ";
+                H::delay(1000);
+                H::gotoxy(120, 38);
+                cout << "                                                         ";
+            }
+        }
+        else {
+            attmp++;
+            H::setcolor(4);
+            H::gotoxy(120, 38);
+            cout << "             [!] INVALID EMAIL OR PASSWORD               ";
+            H::delay(1000);
+            H::gotoxy(120, 38);
+            cout << "                                                         ";
+        }
+
+        if (attmp == 3) {
+            for (int i = 60; i >= 0; i--) {
+                H::gotoxy(120, 38);
+                H::setcolor(4);
+                cout << "[!] YOUR TRY MANY ATTEMPTS, PLEASE WAIT " << i << "s TO INPUT AGAIN";
+                H::delay(1000);
+            }
+            H::gotoxy(120, 38);
+            H::setcolor(4);
+            cout << "                                                                ";
+            attmp = 0;
+        }
+    }
+
 
     //for cheack which devide we are login as
     bool Login_Design::startsWith(const string& str, const string& prefix) {
@@ -105,8 +132,8 @@ class Login_Design {
     }
 
     //read compare login process
-    bool Login_Design::compareCredentials(const char* inputEmail, const char* inputPassword) {
-    ifstream file("../data/TeacherAndStudent_data.bin", ios::binary);
+    bool Login_Design::compareCredentials_STU(const char* inputEmail, const char* inputPassword) {
+    ifstream file("../data/Student_Data.bin", ios::binary);
     if (!file) {
         cout << "Failed to open file.\n";
         return false;

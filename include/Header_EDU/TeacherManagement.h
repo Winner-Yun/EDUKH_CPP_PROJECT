@@ -8,10 +8,10 @@ class Teacher{
 	private: 
 		static int lastId;    
 		char teacherId[20];
-		void generateTeacherID(); 
 		int yearOfExp,academyYear;
 		char teacherName[30],gender[30],subject[30],phoneNumber[15],dateOfBirth[20],email[20];
 	public:
+		void generateTeacherID(); 
 		const char* getTeacherId(){
 		    return teacherId;
 		}
@@ -141,17 +141,20 @@ void  Teacher::input(){
 }
 
 void Teacher::output(int y){
+	char teacherName[] = "Winner Yun";
 	char cleanedName[30];
-    int j = 0;
-    for(int i = 0; teacherName[i] != '\0'; i++){
-        if(teacherName[i] != ' '){
-            cleanedName[j++] = teacherName[i];
-        }
-    }
-    cleanedName[j] = '\0';
-	char email[50];
-    strcpy(email, cleanedName);
-    strcat(email, "@gmail.com");
+	int j = 0;
+
+	for (int i = 0; teacherName[i] != '\0'; i++) {
+		if (teacherName[i] != ' ') {
+			cleanedName[j++] = tolower(teacherName[i]);
+		}
+	}
+	cleanedName[j] = '\0';
+
+	char email[50] = "te.";
+	strcat(email, cleanedName);
+	strcat(email, "@gmail.com");
     H::gotoxy(20,y);cout<<teacherId<<endl;
 	H::gotoxy(36,y);cout<<teacherName<<endl;
 	H::gotoxy(60,y);cout<<gender<<endl;
@@ -913,7 +916,7 @@ void TeacherDesign::sortTeacherByName() {
 }
 void TeacherDesign::teacherManagement(){
 	H::setFixedScreenConsole(200, 45);
-	TeacherDesign::system();
+	// TeacherDesign::system();
 	H::cls();
 	H::foreColor(0);
 	do{

@@ -3,12 +3,14 @@ using namespace ANTHinsyOOP;
 
 // Define the Student structure used for binary reading
 struct Student {
-    char id[6], name[19], gender[7], bdate[11], grade[3], tel[10], sYear[5], email[30], pw[19];
-    int No;
+    static int lastId;    
+	char teacherId[20];
+	int yearOfExp,academyYear;
+	char teacherName[30],gender[30],subject[30],phoneNumber[15],dateOfBirth[20],email[20];
 };
 
 void showAllStudents() {
-    ifstream file("../data/TeacherAndStudent_data.bin", ios::binary);
+    ifstream file("../data/Teacher_Data.bin", ios::binary);
     int row = 5;
     int colorCodes[] = {9, 10, 7, 11, 14};
     int colorIndex = 0;
@@ -24,7 +26,7 @@ void showAllStudents() {
         int color = colorCodes[colorIndex % 5];
         H::setcolor(color);
         H::gotoxy(50, row);
-        cout  << s.email << " | " << s.pw;
+        cout  << s.academyYear << " | " ;
         row += 2;
         colorIndex++;
     }
