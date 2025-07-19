@@ -26,7 +26,7 @@ void showAllStudents() {
         int color = colorCodes[colorIndex % 5];
         H::setcolor(color);
         H::gotoxy(50, row);
-        cout  << s.academyYear << " | " ;
+        cout  << s.email << " | " ;
         row += 2;
         colorIndex++;
     }
