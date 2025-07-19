@@ -8,6 +8,8 @@
 #include "../include/Header_EDU/CustomHeader.h"
 #include "../include/Header_EDU/StudentManagerment.h"
 #include "../include/Header_EDU/Manage_student_teacher_menu.h"
+#include "../include/Header_EDU/TeacherManagement.h"
+
 using namespace ANTHinsyOOP;
 Login_Design logD;
 Edu_Main_Menu menu;
@@ -18,6 +20,7 @@ int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45); 
+    td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
 //   subSche.Main_ScheduleSubMenu();
     //  menu.Main_menu();
