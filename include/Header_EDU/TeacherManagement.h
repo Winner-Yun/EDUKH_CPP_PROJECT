@@ -141,11 +141,10 @@ void  Teacher::input(){
 }
 
 void Teacher::output(int y){
-	char teacherName[] = "Winner Yun";
 	char cleanedName[30];
 	int j = 0;
 
-	for (int i = 0; teacherName[i] != '\0'; i++) {
+	for (int i = 0; this->teacherName[i] != '\0'; i++) {
 		if (teacherName[i] != ' ') {
 			cleanedName[j++] = tolower(teacherName[i]);
 		}
