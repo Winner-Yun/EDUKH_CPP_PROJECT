@@ -7,8 +7,7 @@ using namespace ANTHinsyOOP;
 class Teacher{
 	private: 
 		static int lastId;    
-		char teacherId[20];
-		char teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
+		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
 	public:
 		void generateTeacherID(); 
 		const char* getTeacherId(){

@@ -2,11 +2,8 @@
 using namespace ANTHinsyOOP;
 
 // Define the Student structure used for binary reading
-struct Student {
-    static int lastId;    
-	char teacherId[20];
-	int yearOfExp,academyYear;
-	char teacherName[30],gender[30],subject[30],phoneNumber[15],dateOfBirth[20],email[20];
+struct Student {  
+	char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
 };
 
 void showAllStudents() {
@@ -26,7 +23,7 @@ void showAllStudents() {
         int color = colorCodes[colorIndex % 5];
         H::setcolor(color);
         H::gotoxy(50, row);
-        cout  << s.email << " | " ;
+        cout  << s.email << " | "<< s.pw;
         row += 2;
         colorIndex++;
     }

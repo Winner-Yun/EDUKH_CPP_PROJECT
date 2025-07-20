@@ -23,7 +23,8 @@ class Login_Design {
         static void LoadingHeader(int id);
         // login process function
         static bool startsWith(const string& str, const string& prefix);   // compare first word of email to define the role
-        static bool compareCredentials_STU(const char* inputEmail, const char* inputPassword); // compare email and password of each file
+        static bool compareCredentials_STU(const char* inputEmail, const char* inputPassword); // compare email and password of each file for studen
+        static bool compareCredentials_TECH(const char* inputEmail, const char* inputPassword); // compare email and password of each file for stuent
       
     };
 
@@ -31,6 +32,9 @@ class Login_Design {
     struct Student_form {
         char id[6], name[19], gender[7], bdate[11], grade[3], tel[10], sYear[5], email[30], pw[19];
         int No;
+    };
+    struct Teacher_form { 
+		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
     };
 
     // -------------------------------------<< Login Main Process >>----------------------------------------
@@ -87,9 +91,9 @@ class Login_Design {
             }
         }
         else if (startsWith(inputEmail, "te")) {
-            if (compareCredentials_STU(inputEmail, inputPassword)) {
+            if (compareCredentials_TECH(inputEmail, inputPassword)) {
                 system("cls");
-                cout << "[Student Account Detected]\n";
+                cout << "[Teacher Account Detected]\n";
             }
             else {
                 attmp++;
@@ -131,7 +135,7 @@ class Login_Design {
         return str.compare(0, prefix.length(), prefix) == 0;   // compare (position , length, other string )
     }
 
-    //read compare login process
+    //read compare login process for student
     bool Login_Design::compareCredentials_STU(const char* inputEmail, const char* inputPassword) {
     ifstream file("../data/Student_Data.bin", ios::binary);
     if (!file) {
@@ -140,8 +144,26 @@ class Login_Design {
     }
 
     Student_form s;   // structure for from in file
-    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student))) {
+    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student_form))) {
         if (strcmp(s.email, inputEmail) == 0 && strcmp(s.pw, inputPassword) == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+    //read compare login process for teacher
+    bool Login_Design::compareCredentials_TECH(const char* inputEmail, const char* inputPassword) {
+    ifstream file("../data/Teacher_Data.bin", ios::binary);
+    if (!file) {
+        cout << "Failed to open file.\n";
+        return false;
+    }
+
+    Teacher_form t; // to get structure teacher form 
+    while (file.read(reinterpret_cast<char*>(&t), sizeof(Teacher_form))) {
+        if (strcmp(t.email, inputEmail) == 0 && strcmp(t.pw, inputPassword) == 0) {
             return true;
         }
     }
