@@ -23,7 +23,11 @@ int main() {
     td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
 //   subSche.Main_ScheduleSubMenu();
+//<<<<<<< HEAD
 //      menu.Main_menu();
+//=======
+//      menu.Main_menu();
+//>>>>>>> 0a2313767673d0ee5c675ac828fd8e086153c88f
 //     s.Main_StudentManage();
     
 //   logD.MainLogin();

@@ -5,6 +5,9 @@
 #include "CustomHeader.h"
 #include "Manage_schedule.h"
 #include "Manage_student_teacher_menu.h"
+#include <chrono>
+#include <ctime>
+#include <thread>
 
 
 using namespace ANTHinsyOOP;
@@ -145,6 +148,7 @@ void Edu_Main_Menu::Main_menu(){
             H::cls();
             cout << " Handle OPTION 2 ";
             getch();
+            
             break;
         }
 
@@ -218,6 +222,18 @@ void Edu_Main_Menu::designPage(){
 
     H::drawBoxDoubleLineWithBG(4,1,54,2,4);
     H::setcolor(4);H::gotoxy(12,2);cout<<"[!] HOLD ESC KEY FOR 3 SEC FOR LOGOUT";
+
+    H::drawBoxDoubleLineWithBG(142,1,54,2,2);
+    H::setcolor(2);H::gotoxy(145,2);cout<<"USER: ";
+    H::setcolor(4);H::gotoxy(153,2);cout<<"Admin";
+    H::setcolor(2);H::gotoxy(161,2);cout<<"|";
+    H::setcolor(2);H::gotoxy(165,2);cout<<"BY: ";
+    H::setcolor(3);H::gotoxy(170,2);cout<<"EDU MASTER KH";
+    H::setcolor(2);H::gotoxy(185,2);cout<<"|";
+    H::setcolor(7);H::gotoxy(188,2);cout<<"2025";
+    H::setcolor(7);H::gotoxy(145,3);cout<<"________________________________________________";
+
+    
 
     H::setcolor(2);H::gotoxy(59,36);cout<<R"(  ------------------------------------------------------------------------------  )";
     H::setcolor(2);H::gotoxy(59,37);cout<<R"(  '                                                                            '  )";
