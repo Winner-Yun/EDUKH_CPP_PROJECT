@@ -5,6 +5,8 @@
 #include "CustomHeader.h"
 #include "Main_menu.h"
 #include "StudentManagerment.h"
+#include "TeacherManagement.h"
+
 using namespace ANTHinsyOOP;
 class SubMENU_manage_stu_tech{
     public:
@@ -95,12 +97,10 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
 
                 case 2:{
                     system("cls");
+                    td.teacherManagement();
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
-                    cout << " Handle OPTION 2 ";
-                    H::cls();
-                    getch();
                     break;
                 }
                 case 3:{

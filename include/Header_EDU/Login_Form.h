@@ -15,13 +15,12 @@ class Login_Design {
     public:
     
         void MainLogin();
-        void MainLogin_NoLoading();
         // loading process and all of its design
-        static void processLogin(const char* inputEmail, const char* inputPassword, int& attmp);
         static void loadingProcess(); // loading process
         static void loginDesignCon(); // login design
         static void LoadingHeader(int id);
         // login process function
+        static void processLogin(const char* inputEmail, const char* inputPassword, int& attmp);
         static bool startsWith(const string& str, const string& prefix);   // compare first word of email to define the role
         static bool compareCredentials_STU(const char* inputEmail, const char* inputPassword); // compare email and password of each file for studen
         static bool compareCredentials_TECH(const char* inputEmail, const char* inputPassword); // compare email and password of each file for stuent
@@ -37,8 +36,10 @@ class Login_Design {
 		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
     };
 
-    // -------------------------------------<< Login Main Process >>----------------------------------------
-
+     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    // ---------------------------------------------------------<< Login Main Process >>-------------------------------------------------------------
+   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   
    void Login_Design::MainLogin(){
 
 
@@ -128,7 +129,10 @@ class Login_Design {
             attmp = 0;
         }
     }
-
+    
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //<<----------------------------------------------------- Sub function for spp the main process ------------------------------------------------------------------->>>>>>
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //for cheack which devide we are login as
     bool Login_Design::startsWith(const string& str, const string& prefix) {
@@ -171,42 +175,6 @@ class Login_Design {
     return false;
 }
 
-
-
-   void Login_Design::MainLogin_NoLoading(){
-
-        
-        loginDesignCon();   //call design of  login
-
-        //email form
-        int attmp=0;
-        while(true){
-            H::drawBoxSingleLineWithBG(123,26,53,1,0);
-            H::drawBoxSingleLineWithBG(123,33,53,1,0);
-            H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
-
-
-            //password form
-            H::gotoxy(123,34);H::setcolor(15);HLVInput::inputUNumber(this->strPassword, 21);
-
-            if(strcmp(strGmail, "winner@gmail.com") == 0 && strcmp(strPassword, "123") == 0){
-                H::gotoxy(135,38);H::setcolor(15);cout<<"         SUCCESS!!         ";
-                break;
-            }
-            else{
-                attmp++;
-                H::gotoxy(135,38);H::setcolor(4);cout<<"[!] WRONG EMAIL OR PASSWORD";
-             }
-            if(attmp==3){
-                for(int i = 60 ; i>= 0; i--){
-                    H::gotoxy(120,38);H::setcolor(4);cout<<"[!] YOUR TRY MANY ATTEMPTS, PLEASE WAIT "<<i<<"s TO INPUT AGAIN" ;
-                    H::delay(1000);
-                }
-                H::gotoxy(120,38);H::setcolor(4);cout<<"                                                                " ;
-            }
-        }
-
-    }
 
 
 void Login_Design::loadingProcess() {
@@ -375,7 +343,7 @@ void Login_Design::loadingProcess() {
             H::drawBoxSingleLine(175,16,1,2,i+30);   
             
             H::setcolor(1);
-            H::delay(60);
+            H::delay(30);
         }
         system("cls");
     }
@@ -433,10 +401,17 @@ void Login_Design::loadingProcess() {
         H::setcolor(8);H::gotoxy(11, 9); cout << R"(            \_/\_/    |_____| |_____|  \____|  \___/  |_|  |_| |_____|           )";H::delay(100);
         H::setcolor(15);H::gotoxy(11, 10); cout << R"(                                                                                )";
 
-        H::setcolor(15);H::gotoxy(92, 5); cout << R"(  .--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--..--    )";H::delay(100);
-        H::setcolor(8);H::gotoxy(92, 6); cout << R"( / .. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \.. \  \   )";H::delay(100);
-        H::setcolor(8);H::gotoxy(92, 7); cout << R"( \ \/\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\ `'\   )";H::delay(100);
-        H::setcolor(15);H::gotoxy(92, 8); cout << R"(  \/ /`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'`--'-  )";H::delay(100);
+         H::setcolor(7);H::gotoxy(100, 1); cout << R"( _______________________________________________________________________________________________   )";H::delay(100);
+         H::setcolor(4);H::gotoxy(100, 2); cout << R"(          ___________ _   ____  ___  ___   _____ _____ ___________       _   __ _   _              )";H::delay(100);
+         H::setcolor(2);H::gotoxy(100, 3); cout << R"(          |  ___|  _  \ | | |  \/  | / _ \ /  ___|_   _|  ___| ___ \     | | / /| | | |             )";H::delay(100);
+         H::setcolor(2);H::gotoxy(100, 4); cout << R"(          | |__ | | | | | | | .  . |/ /_\ \\ `--.  | | | |__ | |_/ /_____| |/ / | |_| |             )";H::delay(100);
+         H::setcolor(2);H::gotoxy(100, 5); cout << R"(          |  __|| | | | | | | |\/| ||  _  | `--. \ | | |  __||    /______|    \ |  _  |             )";H::delay(100);
+         H::setcolor(2);H::gotoxy(100, 6); cout << R"(          | |___| |/ /| |_| | |  | || | | |/\__/ / | | | |___| |\ \      | |\  \| | | |             )";H::delay(100);
+         H::setcolor(4);H::gotoxy(100, 7); cout << R"(          \____/|___/  \___/\_|  |_/\_| |_/\____/  \_/ \____/\_| \_|     \_| \_/\_| |_/            )";H::delay(100);
+         H::setcolor(1);H::gotoxy(100, 8); cout << R"(                                                                                                    )";H::delay(100);
+         H::setcolor(7);H::gotoxy(100, 9); cout << R"( ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  )";H::delay(100);
+         H::setcolor(0);H::gotoxy(100, 10); cout << R"( _______________________________________________________________________________________________  )";H::delay(100);
+                                                                             
 
         
         H::setcolor(15);H::gotoxy(120, 17); cout << R"(  _     _____ _____  _ ____    _     ____  _____ _  _    _ )";H::delay(100);

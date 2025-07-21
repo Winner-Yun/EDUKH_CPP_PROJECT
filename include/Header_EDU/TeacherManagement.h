@@ -529,55 +529,56 @@ void TeacherDesign::system(){
 	H::setFixedScreenConsole(200,45);
 	for (int i = 8; i <= 120; i++) {
 		H::foreColor(4);
-	    H::gotoxy(i - 3, 7);  cout << R"(  _____    _       )";
-	    H::gotoxy(i - 3, 8);  cout << R"( | ____|__| |_   _ )";
-	    H::gotoxy(i - 3, 9);  cout << R"( |  _| / _` | | | |)";
-	    H::gotoxy(i - 3, 10);  cout << R"( | |__| (_| | |_| |)";
-	    H::gotoxy(i - 3, 11);  cout << R"( |_____\__,_|\__,_|)";
-	    
+		H::gotoxy(i - 3, 13);  cout << R"(  _____    _       )";
+		H::gotoxy(i - 3, 14);  cout << R"( | ____|__| |_   _ )";
+		H::gotoxy(i - 3, 15);  cout << R"( |  _| / _` | | | |)";
+		H::gotoxy(i - 3, 16);  cout << R"( | |__| (_| | |_| |)";
+		H::gotoxy(i - 3, 17);  cout << R"( |_____\__,_|\__,_|)";
+		
 		H::foreColor(1);
-	    H::gotoxy(70, 15);  cout << R"( __  __           _            _  ___   _ )";
-	    H::gotoxy(70, 16);  cout << R"(|  \/  | __ _ ___| |_ ___ _ __| |/ / | | |)";
-	    H::gotoxy(70, 17);  cout << R"(| |\/| |/ _` / __| __/ _ \ '__| ' /| |_| |)";
-	    H::gotoxy(70, 18);  cout << R"(| |  | | (_| \__ \ ||  __/ |  | . \|  _  |)";
-	    H::gotoxy(70, 19);  cout << R"(|_|  |_|\__,_|___/\__\___|_|  |_|\_\_| |_|)";
-	    
+		H::gotoxy(70, 20);  cout << R"( __  __           _            _  ___   _ )";
+		H::gotoxy(70, 21);  cout << R"(|  \/  | __ _ ___| |_ ___ _ __| |/ / | | |)";
+		H::gotoxy(70, 22);  cout << R"(| |\/| |/ _` / __| __/ _ \ '__| ' /| |_| |)";
+		H::gotoxy(70, 23);  cout << R"(| |  | | (_| \__ \ ||  __/ |  | . \|  _  |)";
+		H::gotoxy(70, 24);  cout << R"(|_|  |_|\__,_|___/\__\___|_|  |_|\_\_| |_|)";
+		
 		H::foreColor(6);
-	    H::gotoxy(150 - i, 24); cout << R"( ____            _                     )";
-	    H::gotoxy(150 - i, 25); cout << R"(/ ___| _   _ ___| |_ ___ _ __ ___     )";
-	    H::gotoxy(150 - i, 26); cout << R"(\___ \| | | / __| __/ _ \ '_ ` _ \    )";
-	    H::gotoxy(150 - i, 27); cout << R"( ___) | |_| \__ \ ||  __/ | | | | |   )";
-	    H::gotoxy(150 - i, 28); cout << R"(|____/ \__, |___/\__\___|_| |_| |_|   )";
-	    H::gotoxy(150 - i, 29); cout << R"(        |___/                         )";
-	
-	    H::delay(5);
-	    H::foreColor(0);
+		H::gotoxy(150 - i, 27); cout << R"( ____            _                     )";
+		H::gotoxy(150 - i, 28); cout << R"(/ ___| _   _ ___| |_ ___ _ __ ___     )";
+		H::gotoxy(150 - i, 29); cout << R"(\___ \| | | / __| __/ _ \ '_ ` _ \    )";
+		H::gotoxy(150 - i, 30); cout << R"( ___) | |_| \__ \ ||  __/ | | | | |   )";
+		H::gotoxy(150 - i, 31); cout << R"(|____/ \__, |___/\__\___|_| |_| |_|   )";
+		H::gotoxy(150 - i, 32); cout << R"(        |___/                         )";
+		
+		H::delay(5);
 	}
+	
 	H::delay(2);
 	for (int i = 5; i <= 180; i++)
 	{
-	    H::HLine(14, 1, i, 34, ' ');       
-	    H::HLine(12, 2, i, 31, ' ');       
-	    H::HLine(10, 3, i, 204, ' ');      
+	  H::HLine(14, 1, i, 34, ' ');       
+	  H::HLine(12, 2, i, 31, ' ');       
+	  H::HLine(10, 3, i, 204, ' ');      
 	
-	    H::HLine(196 - i, 37, 1, 204, ' '); 
-	    H::HLine(194 - i, 38, 1, 31, ' ');  
-	    H::HLine(192 - i, 39, 1, 34, ' ');  
+	  H::HLine(196 - i, 41, 1, 204, ' '); 
+	  H::HLine(194 - i, 42, 1, 31, ' ');  
+	  H::HLine(192 - i, 43, 1, 34, ' ');  
 	}
-	for (int i = 5; i <= 30; i++){
-	    H::VLine(5, 6, i - 3, 224, ' ');   
-	    H::VLine(6, 6, i - 3, 224, ' ');   
-	    H::VLine(7, 5, i - 1, 31, ' ');    
-	    H::VLine(8, 5, i - 1, 31, ' ');    
-	    H::VLine(9, 4, i + 1, 204, ' ');   
-	    H::VLine(10, 4, i + 1, 204, ' ');   
 	
-	    H::VLine(191, 4, i + 1, 204, ' '); 
-	    H::VLine(192, 4, i + 1, 204, ' '); 
-	    H::VLine(193, 5, i - 1, 31, ' ');  
-	    H::VLine(194, 5, i - 1, 31, ' ');  
-	    H::VLine(195, 6, i - 3, 224, ' '); 
-	    H::VLine(196, 6, i - 3, 224, ' '); 
+	for (int i = 5; i <= 36; i++){
+	  H::VLine(5, 6, i - 3, 224, ' ');   
+	  H::VLine(6, 6, i - 3, 224, ' ');   
+	  H::VLine(7, 5, i - 1, 31, ' ');    
+	  H::VLine(8, 5, i - 1, 31, ' ');    
+	  H::VLine(9, 4, i + 1, 204, ' ');   
+	  H::VLine(10, 4, i + 1, 204, ' ');   
+	
+	  H::VLine(191, 4, i + 1, 204, ' '); 
+	  H::VLine(192, 4, i + 1, 204, ' '); 
+	  H::VLine(193, 5, i - 1, 31, ' ');  
+	  H::VLine(194, 5, i - 1, 31, ' ');  
+	  H::VLine(195, 6, i - 3, 224, ' '); 
+	  H::VLine(196, 6, i - 3, 224, ' '); 
 	    
 	}
 	H::delay(500);
@@ -955,6 +956,7 @@ void TeacherDesign::teacherManagement(){
 	 TeacherDesign::system();
 	H::cls();
 	H::foreColor(0);
+	int x=0;
 	do{
 		TeacherDesign::showdesign();
 		H::drawBoxSingleLine(15, 10, 8, 1, 206); H::gotoxy(15, 11); cout << "  BACK  ";
@@ -966,7 +968,7 @@ void TeacherDesign::teacherManagement(){
 		
 		
 		char option;
-		int x=0;
+
 		do{	
 				H::drawBoxSingleLine(15, 10, 8, 1, 206); H::gotoxy(15, 11); cout << "  BACK  ";
 				H::drawBoxSingleLine(35, 10, 9, 1, 158); H::gotoxy(35, 11); cout << "   SORT  ";
