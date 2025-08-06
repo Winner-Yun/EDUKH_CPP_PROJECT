@@ -16,6 +16,14 @@ class Teacher{
 		const char* getTeacherName() const{
 			return teacherName;
 		}
+		void formatProperCase(char text[]){
+			  if (text[0] != '\0') {
+			        text[0] = toupper(text[0]);
+			    }
+			    for (int i = 1; text[i] != '\0'; ++i) {
+			        text[i] = tolower(text[i]);
+			    }
+		}
 		void convertEmail();
 		void input();
 		void output(int y);
@@ -109,15 +117,14 @@ void  Teacher::input(){
 	H::VLine(105,16,1,7,186);
 	H::VLine(105,13,1,7,186);
 	
-	H::drawBoxSingleLineWithBG(32,22,50,1,0);
-	H::drawBoxSingleLineWithBG(32,28,50,1,0);
-	H::drawBoxSingleLineWithBG(32,35,50,1,0);
+	H::drawBoxSingleLineWithBG(32,24,50,1,0);
+	H::drawBoxSingleLineWithBG(32,30,50,1,0);
+	H::drawBoxSingleLineWithBG(32,37,50,1,0);
 	
-	H::drawBoxSingleLineWithBG(115,22,50,1,0);
-	H::drawBoxSingleLineWithBG(115,28,50,1,0);
-	H::drawBoxSingleLineWithBG(115,35,50,1,0);
+	H::drawBoxSingleLineWithBG(115,24,50,1,0);
+	H::drawBoxSingleLineWithBG(115,30,50,1,0);
+	H::drawBoxSingleLineWithBG(115,37,50,1,0);
 	
-	H::drawBoxSingleLineWithBG(75,40,50,1,0);
 	
   if (lastId == 0) {
         ifstream file("../data/Teacher_Data.bin", ios::binary); //open file
@@ -131,23 +138,32 @@ void  Teacher::input(){
 
     lastId++;  
     sprintf(teacherId, "T-%03d", lastId); 
+    char text[] = "";
 
-    H::gotoxy(33, 23);  H::foreColor(6); cout << "TEACHER ID      :";
-    H::gotoxy(33, 29);  H::foreColor(6); cout << "TEACHER NAME    :";
-    H::gotoxy(33, 36);  H::foreColor(6); cout << "GENDER          :";
-    H::gotoxy(116, 23); H::foreColor(6); cout << "SUBJECT         :";
-    H::gotoxy(116, 29); H::foreColor(6); cout << "DATE OF BIRTH   :";
-    H::gotoxy(116, 36); H::foreColor(6); cout << "PHONE NUMBER    :";
-    H::gotoxy(76, 41);  H::foreColor(6); cout << "ACADEMIC YEAR   :";
+    if (text[0] != '\0') {
+        text[0] = toupper(text[0]);
+    }
 
-//    string stracademyYear;
-    H::gotoxy(60, 23); cout << teacherId;
-    H::gotoxy(60, 29); H::inputLetter(teacherName, 30);
-    H::gotoxy(60, 36); H::inputLetter(gender, 30);
-    H::gotoxy(145, 23); H::inputLetter(subject, 30);
-    H::gotoxy(145, 29); H::inputDate(dateOfBirth, '/', false);
-    H::gotoxy(145, 36); H::inputUNumber(phoneNumber, 15);
-    H::gotoxy(95, 41);  H::inputUNumber(academyYear,10);
+    for (int i = 1; text[i] != '\0'; ++i) {
+        text[i] = tolower(text[i]);
+    }
+
+    cout << text << endl;
+    H::gotoxy(33, 25);  H::foreColor(6); cout << "TEACHER ID      :";
+    H::gotoxy(33, 31);  H::foreColor(6); cout << "TEACHER NAME    :";
+    H::gotoxy(33, 38);  H::foreColor(6); cout << "GENDER          :";
+    H::gotoxy(116, 25); H::foreColor(6); cout << "SUBJECT         :";
+    H::gotoxy(116, 31); H::foreColor(6); cout << "DATE OF BIRTH   :";
+    H::gotoxy(116, 38); H::foreColor(6); cout << "PHONE NUMBER    :";
+
+    H::gotoxy(60, 25); cout << teacherId;
+    H::gotoxy(60, 31); H::inputLetter(teacherName, 16);
+    H::gotoxy(60, 38); H::inputLetter(gender, 7);
+    H::gotoxy(145, 25); H::inputLetter(subject, 10);
+    H::gotoxy(145, 31); H::inputDate(dateOfBirth, '/', true);
+    H::gotoxy(145, 38); H::inputUNumber(phoneNumber, 13);
+
+	strcpy(academyYear,"2025");
     strcpy(pw, "123");
     
     Teacher::convertEmail();
@@ -157,6 +173,7 @@ void  Teacher::input(){
 void Teacher::output(int y) {
     H::gotoxy(20, y);  cout << teacherId;
     H::gotoxy(36, y);  cout << teacherName;
+    Teacher::formatProperCase(gender);
     H::gotoxy(60, y);  cout << gender;
     H::gotoxy(77, y);  cout << subject;
     H::gotoxy(100, y); cout << dateOfBirth;
@@ -215,36 +232,29 @@ void Teacher::newInput(){
 	H::VLine(105,16,1,7,186);
 	H::VLine(105,13,1,7,186);
 	
-	H::drawBoxSingleLineWithBG(32,22,50,1,0);
-	H::drawBoxSingleLineWithBG(32,28,50,1,0);
-	H::drawBoxSingleLineWithBG(32,35,50,1,0);
+	H::drawBoxSingleLineWithBG(32,24,50,1,0);
+	H::drawBoxSingleLineWithBG(32,30,50,1,0);
+	H::drawBoxSingleLineWithBG(32,37,50,1,0);
 	
-	H::drawBoxSingleLineWithBG(115,22,50,1,0);
-	H::drawBoxSingleLineWithBG(115,28,50,1,0);
-	H::drawBoxSingleLineWithBG(115,35,50,1,0);
+	H::drawBoxSingleLineWithBG(115,24,50,1,0);
+	H::drawBoxSingleLineWithBG(115,30,50,1,0);
+	H::drawBoxSingleLineWithBG(115,37,50,1,0);
 	
-	H::drawBoxSingleLineWithBG(75,40,50,1,0);
 	
-	H::gotoxy(33, 23);  H::foreColor(6); cout << "TEACHER ID      :";
-	H::gotoxy(33, 29);  H::foreColor(6); cout << "TEACHER NAME    :";
-	H::gotoxy(33, 36);  H::foreColor(6); cout << "GENDER          :";
-	H::gotoxy(116, 23); H::foreColor(6); cout << "SUBJECT         :";
-	H::gotoxy(116, 29); H::foreColor(6); cout << "DATE OF BIRTH   :";
-	H::gotoxy(116, 36); H::foreColor(6); cout << "PHONE NUMBER    :";
-	H::gotoxy(76, 41);  H::foreColor(6); cout << "ACADEMIC YEAR   :";
+	H::gotoxy(33, 25);  H::foreColor(6); cout << "TEACHER ID      :";
+	H::gotoxy(33, 31);  H::foreColor(6); cout << "TEACHER NAME    :";
+	H::gotoxy(33, 38);  H::foreColor(6); cout << "GENDER          :";
+	H::gotoxy(116, 25); H::foreColor(6); cout << "SUBJECT         :";
+	H::gotoxy(116, 31); H::foreColor(6); cout << "DATE OF BIRTH   :";
+	H::gotoxy(116, 38); H::foreColor(6); cout << "PHONE NUMBER    :";
 
-//	string stracademyYear;
-    H::gotoxy(60, 23);  H::foreColor(6); cout << teacherId;
-	H::gotoxy(60, 29);  H::foreColor(6); H::inputLetter(teacherName,30); cin.ignore();
-	H::gotoxy(60, 36);  H::foreColor(6); H::inputLetter(gender,30); 
-	H::gotoxy(145, 23); H::foreColor(6); H::inputLetter(subject,30);
-	H::gotoxy(145, 29); H::foreColor(6); H::inputDate(dateOfBirth,'/',false);   
-	H::gotoxy(145, 36); H::foreColor(6); H::inputUNumber(phoneNumber,15);
-	H::gotoxy(95, 41); H::foreColor(6); H::inputUNumber(academyYear,10);    
+    H::gotoxy(60, 25);  H::foreColor(6); cout << teacherId;
+	H::gotoxy(60, 31);  H::foreColor(6); H::inputLetter(teacherName,16); cin.ignore();
+	H::gotoxy(60, 38);  H::foreColor(6); H::inputLetter(gender,7); 
+	H::gotoxy(145, 25); H::foreColor(6); H::inputLetter(subject,10);
+	H::gotoxy(145, 31); H::foreColor(6); H::inputDate(dateOfBirth,'/',true);   
+	H::gotoxy(145, 38); H::foreColor(6); H::inputUNumber(phoneNumber,13);
 
-	getch();
-	H::cls();
-	H::foreColor(0);
 }
 
 void TeacherDesign::loading(){
@@ -399,10 +409,6 @@ void TeacherDesign::insertTeacher(){
 	t.input(); 
 	file.write((char*)&t, sizeof(t)); //write data to file
 	file.close();
-
-//	file.write(reinterpret_cast<char*>(&t), sizeof(t));
-//	file.close();
-
 
 } 
 
@@ -664,9 +670,6 @@ void TeacherDesign::searchTeacher() {
 
         key = getch();
         if (key == 27) { // ESC
-//            H::cls();
-//            TeacherDesign::designTable();
-//            TeacherDesign::showTeacher();
             return;
         }
     } while (true);
@@ -953,7 +956,7 @@ void TeacherDesign::sortTeacherByName() {
 }
 void TeacherDesign::teacherManagement(){
 	H::setFixedScreenConsole(200, 45);
-	 TeacherDesign::system();
+//	 TeacherDesign::system();
 	H::cls();
 	H::foreColor(0);
 	int x=0;
