@@ -184,15 +184,23 @@ namespace ANTHinsyOOP /* Start of Namespace */
 	//------------------------------------
 	class DLLIMPORT Hinsy: public HConsole, public HLVInput, public DisableWindowsConsole{
 		public:
-			static void setFont(UINT hFontSize, UINT fontWeight = FW_BOLD, const WCHAR* fontName = L"Consolas", bool bMaximumWindow = true);
+			static void setFont(UINT hFontSize, UINT fontWeight = FW_BOLD, const WCHAR* fontName = L"Consolas", bool bMaximumWindow = false);
 			static void setFullScreenHaveScroll(UINT height = 9001, UINT width = 700);
 			static void setFullScreenNoScroll();
 			static void setFixedScreenConsole(UINT width, UINT height);
 			static void DisableScreenResize();
-			
+				
+	};
+	// Add: 05-Aug-2025
+	class DLLIMPORT HNewFeature: public Hinsy {
+		public:
+			static void Clear();
+			static void ClearXY(int x, int y, int lengthToClear);
+            static void DrawBoxBG(int x, int y, int w, int h, int BgColor = 150);
+			static void ShowMenu(int x, int y, string menus[], int sizeMenus, int color = 3, int indexShowSymbol = 0, string textSymbol = "==> ");	
 	};
 	//------------------------------------
-	class DLLIMPORT H: public Hinsy {
+	class DLLIMPORT H: public HNewFeature {
 		public:
 			static void setConsoleTitle(LPCTSTR  title); // Assign value by function  TEXT("")  ignore warning
 			static void foreColor(DWORD color_code);

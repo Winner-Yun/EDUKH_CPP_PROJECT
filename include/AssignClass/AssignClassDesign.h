@@ -1,0 +1,401 @@
+#ifndef __ASSIGNCLASS__
+#define __ASSIGNCLASS__
+
+#include "../Header_School/ANTHinsyOOP"
+using namespace ANTHinsyOOP;
+
+class AssignClassDesign{
+    public:
+        static void AssignClassLogo(int x, int y);
+        static void KBText(int x, int y);
+        // Grade 10 Design
+        static void AssignGrade10Banner(int x, int y);
+        static void AssignGrade10Design();
+        // Grade 11 Design
+        static void AssignGrade11Banner(int x, int y);
+        static void AssignGrade11Design();
+        // Grade 12 Design
+        static void AssignGrade12Banner(int x, int y);
+        static void AssignGrade12Design();
+        // 
+        static void AssignTeacherText(int x, int y);
+        static void AssignTeacherDesign();
+        static void G10(int x, int y);
+        static void G11(int x, int y);
+        static void G12(int x, int y);
+        // Header
+        static void Header();
+        static void Footer();
+};
+
+void AssignClassDesign::Header()
+{
+    H::gotoxy(35, 16);  cout << "No.";
+    H::gotoxy(45, 16);  cout << "Grade ID";
+    H::gotoxy(65, 16);  cout << "Teacher ID";
+    H::gotoxy(85, 16);  cout << "Teacher Name";
+    H::gotoxy(110, 16);  cout << "Subject";
+    H::gotoxy(130, 16); cout << "Academic Year";
+    H::gotoxy(150, 16); cout << "Phone Number";
+}
+
+void AssignClassDesign::Footer()
+{
+    // H::drawBoxDoubleLineWithBG(88, 39, 8, 1, 2);  // box 1
+    // H::drawBoxDoubleLineWithBG(105, 39, 8, 1, 2); // box 2
+    // H::gotoxy(89,40); cout<<"<---";
+    // H::gotoxy(108,40); cout<<"--->";
+    // H::gotoxy(100,40); cout<< "1";
+    H::drawBoxDoubleLineWithBG(30, 42, 140, 1, 3); // Footer Line
+    H::setcolor(2); H::gotoxy(60,43); cout<<"Tip: [Right Arrow] Next    [Left Arrow] Back    [Enter] Select     [ESC] Exit";
+}
+/* ================= Input Design ================= */
+void AssignClassDesign::AssignTeacherDesign()
+{
+    AssignTeacherText(17,0);
+    H::HLine(17,10,166,2,223);
+    H::VLine(95,9,5,3,219);
+    H::VLine(105,9,5,3,219);
+    //
+    H::drawBoxDoubleLineWithBG(70,15,59,1,153); // Enter ID Field
+
+    H::HLine(44,16,25,1,223);
+    H::HLine(130,16,25,1,223);
+    H::VLine(44,15,10,1,219);
+    H::VLine(155,15,10,1,219);
+    H::drawBoxDoubleLineWithBG(42,26,5,6,179);
+    H::drawBoxDoubleLineWithBG(152,26,5,6,179);
+
+    H::drawBoxDoubleLineWithBG(52,19,4,20,171);
+    H::drawBoxDoubleLineWithBG(143,19,4,20,171);
+
+    H::drawBoxDoubleLineWithBG(58,20,83,18,136); // Big Box
+    // Field
+    H::drawBoxDoubleLineWithBG(79,22,41,1,179);
+    H::drawBoxDoubleLineWithBG(60,26,37,1,179);
+    H::drawBoxDoubleLineWithBG(102,26,37,1,179);
+    H::drawBoxDoubleLineWithBG(60,30,37,1,179);
+    H::drawBoxDoubleLineWithBG(102,30,37,1,179);
+
+    // Message Box
+    H::drawBoxDoubleLineWithBG(67,36,65,1,247);
+    H::drawBoxDoubleLine(67,41,65,1,1);
+    H::setcolor(4);
+    //H::gotoxy(70,42); cout<<"Tip: [Press Enter] to add more, [Esc] Back to menu.";
+}
+
+void AssignClassDesign::G12(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(2);
+    H::gotoxy(x,y+0);   cout<<R"(  _____                            _____ )";
+    H::gotoxy(x,y+1);   cout<<R"( ( ___ )--------------------------( ___ ))";
+    H::gotoxy(x,y+2);   cout<<R"(  |   |                            |   | )";
+    H::gotoxy(x,y+3);   cout<<R"(  |   |        ▄▄▄▄▄▄▄▄▄▄▄         |   | )";
+    H::gotoxy(x,y+4);   cout<<R"(  |   |       ▐░░░░░░░░░░░▌        |   | )";
+    H::gotoxy(x,y+5);   cout<<R"(  |   |       ▐░█▀▀▀▀▀▀▀▀▀         |   | )";
+    H::gotoxy(x,y+6);   cout<<R"(  |   |       ▐░▌                  |   | )";
+    H::gotoxy(x,y+7);   cout<<R"(  |   |       ▐░▌ ▄▄▄▄▄▄▄▄         |   | )";
+    H::gotoxy(x,y+8);   cout<<R"(  |   |       ▐░▌▐░░░░░░░░▌        |   | )";
+    H::gotoxy(x,y+9);   cout<<R"(  |   |       ▐░▌ ▀▀▀▀▀▀█░▌        |   | )";
+    H::gotoxy(x,y+10);  cout<<R"(  |   |       ▐░▌       ▐░▌        |   | )";
+    H::gotoxy(x,y+11);  cout<<R"(  |   |       ▐░█▄▄▄▄▄▄▄█░▌        |   | )";
+    H::gotoxy(x,y+12);  cout<<R"(  |   |       ▐░░░░░░░░░░░▌        |   | )";
+    H::gotoxy(x,y+13);  cout<<R"(  |   |        ▀▀▀▀▀▀▀▀▀▀▀         |   | )";
+    H::gotoxy(x,y+14);  cout<<R"(  |   |                            |   | )";
+    H::gotoxy(x,y+15);  cout<<R"(  |   |     ▄▄▄▄      ▄▄▄▄▄▄▄▄▄▄▄  |   | )";
+    H::gotoxy(x,y+16);  cout<<R"(  |   |   ▄█░░░░▌    ▐░░░░░░░░░░░▌ |   | )";
+    H::gotoxy(x,y+17);  cout<<R"(  |   |  ▐░░▌▐░░▌     ▀▀▀▀▀▀▀▀▀█░▌ |   | )";
+    H::gotoxy(x,y+18);  cout<<R"(  |   |   ▀▀ ▐░░▌              ▐░▌ |   | )";
+    H::gotoxy(x,y+19);  cout<<R"(  |   |      ▐░░▌              ▐░▌ |   | )";
+    H::gotoxy(x,y+20);  cout<<R"(  |   |      ▐░░▌     ▄▄▄▄▄▄▄▄▄█░▌ |   | )";
+    H::gotoxy(x,y+21);  cout<<R"(  |   |      ▐░░▌    ▐░░░░░░░░░░░▌ |   | )";
+    H::gotoxy(x,y+22);  cout<<R"(  |   |      ▐░░▌    ▐░█▀▀▀▀▀▀▀▀▀  |   | )";
+    H::gotoxy(x,y+23);  cout<<R"(  |   |  ▄▄▄▄█░░█▄▄▄ ▐░█▄▄▄▄▄▄▄▄▄  |   | )"; 
+    H::gotoxy(x,y+24);  cout<<R"(  |   | ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌ |   | )";
+    H::gotoxy(x,y+25);  cout<<R"(  |   |  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  |   | )";
+    H::gotoxy(x,y+26);  cout<<R"(  |___|                            |___| )";
+    H::gotoxy(x,y+27);  cout<<R"( (_____)--------------------------(_____))";
+
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::G11(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(4);
+    H::gotoxy(x,y+0);   cout<<R"(  _____                            _____ )";
+    H::gotoxy(x,y+1);   cout<<R"( ( ___ )--------------------------( ___ ))";
+    H::gotoxy(x,y+2);   cout<<R"(  |   |                            |   | )";
+    H::gotoxy(x,y+3);   cout<<R"(  |   |       ▄▄▄▄▄▄▄▄▄▄▄          |   | )";
+    H::gotoxy(x,y+4);   cout<<R"(  |   |      ▐░░░░░░░░░░░▌         |   | )";
+    H::gotoxy(x,y+5);   cout<<R"(  |   |      ▐░█▀▀▀▀▀▀▀▀▀          |   | )";
+    H::gotoxy(x,y+6);   cout<<R"(  |   |      ▐░▌                   |   | )";
+    H::gotoxy(x,y+7);   cout<<R"(  |   |      ▐░▌ ▄▄▄▄▄▄▄▄          |   | )";
+    H::gotoxy(x,y+8);   cout<<R"(  |   |      ▐░▌▐░░░░░░░░▌         |   | )";
+    H::gotoxy(x,y+9);   cout<<R"(  |   |      ▐░▌ ▀▀▀▀▀▀█░▌         |   | )";
+    H::gotoxy(x,y+10);  cout<<R"(  |   |      ▐░▌       ▐░▌         |   | )";
+    H::gotoxy(x,y+11);  cout<<R"(  |   |      ▐░█▄▄▄▄▄▄▄█░▌         |   | )";
+    H::gotoxy(x,y+12);  cout<<R"(  |   |      ▐░░░░░░░░░░░▌         |   | )";
+    H::gotoxy(x,y+13);  cout<<R"(  |   |       ▀▀▀▀▀▀▀▀▀▀▀          |   | )";
+    H::gotoxy(x,y+14);  cout<<R"(  |   |                            |   | )";
+    H::gotoxy(x,y+15);  cout<<R"(  |   |     ▄▄▄▄         ▄▄▄▄      |   | )";
+    H::gotoxy(x,y+16);  cout<<R"(  |   |   ▄█░░░░▌      ▄█░░░░▌     |   | )";
+    H::gotoxy(x,y+17);  cout<<R"(  |   |  ▐░░▌▐░░▌     ▐░░▌▐░░▌     |   | )";
+    H::gotoxy(x,y+18);  cout<<R"(  |   |   ▀▀ ▐░░▌      ▀▀ ▐░░▌     |   | )";
+    H::gotoxy(x,y+19);  cout<<R"(  |   |      ▐░░▌         ▐░░▌     |   | )";
+    H::gotoxy(x,y+20);  cout<<R"(  |   |      ▐░░▌         ▐░░▌     |   | )";
+    H::gotoxy(x,y+21);  cout<<R"(  |   |      ▐░░▌         ▐░░▌     |   | )";
+    H::gotoxy(x,y+22);  cout<<R"(  |   |      ▐░░▌         ▐░░▌     |   | )";
+    H::gotoxy(x,y+23);  cout<<R"(  |   |  ▄▄▄▄█░░█▄▄▄  ▄▄▄▄█░░█▄▄▄  |   | )";
+    H::gotoxy(x,y+24);  cout<<R"(  |   | ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌ |   | )";
+    H::gotoxy(x,y+25);  cout<<R"(  |   |  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀▀▀  |   | )";
+    H::gotoxy(x,y+26);  cout<<R"(  |___|                            |___| )";
+    H::gotoxy(x,y+27);  cout<<R"( (_____)--------------------------(_____))";
+
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::G10(int x, int y)
+{
+    system("chcp 65001  > nul");
+    H::setcolor(2);
+    H::gotoxy(x,y+0);  cout<<R"(  _____                           _____ )";
+    H::gotoxy(x,y+1);  cout<<R"( ( ___ )-------------------------( ___ ))";
+    H::gotoxy(x,y+2);  cout<<R"(  |   |                           |   | )";
+    H::gotoxy(x,y+3);  cout<<R"(  |   |        ▄▄▄▄▄▄▄▄▄▄▄        |   | )";
+    H::gotoxy(x,y+4);  cout<<R"(  |   |       ▐░░░░░░░░░░░▌       |   | )";
+    H::gotoxy(x,y+5);  cout<<R"(  |   |       ▐░█▀▀▀▀▀▀▀▀▀        |   | )";
+    H::gotoxy(x,y+6);  cout<<R"(  |   |       ▐░▌                 |   | )";
+    H::gotoxy(x,y+7);  cout<<R"(  |   |       ▐░▌ ▄▄▄▄▄▄▄▄        |   | )";
+    H::gotoxy(x,y+8);  cout<<R"(  |   |       ▐░▌▐░░░░░░░░▌       |   | )";
+    H::gotoxy(x,y+9);  cout<<R"(  |   |       ▐░▌ ▀▀▀▀▀▀█░▌       |   | )";
+    H::gotoxy(x,y+10); cout<<R"(  |   |       ▐░▌       ▐░▌       |   | )";
+    H::gotoxy(x,y+11); cout<<R"(  |   |       ▐░█▄▄▄▄▄▄▄█░▌       |   | )";
+    H::gotoxy(x,y+12); cout<<R"(  |   |       ▐░░░░░░░░░░░▌       |   | )";
+    H::gotoxy(x,y+13); cout<<R"(  |   |        ▀▀▀▀▀▀▀▀▀▀▀        |   | )";
+    H::gotoxy(x,y+14); cout<<R"(  |   |                           |   | )";
+    H::gotoxy(x,y+15); cout<<R"(  |   |     ▄▄▄▄      ▄▄▄▄▄▄▄▄▄   |   | )";
+    H::gotoxy(x,y+16); cout<<R"(  |   |   ▄█░░░░▌    ▐░░░░░░░░░▌  |   | )";
+    H::gotoxy(x,y+17); cout<<R"(  |   |  ▐░░▌▐░░▌   ▐░█░█▀▀▀▀▀█░▌ |   | )";
+    H::gotoxy(x,y+18); cout<<R"(  |   |   ▀▀ ▐░░▌   ▐░▌▐░▌    ▐░▌ |   | )";
+    H::gotoxy(x,y+19); cout<<R"(  |   |      ▐░░▌   ▐░▌ ▐░▌   ▐░▌ |   | )";
+    H::gotoxy(x,y+20); cout<<R"(  |   |      ▐░░▌   ▐░▌  ▐░▌  ▐░▌ |   | )";
+    H::gotoxy(x,y+21); cout<<R"(  |   |      ▐░░▌   ▐░▌   ▐░▌ ▐░▌ |   | )";
+    H::gotoxy(x,y+22); cout<<R"(  |   |      ▐░░▌   ▐░▌    ▐░▌▐░▌ |   | )";
+    H::gotoxy(x,y+23); cout<<R"(  |   |  ▄▄▄▄█░░█▄▄▄▐░█▄▄▄▄▄█░█░▌ |   | )";
+    H::gotoxy(x,y+24); cout<<R"(  |   | ▐░░░░░░░░░░░▌▐░░░░░░░░░▌  |   | )";
+    H::gotoxy(x,y+25); cout<<R"(  |   |  ▀▀▀▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀▀   |   | )";
+    H::gotoxy(x,y+26); cout<<R"(  |___|                           |___| )";
+    H::gotoxy(x,y+27); cout<<R"( (_____)-------------------------(_____))";
+
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::AssignTeacherText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(6);H::gotoxy(x,y+1); cout<<R"(    █████████    █████████   █████████  █████   █████████  ██████   █████    ███████████ ██████████   █████████     █████████  █████   █████ ██████████ ███████████ )"; 
+    H::setcolor(6);H::gotoxy(x,y+2); cout<<R"(   ███░░░░░███  ███░░░░░███ ███░░░░░███░░███   ███░░░░░███░░██████ ░░███    ░█░░░███░░░█░░███░░░░░█  ███░░░░░███   ███░░░░░███░░███   ░░███ ░░███░░░░░█░░███░░░░░███ )";
+    H::setcolor(6);H::gotoxy(x,y+3); cout<<R"(  ░███    ░███ ░███    ░░░ ░███    ░░░  ░███  ███     ░░░  ░███░███ ░███    ░   ░███  ░  ░███  █ ░  ░███    ░███  ███     ░░░  ░███    ░███  ░███  █ ░  ░███    ░███ )";
+    H::setcolor(6);H::gotoxy(x,y+4); cout<<R"(  ░███████████ ░░█████████ ░░█████████  ░███ ░███          ░███░░███░███        ░███     ░██████    ░███████████ ░███          ░███████████  ░██████    ░██████████  )";
+    H::setcolor(6);H::gotoxy(x,y+5); cout<<R"(  ░███░░░░░███  ░░░░░░░░███ ░░░░░░░░███ ░███ ░███    █████ ░███ ░░██████        ░███     ░███░░█    ░███░░░░░███ ░███          ░███░░░░░███  ░███░░█    ░███░░░░░███ )";
+    H::setcolor(6);H::gotoxy(x,y+6); cout<<R"(  ░███    ░███  ███    ░███ ███    ░███ ░███ ░░███  ░░███  ░███  ░░█████        ░███     ░███ ░   █ ░███    ░███ ░░███     ███ ░███    ░███  ░███ ░   █ ░███    ░███ )";
+    H::setcolor(6);H::gotoxy(x,y+7); cout<<R"(  █████   █████░░█████████ ░░█████████  █████ ░░█████████  █████  ░░█████       █████    ██████████ █████   █████ ░░█████████  █████   █████ ██████████ █████   █████)";
+    H::setcolor(6);H::gotoxy(x,y+8); cout<<R"( ░░░░░   ░░░░░  ░░░░░░░░░   ░░░░░░░░░  ░░░░░   ░░░░░░░░░  ░░░░░    ░░░░░       ░░░░░    ░░░░░░░░░░ ░░░░░   ░░░░░   ░░░░░░░░░  ░░░░░   ░░░░░ ░░░░░░░░░░ ░░░░░   ░░░░░ )";
+    H::setcolor(6);H::gotoxy(x,y+9); cout<<R"(                                      ░░░░░░                                                                                      )";
+
+    system("chcp 437 > nul"); 
+}
+
+/* Grade 12 */
+void AssignClassDesign::AssignGrade12Design()
+{
+    H::setcursor(false, 0);
+    AssignGrade12Banner(45, 0);
+    
+    system("chcp 437 > nul"); 
+    H::drawBoxDoubleLine(25, 10, 150, 3,2); // Menu Bar
+
+    H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
+    H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
+    Header();
+
+    // Footer
+    Footer();
+}
+
+void AssignClassDesign::AssignGrade12Banner(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(6);H::gotoxy(x,y+0); cout<<R"(╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗)";
+    H::setcolor(6);H::gotoxy(x,y+1); cout<<R"(╟┼┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼╢)";
+    H::setcolor(6);H::gotoxy(x,y+2); cout<<R"(╟┤ █████╗ ███████╗███████╗██╗ ██████╗ ███╗   ██╗     ██████╗ ██████╗  █████╗ ██████╗ ███████╗     ██╗██████╗ ├╢)";
+    H::setcolor(6);H::gotoxy(x,y+3); cout<<R"(╟┤██╔══██╗██╔════╝██╔════╝██║██╔════╝ ████╗  ██║    ██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔════╝    ███║╚════██╗├╢)";
+    H::setcolor(6);H::gotoxy(x,y+4); cout<<R"(╟┤███████║███████╗███████╗██║██║  ███╗██╔██╗ ██║    ██║  ███╗██████╔╝███████║██║  ██║█████╗      ╚██║ █████╔╝├╢)";
+    H::setcolor(6);H::gotoxy(x,y+5); cout<<R"(╟┤██╔══██║╚════██║╚════██║██║██║   ██║██║╚██╗██║    ██║   ██║██╔══██╗██╔══██║██║  ██║██╔══╝       ██║██╔═══╝ ├╢)";
+    H::setcolor(6);H::gotoxy(x,y+6); cout<<R"(╟┤██║  ██║███████║███████║██║╚██████╔╝██║ ╚████║    ╚██████╔╝██║  ██║██║  ██║██████╔╝███████╗     ██║███████╗├╢)";
+    H::setcolor(6);H::gotoxy(x,y+7); cout<<R"(╟┤╚═╝  ╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝     ╚═╝╚══════╝├╢)";
+    H::setcolor(6);H::gotoxy(x,y+8); cout<<R"(╟┼┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┼╢)";
+    H::setcolor(6);H::gotoxy(x,y+9); cout<<R"(╚╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╝)";
+    system("chcp 437 > nul"); 
+}
+
+// Table Design
+void AssignClassDesign::AssignGrade11Design()
+{
+    H::setcursor(false, 0);
+    AssignGrade11Banner(46, 0);
+    
+    H::drawBoxDoubleLine(25, 10, 150, 3,2); // Menu Bar
+
+    H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
+    H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
+    Header();
+
+        // Footer
+    Footer();
+}
+
+/* Grade 11*/
+void AssignClassDesign::AssignGrade11Banner(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(6);H::gotoxy(x,y+0); cout<<R"(╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗)";
+    H::setcolor(6);H::gotoxy(x,y+1); cout<<R"(╟┼┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼╢)";
+    H::setcolor(6);H::gotoxy(x,y+2); cout<<R"(╟┤ █████╗ ███████╗███████╗██╗ ██████╗ ███╗   ██╗     ██████╗ ██████╗  █████╗ ██████╗ ███████╗     ██╗ ██╗├╢)";
+    H::setcolor(6);H::gotoxy(x,y+3); cout<<R"(╟┤██╔══██╗██╔════╝██╔════╝██║██╔════╝ ████╗  ██║    ██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔════╝    ███║███║├╢)";
+    H::setcolor(6);H::gotoxy(x,y+4); cout<<R"(╟┤███████║███████╗███████╗██║██║  ███╗██╔██╗ ██║    ██║  ███╗██████╔╝███████║██║  ██║█████╗      ╚██║╚██║├╢)";
+    H::setcolor(6);H::gotoxy(x,y+5); cout<<R"(╟┤██╔══██║╚════██║╚════██║██║██║   ██║██║╚██╗██║    ██║   ██║██╔══██╗██╔══██║██║  ██║██╔══╝       ██║ ██║├╢)";
+    H::setcolor(6);H::gotoxy(x,y+6); cout<<R"(╟┤██║  ██║███████║███████║██║╚██████╔╝██║ ╚████║    ╚██████╔╝██║  ██║██║  ██║██████╔╝███████╗     ██║ ██║├╢)";
+    H::setcolor(6);H::gotoxy(x,y+7); cout<<R"(╟┤╚═╝  ╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝     ╚═╝ ╚═╝├╢)";
+    H::setcolor(6);H::gotoxy(x,y+8); cout<<R"(╟┼┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┼╢)";
+    H::setcolor(6);H::gotoxy(x,y+9); cout<<R"(╚╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╝)";
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::AssignGrade10Design()
+{
+    H::setcursor(false, 0);
+    AssignGrade10Banner(44, 0);
+    
+    H::drawBoxDoubleLine(25, 10, 150, 3,2); // Menu Bar
+
+    H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
+    H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
+    Header();
+
+        // Footer
+    Footer();
+}
+
+/* Grade 10 */
+void AssignClassDesign::AssignGrade10Banner(int x, int y)
+{
+    system("chcp 65001  > nul");
+    
+    H::setcolor(6);H::gotoxy(x,y+0); cout<<R"(╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗)";
+    H::setcolor(6);H::gotoxy(x,y+1); cout<<R"(╟┼┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┴┼╢)";
+    H::setcolor(6);H::gotoxy(x,y+2); cout<<R"(╟┤ █████╗ ███████╗███████╗██╗ ██████╗ ███╗   ██╗     ██████╗ ██████╗  █████╗ ██████╗ ███████╗     ██╗ ██████╗ ├╢)";
+    H::setcolor(6);H::gotoxy(x,y+3); cout<<R"(╟┤██╔══██╗██╔════╝██╔════╝██║██╔════╝ ████╗  ██║    ██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔════╝    ███║██╔═████╗├╢)";
+    H::setcolor(6);H::gotoxy(x,y+4); cout<<R"(╟┤███████║███████╗███████╗██║██║  ███╗██╔██╗ ██║    ██║  ███╗██████╔╝███████║██║  ██║█████╗      ╚██║██║██╔██║├╢)";
+    H::setcolor(4);H::gotoxy(x,y+5); cout<<R"(╟┤██╔══██║╚════██║╚════██║██║██║   ██║██║╚██╗██║    ██║   ██║██╔══██╗██╔══██║██║  ██║██╔══╝       ██║████╔╝██║├╢)";
+    H::setcolor(4);H::gotoxy(x,y+6); cout<<R"(╟┤██║  ██║███████║███████║██║╚██████╔╝██║ ╚████║    ╚██████╔╝██║  ██║██║  ██║██████╔╝███████╗     ██║╚██████╔╝├╢)";
+    H::setcolor(4);H::gotoxy(x,y+7); cout<<R"(╟┤╚═╝  ╚═╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝     ╚═╝ ╚═════╝ ├╢)";
+    H::setcolor(4);H::gotoxy(x,y+8); cout<<R"(╟┼┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┬┼╢)";
+    H::setcolor(4);H::gotoxy(x,y+9); cout<<R"(╚╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╝)";
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::AssignClassLogo(int x, int y) {
+    H::setcolor(6);
+    H::gotoxy(x,y+0); cout<<R"( _____                                                                                  _____ )";
+    H::gotoxy(x,y+1); cout<<R"(( ___ )--------------------------------------------------------------------------------( ___ ))";
+    H::gotoxy(x,y+2); cout<<R"( |   |            _____ _____ _____ _____ _   _     _____ _                _____ _____  |   | )";
+    H::gotoxy(x,y+3); cout<<R"( |   |     /\    / ____/ ____|_   _/ ____| \ | |   / ____| |        /\    / ____/ ____| |   | )";
+    H::gotoxy(x,y+4); cout<<R"( |   |    /  \  | (___| (___   | || |  __|  \| |  | |    | |       /  \  | (___| (___   |   | )";
+    H::gotoxy(x,y+5); cout<<R"( |   |   / /\ \  \___ \\___ \  | || | |_ | . ` |  | |    | |      / /\ \  \___ \\___ \  |   | )";
+    H::gotoxy(x,y+6); cout<<R"( |   |  / ____ \ ____) |___) |_| || |__| | |\  |  | |____| |____ / ____ \ ____) |___) | |   | )";
+    H::gotoxy(x,y+7); cout<<R"( |   | /_/    \_\_____/_____/|_____\_____|_| \_|   \_____|______/_/    \_\_____/_____/  |   | )";
+    H::gotoxy(x,y+8); cout<<R"( |___|                                                                                  |___| )";
+    H::gotoxy(x,y+9); cout<<R"((_____)--------------------------------------------------------------------------------(_____))";
+    
+    // Draw the border lines
+    H::HLine(6,5,48,7,223);
+    H::HLine(146,5,48,7,223);
+    H::HLine(0,41,200,2,223);
+    H::HLine(0,44,200,2,223);
+
+    // Draw Line Below the logo   
+    H::HLine(60,11,80,7,223);
+    H::VLine(100, 10, 3, 153, 223);
+    // Box Menu
+    H::drawBoxDoubleLineWithBG(61, 13, 78, 12, 2);
+    //Menu
+    // H::drawBoxDoubleLineWithBG(85, 13, 29, 1, 213);
+    // H::drawBoxDoubleLineWithBG(61, 18, 29, 1, 213);
+    // H::drawBoxDoubleLineWithBG(110, 18, 29, 1, 213);
+    // H::drawBoxDoubleLineWithBG(85, 23, 29, 1, 213);
+    // H::setcolor(215);
+    // H::gotoxy(90,14); cout << "1. Assign Grade 10";
+    // H::gotoxy(66,19); cout << "2. Assign Grade 11";
+    // H::gotoxy(115,19); cout << "3. Assign Grade 12";
+    // H::gotoxy(90,24); cout << "4. Back to Main Menu";
+    //
+    H::VLine(100, 15, 7, 153, 223);
+    H::VLine(74, 10, 7, 153, 223);
+    H::VLine(125, 10, 7, 153, 223);
+
+    //
+    KBText(70, 27);
+
+    /* Small box */
+    int leftX[]  = {1, 8, 15, 22, 29, 36, 43};
+    int rightX[] = {194, 187, 180, 173, 166, 159, 152};
+    int yPairs[][2] = {
+        {4, 38},
+        {7, 35},
+        {10, 32},
+        {13, 29},
+        {16, 26},
+        {19, 23},
+        {21, -1} // -1 means only one box
+    };
+
+    for (int i = 0; i < 7; ++i) {
+        int lx = leftX[i];
+        int rx = rightX[i];
+        int y1 = yPairs[i][0];
+        int y2 = yPairs[i][1];
+
+        H::drawBoxDoubleLineWithBG(lx, y1, 5, 1, 136);
+        if (y2 != -1) H::drawBoxDoubleLineWithBG(lx, y2, 5, 1, 136);
+
+        H::drawBoxDoubleLineWithBG(rx, y1, 5, 1, 136);
+        if (y2 != -1) H::drawBoxDoubleLineWithBG(rx, y2, 5, 1, 136);
+    }
+
+}
+
+void AssignClassDesign::KBText(int x, int y)
+{
+    H::setcolor(9);
+    H::gotoxy(x, y + 0); cout << R"(    |==================================================|)";
+    H::gotoxy(x, y + 1); cout << R"(    | __  ___________  ___________            AMIGA == |)";
+    H::gotoxy(x, y + 2); cout << R"(    |[_j  L_I_I_I_I_j  L_I_I_I_I_j            ~~~~~ == |)";
+    H::gotoxy(x, y + 3); cout << R"(    |________________________________ _______ ______==_|)";
+    H::gotoxy(x, y + 4); cout << R"(    |[__I_I_I_I_I_I_I_I_I_I_I_I_I_I_] [__I__] [_I_I_I_]|)";
+    H::gotoxy(x, y + 5); cout << R"(    |[___I_I_I_I_I_I_I_I_I_I_I_I_]  |    _    [_I_I_I_]|)";
+    H::gotoxy(x, y + 6); cout << R"(    |[__I_I_I_I_I_I_I_I_I_I_I_I_L___|  _[_]_  [_I_I_I_]|)";
+    H::gotoxy(x, y + 7); cout << R"(    |[_____I_I_I_I_I_I_I_I_I_I_I____] [_I_I_] [_I_I_T ||)";
+    H::gotoxy(x, y + 8); cout << R"(    | [__I__I_________________I__L_] ________ [___I_I_j|)";
+    H::gotoxy(x, y + 9); cout << R"(    |                                                  |)";
+    H::gotoxy(x, y + 10);cout << R"(    |__________________________________________________|)";
+}
+
+#endif 

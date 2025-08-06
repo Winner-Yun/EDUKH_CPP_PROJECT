@@ -9,13 +9,15 @@ class Teacher{
 		static int lastId;    
 		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
 	public:
+		// Getters
+		const char* getTeacherId() const;
+		const char* getTeacherName() const;
+		const char* getSubject() const;
+		const char* getYear() const;
+		const char* getPhone() const;
+		const char* getGender() const;
+		//
 		void generateTeacherID(); 
-		const char* getTeacherId(){
-		    return teacherId;
-		}
-		const char* getTeacherName() const{
-			return teacherName;
-		}
 		void formatProperCase(char text[]){
 			  if (text[0] != '\0') {
 			        text[0] = toupper(text[0]);
@@ -29,6 +31,32 @@ class Teacher{
 		void output(int y);
 		void newInput();
 };
+
+/* Add Getter */
+
+const char* Teacher::getTeacherId() const {
+    return teacherId;
+}
+
+const char* Teacher::getTeacherName() const {
+    return teacherName;
+}
+
+const char* Teacher::getGender() const {
+    return gender;
+}
+
+const char* Teacher::getSubject() const {
+    return subject;
+}
+
+const char* Teacher::getYear() const {
+    return academyYear;
+}
+
+const char* Teacher::getPhone() const {
+    return phoneNumber;
+}
 
 class TeacherDesign{
 	public:
