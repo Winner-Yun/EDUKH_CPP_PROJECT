@@ -372,7 +372,7 @@ void Student::InputData() {
 
 void Student::convertToEmail() {
 	string n(name);
-	for (int i = 0; i < n.length(); i++) {
+    for (size_t i = 0; i < n.length(); i++) {
         if (n[i] == ' ') n[i] = '.';
     }
 	string em = "stu." + n + "@gmail.com";
@@ -654,7 +654,8 @@ void Student::Main_StudentManage() {
                 if (x > 5) x = 0;
                 break;
             case 27:
-            	loop = false;
+                loop = false;
+                break;
             case 13:
                 H::setcolor(1);
                 H::setcursor(true, 1);
@@ -664,8 +665,8 @@ void Student::Main_StudentManage() {
                         loop = false;
                         break;
                     case 1:
-                    	s.Sort();
-                    	break;
+                        s.Sort();
+                        break;
                     case 2: // ADD
                         s.Design_Input();
                         s.InputData();

@@ -4,6 +4,7 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "CustomHeader.h"
 #include "Main_menu.h"
+#include "ScheduleForClass.h"
 using namespace ANTHinsyOOP;
 class Sub_ScheduleDesign{
     public:
@@ -18,13 +19,13 @@ class Sub_ScheduleDesign{
 
 void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
    int option;
+    int choice = 1;
     do{
 
         Header();
         Menu_Body();
         Footer();
 
-        int choice = 1;
         
 
         do{
@@ -85,9 +86,10 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
-                    cout << " Handle OPTION 1 ";
-                    H::cls();
-                    getch();
+                    scmanage.DesignMain("10");
+                    LoadingHeader(2);
+                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    system("cls");
                     break;
                 }
 
@@ -96,9 +98,10 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
-                    cout << " Handle OPTION 2 ";
-                    H::cls();
-                    getch();
+                    scmanage.DesignMain("11");
+                    LoadingHeader(2);
+                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    system("cls");
                     break;
                 }
 
@@ -107,9 +110,10 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
-                    cout << " Handle OPTION 3 ";
-                    H::cls();
-                    getch();
+                    scmanage.DesignMain("12");
+                    LoadingHeader(2);
+                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    system("cls");
                     break;
                 }
 

@@ -9,24 +9,27 @@
 #include "../include/Header_EDU/StudentManagerment.h"
 #include "../include/Header_EDU/Manage_student_teacher_menu.h"
 #include "../include/Header_EDU/TeacherManagement.h"
+#include "../include/Header_EDU/ScheduleForClass.h"
 
 using namespace ANTHinsyOOP;
 Login_Design logD;
-Edu_Main_Menu menu;
+Edu_Main_Menu menu;	
 Sub_ScheduleDesign subSche;
 SubMENU_manage_stu_tech subStuTech;
+Schedule_Management schdule;
 
 int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45); 
-//       td.teacherManagement();
-    // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu();
-    //      menu.Main_menu();
-    //     s.Main_StudentManage();
     
-    logD.MainLogin();
+	// td.teacherManagement();
+    // EdumasterCustom::LoadingPage(23,3,140,20);
+    // menu.Main_menu();
+    // s.Main_StudentManage();
+	 subSche.Main_ScheduleSubMenu();
+//    schdule.DesignMain("11");
+	// logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

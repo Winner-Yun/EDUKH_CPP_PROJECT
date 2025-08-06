@@ -21,15 +21,13 @@ class SubMENU_manage_stu_tech{
 
 void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
    int option;
+   int choice = 1;
+   
     do{
 
         Header();
         Menu_Body();
-        Footer();
-
-        int choice = 1;
-        
-        
+        Footer();        
 
         do{
             H::drawBoxDoubleLineWithBG(79,11,40,1,31);

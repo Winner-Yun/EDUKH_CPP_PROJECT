@@ -752,7 +752,7 @@ void TeacherDesign::deletedTeacher(){
   	H::foreColor(7); H::gotoxy(60, 14); cout << R"(|______.'|________||________||________|  |_____|  |_____||_____|\____| `._____.' )";
 	TeacherDesign::loading();
 	H::cls();
-    int x;
+    int x=0;
     do {
         bool isDeleted = false;
         char deleteId[20];

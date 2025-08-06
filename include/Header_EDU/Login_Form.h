@@ -43,7 +43,7 @@ class Login_Design {
    void Login_Design::MainLogin(){
 
 
-        // loadingProcess();   // call design of loading function
+//         loadingProcess();   // call design of loading function
         
         loginDesignCon();   //call design of  login
 
@@ -270,7 +270,6 @@ void Login_Design::loadingProcess() {
         }
 
         int fireColors[] = {4, 6, 12, 14};
-        bool footerCleared = false;
 
         srand((unsigned)time(0));
         H::drawBoxSingleLine(54, 24, 89, 2);
