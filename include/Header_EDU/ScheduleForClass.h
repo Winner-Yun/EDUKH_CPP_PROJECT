@@ -1141,7 +1141,7 @@ void Schedule_Management::Mon_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
@@ -1240,7 +1240,7 @@ void Schedule_Management::Tus_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
@@ -1335,7 +1335,7 @@ void Schedule_Management::Wed_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
@@ -1430,7 +1430,7 @@ void Schedule_Management::Thu_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
@@ -1525,7 +1525,7 @@ void Schedule_Management::Fri_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
@@ -1620,7 +1620,7 @@ void Schedule_Management::Sat_Schedule_Select(const char* grade) {
             while (true){
                 H::setcolor(7); H::gotoxy(74, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(80, 35);cout<<"[ TIPS ] Y/ENTER = YES - N/ESC = NO .";
+                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
                 H::gotoxy(112, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
