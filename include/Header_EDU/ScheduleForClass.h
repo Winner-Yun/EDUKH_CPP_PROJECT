@@ -37,7 +37,7 @@ class Schedule_Management{
         void AddToFileRow(int rowIndex , const char* grade);   // update file for each row
         void LoadScheduleDataFromFile(const char* targetTimeZone,const char* grade);   // count rows of file
         void Schedule_ManagementGrade_Process(int x, string timeZone, string title, string grade);  // schedule managementGrade_Process
-        void Times_Schedule_Select(const char* timezone, const char* grade, int startIndex, int  newRow);  // Time PROCESS
+        void Times_Schedule_Select(const char* timezone, const char* grade, int  newRow);  // Time PROCESS
         void Mon_Schedule_Select(const char* grade); // MON PROCESS
         void Tus_Schedule_Select(const char* grade); // TUS PROCESS
         void Wed_Schedule_Select(const char* grade); // WED PROCESS
@@ -856,10 +856,9 @@ void Schedule_Management::ProcessOFTimelineAM_PM(string title, int max,  const c
             
         }
         numRows = newRow;
-        int startIndex = 0;
 
 
-        scmanage.Times_Schedule_Select(timezone, grade, startIndex, newRow );
+        scmanage.Times_Schedule_Select(timezone, grade, newRow );
         
     }
     else if(title == "MONDAY"){
@@ -883,7 +882,7 @@ void Schedule_Management::ProcessOFTimelineAM_PM(string title, int max,  const c
     
 }
 
-void Schedule_Management::Times_Schedule_Select(const char* timezone, const char* grade, int startIndex, int newRow) {
+void Schedule_Management::Times_Schedule_Select(const char* timezone, const char* grade, int newRow) {
     // Load existing file data
     const char* filename = getFileNameByTimeZone(timezone);
     Schedule_Management tempArr[MAX];
