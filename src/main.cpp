@@ -11,17 +11,12 @@
 #include "../include/Header_EDU/TeacherManagement.h"
 #include "../include/Header_EDU/ScheduleForClass.h"
 
-#include "../include/AssignClass/AssignClassDemo.h"
-
-
 using namespace ANTHinsyOOP;
 Login_Design logD;
 Edu_Main_Menu menu;	
 Sub_ScheduleDesign subSche;
 SubMENU_manage_stu_tech subStuTech;
 Schedule_Management schdule;
-
-
 
 int main() {
     H::DisableScreenResize();	
@@ -33,15 +28,8 @@ int main() {
     //      menu.Main_menu();
     //     s.Main_StudentManage();
     
-    //    logD.MainLogin();
+//    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
-
-    //AssignClassDemo::AssignClassMenu();
-    AssignClassDesign::AssignGrade10Design();
-    
-    H::setcolor(9);
-
     getch();
     return 0;
 }
- // One Teacher can add to 2 grade, Ex: add to grade 10 and grade 11,
