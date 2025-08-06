@@ -81,26 +81,26 @@ void Schedule_Management::DesignMain(const char* grade){    // Main Call By Grad
 
         do{
 
-            H::drawBoxDoubleLine(145, 8, 10, 1, 10);
-            H::setcolor(10); H::gotoxy(145 + (10 - 2) / 2, 9); cout << "ESC";
-            H::drawBoxDoubleLine(161, 8, 17, 1, 3);
-            H::setcolor(3); H::gotoxy(161 + (16 - 12) / 2, 9); cout << "CREATE/UPDATE";
-            H::drawBoxDoubleLine(184, 8, 10, 1, 4);
-            H::setcolor(4); H::gotoxy(184 + (10 - 5) / 2, 9); cout << "DELETE";
+            H::drawBoxDoubleLineWithBG(145, 8, 10, 1, 47);
+            H::setcolor(47); H::gotoxy(145 + (10 - 2) / 2, 9); cout << "ESC";
+            H::drawBoxDoubleLineWithBG(161, 8, 17, 1, 63);
+            H::setcolor(63); H::gotoxy(161 + (16 - 12) / 2, 9); cout << "CREATE/UPDATE";
+            H::drawBoxDoubleLineWithBG(184, 8, 10, 1, 79);
+            H::setcolor(79);H::gotoxy(184 + (10 - 5) / 2, 9); cout << "DELETE";
 
             switch (choice) {
                 case 1: {
-                     H::drawBoxSingleLine(145, 8, 10, 1, 0);
+                     H::drawBoxSingleLineWithBG(145, 8, 10, 1, 0);
                      H::setcolor(10); H::gotoxy(145 + (10 - 2) / 2, 9); cout << "ESC";
                     break;
                 }
                 case 2: {
-                    H::drawBoxSingleLine(161, 8, 17, 1, 0);
+                    H::drawBoxSingleLineWithBG(161, 8, 17, 1, 0);
                     H::setcolor(3); H::gotoxy(161 + (16 - 12) / 2, 9); cout << "CREATE/UPDATE";
                     break;
                 }
                 case 3: {
-                    H::drawBoxSingleLine(184, 8, 10, 1, 0);
+                    H::drawBoxSingleLineWithBG(184, 8, 10, 1, 0);
                     H::setcolor(4); H::gotoxy(184 + (10 - 5) / 2, 9); cout << "DELETE";
                     break;
                 }
