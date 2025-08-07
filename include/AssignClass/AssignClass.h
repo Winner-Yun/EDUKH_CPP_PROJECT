@@ -33,7 +33,7 @@ void AssignClass::DisplayAll(const char* className) const {
         H::setcolor(12);
         H::gotoxy(70, 37);
         //cout << "Cannot open data file.";
-		MessageBox(NULL,"Error", "File not found", MB_OK);
+		MessageBoxA(NULL,"Error", "File not found", MB_OK);
         return;
     }
 
