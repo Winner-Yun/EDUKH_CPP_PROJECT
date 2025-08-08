@@ -1,91 +1,82 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 
 using namespace std;
 
-void Name(){
-	string name;
-	cout<<"name : "; cin>>name;
-}
-
-void foreColor(int color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
-}
-
 void gotoxy(int x, int y) {
-    COORD coordinates;
-    coordinates.X = x;
-    coordinates.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
+    COORD coord = { (SHORT)x, (SHORT)y };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void cls() {
-    system("cls");
+void setcolor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void drawMenu(const string menu[], int size, int selected) {
+    for (int i = 0; i < size; ++i) {
+        gotoxy(5, 5 + i);
+        if (i == selected) {
+            setcolor(3);
+            cout << "-> " << menu[i];
+        } else {
+            setcolor(7);
+            cout << "   " << menu[i];
+        }
+    }
+}
+
+void drawClock(int hour, int minute) {
+    string period = (hour >= 12) ? "PM" : "AM";
+    int hour12 = hour % 12;
+    if (hour12 == 0) hour12 = 12;
+
+    gotoxy(50, 2);
+    setcolor(6);
+    cout << "TIME: ";
+    if (hour12 < 10) cout << "0";
+    cout << hour12 << ":";
+    if (minute < 10) cout << "0";
+    cout << minute << " " << period << "   ";
 }
 
 int main() {
-    again:
-    int option;
-    static int j = 0;
+    const string menu[] = { "Dashboard", "Students", "Teachers", "Classes", "Exit" };
+    int menuSize = sizeof(menu) / sizeof(menu[0]);
+    int selected = 0;
+    bool running = true;
+
+    time_t now = time(0);
+    tm* lastTime = localtime(&now);
+    int lastMinute = lastTime->tm_min;
+
     system("cls");
+    drawClock(lastTime->tm_hour, lastMinute);
+    drawMenu(menu, menuSize, selected);
 
-    do {
-        foreColor(14);
-        gotoxy(17, 7);
-        cout << "-- MENU --" << endl;
-        gotoxy(9, 9);
-        cout << "1 - OPTION 1" << endl;
-        gotoxy(9, 11);
-        cout << "2 - OPTION 2" << endl;
-        gotoxy(9, 13);
-        cout << "3 - OPTION 3" << endl;
-
-        gotoxy(9, 17);
-        cout << "USE UP AND DOWN ARROW KEYS...";
-
-        if (j == 0) {
-            foreColor(5);
-            gotoxy(9, 9);
-            cout << "1 - OPTION 1" << endl;
-        }
-        if (j == 1) {
-            foreColor(5);
-            gotoxy(9, 11);
-            cout << "2 - OPTION 2" << endl;
-        }
-        if (j == 2) {
-            foreColor(5);
-            gotoxy(9, 13);
-            cout << "3 - OPTION 3" << endl;
+    while (running) {
+        if (_kbhit()) {
+            int key = _getch();
+            if (key == 224) {
+                key = _getch();
+                if (key == 72) selected = (selected - 1 + menuSize) % menuSize;
+                else if (key == 80) selected = (selected + 1) % menuSize;
+                drawMenu(menu, menuSize, selected);
+            } else if (key == 13) {
+                if (menu[selected] == "Exit") running = false;
+            }
         }
 
-        option = getch();
-        switch (option) {
-            case 80: j++; if (j > 2) j = 0; break;
-            case 72: j--; if (j < 0) j = 2; break;
+        now = time(0);
+        tm* currentTime = localtime(&now);
+        if (currentTime->tm_min != lastMinute) {
+            lastMinute = currentTime->tm_min;
+            drawClock(currentTime->tm_hour, currentTime->tm_min);
         }
-    } while (option != 13);
 
-    switch (j) {
-        case 0:
-            cls();
-            cout << " Handle OPTION 1 ";
-            getch();
-            break;
-        case 1:
-            cls();
-            cout << " Handle OPTION 2 ";
-            getch();
-            break;
-        case 2:
-            cls();
-            Name();
-          //  cout << " Handle OPTION 3 ";
-            getch();
-            break;
+        Sleep(100);
     }
-    getch();
+
     return 0;
 }

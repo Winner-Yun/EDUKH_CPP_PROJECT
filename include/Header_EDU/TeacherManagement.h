@@ -27,7 +27,7 @@ class Teacher{
 			    }
 		}
 		void convertEmail();
-		void input();
+		void input();	
 		void output(int y);
 		void newInput();
 };
