@@ -16,6 +16,11 @@ public:
     static void LoadingHeader(int id);
 };
 
+struct Teacher_formm { 
+		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
+    };
+
+
 void Teach_MainMenu::Main(const char* email){
     int option;
     int choice = 1;
@@ -224,8 +229,13 @@ void Teach_MainMenu::drawTime(int x, int y) {
 
     H::setcolor(95);
     H::gotoxy(x, y);
-    if (hour12 < 10) cout <<"0";
-    cout <<" "<< hour12 << ":";
+    if (hour12 < 10){
+        cout<<" 0";
+        cout << hour12 << ":";
+    }
+    else{
+        cout <<" "<< hour12 << ":";
+    }
     if (minute < 10) cout << "0";
     cout << minute << " " << period;
 }
@@ -415,8 +425,8 @@ void Teach_MainMenu::ReadData(const char* email){
         cout << "Failed to open file.\n";
     }
 
-    Teacher_form t;
-    while (file.read(reinterpret_cast<char*>(&t), sizeof(Teacher_form))) {
+    Teacher_formm t;
+    while (file.read(reinterpret_cast<char*>(&t), sizeof(Teacher_formm))) {
         if (strcmp(t.email, email) == 0) {
             strcpy(teacherName , t.teacherName);
             strcpy(teacherID , t.teacherId);

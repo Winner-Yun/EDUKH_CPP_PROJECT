@@ -25,12 +25,12 @@ int main() {
     H::setFixedScreenConsole(200,45); 
 //       td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
-//       subSche.Main_ScheduleSubMenu();
+    //   subSche.Main_ScheduleSubMenu();
 //          menu.Main_menu();
     //     s.Main_StudentManage();
-    Teach_MainMenu::Main("te.yunwinner@gmail.com");
-    
-    // logD.MainLogin();
+    // Teach_MainMenu::Main("te.yunwinner@gmail.com");
+    schdule.InterfaceADD_update("10");
+//    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

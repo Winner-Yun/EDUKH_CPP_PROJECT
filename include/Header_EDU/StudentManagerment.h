@@ -691,7 +691,6 @@ void Student::Sort() {
 }
 
 void Student::Main_StudentManage() {
-	H::setConsoleTitle("<------------------------ STUDENT MANAGEMENT ------------------------>");
 	int x = 0;
     bool loop = true;
     char option;

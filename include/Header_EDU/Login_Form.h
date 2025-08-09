@@ -4,6 +4,7 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "Main_menu.h"
 #include "CustomHeader.h"
+#include "../Header_Teacher/Teach_MainMenu.h"
 
 using namespace ANTHinsyOOP;
 
@@ -78,8 +79,9 @@ class Login_Design {
         }
         else if (startsWith(inputEmail, "stu")) {
             if (compareCredentials_STU(inputEmail, inputPassword)) {
-                system("cls");
-                cout << "[Student Account Detected]\n";
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30, 21, 135, 20);
+                Teach_MainMenu::Main(inputEmail);
             }
             else {
                 attmp++;
@@ -93,8 +95,11 @@ class Login_Design {
         }
         else if (startsWith(inputEmail, "te")) {
             if (compareCredentials_TECH(inputEmail, inputPassword)) {
-                system("cls");
-                cout << "[Teacher Account Detected]\n";
+                H::cls();
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30, 21, 135, 20);
+                H::cls();
+                Teach_MainMenu::Main(inputEmail);
             }
             else {
                 attmp++;
