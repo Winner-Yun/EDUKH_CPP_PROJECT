@@ -4,7 +4,7 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "Main_menu.h"
 #include "CustomHeader.h"
-#include "../Header_Teacher/Teach_MainMenu.h"
+//#include "mainController.h"
 
 using namespace ANTHinsyOOP;
 
@@ -12,7 +12,6 @@ class Login_Design {
     private:
         char strGmail[40];
         char strPassword[20];
-
     public:
     
         void MainLogin();
@@ -27,6 +26,7 @@ class Login_Design {
         static bool compareCredentials_TECH(const char* inputEmail, const char* inputPassword); // compare email and password of each file for stuent
       
     };
+    Login_Design LogD;
 
     // Define the Student structure used for binary reading
     struct Student_form {
@@ -36,7 +36,7 @@ class Login_Design {
     struct Teacher_form { 
 		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
     };
-    bool trueInput = true;
+
      //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     // ---------------------------------------------------------<< Login Main Process >>-------------------------------------------------------------
    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -44,17 +44,21 @@ class Login_Design {
    void Login_Design::MainLogin(){
 
 
-        // loadingProcess();   // call design of loading function
+//         loadingProcess();   // call design of loading function
         
+        loginDesignCon();   //call design of  login
 
         //email form
         int attmp=0;
         
         while(true){
+//<<<<<<< HEAD
+//=======
             H::setcursor(true,1);
             if(trueInput){
                 loginDesignCon();
             }   //call design of  login
+//>>>>>>> d55b809da5ab13584d7467fd37c8d0cecc2caeee
         	
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
             H::drawBoxSingleLineWithBG(123,33,53,1,0);
@@ -72,25 +76,20 @@ class Login_Design {
         string adminPassword = "admin123";
 
         if (inputEmail == adminEmail && inputPassword == adminPassword) {
-            trueInput = true;
             system("cls");
             LoadingHeader(1);
             EdumasterCustom::LoadingPage(30, 21, 135, 20);
             system("cls");
             Edu_Main_Menu eduMenu;
             eduMenu.Main_menu();
+            loginDesignCon();
         }
         else if (startsWith(inputEmail, "stu")) {
             if (compareCredentials_STU(inputEmail, inputPassword)) {
-                trueInput = true;
-                trueInput = true;
-                LoadingHeader(2);
-                EdumasterCustom::LoadingPage(30, 21, 135, 20);
-                Teach_MainMenu::Main(inputEmail);
-
+                system("cls");
+                cout << "[Student Account Detected]\n";
             }
             else {
-                trueInput = false;
                 attmp++;
                 H::setcolor(4);
                 H::gotoxy(120, 38);
@@ -102,15 +101,10 @@ class Login_Design {
         }
         else if (startsWith(inputEmail, "te")) {
             if (compareCredentials_TECH(inputEmail, inputPassword)) {
-                trueInput = true;
-                H::cls();
-                LoadingHeader(2);
-                EdumasterCustom::LoadingPage(30, 21, 135, 20);
-                H::cls();
-                Teach_MainMenu::Main(inputEmail);
+                system("cls");
+                cout << "[Teacher Account Detected]\n";
             }
             else {
-                trueInput = false;
                 attmp++;
                 H::setcolor(4);
                 H::gotoxy(120, 38);
@@ -121,7 +115,6 @@ class Login_Design {
             }
         }
         else {
-            trueInput = false;
             attmp++;
             H::setcolor(4);
             H::gotoxy(120, 38);

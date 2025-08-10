@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT US</title>
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/C4E0BAQFcOsEgVqOupw/company-logo_200_200/company-logo_200_200/0/1657446712434?e=2147483647&v=beta&t=Uq45s_3IBfokM_8oxTRGjk3ieTqfj03Msd_190945Fo">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: "Poppins","Kantumruy Pro",sans-serif;
+        }
+        .section{
+            width: 100%;
+            /* height: 200px; */
+            /* background-color: teal; */
+            padding: 2px 20px;
+        }
+        .container{
+            width: 1200px;
+            /* height: 300px; */
+            /* background-color: teal; */
+            margin: auto;
+        }
+        .section .container .card{  
+            margin-top: 13px;
+            width: 340px;
+            height: 375px;
+            margin: auto;
+            background-color:rgba(241, 231, 231, 0.797);
+            border-radius: 10px;
+            transition: 0.5s;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            
+    
+        }
+         .section .container .card:hover{
+            background-color: #ffe1c4;
+            transition: 0.5s;
+            transform: scale(1.02);  
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;               
+        }
+        .section .container .card .photo img{
+            
+            margin-top: 30px;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            object-position: top ;
+
+        }
+        .section .container .card .photo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card .bodyCard{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .card .bodyCard p{
+            margin-top: 15px;
+            font-size:16px;
+        }
+         .card .bodyCard .moreInfo{
+            display: inline-flex;
+            padding: 8px 50px;
+            width: 250px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: rgba(57, 57, 225, 0.786);
+            color: white;
+            margin-top: 15px;
+            border: none;
+            font-size: 17px;
+            font-weight: 550;
+            cursor: pointer;
+            transition: 0.5s;
+            text-decoration: none;
+        }
+         .card .bodyCard .moreInfo:hover{
+            background-color:orange;
+            color: black;
+            transition: 0.5s;
+            transform: scale(1);  
+           
+        }
+        
+        @keyframes fadeSlideUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        }
+
+        .group {
+        opacity: 0;
+        animation: fadeSlideUp 1s ease forwards;
+        }
+
+        .nameOfGroup {
+        opacity: 0;
+        animation: fadeSlideUp 1s ease forwards;
+        animation-delay: 0.5s;
+        }
+
+        .section {
+            width: 100%;
+            height: 1620px;
+            background: linear-gradient(-45deg,
+                #ddb89de0,
+                #f9e2ae,
+                #f0c1ca,
+                #628b775a,
+                #f7d9c4
+            );
+            background-size: 500% 500%;
+            animation: animateBG 25s ease-in-out infinite;
+        }
+
+        @keyframes animateBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+         @keyframes animateCute {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+  }
+
+  30% {
+    transform: translateY(-200px) rotate(120deg) scale(1.1);
+    border-radius: 25%;
+    box-shadow: 0 10px 20px rgba(255, 182, 193, 0.6);
+  }
+
+  60% {
+    transform: translateY(-600px) rotate(360deg) scale(0.9);
+    border-radius: 40%;
+    box-shadow: 0 20px 30px rgba(255, 105, 180, 0.3);
+  }
+
+  100% {
+    transform: translateY(-1000px) rotate(720deg) scale(0.5);
+    opacity: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+        .member{
+            display: flex;
+            margin-top: 20px;
+        }
+        .header{
+            width: 100%;
+            height: 750px;
+            /* background-color: red; */
+        }
+        .header .logo .left {
+            width: 300px;
+            height: 100px;
+        }
+        .header .logo .right {
+            width: 500px;
+            height: 100px;
+        }
+         .header .logo .cbrd {
+            width: 380px;
+            height: 130px;
+        }
+        .section .header .logo{
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        .header .groupName .group{
+            font-size: 100px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .header .groupName .nameOfGroup{
+            font-size: 80px;
+            text-align: center;
+            margin-top: 40px;
+            font-family:"Libertinus Sans", sans-serif;
+        }
+        .header{
+             text-align: center;
+               padding: 20px;
+        }
+        .header button{
+            width: 120px;
+            height: 50px;
+            margin-top: 90px; 
+            font-size: 16px;
+            background-color: #fbc1cc;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;        
+        }
+        .scroll-button {
+            display: inline-block;
+            width: 120px;
+            height: 50px;
+            line-height: 50px;
+            margin-top: 90px;
+            font-size: 16px;
+            background-color: rgba(54, 54, 244, 0.786);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+    .scroll-button:hover {
+        background-color: blue;
+    
+        transform: scale(1.05);
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+
+    </style>    
+</head>
+<body>
+    <section class="section">
+        <header class="header">
+            <div class="logo">
+                <a href="http://training.antkh.com/"><img class="left" src="Assets/antlogowithoutBG.png" alt=""></a>
+               <a href="https://mptc.gov.kh/"> <img class="right" src="Assets/ministry.png" alt=""></a>
+                <img class="cbrd" src="Assets/cbrd.png" alt="">
+            </div>
+            <div class="groupName">
+                <h1 class="group"><i>GROUP 5</i></h1>
+                <h1 class="nameOfGroup">EDU MASTER KH INFORMATION SYSTEM</h1>
+            </div>
+            <a href="#team" class="scroll-button">
+                Click Here<i style="margin-left: 10px;" class="fa-solid fa-arrow-down"></i>
+            </a>
+        </header>
+        <div style="margin-top: 75px;" id="team" class="container">
+            <div>
+                <div class="card">
+                    <div class="photo">
+                        <img src="Assets/winn.jpg" alt="" target="_blank">
+                    </div>
+                    <div class="bodyCard">
+                        <h1>YUN WINNER </h1>
+                        <p>ROLE : LEADER</p>
+                        <div style="margin-top: 3px;">
+                            <a href="ViewMoreWin.html" class="moreInfo">
+                            View More Info <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="member">
+                <div class="card">
+                    <div class="photo">
+                        <img src="Assets/kimchhay.jpg" alt="" target="_blank">
+                    </div>
+                    <div class="bodyCard">
+                        <h1>RY KIMCHHAY</h1>
+                        <p>ROLE : MEMBER</p>
+
+                        <div style="margin-top: 3px;">
+                            <a href="ViewMoreChhay.html" class="moreInfo">
+                            View More Info <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="photo">
+                        <img src="Assets/nichjutee.jpg" alt="" target="_blank">
+                    </div>
+                    <div class="bodyCard">
+                        <h1>VANNA NICH</h1>
+                        <p>ROLE : MEMBER</p>
+                
+                        <div style="margin-top: 3px;">
+                            <a href="ViewMoreNich.html" class="moreInfo">
+                            View More Info <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="photo">
+                        <img src="Assets/rofathh.jpg" alt="" target="_blank">
+                    </div>
+                    <div class="bodyCard">
+                        <h1>SLES ROFATH</h1>
+                        <p>ROLE : MEMBER</p>
+                        <div style="margin-top: 3px;">
+                            <a href="ViewMoreRofath.html" class="moreInfo">
+                            View More Info <i class="fa-solid fa-arrow-right" style="margin-left: 10px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </section>
+    
+</body>
+</html>
+
+

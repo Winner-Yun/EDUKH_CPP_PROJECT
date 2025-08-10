@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIEW MORE</title>
+    <link rel="icon" href="https://media.licdn.com/dms/image/v2/C4E0BAQFcOsEgVqOupw/company-logo_200_200/company-logo_200_200/0/1657446712434?e=2147483647&v=beta&t=Uq45s_3IBfokM_8oxTRGjk3ieTqfj03Msd_190945Fo">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+    *{
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+    }
+    body{
+        font-family: "Poppins","Kantumruy Pro",sans-serif;
+    }
+    .section{
+        width: 100%;
+        background-color: teal;
+    }
+    .section .container{
+        width:1400px;
+        height: 80px;
+        padding: 20px 40px;
+        margin: auto;
+        /* background-color: red; */
+    }
+    .navbar {
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+    }
+    .navbar .logo {
+        display: flex;
+        gap: 90px;
+        font-size: 14px;
+        font-weight: bold;
+        color: teal;
+        font-family: "Miniver", cursive;
+        /* background-color: green; */
+        margin: auto;
+    }
+    .message{
+        display: flex;
+        justify-content: space-between;
+    }
+     .logo .back{
+        border: 1px solid gray;
+        height: 40px;
+        width: 100px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: orange;
+        color: black;
+    }
+    .logo .back:hover{
+        background-color: rgba(69, 69, 230, 0.899);
+        transition: 0.5s;
+        transform: scale(1.1);
+    }
+     .navbar .logo a{
+        text-decoration: none;
+        color: teal;
+    }
+    .navbar .logo :hover{
+        color: orange;
+        transition: 0.5s;
+    }
+    .section .detailInfo{
+        width:1400px;
+        margin: auto;
+        padding: 50px 90px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 50px;
+        /* background-color: blue;   */
+        
+    }
+    .center-btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 250px;
+    }
+
+    .center-btn .btn {
+        background-color: orange;
+        padding: 10px 32px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+    .center-btn .btn:hover {
+        background-color: darkorange;
+    }
+
+    .underCard .btn a{
+        text-decoration: none;
+        color: white;
+        
+    }
+    .detailInfo .leftInfo{
+        margin: 10px 90px;
+    }
+    .detailInfo .photo img{
+        width: 200px;
+        height: 230px;
+        margin-top: 40px;
+        object-fit: cover;
+        border-radius: 10px;
+        /* margin-left: 30px; */
+
+    } 
+    .detailInfo .underCard .name{
+        font-size: 20px;
+        margin: 10px 30px;
+
+    }
+    .detailInfo .underCard .role{
+        margin: 10px 60px;
+        font-weight: 600;
+
+    }
+    .detailInfo .underCard .hor{
+        width: 200px;
+        height: 5px;
+        margin: 15px 0; 
+        background-color:orange;
+    }
+    .message {
+        width: 700px;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+        font-family: monospace;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 80px;
+        margin-left: 80px;
+    }
+
+
+    .message .scrolling-text {
+        position: absolute;
+        white-space: normal;      
+        width: 700px;           
+        left: -700px;            
+        animation: slideRight 1s linear forwards;
+        line-height: 1.5;
+    }
+ 
+
+    @keyframes slideRight {
+        from {
+            left: -700px;
+        }
+        to {
+            left: 0;
+        }
+    }
+    .section {
+        width: 100%;
+        height: 820px;
+        /* min-height: 100vh; */
+        background: linear-gradient(-45deg, 
+            #f6d6d8, 
+            #ffd6e8, 
+            #b3cf727d, 
+            /* #cd808e ,   */
+            #c3e4f6, 
+            #f9e2ae,  
+            #fbc1cc   
+        );
+
+        background-size: 600% 600%;
+        animation: animateBG 20s ease infinite; 
+    }
+
+    @keyframes animateBG {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+   
+    </style>
+</head>
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="ViewMoreWin.html"><h1>WINNER YUN</h1></a>
+                    <a href="ViewMoreNich.html"><h1>VANNA NICH</h1></a>
+                    <a href="ViewMoreChhay.html"><h1>RY KIMCHHAY</h1></a>
+                    <a href="ViewMoreRofath.html"><h1>SLES ROFATH</h1></a>
+                    <a href="index.html"><p class="back">BACK <i style="margin-left: 10px;" class="fa-solid fa-arrow-left"></i></p></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="detailInfo">
+            <div class="leftInfo">
+                <div class="photo">
+                    <img src="Assets/nichjutee.jpg" alt="">
+                </div>
+                <div class="underCard">
+                <div class="title">
+                    <div class="hor"></div>
+                    <h1 class="name">VANNA NICH</h1>
+                    <p class="role">MEMBER</p>
+                </div>
+            </div>
+
+            </div>
+            <div class="message">
+                <div class="scrolling-text">
+                    <i> Hello, my name is <mark style="background-color: red; color: white;">VANNA NICH</mark>. I am currently a second-year student majoring Software Development at Norton University. I am also one of the students who received a <mark style="background-color: red; color: white;">scholarship</mark> from the <mark style="background-color: red; color: white;"> Ministry of Post and Telecommunications</mark> to study Mobile App(Flutter) Development at ANT,which runs from June 16, 2025, to july 24, 2026.</i>
+                    <div class="contact" style="text-align: end;">
+                            <a style=" color: #181717;" href="https://github.com/vannanich"><i style="margin-left: 10px;" class="fa-brands fa-github"></i> </a>
+                            <a style="color: #0d6efd;;" href="mailto:vannanich2@gamil.com"><i class="fa-solid fa-envelope"></i> </a>
+                            <a style="color: blue;" href="https://web.facebook.com/vanna.nich.436368"><i class="fa-brands fa-facebook"></i> </a>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+    
+</body>
+</html>

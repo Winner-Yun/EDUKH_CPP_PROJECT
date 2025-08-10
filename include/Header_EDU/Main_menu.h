@@ -5,6 +5,7 @@
 #include "CustomHeader.h"
 #include "Manage_schedule.h"
 #include "Manage_student_teacher_menu.h"
+#include "Main_AssHomework.h"
 #include <chrono>
 #include <ctime>
 #include <thread>
@@ -17,15 +18,186 @@ class Edu_Main_Menu{
         void Main_menu(); // main menu
         static void LoadingHeader(int id);
         static void designPage(); // sub design
+        static void ourProfile();
+        static void littleSign(int x , int y , int c);
         
 };
+void Edu_Main_Menu::littleSign(int x , int y , int c){
+	H::VLine(x,y,1,c,222);
+}
+void Edu_Main_Menu::ourProfile(){
+	H::HLine(55,1,100,1,219);
+	H::HLine(50,8,100,1,219);
+	
+	H::drawBoxDoubleLine(10,4,30,1,2);
+	H::drawBoxDoubleLine(162,4,30,1,2);
+	H::gotoxy(11,5);
+	H::setcolor(15); 
+    cout << "[!] PRESS [";
+    H::setcolor(10); 
+    cout << "ESC";
+    H::setcolor(15);
+    cout << "] FOR ";
+    H::setcolor(10);
+    cout << "EXIT";
+    H::setcolor(15);
+    cout << "..!";
+    H::setcolor(15);
+    
+    H::gotoxy(163,5);
+	H::setcolor(15); 
+    cout << "[!] PRESS [";
+    H::setcolor(10); 
+    cout << "ESC";
+    H::setcolor(15);
+    cout << "] FOR ";
+    H::setcolor(10);
+    cout << "EXIT";
+    H::setcolor(15);
+    cout << "..!";
+    H::setcolor(15);
+	
+	H::setcolor(3); H::gotoxy(81, 1); cout << R"(    ___    ____  ____  __  ________   __  _______)";
+	H::setcolor(4); H::gotoxy(81, 2); cout << R"(   /   |  / __ )/ __ \/ / / /_  __/  / / / / ___/ )";
+	H::setcolor(5); H::gotoxy(81, 3); cout << R"(  / /| | / __  / / / / / / / / /    / / / /\__ \  )";
+	H::setcolor(3); H::gotoxy(81, 4); cout << R"( / ___ |/ /_/ / /_/ / /_/ / / /    / /_/ /___/ /  )";
+	H::setcolor(4); H::gotoxy(81, 5); cout << R"(/_/  |_/_____/\____/\____/ /_/     \____//____/   )";
+	H::setcolor(5); H::gotoxy(81, 6); cout << R"(                                                  )";
+		
+	for(int i = 0; i < 5; i++) {
+	    littleSign(50 + i, 5 - i,4);
+	}
+	for(int i = 0; i < 5; i++) {
+	    littleSign(151 + i, 5 - i,4);
+	}
+	
+	
+	H::foreColor(6); H::gotoxy(70,10);cout<<">>>>> Professor of C++ Object-Oriented Design <<<<<<";
+	H::drawBoxDoubleLineWithBG(80,12,30,1,196);
+	H::gotoxy(82,13);H::foreColor(199);cout<<"TEACHER NAME :UON HINSY";
+	
+	H::VLine(94,14,3,7,186);
+	
+	H::drawBoxDoubleLineWithBG(80,17,30,1,196);
+	H::gotoxy(82,18);H::foreColor(199);cout<<"MENTER NAME :RUN LIHOU";
+	H::VLine(94,19,2,7,186);
+	H::HLine(15,22,170,7,223);
+	
+	//member
+	H::VLine(16,21,10,7,186);
+	H::drawBoxDoubleLineWithBG(1,32,28,1,153);
+	H::gotoxy(5,33);H::foreColor(159);cout<<"LEADER :YUN WINNER";
+	
+	H::VLine(76,21,10,7,186);
+	H::drawBoxDoubleLineWithBG(59,32,30,1,153);
+	H::gotoxy(65,33);H::foreColor(159);cout<<"MEMBER :RY KIMCHHAY";
+	
+	H::VLine(136,21,10,7,186);
+	H::drawBoxDoubleLineWithBG(120,32,30,1,153);
+	H::gotoxy(125,33);H::foreColor(159);cout<<"MEMBER :VANNA NICH";
+	
+	H::VLine(185,21,10,7,186);
+	H::drawBoxDoubleLineWithBG(170,32,28,1,153);
+	H::gotoxy(175,33);H::foreColor(159);cout<<"MEMBER :SLESS ROFATH";
+		
+	int x = 0, y = 37;
+	
+	H::setcolor(3); H::gotoxy(x + 25, y);     cout << R"(          \    |    /                 \    |    /                 \    |    /                 \    |    /                 \    |    /            )";
+	H::setcolor(3); H::gotoxy(x + 25, y + 1); cout << R"(        --- (  *  )    ---     ---      (  *  )    ---     ---      (  *  )    ---     ---      (  *  )    ---     ---      (  *  )    ---      )";
+	H::setcolor(3); H::gotoxy(x + 25, y + 2); cout << R"(          /    |    \                 /    |    \                 /    |    \                 /    |    \                 /    |    \            )";
+		
+	H::setcolor(6); H::gotoxy(x + 3, y + 3); cout << R"(    +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+   )";
+	H::setcolor(6); H::gotoxy(x + 3, y + 4); cout << R"(    |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |  |  ######  |    )";
+	H::setcolor(6); H::gotoxy(x + 3, y + 5); cout << R"(    +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+  +----------+   )";
+	
+	H::setcolor(2); H::gotoxy(x + 3, y + 6); cout << R"(      /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\        /\/\/\   )";
+	H::setcolor(2); H::gotoxy(x + 3, y + 7); cout << R"(     /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \      /      \ )";
+
+
+	int baseY = 9;     
+	int startX = 0; 
+	int endX = 20;    
+	int delayTime = 50; 
+
+	for (int x = startX; x <= endX; ++x) {
+		H::setcolor(1); H::gotoxy(x + 13, baseY);     cout << R"(       \ ^ / )"; 
+		H::setcolor(1); H::gotoxy(x + 13, baseY + 1); cout << R"(      -- @ -- )"; 
+		H::setcolor(1); H::gotoxy(x + 13, baseY + 2); cout << R"(       / v \ )"; 
+		H::setcolor(1); H::gotoxy(x + 3, baseY + 3); cout << R"(  ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~ )"; 
+		H::setcolor(1); H::gotoxy(x + 3, baseY + 4); cout << R"( ///\\\///\\\///\\\///\\\///\\\///\\\///\\\ )"; 
+		H::setcolor(1); H::gotoxy(x + 3, baseY + 5); cout << R"(  |=|    |=|    |=|    |=|    |=|    |=| )"; 
+		H::setcolor(1); H::gotoxy(x + 3, baseY + 6); cout << R"(  /_\    /_\    /_\    /_\    /_\    /_\ )";
+		
+		H::setcolor(1); H::gotoxy(x + 132, baseY);     cout << R"(       \ ^ / )"; 
+		H::setcolor(1); H::gotoxy(x + 132, baseY + 1); cout << R"(      -- @ -- )"; 
+		H::setcolor(1); H::gotoxy(x + 132, baseY + 2); cout << R"(       / v \ )"; 
+		H::setcolor(1); H::gotoxy(x + 123, baseY + 3); cout << R"( ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~ )"; 
+		H::setcolor(1); H::gotoxy(x + 123, baseY + 4); cout << R"( ///\\\///\\\///\\\///\\\///\\\///\\\///\\\ )"; 
+		H::setcolor(1); H::gotoxy(x + 123, baseY + 5); cout << R"(  |=|    |=|    |=|    |=|    |=|    |=| )"; 
+		H::setcolor(1); H::gotoxy(x + 123, baseY + 6); cout << R"(  /_\    /_\    /_\    /_\    /_\    /_\ )";
+
+	
+	    H::delay(delayTime);
+	}
+	
+	for (int x = endX; x >= startX; --x) {
+		H::setcolor(6); H::gotoxy(x + 13, baseY);     cout << R"(       \ ^ / )"; 
+		H::setcolor(6); H::gotoxy(x + 13, baseY + 1); cout << R"(      -- @ -- )"; 
+		H::setcolor(6); H::gotoxy(x + 13, baseY + 2); cout << R"(       / v \ )"; 
+		H::setcolor(6); H::gotoxy(x + 3, baseY + 3); cout << R"( ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~ )"; 
+		H::setcolor(6); H::gotoxy(x + 3, baseY + 4); cout << R"( ///\\\///\\\///\\\///\\\///\\\///\\\///\\\ )"; 
+		H::setcolor(6); H::gotoxy(x + 3, baseY + 5); cout << R"(  |=|    |=|    |=|    |=|    |=|    |=| )"; 
+		H::setcolor(6); H::gotoxy(x + 3, baseY + 6); cout << R"(  /_\    /_\    /_\    /_\    /_\    /_\ )";
+		
+		H::setcolor(6); H::gotoxy(x + 132, baseY);     cout << R"(       \ ^ / )"; 
+		H::setcolor(6); H::gotoxy(x + 132, baseY + 1); cout << R"(      -- @ -- )"; 
+		H::setcolor(6); H::gotoxy(x + 132, baseY + 2); cout << R"(       / v \ )"; 
+		H::setcolor(6); H::gotoxy(x + 123, baseY + 3); cout << R"( ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~  ~~~~~ )"; 
+		H::setcolor(6); H::gotoxy(x + 123, baseY + 4); cout << R"( ///\\\///\\\///\\\///\\\///\\\///\\\///\\\ )"; 
+		H::setcolor(6); H::gotoxy(x + 123, baseY + 5); cout << R"(  |=|    |=|    |=|    |=|    |=|    |=| )"; 
+		H::setcolor(6); H::gotoxy(x + 123, baseY + 6); cout << R"(  /_\    /_\    /_\    /_\    /_\    /_\ )";
+		
+	    H::delay(delayTime);
+	}
+	H::gotoxy(5,18); 
+	H::setcolor(7);
+	cout << "TO VIEW A COMPREHENSIVE SUMMARY AND DETAILED INFORMATION ";
+	
+	H::gotoxy(125,18); 
+	cout << "PLEASE ";
+	
+	H::foreColor(2); 
+	cout << "PRESS ";
+	
+	H::foreColor(7); 
+	cout << "THE NUMBER ";
+	
+	H::foreColor(2);
+	cout << "1 "; 
+
+	H::setcolor(6); 
+	cout << "ACCESS ";
+	
+	H::setcolor(2);
+	cout << "INFORMATION";
+	
+	H::setcolor(7); 
+	
+		char choice=getch();
+
+    switch (choice) {
+        case '1':
+			system("start ../Website/htmlAboutUs/index.html"); 
+            break;
+       
+    }
+    H::cls();
+}
 
 void Edu_Main_Menu::Main_menu(){
     bool work = true;
-    H::setcursor(false,0);
-    
     while (work){
-        designPage();  // call design
+    designPage();  // call design
 
     
     int j = 0;
@@ -36,6 +208,7 @@ void Edu_Main_Menu::Main_menu(){
     do {
         H::drawBoxDoubleLineWithBG(59,11,40,1,31);
         H::drawBoxDoubleLineWithBG(99,16,40,1,31);
+        H::drawBoxDoubleLineWithBG(59,21,40,1,31);
         H::drawBoxDoubleLineWithBG(99,26,40,1,31);
         H::drawBoxDoubleLineWithBG(59,31,40,1,31);
 
@@ -43,9 +216,8 @@ void Edu_Main_Menu::Main_menu(){
 
         H::HLine(100,12,40,1,205);
         H::HLine(58,17,40,1,205);
-        H::HLine(58,22,82,7,178);
-        H::setcolor(7);H::gotoxy(71,22);cout<<"-[                                                   ]-";
-        H::HLine(58,27,40,1,205); 
+        H::HLine(100,22,40,1,205);
+        H::HLine(58,27,40,1,205);
         H::HLine(100,32,40,1,205);
 
         H::setcolor(1);
@@ -57,12 +229,17 @@ void Edu_Main_Menu::Main_menu(){
         H::gotoxy(100, 17);cout << "                                      " << endl;
         H::gotoxy(100, 18);cout << "[ II - ASSIGN TEACHER TO EACH CLASS  ]" << endl;
 
+   
+        H::gotoxy(60, 22);cout << "                                      " << endl;
+        H::gotoxy(60, 23);cout << "[      III - MANAGE ATTENDANCE       ]" << endl;
+        // H::gotoxy(60, 22);cout << "                                      " << endl;
+
 
         H::gotoxy(100, 27);cout << "                                      " << endl;
-        H::gotoxy(100, 28);cout << "[ III CREATE SCHEDULE FOR EACH CLASS ]" << endl;
+        H::gotoxy(100, 28);cout << "[ IV  CREATE SCHEDULE FOR EACH CLASS ]" << endl;
 
         H::gotoxy(60, 32);cout << "                                      " << endl;
-        H::gotoxy(60, 33);cout << "[       IV - ABOUT US / SCHOOL       ]" << endl;
+        H::gotoxy(60, 33);cout << "[       V - ABOUT US / SCHOOL        ]" << endl;
 
         if (j == 0) {
             H::HLine(100,12,40,7,205);
@@ -79,24 +256,31 @@ void Edu_Main_Menu::Main_menu(){
             H::gotoxy(100, 18);cout << "[ II - ASSIGN TEACHER TO EACH CLASS  ]" << endl;
         }
         if (j == 2) {
+            H::HLine(100,22,40,7,205);
+            H::drawBoxDoubleLineWithBG(59,21,40,1,2);
+            H::setcolor(7);
+            H::gotoxy(60, 22);cout << "--------------------------------------" << endl;
+            H::gotoxy(60, 23);cout << "[      III - MANAGE ATTENDANCE       ]" << endl;
+        }
+        if (j == 3) {
             H::HLine(58,27,40,7,205);
             H::drawBoxDoubleLineWithBG(99,26,40,1,2);
             H::setcolor(7);
             H::gotoxy(100, 27);cout << "--------------------------------------" << endl;
-            H::gotoxy(100, 28);cout << "[ III CREATE SCHEDULE FOR EACH CLASS ]" << endl;
+            H::gotoxy(100, 28);cout << "[ IV  CREATE SCHEDULE FOR EACH CLASS ]" << endl;
         }
-        if (j == 3) {
+        if (j == 4) {
             H::HLine(100,32,40,7,205);
             H::drawBoxDoubleLineWithBG(59,31,40,1,2);
             H::setcolor(7);
             H::gotoxy(60, 32);cout << "--------------------------------------" << endl;
-            H::gotoxy(60, 33);cout << "[       IV - ABOUT US / SCHOOL       ]" << endl;
+            H::gotoxy(60, 33);cout << "[       V - ABOUT US / SCHOOL        ]" << endl;
         }
 
         option = getch();
         switch (option) {
             case 80: j++; if (j > 4) j = 0; break;
-            case 72: j--; if (j < 0) j = 3; break;
+            case 72: j--; if (j < 0) j = 4; break;
         }
 
 
@@ -114,7 +298,7 @@ void Edu_Main_Menu::Main_menu(){
         // Check if ESC has been held for 3 seconds
         if (escHeld && ((clock() - escStart) / CLOCKS_PER_SEC >= 3)) {
             system("cls");
-            j = 4; 
+            j = 5; 
             break;
         }
 
@@ -136,13 +320,24 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-            cout << " Handle OPTION 2 ";
+		    homework.Main_AssignHomework();
+//            cout << " Handle OPTION 2 ";
             getch();
             
             break;
         }
 
         case 2:{
+            system("cls");
+            LoadingHeader(2);
+            EdumasterCustom::LoadingPage(30,30,135,20);
+            H::cls();
+            cout << " Handle OPTION 3 ";
+            getch();
+            break;
+        }
+
+        case 3:{
                 system("cls");
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30,30,135,20);
@@ -152,17 +347,17 @@ void Edu_Main_Menu::Main_menu(){
             break;
         }
 
-        case 3:{
+        case 4:{
             system("cls");
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-            cout << " Handle OPTION 4 ";
+			Edu_Main_Menu::ourProfile();
             getch();
             break;
         }
         
-        case 4:{
+        case 5:{
             work = false;
             break;
         }
