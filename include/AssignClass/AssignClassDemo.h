@@ -22,9 +22,16 @@ class AssignClassDemo {
         static void drawSingleMenuItem(int index, bool isSelected);
         static void drawGradeMenu(int selected);
         static int GradeMenu();
+        // Sort Menu
+        static int SortMenu(const char* className);
 };
 
+//
 void AssignClassDemo::AssignGrade12Menu() {
+    int currentPage = 0;
+    AssignClass ac;
+    const int recordsPerPage = 10;
+    int currentSort = 0; 
 
     while (true) {
         H::setcursor(false, 0);
@@ -32,8 +39,10 @@ void AssignClassDemo::AssignGrade12Menu() {
         H::cls();
         AssignClassDesign::AssignGrade12Design();
         
-        AssignClass ac;
-        ac.DisplayAll("12");
+        ac.DisplayAll("12", currentPage, currentSort);
+
+        int totalRecords = ac.CountRecords("12");
+        int maxPage = (totalRecords + recordsPerPage - 1) / recordsPerPage - 1;
         
         int option = GradeMenu();
         if (option == -1) return;
@@ -60,13 +69,31 @@ void AssignClassDemo::AssignGrade12Menu() {
             }
 
             case 1:
-                // Delete logic
-                break;
+            {
+            	bool assignings = true;
+                while (assignings) {
+                    H::setcolor(7);
+                    H::cls();
+
+                    AssignClassDesign::Grade12Text(70,10);
+                    ac.DeleteClass("12");
+
+                    int key = _getch();
+                    if (key == 27) assignings = false; // ESC → return
+                }
+                break;	
+			}
+
 
             case 2:
-                // Sort logic
+            {
+                AssignClassDesign::SortClassText12(29,1);
+                int sortMethod = SortMenu("12");
+                if (sortMethod != -1) {
+                    currentSort = sortMethod; // store in a variable
+                }
                 break;
-
+            }
             case 3:
                 // Search logic
                 break;
@@ -75,11 +102,23 @@ void AssignClassDemo::AssignGrade12Menu() {
                 H::cls();
                 AssignClassMenu();
                 break;
+            case 5:{ // for previous pagination
+                if(currentPage > 0 ) currentPage--;
+                break;
+            }
+            case 6:{ // for next pagination
+                if (currentPage < maxPage) currentPage++;
+                break;
+            }
         }
     }
 }
 
 void AssignClassDemo::AssignGrade11Menu() {
+    int currentPage = 0;
+    AssignClass ac;
+    const int recordsPerPage = 10;
+    int currentSort = 0;  
 
     while (true) {
         H::setcursor(false, 0);
@@ -87,8 +126,10 @@ void AssignClassDemo::AssignGrade11Menu() {
         H::cls();
         AssignClassDesign::AssignGrade11Design();
         
-        AssignClass ac;
-        ac.DisplayAll("11");
+        ac.DisplayAll("11", currentPage, currentSort);
+
+        int totalRecords = ac.CountRecords("11");
+        int maxPage = (totalRecords + recordsPerPage - 1) / recordsPerPage - 1;
 
         int option = GradeMenu();
         if (option == -1) return;
@@ -115,13 +156,30 @@ void AssignClassDemo::AssignGrade11Menu() {
             }
 
             case 1:
-                // Delete logic
+			{
+				bool assigning = true;
+                while (assigning) {
+                    H::setcolor(7);
+                    H::cls();
+
+                    AssignClassDesign::Grade11Text(70,10);
+                    ac.DeleteClass("11");
+
+                    int key = _getch();
+                    if (key == 27) assigning = false; // ESC → return
+                }
                 break;
+			}
 
             case 2:
-                // Sort logic
+            {
+                AssignClassDesign::SortClassText11(32,1);
+                int sortMethod = SortMenu("11");
+                if (sortMethod != -1) {
+                    currentSort = sortMethod; // store in a variable
+                }
                 break;
-
+            }
             case 3:
                 // Search logic
                 break;
@@ -130,11 +188,23 @@ void AssignClassDemo::AssignGrade11Menu() {
                 H::cls();
                 AssignClassMenu();
                 break;
+            case 5:{ // for previous pagination
+                if(currentPage > 0 ) currentPage--;
+                break;
+            }
+            case 6:{ // for next pagination
+                if (currentPage < maxPage) currentPage++;
+                break;
+            }
         }
     }
 }
 
 void AssignClassDemo::AssignGrade10Menu() {
+    int currentPage = 0;
+    AssignClass ac;
+    const int recordsPerPage = 10;
+    int currentSort  = 0; 
 
     while (true) {
         H::setcursor(false, 0);
@@ -142,8 +212,11 @@ void AssignClassDemo::AssignGrade10Menu() {
         H::cls();
         AssignClassDesign::AssignGrade10Design();
 
-        AssignClass ac;
-        ac.DisplayAll("10");
+        
+        ac.DisplayAll("10", currentPage, currentSort );
+
+        int totalRecords = ac.CountRecords("10");
+        int maxPage = (totalRecords + recordsPerPage - 1) / recordsPerPage - 1;
         
         int option = GradeMenu();
         if (option == -1) return;
@@ -170,13 +243,29 @@ void AssignClassDemo::AssignGrade10Menu() {
             }
 
             case 1:
-                // Delete logic
-                break;
+			{
+				bool assigning = true;
+                while (assigning) {
+                    H::setcolor(7);
+                    H::cls();
 
-            case 2:
-                // Sort logic
-                break;
+                    AssignClassDesign::Grade10Text(70,10);
+                    ac.DeleteClass("10");
 
+                    int key = _getch();
+                    if (key == 27) assigning = false; // ESC → return
+                }
+                break;
+			}
+
+            case 2:{
+                AssignClassDesign::SortClassText10(29,1);
+                int sortMethod = SortMenu("10");
+                if (sortMethod != -1) {
+                    currentSort = sortMethod; // store in a variable
+                }
+                break;
+            }
             case 3:
                 // Search logic
                 break;
@@ -185,9 +274,85 @@ void AssignClassDemo::AssignGrade10Menu() {
                 H::cls();
                 AssignClassMenu();
                 break;
+            case 5:{ // for previous pagination
+                if(currentPage > 0 ) currentPage--;
+                break;
+            }
+            case 6:{ // for next pagination
+                if (currentPage < maxPage) currentPage++;
+                break;
+            }
         }
     }
 }
+// Sort menu
+
+int AssignClassDemo::SortMenu(const char* className) {
+    H::setcursor(false, 0);
+    int selected = 0; // 0=Small->Big, 1=Big->Small, 2=A-Z, 3=Z-A
+    bool running = true;
+
+    // Coordinates for each box
+    struct OptionBox {
+        int x, y, w, h;
+        int titleX, titleY;
+        const char* title;
+    } boxes[4] = {
+        {29, 30, 32, 1, 30, 31, "Sort by GradeID (Small -> Big)"},
+        {66, 28, 32, 1, 67, 29, "Sort by GradeID (Big -> Small)"},
+        {102, 30, 32, 1, 103, 31, "Sort by Teacher Name (A-Z)"},
+        {139, 28, 32, 1, 140, 29, "Sort by Teacher Name (Z-A)"}
+    };
+
+    // Draw static background
+    H::setcolor(7);
+    system("cls");
+    AssignClassDesign::SortClassDesign();
+
+    auto drawBoxes = [&](int highlightIndex) {
+        for (int i = 0; i < 4; i++) {
+            if (i == highlightIndex) {
+                H::setcolor(2);
+                H::drawBoxDoubleLine(boxes[i].x, boxes[i].y, boxes[i].w, boxes[i].h, 2);
+            } else {
+                H::setcolor(3);
+                H::drawBoxDoubleLine(boxes[i].x, boxes[i].y, boxes[i].w, boxes[i].h, 3);
+            }
+            H::setcolor(i == highlightIndex ? 14 : 7);
+            H::gotoxy(boxes[i].titleX, boxes[i].titleY);
+            cout << boxes[i].title;
+        }
+    };
+
+    drawBoxes(selected);
+
+    H::setcolor(7);
+    H::gotoxy(70, 40);
+    cout << "[Arrow Keys] Move   [Enter] Select   [ESC] Exit";
+
+    while (running) {
+        int key = _getch();
+        if (key == 0 || key == 224) {
+            key = _getch();
+            if (key == 75) { // Left arrow
+                selected = (selected + 3) % 4;
+                drawBoxes(selected);
+            }
+            else if (key == 77) { // Right arrow
+                selected = (selected + 1) % 4;
+                drawBoxes(selected);
+            }
+        }
+        else if (key == 13) { // Enter key
+            return selected; // return chosen sort option
+        }
+        else if (key == 27) { // ESC key
+            return -1; // cancel
+        }
+    }
+    return -1; // fallback
+}
+
 
 /* ----------------------------------- */
 struct MenuItem {
