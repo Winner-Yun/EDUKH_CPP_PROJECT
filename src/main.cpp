@@ -11,8 +11,6 @@
 #include "../include/Header_EDU/TeacherManagement.h"
 #include "../include/Header_EDU/ScheduleForClass.h"
 #include "../include/Header_Teacher/Teach_MainMenu.h"
-// #include "../include/Header_EDU/mainController.h"
-#include "../include/Header_EDU/Main_AssHomework.h"
 
 using namespace ANTHinsyOOP;
 Login_Design logD;
@@ -24,18 +22,15 @@ Schedule_Management schdule;
 int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
-    H::setFixedScreenConsole(200,45);
-//	abu.displayStartScreen(); 
-//       AboutUs::openAboutUsPage();
-//	Teach_MainMenu::Main("te.yunwinner@gmail.com");
-//       td.teacherManagement();
+    H::setFixedScreenConsole(200,45); 
+//       td.teacherManagement();tetet
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();
 //          menu.Main_menu();
     //     s.Main_StudentManage();
-     Teach_MainMenu::Main("te.yunwinner@gmail.com");
+    // Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-//    logD.MainLogin();
+    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

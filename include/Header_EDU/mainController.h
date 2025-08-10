@@ -16,6 +16,8 @@ class AboutUs{
 
 };
 AboutUs abu;
+Login_Design logD;
+
 void AboutUs::openAboutUsPage(){
  	system("start /Website/htmlAboutUs/index.html");
 }
@@ -444,7 +446,7 @@ void AboutUs::displayStartScreen(){
 	    	teamProfile();
 	    }
 	    if(x==1){
-	    	LogD.MainLogin();
+	    	logD.MainLogin();
 		}
 		
 	} while (true);
