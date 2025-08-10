@@ -51,7 +51,7 @@ class Login_Design {
         int attmp=0;
         
         while(true){
-
+            H::setcursor(true,1);
             if(trueInput){
                 loginDesignCon();
             }   //call design of  login

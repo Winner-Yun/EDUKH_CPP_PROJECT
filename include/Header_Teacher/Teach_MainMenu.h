@@ -146,11 +146,13 @@ void Teach_MainMenu::Main(const char* email){
         if (option == 13) {
                 switch (choice) {
                 case 1:{
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
                     // fill
+                    H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
@@ -158,11 +160,13 @@ void Teach_MainMenu::Main(const char* email){
                 }
 
                 case 2:{
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
                     // fill
+                    H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
@@ -170,33 +174,39 @@ void Teach_MainMenu::Main(const char* email){
                 }
 
                 case 3:{
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
                     QuizDesign::Quiz_Select();
+                    H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
                     break;
                 }
                 case 4:{
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
                     // fill
+                    H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
                     break;
                 }
                 case 5:{
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
                     // fill
+                    H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
