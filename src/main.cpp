@@ -29,8 +29,8 @@ int main() {
 //          menu.Main_menu();
     //     s.Main_StudentManage();
     // Teach_MainMenu::Main("te.yunwinner@gmail.com");
-    schdule.InterfaceADD_update("10");
-//    logD.MainLogin();
+//    schdule.InterfaceADD_update("10");
+    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

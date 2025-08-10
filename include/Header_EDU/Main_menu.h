@@ -22,6 +22,8 @@ class Edu_Main_Menu{
 
 void Edu_Main_Menu::Main_menu(){
     bool work = true;
+    H::setcursor(false,0);
+    
     while (work){
         designPage();  // call design
 
@@ -112,7 +114,7 @@ void Edu_Main_Menu::Main_menu(){
         // Check if ESC has been held for 3 seconds
         if (escHeld && ((clock() - escStart) / CLOCKS_PER_SEC >= 3)) {
             system("cls");
-            j = 5; 
+            j = 4; 
             break;
         }
 
