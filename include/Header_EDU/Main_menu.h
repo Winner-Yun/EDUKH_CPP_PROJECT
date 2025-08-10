@@ -50,7 +50,7 @@ void Edu_Main_Menu::Main_menu(){
 
         H::setcolor(1);
 
-        H::gotoxy(60, 13);cout << "[   I - MANAGE TEACHET AND STUDENT   ]" << endl;
+        H::gotoxy(60, 13);cout << "[   I - MANAGE TEACHER AND STUDENT   ]" << endl;
         H::gotoxy(60, 12);cout << "                                      " << endl;
 
         
@@ -68,7 +68,7 @@ void Edu_Main_Menu::Main_menu(){
             H::HLine(100,12,40,7,205);
             H::drawBoxDoubleLineWithBG(59,11,40,1,2);
             H::setcolor(7);
-            H::gotoxy(60, 13);cout << "[   I - MANAGE TEACHET AND STUDENT   ]" << endl;
+            H::gotoxy(60, 13);cout << "[   I - MANAGE TEACHER AND STUDENT   ]" << endl;
             H::gotoxy(60, 12);cout << "--------------------------------------" << endl;
         }
         if (j == 1) {
