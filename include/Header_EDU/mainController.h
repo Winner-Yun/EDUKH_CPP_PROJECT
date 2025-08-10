@@ -6,7 +6,7 @@
 #include"Main_menu.h"
 using namespace ANTHinsyOOP;
 
-class AboutUs{
+class EDUSYSTEM{
 	public:
 		static void teamProfile();
 		static void showWelcomeScreen();
@@ -15,17 +15,17 @@ class AboutUs{
 		static void openAboutUsPage();
 
 };
-AboutUs abu;
+EDUSYSTEM abu;
 Login_Design logD;
 
-void AboutUs::openAboutUsPage(){
+void EDUSYSTEM::openAboutUsPage(){
  	system("start /Website/htmlAboutUs/index.html");
 }
-void AboutUs::littleSign(int x, int y, int c){
+void EDUSYSTEM::littleSign(int x, int y, int c){
 	H::VLine(x,y,1,c,222);
 }
 
-void AboutUs::showWelcomeScreen(){
+void EDUSYSTEM::showWelcomeScreen(){
 	int x = 80;
 	int y = 10;
 
@@ -219,14 +219,14 @@ void AboutUs::showWelcomeScreen(){
 	
 	    switch (choice) {	
 	        case '1':
-	        	AboutUs::openAboutUsPage();
+	        	EDUSYSTEM::openAboutUsPage();
 	            break;
 
 	    }
 }
 
 
-void AboutUs::teamProfile(){
+void EDUSYSTEM::teamProfile(){
 	H::HLine(55,1,100,1,219);
 	H::HLine(50,8,100,1,219);
 	
@@ -394,10 +394,10 @@ void AboutUs::teamProfile(){
     }
     H::cls();
 }
-void AboutUs::displayStartScreen(){
+void EDUSYSTEM::displayStartScreen(){
 	H::setFixedScreenConsole(200,45);
 //	Login_Design::loadingProcess();
-	
+	Login_Design::loadingProcess();
 	do {
 		showWelcomeScreen();
 		int x = 0;  

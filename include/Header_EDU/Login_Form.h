@@ -83,7 +83,6 @@ class Login_Design {
         else if (startsWith(inputEmail, "stu")) {
             if (compareCredentials_STU(inputEmail, inputPassword)) {
                 trueInput = true;
-                trueInput = true;
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 21, 135, 20);
                 Teach_MainMenu::Main(inputEmail);

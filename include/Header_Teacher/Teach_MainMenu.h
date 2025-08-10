@@ -205,7 +205,7 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
-                    // fill
+                    Edu_Main_Menu::ourProfile();
                     H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);

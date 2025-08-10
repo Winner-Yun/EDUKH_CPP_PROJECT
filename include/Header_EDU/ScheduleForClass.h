@@ -2,6 +2,7 @@
 #define ___SCHEDULE_FOR_CLASS_EDU_H___
 
 #include "../Header_School/ANTHinsyOOP"
+#include "../AssignClass/AssignClass.h"
 #include "CustomHeader.h"
 
 using namespace ANTHinsyOOP;
@@ -30,6 +31,8 @@ class Schedule_Management{
         const char* getGrade() const;
         const char* getFileNameByTimeZone(const char* timezone);
 
+        //boolean for check The subject that input
+        bool IsSubjectInGrade(const char* grade, const char* subjectName,char* outSubjectUpper);
 
         // PhySic Method Work with Class
         void ReadFile_Display(const char* grade); // read file display
@@ -53,8 +56,23 @@ class Schedule_Management{
         static void DesignInputSchedule(int x, string timeZone, string title);
         static void ProcessOFTimelineAM_PM(string title,int max, const char* timezone, const char* grade);
         static void AlertMESAGE_SHOW();
+        static void ReadAssClassFileDesign(const char* grade);
+        
         
 };
+
+struct AssignClassForm{
+    char gradeID[10]; 
+    char className[5]; // 10, 11, 12
+    char teacherName[30];
+    char teacherID[20];
+    char subject[20];
+    char academicYear[12];
+    char phoneNumber[15]; // 091234567890
+    char createAt[11]; // 07-03-2025
+    static int idCounter;
+};
+
 
 const int MAX = 100;
 int numRows = 0;
@@ -810,6 +828,79 @@ void Schedule_Management::AddToFileRow(int rowIndex, const char* grade) {
     fclose(file);
 }
 
+void Schedule_Management::ReadAssClassFileDesign(const char* grade) {
+    H::drawBoxSingleLineWithBG(90, 21, 68, 17, 2);
+    H::setcolor(7);
+    H::gotoxy(110, 21);
+    cout << "-[ SUBJECT & TEACHER LIST ]-";
+
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        H::setcolor(12);
+        H::gotoxy(70, 37);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    AssignClassForm ac;
+    int x = 2;
+    int y = 25; 
+    int index = 1;
+    bool found = false;
+
+    H::setcolor(1);
+    H::gotoxy(x+92, 23); cout << "No.";
+    H::setcolor(2);H::gotoxy(x+100, 23); cout << "SUBJECT";
+    H::setcolor(3);H::gotoxy(x+130, 23); cout << "TEACHER NAME";
+    H::setcolor(7);
+
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, grade) == 0) {
+            H::setcolor(0);H::gotoxy(x+92,y);cout<<"-------------------------------------------------------------";
+            found = true;
+            H::setcolor(7);
+            H::gotoxy(x+92, y); cout << index++;
+            H::setcolor(6);
+            H::gotoxy(x+100, y); cout << ac.subject;
+            H::setcolor(7);
+            H::gotoxy(x+130, y); cout << ac.teacherName;
+            y += 1;
+        }
+    }
+
+    if (!found) {
+        H::setcolor(12);
+        H::gotoxy(95, y);
+        cout << "No subjects found for this grade.";
+    }
+}
+
+bool Schedule_Management::IsSubjectInGrade(const char* grade, const char* subjectName ,char* outSubjectUpper) {
+    
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        return false;
+    }
+
+    AssignClassForm ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, grade) == 0) {
+            // Case-insensitive compare
+            if (_stricmp(ac.subject, subjectName) == 0) {
+                strcpy(outSubjectUpper, ac.subject);
+                for (int i = 0; outSubjectUpper[i]; i++) {
+                    outSubjectUpper[i] = toupper(static_cast<unsigned char>(outSubjectUpper[i]));
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+
 
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
@@ -965,13 +1056,13 @@ void Schedule_Management::Times_Schedule_Select(const char* timezone, const char
                 int prevHour = stoi(prevEnd.substr(0, 2));
                 int prevMin = stoi(prevEnd.substr(3, 2));
                 int prevEndMin = prevHour * 60 + prevMin;
-                H::gotoxy(boxX + 29, baseY);H::setcolor(4);
-                cout << "PREVIOUS END TIME: " << prevEnd << " "<<timezone;
                 if (currentStartMin < prevEndMin) {
+                    H::gotoxy(boxX + 29, baseY);H::setcolor(4);
+                    cout << "PREVIOUS END TIME: " << prevEnd << " "<<timezone;
                     H::gotoxy(boxX + 5, baseY + 5);
                     H::setcolor(4);
                     cout << "START TIME MUST BE >= PREVIOUS END TIME. RE-ENTER."; getch();
-                    H::gotoxy(boxX + 5, baseY + 5); cout << "                                                       ";
+                    H::gotoxy(boxX + 5, baseY + 5); cout << "                                                  ";
                     H::setcolor(7);
                     H::gotoxy(boxX + 30, baseY + 2); cout << "   ";
                     H::gotoxy(boxX + 49, baseY + 2); cout << "   ";
@@ -1012,7 +1103,7 @@ void Schedule_Management::Times_Schedule_Select(const char* timezone, const char
                 H::gotoxy(boxX + 6, baseY + 5);
                 H::setcolor(4);
                 cout << "END TIME MUST BE > START TIME. PLEASE RE-ENTER."; getch();
-                H::gotoxy(boxX + 6, baseY + 5); cout << "                                                        ";
+                H::gotoxy(boxX + 6, baseY + 5); cout << "                                               ";
                 H::setcolor(7);
                 H::gotoxy(boxX + 30, baseY + 3); cout << "   ";
                 H::gotoxy(boxX + 49, baseY + 3); cout << "   ";
@@ -1064,61 +1155,83 @@ void Schedule_Management::Times_Schedule_Select(const char* timezone, const char
 
 
 void Schedule_Management::Mon_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sMon, 17);
 
             if (strlen(scWritemanage[0].sMon) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sMon, subjectUpper)) {
+                    strcpy(scWritemanage[0].sMon, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1126,35 +1239,46 @@ void Schedule_Management::Mon_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sMon, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sMon, 17);
 
-                if (strlen(scWritemanage[i].sMon) > 3) {
+            if (strlen(scWritemanage[0].sMon) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sMon, subjectUpper)) {
+                    strcpy(scWritemanage[i].sMon, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        
+            }  
 
     }
     }
@@ -1163,61 +1287,83 @@ void Schedule_Management::Mon_Schedule_Select(const char* grade) {
 
 
 void Schedule_Management::Tus_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sTus, 17);
 
             if (strlen(scWritemanage[0].sTus) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sTus, subjectUpper)) {
+                    strcpy(scWritemanage[0].sTus, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1225,94 +1371,129 @@ void Schedule_Management::Tus_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sTus, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sTus, 17);
 
-                if (strlen(scWritemanage[i].sTus) > 3) {
+            if (strlen(scWritemanage[0].sTus) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sTus, subjectUpper)) {
+                    strcpy(scWritemanage[i].sTus, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        }
+            }  
+
+    }
     }
 }
 
 void Schedule_Management::Wed_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sWed, 17);
 
             if (strlen(scWritemanage[0].sWed) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sWed, subjectUpper)) {
+                    strcpy(scWritemanage[0].sWed, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1320,94 +1501,129 @@ void Schedule_Management::Wed_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sWed, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sWed, 17);
 
-                if (strlen(scWritemanage[i].sWed) > 3) {
+            if (strlen(scWritemanage[0].sWed) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sWed, subjectUpper)) {
+                    strcpy(scWritemanage[i].sWed, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        }
+            }  
+
+    }
     }
 }
 
 void Schedule_Management::Thu_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sThu, 17);
 
             if (strlen(scWritemanage[0].sThu) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sThu, subjectUpper)) {
+                    strcpy(scWritemanage[0].sThu, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1415,94 +1631,129 @@ void Schedule_Management::Thu_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sThu, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sThu, 17);
 
-                if (strlen(scWritemanage[i].sThu) > 3) {
+            if (strlen(scWritemanage[0].sThu) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sThu, subjectUpper)) {
+                    strcpy(scWritemanage[i].sThu, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        }
+            }  
+
+    }
     }
 }
 
 void Schedule_Management::Fri_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sFri, 17);
 
             if (strlen(scWritemanage[0].sFri) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sFri, subjectUpper)) {
+                    strcpy(scWritemanage[0].sFri, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1510,94 +1761,129 @@ void Schedule_Management::Fri_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sFri, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sFri, 17);
 
-                if (strlen(scWritemanage[i].sFri) > 3) {
+            if (strlen(scWritemanage[0].sFri) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sFri, subjectUpper)) {
+                    strcpy(scWritemanage[i].sFri, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        }
+            }  
+
+    }
     }
 }
 
 void Schedule_Management::Sat_Schedule_Select(const char* grade) {
-    int boxX = 70, boxY = 26, boxW = 60, boxH = 7;
+    int boxX = 42, boxY = 26, boxW = 45, boxH = 7;
     bool keepInput = true;
-    if(numRows == 1){
+    if (numRows == 1) {
         H::clearBox(boxX, boxY, boxW, boxH);
         H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
         int baseY = boxY + 2;
-        H::gotoxy(70, 23); cout << "LETS INPUT -> :";
+        H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+        H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
         H::setcolor(1);
         H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-1 :";
         H::setcolor(7);
-        H::gotoxy(boxX + 2, baseY + 2);  cout << "ENTER THE SUBJECT :";
-        H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
+        H::gotoxy(boxX + 2, baseY + 2); cout << "ENTER THE SUBJECT :";
+        H::gotoxy(boxX + 2, baseY + 3); cout << "_________________________________________";
+        
+        ReadAssClassFileDesign(grade);
 
         while (true) {
-            H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
             H::inputLetter(scWritemanage[0].sSat, 17);
 
             if (strlen(scWritemanage[0].sSat) > 3) {
-                break;
-            } else {
-                H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sSat, subjectUpper)) {
+                    strcpy(scWritemanage[0].sSat, subjectUpper);
+                    break;
+                } else {
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
+                }
             }
+            
+            // Clear old input for retry
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
         }
 
-        AddToFileRow(0,grade);
+        AddToFileRow(0, grade);
     }
+    
     else{
         while (keepInput) {
             // Draw Input Prompt
+            H::setcolor(7);
+            H::gotoxy(boxX, 23); cout << "PLEASE CHOOSE THE ROW OF TABLE -> :                      ";
+
             H::setcolor(2);
-            H::gotoxy(70, 23); cout << "LETS INPUT -> : SELECT ROW [1 - " << numRows << "]";
-            H::gotoxy(70, 24); cout << "____________________________________________________________";
-            H::gotoxy(70, 36); cout << "_____|________________________|______________________|______";
+            H::gotoxy(boxX, 24); cout << "* SELECT ROW [ 1 - " << numRows << "]             ";
 
             string strrowSelect;
-            H::setcolor(7);H::gotoxy(70, 26); cout << "ENTER ROW NUMBER: ";
-            H::setcolor(7);H::gotoxy(70, 27); cout << "____________________________________________________________";
-            H::setcolor(1);H::gotoxy(90, 26);H::inputNumber(strrowSelect,1);
+            H::setcolor(7);H::gotoxy(boxX, 26); cout << "ENTER ROW NUMBER: ";
+            H::setcolor(7);H::gotoxy(boxX, 27); cout << "___________________________________________";
+            ReadAssClassFileDesign(grade);
+
+            H::setcolor(1);H::gotoxy(boxX+18, 26);H::inputNumber(strrowSelect,1);
 
             int rowSelect = stoi(strrowSelect);
 
             if (rowSelect < 1 || rowSelect > numRows) {
-                H::setcolor(4); H::gotoxy(70, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
-                H::setcolor(4); H::gotoxy(70, 29); cout << "                           ";
-                H::setcolor(4); H::gotoxy(90, 26); cout << " ";
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "[!] INVALID ROW. TRY AGAIN.";H::delay(1000);
+                H::setcolor(4); H::gotoxy(boxX, 29); cout << "                           ";
+                H::setcolor(4); H::gotoxy(boxX+18, 26); cout << " ";
                 _getch();
                 continue;
             }
-
+            H::setcolor(7); H::gotoxy(boxX, 24); cout << "PLEASE CHOOSE THE SUBJECT -> :";
+            H::setcolor(2); H::gotoxy(boxX, 23); cout << "* DON'T MIND LOWER OR UPPER CASE LETTERS!";
             int i = rowSelect - 1; 
             H::clearBox(boxX, boxY, boxW, boxH);
             H::drawBoxDoubleLine(boxX, boxY, boxW, boxH, 7);
 
             int baseY = boxY + 2;
+            
             H::setcolor(1);
             H::gotoxy(boxX + 2, baseY); cout << "[+]   ROW-" << (i + 1) << " :";
             H::setcolor(7);
@@ -1605,35 +1891,48 @@ void Schedule_Management::Sat_Schedule_Select(const char* grade) {
             H::gotoxy(boxX + 2, baseY + 3);  cout << "_________________________________________";
 
             while (true) {
-                H::setcolor(2);H::gotoxy(boxX + 23, baseY + 2);
-                H::inputLetter(scWritemanage[i].sSat, 17);
+            H::setcolor(2);
+            H::gotoxy(boxX + 23, baseY + 2);
+            H::inputLetter(scWritemanage[0].sSat, 17);
 
-                if (strlen(scWritemanage[i].sSat) > 3) {
+            if (strlen(scWritemanage[0].sSat) > 3) {
+                char subjectUpper[20];
+                if (IsSubjectInGrade(grade, scWritemanage[0].sSat, subjectUpper)) {
+                    strcpy(scWritemanage[i].sSat, subjectUpper);
                     break;
                 } else {
-                    H::gotoxy(boxX + 23, baseY + 2); cout << "   ";
+                    H::setcolor(12);
+                    H::gotoxy(boxX+2, baseY + 5);
+                    cout << "INVALID SUBJECT! PLEASE TRY AGAIN.";H::delay(2000);
+                     H::gotoxy(boxX+2, baseY + 5);cout << "                                  ";
                 }
             }
+            
+            H::setcolor(7);
+            H::gotoxy(boxX + 23, baseY + 2);
+            cout << "                 ";
+        }
 
             AddToFileRow(i,grade); 
 
             while (true){
-                H::setcolor(7); H::gotoxy(74, 33);
+                H::setcolor(7); H::gotoxy(boxX+2, 33);
                 cout << "DO YOU WANT TO INPUT ANOTHER ROW ? : ";
-                H::setcolor(1);H::gotoxy(79, 36);cout<<"~ [ TIPS ] Y/ENTER = YES - N/ESC = NO . ~";
-                H::gotoxy(112, 33);
+                H::setcolor(1);H::gotoxy(boxX+2, 36);cout<<"~ [ TIPS ] Y/ENTER = YES & N/ESC = NO . ~";
+                H::gotoxy(boxX+40, 33);
                 int key = _getch();
                 if (key == 'n' || key == 'N' || key == 27) {
                     keepInput = false;
                     break;
                 }
                 else if(key == 'y' || key == 'Y' || key == 13){
-                    H::clearBox(boxX, boxY, boxW, boxH);
-                    H::setcolor(4);H::gotoxy(80, 35);cout<<"                                     ";
+                    H::clearBox(boxX, boxY, boxW, boxH+2);
+                    H::setcolor(4);H::gotoxy(boxX+2, 36);cout<<"                                         ";
                     break;
                 }
-            }
-        }
+            }  
+
+    }
     }
 }
 

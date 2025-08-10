@@ -196,8 +196,10 @@ void Edu_Main_Menu::ourProfile(){
 
 void Edu_Main_Menu::Main_menu(){
     bool work = true;
+    H::setcursor(false,0);
+    
     while (work){
-    designPage();  // call design
+        designPage();  // call design
 
     
     int j = 0;
@@ -208,7 +210,6 @@ void Edu_Main_Menu::Main_menu(){
     do {
         H::drawBoxDoubleLineWithBG(59,11,40,1,31);
         H::drawBoxDoubleLineWithBG(99,16,40,1,31);
-        H::drawBoxDoubleLineWithBG(59,21,40,1,31);
         H::drawBoxDoubleLineWithBG(99,26,40,1,31);
         H::drawBoxDoubleLineWithBG(59,31,40,1,31);
 
@@ -216,8 +217,9 @@ void Edu_Main_Menu::Main_menu(){
 
         H::HLine(100,12,40,1,205);
         H::HLine(58,17,40,1,205);
-        H::HLine(100,22,40,1,205);
-        H::HLine(58,27,40,1,205);
+        H::HLine(58,22,82,7,178);
+        H::setcolor(7);H::gotoxy(71,22);cout<<"-[                                                   ]-";
+        H::HLine(58,27,40,1,205); 
         H::HLine(100,32,40,1,205);
 
         H::setcolor(1);
@@ -229,17 +231,12 @@ void Edu_Main_Menu::Main_menu(){
         H::gotoxy(100, 17);cout << "                                      " << endl;
         H::gotoxy(100, 18);cout << "[ II - ASSIGN TEACHER TO EACH CLASS  ]" << endl;
 
-   
-        H::gotoxy(60, 22);cout << "                                      " << endl;
-        H::gotoxy(60, 23);cout << "[      III - MANAGE ATTENDANCE       ]" << endl;
-        // H::gotoxy(60, 22);cout << "                                      " << endl;
-
 
         H::gotoxy(100, 27);cout << "                                      " << endl;
-        H::gotoxy(100, 28);cout << "[ IV  CREATE SCHEDULE FOR EACH CLASS ]" << endl;
+        H::gotoxy(100, 28);cout << "[ III CREATE SCHEDULE FOR EACH CLASS ]" << endl;
 
         H::gotoxy(60, 32);cout << "                                      " << endl;
-        H::gotoxy(60, 33);cout << "[       V - ABOUT US / SCHOOL        ]" << endl;
+        H::gotoxy(60, 33);cout << "[       IV - ABOUT US / SCHOOL       ]" << endl;
 
         if (j == 0) {
             H::HLine(100,12,40,7,205);
@@ -256,31 +253,24 @@ void Edu_Main_Menu::Main_menu(){
             H::gotoxy(100, 18);cout << "[ II - ASSIGN TEACHER TO EACH CLASS  ]" << endl;
         }
         if (j == 2) {
-            H::HLine(100,22,40,7,205);
-            H::drawBoxDoubleLineWithBG(59,21,40,1,2);
-            H::setcolor(7);
-            H::gotoxy(60, 22);cout << "--------------------------------------" << endl;
-            H::gotoxy(60, 23);cout << "[      III - MANAGE ATTENDANCE       ]" << endl;
-        }
-        if (j == 3) {
             H::HLine(58,27,40,7,205);
             H::drawBoxDoubleLineWithBG(99,26,40,1,2);
             H::setcolor(7);
             H::gotoxy(100, 27);cout << "--------------------------------------" << endl;
-            H::gotoxy(100, 28);cout << "[ IV  CREATE SCHEDULE FOR EACH CLASS ]" << endl;
+            H::gotoxy(100, 28);cout << "[ III CREATE SCHEDULE FOR EACH CLASS ]" << endl;
         }
-        if (j == 4) {
+        if (j == 3) {
             H::HLine(100,32,40,7,205);
             H::drawBoxDoubleLineWithBG(59,31,40,1,2);
             H::setcolor(7);
             H::gotoxy(60, 32);cout << "--------------------------------------" << endl;
-            H::gotoxy(60, 33);cout << "[       V - ABOUT US / SCHOOL        ]" << endl;
+            H::gotoxy(60, 33);cout << "[       IV - ABOUT US / SCHOOL       ]" << endl;
         }
 
         option = getch();
         switch (option) {
-            case 80: j++; if (j > 4) j = 0; break;
-            case 72: j--; if (j < 0) j = 4; break;
+            case 80: j++; if (j > 3) j = 0; break;
+            case 72: j--; if (j < 0) j = 3; break;
         }
 
 
@@ -298,7 +288,7 @@ void Edu_Main_Menu::Main_menu(){
         // Check if ESC has been held for 3 seconds
         if (escHeld && ((clock() - escStart) / CLOCKS_PER_SEC >= 3)) {
             system("cls");
-            j = 5; 
+            j = 4; 
             break;
         }
 
@@ -320,28 +310,11 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-<<<<<<< Updated upstream
-		    homework.Main_AssignHomework();
-//            cout << " Handle OPTION 2 ";
-=======
-            AssignClassDemo::AssignClassMenu();
->>>>>>> Stashed changes
-            getch();
-            
+            AssignClassDemo::AssignClassMenu();          
             break;
         }
 
         case 2:{
-            system("cls");
-            LoadingHeader(2);
-            EdumasterCustom::LoadingPage(30,30,135,20);
-            H::cls();
-            cout << " Handle OPTION 3 ";
-            getch();
-            break;
-        }
-
-        case 3:{
                 system("cls");
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30,30,135,20);
@@ -351,17 +324,16 @@ void Edu_Main_Menu::Main_menu(){
             break;
         }
 
-        case 4:{
+        case 3:{
             system("cls");
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-			Edu_Main_Menu::ourProfile();
-            getch();
+            ourProfile();
             break;
         }
         
-        case 5:{
+        case 4:{
             work = false;
             break;
         }
@@ -377,6 +349,7 @@ void Edu_Main_Menu::Main_menu(){
     H::cls();
 
 }
+
 
 void Edu_Main_Menu::designPage(){
 
