@@ -3,6 +3,7 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "../Header_EDU/CustomHeader.h"
 #include "../Header_EDU/Main_menu.h"
+#include "Main_AssHomework.h"
 #include "QuizDesign.h"
 
 class Teach_MainMenu{
@@ -192,7 +193,8 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
-                    // fill
+                    AssignHomework assignHomeWork;
+                    assignHomeWork.Main_AssignHomework();
                     H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);

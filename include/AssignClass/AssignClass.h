@@ -40,7 +40,7 @@ int AssignClass::idCounter = 1;
 void AssignClass::SortByGradeIDAsc(const char* className) {
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBox(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
@@ -61,7 +61,7 @@ void AssignClass::SortByGradeIDAsc(const char* className) {
 void AssignClass::SortByGradeIDDesc(const char* className) {
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBox(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
@@ -82,7 +82,7 @@ void AssignClass::SortByGradeIDDesc(const char* className) {
 void AssignClass::SortByTeacherNameAZ(const char* className) {
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBox(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
@@ -103,7 +103,7 @@ void AssignClass::SortByTeacherNameAZ(const char* className) {
 void AssignClass::SortByTeacherNameZA(const char* className) {
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBox(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
@@ -137,13 +137,13 @@ void AssignClass::DeleteClass(const char* className)
 	
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBox(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
 	ofstream outFile("../data/temp.bin", ios::binary);
     if (!outFile) {
-        MessageBox(NULL, "Error", "Cannot create temp file", MB_OK);
+        MessageBoxA(NULL, "Error", "Cannot create temp file", MB_OK);
         inFile.close();
         return;
     }
