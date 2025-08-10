@@ -24,6 +24,7 @@ Schedule_Management schdule;
 int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
+<<<<<<< Updated upstream
     H::setFixedScreenConsole(200,45);
 //	abu.displayStartScreen(); 
 //       AboutUs::openAboutUsPage();
@@ -32,11 +33,32 @@ int main() {
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();
 //          menu.Main_menu();
+=======
+    H::setFixedScreenConsole(200,45); 
+    //td.teacherManagement();
+    // EdumasterCustom::LoadingPage(23,3,140,20);
+    //   subSche.Main_ScheduleSubMenu();
+    //      menu.Main_menu();
+>>>>>>> Stashed changes
     //     s.Main_StudentManage();
      Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
+<<<<<<< Updated upstream
     getch();
     return 0;
 }
+=======
+
+    AssignClassDemo::AssignClassMenu();
+    //AssignClassDesign::AssignGrade10Design();
+    
+    H::setcolor(9);
+
+    getch();
+    return 0;
+}
+
+
+>>>>>>> Stashed changes

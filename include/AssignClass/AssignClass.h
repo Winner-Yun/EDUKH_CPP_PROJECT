@@ -1,3 +1,6 @@
+#ifndef __INC_ASSIGNCLASS__
+#define __INC_ASSIGNCLASS__
+
 #include "../Header_School/ANTHinsyOOP"
 #include "AssignClassDesign.h"
 #include "../Header_EDU/TeacherManagement.h"
@@ -16,18 +19,162 @@ class AssignClass{
 		static int idCounter;
     public:
         void InputClass(const char* className); // classname = 10, 11, 12
-        void DisplayAll(const char* className) const;
+        void DisplayAll(const char* className, int page=0, int sortMethod=0) const;
 		void display(int index, int y);
         void DeleteClass(const char* className);
+		// Sort
+		void SortByGradeIDAsc(const char* className);
+		void SortByGradeIDDesc(const char* className);
+		void SortByTeacherNameAZ(const char* className);
+		void SortByTeacherNameZA(const char* className);
 		//
+		int CountRecords(const char* className) const;
 		const char* formatTitleName(const char* name, const char* gender);
+		static const char* stripTitlePrefix(const char* name);
 };
 
 // vector<AssignClass> records;
 
 int AssignClass::idCounter = 1;
 
-void AssignClass::DisplayAll(const char* className) const {
+void AssignClass::SortByGradeIDAsc(const char* className) {
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBox(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    vector<AssignClass> list;
+    AssignClass ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            list.push_back(ac);
+        }
+    }
+    inFile.close();
+
+    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
+        return strcmp(a.gradeID, b.gradeID) < 0; // Ascending order
+    });
+}
+
+void AssignClass::SortByGradeIDDesc(const char* className) {
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBox(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    vector<AssignClass> list;
+    AssignClass ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            list.push_back(ac);
+        }
+    }
+    inFile.close();
+
+    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
+        return strcmp(a.gradeID, b.gradeID) > 0; // Descending order
+    });
+}
+
+void AssignClass::SortByTeacherNameAZ(const char* className) {
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBox(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    vector<AssignClass> list;
+    AssignClass ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            list.push_back(ac);
+        }
+    }
+    inFile.close();
+
+    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
+        return strcmp(a.teacherName, b.teacherName) < 0; // Ascending order
+    });
+}
+
+void AssignClass::SortByTeacherNameZA(const char* className) {
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBox(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    vector<AssignClass> list;
+    AssignClass ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            list.push_back(ac);
+        }
+    }
+    inFile.close();
+
+    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
+        return strcmp(a.teacherName, b.teacherName) > 0; // Descending order
+    });
+}
+
+void AssignClass::DeleteClass(const char* className) 
+{
+	H::setcursor(true,1);
+
+	AssignClassDesign::DeleteClassDesign();
+
+	char gradeID[20];
+	char inputNumber[20];
+	
+	H::setcolor(151);
+	H::setcolor(3); H::gotoxy(72,23); cout<<"Enter Grade ID To Delete: G"; H::inputNumber(inputNumber,20); 
+	sprintf(gradeID, "G%s", inputNumber);
+
+	
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
+        MessageBox(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+	ofstream outFile("../data/temp.bin", ios::binary);
+    if (!outFile) {
+        MessageBox(NULL, "Error", "Cannot create temp file", MB_OK);
+        inFile.close();
+        return;
+    }
+
+	AssignClass ac;
+    bool deleted = false;
+
+	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0 && strcmp(ac.gradeID, gradeID) == 0) {
+            deleted = true; // Found and skip writing
+            continue;
+        }
+        outFile.write(reinterpret_cast<const char*>(&ac), sizeof(AssignClass));
+    }
+
+	inFile.close();
+    outFile.close();
+
+	remove("../data/AssignClass_Data.bin");
+    rename("../data/temp.bin", "../data/AssignClass_Data.bin");
+
+	if (deleted) {
+        //MessageBox(NULL, "Teacher deleted successfully", "Success", MB_OK);
+		H::setcolor(2); H::gotoxy(86,38); cout<<"Teacher deleted successfully";
+	} else {
+        //MessageBox(NULL, "Teacher not found", "Info", MB_OK);
+		H::setcolor(4); H::gotoxy(90,38); cout<<"Teacher not found";
+    }
+}
+
+void AssignClass::DisplayAll(const char* className, int page, int sortMethod) const {
 	ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
 	    if (!inFile) {
         H::setcolor(12);
@@ -37,32 +184,55 @@ void AssignClass::DisplayAll(const char* className) const {
         return;
     }
 
-    AssignClass ac;
-	
-	int y = 18; // start Y position for rows
-    int index = 1;  // No. column
+	vector<AssignClass> records;
+	AssignClass ac;
 
-	bool found = false;
+	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            records.push_back(ac);
+        }
+    }
+    inFile.close();
 
-	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass)))
-	{
-		if(strcmp(ac.className, className) == 0) 
-		{
-			found = true;
-
-			ac.display(index++, y);
-			y += 2;
-		}
-	}
-
-	if (!found) {
-        H::setcolor(12);
-        H::gotoxy(70, 23);
-        //cout << "No records found for class " << className << ".";
+	// Sort according to sortMethod
+    switch (sortMethod) {
+        case 0: // GradeID small→big
+            sort(records.begin(), records.end(), [](const AssignClass &a, const AssignClass &b){
+                return strcmp(a.gradeID, b.gradeID) < 0;
+            });
+            break;
+        case 1: // GradeID big→small
+            sort(records.begin(), records.end(), [](const AssignClass &a, const AssignClass &b){
+                return strcmp(a.gradeID, b.gradeID) > 0;
+            });
+            break;
+        case 2: // Teacher name A→Z
+            sort(records.begin(), records.end(), [](const AssignClass &a, const AssignClass &b){
+                return strcmp(AssignClass::stripTitlePrefix(a.teacherName), AssignClass::stripTitlePrefix(b.teacherName)) < 0;
+            });
+            break;
+        case 3: // Teacher name Z→A
+            sort(records.begin(), records.end(), [](const AssignClass &a, const AssignClass &b){
+                return strcmp(AssignClass::stripTitlePrefix(a.teacherName), AssignClass::stripTitlePrefix(b.teacherName)) > 0;
+            });
+            break;
     }
 
-    inFile.close();
-	
+	const int recordsPerPage = 10;
+	int startIndex = page * recordsPerPage;
+	int endIndex = min(startIndex + recordsPerPage, (int)records.size());
+
+	int y = 18;
+	int displayIndex = startIndex + 1;
+
+	for (int i = startIndex; i < endIndex; ++i) {
+        records[i].display(displayIndex++, y);
+        y += 2;
+    }
+
+    int totalPages = (records.size() + recordsPerPage - 1) / recordsPerPage;
+    H::gotoxy(99,40);
+    cout << (page + 1) << " / " << totalPages;
 }
 
 void AssignClass::display(int index, int y) 
@@ -87,8 +257,10 @@ void AssignClass::InputClass(const char* className)
     // AssignClassDesign::G10(159, 15);
 
 	char inputTeacherID[20];
+	char inputNumber[20];
 	H::setcolor(151);
-	H::gotoxy(72,16); cout<<"Enter Teacher's ID: "; H::inputAll(inputTeacherID,20); 
+	H::gotoxy(72,16); cout << "Enter Teacher's ID: T-"; H::inputNumber(inputNumber,20); 
+	sprintf(inputTeacherID, "T-%s", inputNumber);
 
 	// Check Teacher existence
 	ifstream fin("../data/Teacher_Data.bin", ios::binary);
@@ -181,6 +353,24 @@ void AssignClass::InputClass(const char* className)
     }
 
 }
+// ============================================== 
+
+int AssignClass::CountRecords(const char* className) const {
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) return 0;
+
+    int count = 0;
+    AssignClass ac;
+
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, className) == 0) {
+            count++;
+        }
+    }
+    inFile.close();
+    return count;
+}
+
 
 const char* AssignClass::formatTitleName(const char* name, const char* gender) {
     static char result[50]; // Use static to return pointer safely
@@ -193,3 +383,16 @@ const char* AssignClass::formatTitleName(const char* name, const char* gender) {
     }
     return result;
 }
+
+// Helper function to get the name part after "Mr. " or "Ms. "
+const char* AssignClass::stripTitlePrefix(const char* name) {
+    if (strncmp(name, "Mr. ", 4) == 0) {
+        return name + 4; // skip "Mr. "
+    } else if (strncmp(name, "Ms. ", 4) == 0) {
+        return name + 4; // skip "Ms. "
+    }
+    return name;
+}
+
+
+#endif // ASSIGNCLASS_H

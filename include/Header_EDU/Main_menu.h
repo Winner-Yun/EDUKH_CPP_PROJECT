@@ -9,7 +9,7 @@
 #include <chrono>
 #include <ctime>
 #include <thread>
-
+#include "../AssignClass/AssignClassDemo.h"
 
 using namespace ANTHinsyOOP;
 
@@ -320,8 +320,12 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
+<<<<<<< Updated upstream
 		    homework.Main_AssignHomework();
 //            cout << " Handle OPTION 2 ";
+=======
+            AssignClassDemo::AssignClassMenu();
+>>>>>>> Stashed changes
             getch();
             
             break;
