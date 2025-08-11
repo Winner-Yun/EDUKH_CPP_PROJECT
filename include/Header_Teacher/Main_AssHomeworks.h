@@ -1,5 +1,6 @@
-#ifndef __ASSIGNHOMEWORK__
-#define __ASSIGNHOMEWORK__
+#ifndef HEADER_ASSIGNHOMEWORK_H
+#define HEADER_ASSIGNHOMEWORK_H
+
 
 #include "../Header_School/ANTHinsyOOP"
 #include "DesignAssignHomework.h"

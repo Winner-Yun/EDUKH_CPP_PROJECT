@@ -1,5 +1,5 @@
-#ifndef __CUSTOM_HEADER_IN_EDU__
-#define __CUSTOM_HEADER_IN_EDU__
+#ifndef __CUSTOM_HEADER_IN_EDU_H__
+#define __CUSTOM_HEADER_IN_EDU_H__
 #include "../Header_School/ANTHinsyOOP"
 using namespace ANTHinsyOOP;
 

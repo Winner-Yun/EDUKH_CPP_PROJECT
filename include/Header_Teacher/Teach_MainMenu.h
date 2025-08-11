@@ -3,7 +3,7 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "../Header_EDU/CustomHeader.h"
 #include "../Header_EDU/Main_menu.h"
-#include "Main_AssHomework.h"
+#include "Main_AssHomeworks.h"
 #include "QuizDesign.h"
 
 class Teach_MainMenu{
@@ -226,7 +226,7 @@ void Teach_MainMenu::Main(const char* email){
                     break;
                 }
                 case 6:{
-                    if (MessageBoxA(NULL, "Do you want to continue?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK)
+                    if (MessageBoxA(NULL, "Do you want to Logout?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK)
                         {
                             H::setcolor(7);
                             system("cls");
