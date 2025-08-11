@@ -138,14 +138,10 @@ void AssignClassDemo::AssignGrade11Menu() {
         int maxPage = (totalRecords + recordsPerPage - 1) / recordsPerPage - 1;
 
         int option = GradeMenu();
-<<<<<<< HEAD
-        if (option == -1) break;
-=======
         if (option == -1) {
             // ESC pressed in GradeMenu → go back to AssignClassMenu
             break;
         }
->>>>>>> fcdb8dd45d3d1a46b5d9ace2ccbaa45f9aee4006
 
         switch (option) {
             case 0: { // Assign Class

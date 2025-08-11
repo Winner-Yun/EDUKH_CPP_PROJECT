@@ -141,7 +141,7 @@ void Sub_ScheduleDesign::Header(){
     H::setcolor(7);H::gotoxy(52,7);cout<<R"( \____/  /_/ /_/  \____/ \____/ /____/ /_____/             \____/  /_____/_/  |_/____/ /____/   )";
     H::setcolor(2);H::gotoxy(52,8);cout<<R"(________________________________________________________________________________________________)";
     
-    H::drawBoxDoubleLineWithBG(4,1,54,2,4);
+    H::drawBoxDoubleLineWithBG(4,1,54,1,4);
     H::setcolor(4);H::gotoxy(11,2);cout<<"[!] PRESS ESC KEY TO BACK TO MAIN MENU !!";
 
 
