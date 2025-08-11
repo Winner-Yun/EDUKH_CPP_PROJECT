@@ -467,13 +467,16 @@ void Student::InputData() {
 }
 
 void Student::convertToEmail() {
-	string n(name);
-	for (int i = 0; i < n.length(); i++) {
-        if (n[i] == ' ') n[i] = '.';
+    string n;
+    // Build lowercase name without spaces
+    for (int i = 0; name[i] != '\0'; i++) {
+        if (name[i] != ' ') {
+            n += tolower(name[i]);
+        }
     }
-	string em = "stu." + n + "@gmail.com";
-	strncpy(email, em.c_str(), sizeof(email) - 1);
-	email[sizeof(email) - 1] = '\0';
+    string em = "stu." + n + "@gmail.com";
+    strncpy(email, em.c_str(), sizeof(email) - 1);
+    email[sizeof(email) - 1] = '\0';
 }
 
 void Student::SaveToFile() {
@@ -557,7 +560,7 @@ void Student::Update() {
     H::cls();
     Menu("UPDATE");
     H::drawBoxDoubleLine(84, 10, 40, 1, 3);
-    H::gotoxy(85, 11); H::setcolor(7); cout << "Enter Student ID to Update: S-";
+    H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER STUDENT ID TO UPDATE: S-";
     H::inputUNumber(updateId, 4);
 
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -616,7 +619,7 @@ void Student::Delete() {
     H::cls();
     Menu("DELETE");
     H::drawBoxDoubleLine(84, 10, 40, 1, 3);
-    H::gotoxy(85, 11); H::setcolor(7); cout << "Enter Student ID to Delete: S-";
+    H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER TEACHER ID TO DELETE: S-";
     H::inputUNumber(deleteId, 4);
 
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -651,7 +654,7 @@ void Student::Search() {
     H::cls();
     Menu("SEARCH");
     H::drawBoxDoubleLine(84, 10, 40, 1, 3);
-    H::gotoxy(85, 11); H::setcolor(7); cout << "Enter Student ID to Search: S-";
+    H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER STUDENT ID FOR SEARCH: S-";
     H::inputUNumber(searchId, 5);
     
     H::cls();
