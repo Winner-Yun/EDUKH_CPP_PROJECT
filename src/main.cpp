@@ -28,8 +28,8 @@ int main() {
     //   subSche.Main_ScheduleSubMenu();
             // menu.Main_menu();
 //    EDUSYSTEM::displayStartScreen();
-        s.Main_StudentManage();
-//    Teach_MainMenu::Main("te.yunwinner@gmail.com");
+        // s.Main_StudentManage();
+   Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //    logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
