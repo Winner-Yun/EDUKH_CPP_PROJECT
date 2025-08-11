@@ -198,12 +198,32 @@ void Student::Menu(const string& titleType) {
 	
 	// //Bottom
 	H::HLine(0, 42, 200, 6, 223);
-	H::gotoxy(58, 43); H::setcolor(10); cout << "[Right Arrow] Back        [Left Arrow] Next       [Enter] Select       [ESC] Exit";
+	
+    H::gotoxy(55, 43);
+	H::setcolor(7);  cout << "Use ";
+	H::setcolor(7);  cout << "[";
+	H::setcolor(10); cout << "<-";
+	H::setcolor(7);  cout << "] ";
+	H::setcolor(10); cout << "to move Left              ";
+
+	H::setcolor(7);  cout << "Use ";
+	H::setcolor(7);  cout << "[";
+	H::setcolor(11); cout << "->";
+	H::setcolor(7);  cout << "] ";
+	H::setcolor(11); cout << "to move Right              ";
+
+	H::setcolor(7);  cout << "Use ";
+	H::setcolor(7);  cout << "[";
+	H::setcolor(14); cout << "Enter";
+	H::setcolor(7);  cout << "] ";
+	H::setcolor(14); cout << "to Select";
+
 	H::HLine(0, 44, 200, 6, 220);
 	showAllStudents();
 }
 
 void Student::NotFound() {
+    H::setcursor(false, 0);
 	H::gotoxy(52, 26); H::setcolor(4); cout << R"( ____  _             _            _      _   _       _      _____                     _   _ _ _ )";
     H::gotoxy(52, 27); H::setcolor(4); cout << R"(/ ___|| |_ _   _  __| | ___ _ __ | |_   | \ | | ___ | |_   |  ___|__  _   _ _ __   __| | | | | |)";
     H::gotoxy(52, 28); H::setcolor(4); cout << R"(\___ \| __| | | |/ _` |/ _ \ '_ \| __|  |  \| |/ _ \| __|  | |_ / _ \| | | | '_ \ / _` | | | | |)";
@@ -212,6 +232,7 @@ void Student::NotFound() {
 }
 
 void Student::Found() {
+    H::setcursor(false, 0);
 	H::gotoxy(60, 27); H::setcolor(2); cout << R"( ____  _             _            _      _____                     _   _ _ _ )";
     H::gotoxy(60, 28); H::setcolor(2); cout << R"(/ ___|| |_ _   _  __| | ___ _ __ | |_   |  ___|__  _   _ _ __   __| | | | | |)";
     H::gotoxy(60, 29); H::setcolor(2); cout << R"(\___ \| __| | | |/ _` |/ _ \ '_ \| __|  | |_ / _ \| | | | '_ \ / _` | | | | |)";
@@ -559,7 +580,7 @@ void Student::Update() {
     char updateId[10];
     H::cls();
     Menu("UPDATE");
-    H::drawBoxDoubleLine(84, 10, 40, 1, 3);
+    H::drawBoxDoubleLine(84, 10, 35, 1, 3);
     H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER STUDENT ID TO UPDATE: S-";
     H::inputUNumber(updateId, 4);
 
@@ -618,7 +639,7 @@ void Student::Delete() {
     char deleteId[10];
     H::cls();
     Menu("DELETE");
-    H::drawBoxDoubleLine(84, 10, 40, 1, 3);
+    H::drawBoxDoubleLine(84, 10, 36, 1, 3);
     H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER TEACHER ID TO DELETE: S-";
     H::inputUNumber(deleteId, 4);
 
@@ -637,7 +658,6 @@ void Student::Delete() {
     temp.close();
     remove("../data/Student_Data.bin");
     rename("../data/Temp.bin", "../data/Student_Data.bin");
-
     if (deleted) {
         H::cls();
         Delete_Loading();
@@ -650,42 +670,81 @@ void Student::Delete() {
 }
 
 void Student::Search() {
-    char searchId[10];
-    H::cls();
-    Menu("SEARCH");
-    H::drawBoxDoubleLine(84, 10, 40, 1, 3);
-    H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER STUDENT ID FOR SEARCH: S-";
-    H::inputUNumber(searchId, 5);
-    
-    H::cls();
-    Search_Loading();
-	H::cls();
-    Menu("SEARCH");
-    ifstream file("../data/Student_Data.bin", ios::binary);
-    bool isfound = false;
-    int row = 18;
-	H::clearBox(16, 19, 168, 22, 3);
-    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student))) {
-        if (strcmp(s.id + 2, searchId) == 0) {
-            isfound = true;
-            H::drawBoxDoubleLine(17, row+1, 166, 1, 9);
-            H::setcolor(7);
-            H::gotoxy(19, row+2);  cout << setw(10) << left << s.id;
-            H::gotoxy(34, row+2);  cout << setw(24) << left << s.name;
-            H::gotoxy(60, row+2);  cout << setw(12) << left << s.gender;
-            H::gotoxy(78, row+2);  cout << setw(18) << left << s.bdate;
-            H::gotoxy(101, row+2); cout << setw(14) << left << s.grade;
-            H::gotoxy(116, row+2); cout << setw(16) << left << s.tel;
-            H::gotoxy(138, row+2); cout << setw(22) << left << s.sYear;
-            H::gotoxy(153, row+2); cout << setw(30) << left << s.email;
-            break;
+    char key;
+    do {
+        char searchId[10];
+        H::cls();
+        Menu("SEARCH");
+        H::setcursor(true, 1);
+        H::drawBoxDoubleLine(84, 10, 36, 1, 3);
+        H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER STUDENT ID FOR SEARCH: S-";
+        H::inputUNumber(searchId, 4);
+
+        H::cls();
+        Search_Loading();
+        H::cls();
+        Menu("SEARCH");
+
+        ifstream file("../data/Student_Data.bin", ios::binary);
+        bool isfound = false;
+        int row = 18;
+        H::clearBox(16, 19, 168, 22, 3);
+
+        while (file.read(reinterpret_cast<char*>(&s), sizeof(Student))) {
+            if (strcmp(s.id + 2, searchId) == 0) {
+                isfound = true;
+                H::drawBoxDoubleLine(17, row + 1, 166, 1, 9);
+                H::setcolor(7);
+                H::gotoxy(19, row + 2);  cout << setw(10) << left << s.id;
+                H::gotoxy(34, row + 2);  cout << setw(24) << left << s.name;
+                H::gotoxy(60, row + 2);  cout << setw(12) << left << s.gender;
+                H::gotoxy(78, row + 2);  cout << setw(18) << left << s.bdate;
+                H::gotoxy(101, row + 2); cout << setw(14) << left << s.grade;
+                H::gotoxy(116, row + 2); cout << setw(16) << left << s.tel;
+                H::gotoxy(138, row + 2); cout << setw(22) << left << s.sYear;
+                H::gotoxy(153, row + 2); cout << setw(30) << left << s.email;
+                break;
+            }
         }
-    }
-    file.close();
-    if (!isfound) s.NotFound();
-    else s.Found();
-    getch();
+        file.close();
+
+        if (!isfound) s.NotFound();
+        else s.Found();
+
+        // Now show message and wait for Enter or ESC
+        if (isfound) {
+            H::foreColor(4);
+            H::drawBoxDoubleLine(17, 19, 166, 1, 9);
+            H::clearBox(0, 44, 200, -1, 7);
+            H::foreColor(1); H::gotoxy(72, 43);
+            cout << "PRESS ";
+            H::foreColor(4); cout << "[ENTER]";
+            H::foreColor(1); cout << " TO SEARCH AGAIN OR ";
+            H::foreColor(4); cout << "[ESC]";
+            H::foreColor(1); cout << " TO GO BACK TO MENU.";
+        } else {
+            H::setcolor(4);
+            H::clearBox(0, 44, 200, -1, 7);
+            H::gotoxy(70, 40);
+            H::foreColor(12); H::gotoxy(65, 43);
+            cout << "STUDENT ID NOT FOUND. PRESS ";
+            H::foreColor(14); cout << "[ENTER]";
+            H::foreColor(12); cout << " TO TRY AGAIN OR ";
+            H::foreColor(14); cout << "[ESC]";
+            H::foreColor(12); cout << " TO GO BACK.";
+        }
+
+        while (true) {
+            key = getch();
+            if (key == 13) {  // Enter - search again
+                break;         // break inner loop, restart do-while (search again)
+            } else if (key == 27) {  // ESC - go back to menu
+                return;
+            }
+        }
+    } while (true);
 }
+
 
 void Student::Sort() {
 	H::setcursor(false, 1);

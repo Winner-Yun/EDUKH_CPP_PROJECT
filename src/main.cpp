@@ -30,7 +30,7 @@ int main() {
 
    EDUSYSTEM::displayStartScreen();
 
-//        s.Main_StudentManage();
+    //    s.Main_StudentManage();
 //    Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //    logD.MainLogin();
