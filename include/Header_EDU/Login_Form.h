@@ -219,12 +219,12 @@ void Login_Design::loadingProcess() {
 
         string box3[] = {
             R"( +-----------------------+ )",
-            R"( |     _    _   _ _____    )",
-            R"( |    / \  | \ | |_   _|   )",
-            R"( |   / _ \ |  \| | | |     )",
-            R"( |  / ___ \| |\  | | |     )",
-            R"( | /_/   \_\_| \_| |_|     )",
-            R"( |                         )",
+            R"(       _    _   _ _____  | )",
+            R"(      / \  | \ | |_   _| | )",
+            R"(     / _ \ |  \| | | |   | )",
+            R"(    / ___ \| |\  | | |   | )",
+            R"(   /_/   \_\_| \_| |_|   | )",
+            R"(                         | )",
             R"( +-----------------------+ )"
         };
 
@@ -241,29 +241,36 @@ void Login_Design::loadingProcess() {
 
         string box1[] = {
             R"( +--------------------------------+ )",
-            R"(   ____        _____        ____  | )",
-            R"(  |  _ \      |_   _|      / ___| | )",
-            R"(  | |_) |       | |       | |     | )",
-            R"(  |  __/   _    | |    _  | |___  | )",
-            R"(  |_|     (_)   |_|   (_)  \____| | )",
-            R"(                                  | )",
+            R"( |  ____        _____        ____   )",
+            R"( | |  _ \      |_   _|      / ___|  )",
+            R"( | | |_) |       | |       | |      )",
+            R"( | |  __/   _    | |    _  | |___   )",
+            R"( | |_|     (_)   |_|   (_)  \____|  )",
+            R"( |                                  )",
             R"( +--------------------------------+ )"
         };
 
-        H::setcolor(7);
+        // Print box1 with colors 1 to 12
         for (int i = 0; i < 8; i++) {
-            H::gotoxy(15, 34 + i); cout << box1[i];
+            H::setcolor((i % 12) + 1); // Cycle from 1 to 12
+            H::gotoxy(16, 34 + i); 
+            cout << box1[i];
             H::delay(40);
         }
 
+        // Print box2 with colors 1 to 12
         for (int i = 0; i < 8; i++) {
-            H::gotoxy(42, 34 + i); cout << box2[i];
+            H::setcolor((i % 12) + 1);
+            H::gotoxy(52, 34 + i); 
+            cout << box2[i];
             H::delay(40);
         }
 
-
+        // Print box3 with colors 1 to 12
         for (int i = 0; i < 8; i++) {
-            H::gotoxy(97, 34 + i); cout << box3[i];
+            H::setcolor((i % 12) + 1);
+            H::gotoxy(107, 34 + i); 
+            cout << box3[i];
             H::delay(40);
         }
 
@@ -312,35 +319,6 @@ void Login_Design::loadingProcess() {
                 H::HLine(i, 26, 1, 15, 177);
                 cout<<i-40<<"%";
             }
-
-            
-            H::setcolor(4);H::gotoxy(15,34);cout<<R"( +-----------------------+ )";
-            H::setcolor(1);H::gotoxy(15,35);cout<<R"( |     _    _   _ _____    )";
-            H::setcolor(2);H::gotoxy(15,36);cout<<R"( |    / \  | \ | |_   _|   )";
-            H::setcolor(6);H::gotoxy(15,37);cout<<R"( |   / _ \ |  \| | | |     )";
-            H::setcolor(4);H::gotoxy(15,38);cout<<R"( |  / ___ \| |\  | | |     )";
-            H::setcolor(1);H::gotoxy(15,39);cout<<R"( | /_/   \_\_| \_| |_|     )";
-            H::setcolor(2);H::gotoxy(15,40);cout<<R"( |                         )";
-            H::setcolor(6);H::gotoxy(15,41);cout<<R"( +-----------------------+ )";
-
-            H::setcolor(1);H::gotoxy(42,34);cout<<R"( +---------------------------------------------------+ )";
-            H::setcolor(2);H::gotoxy(42,35);cout<<R"(    ____ ____  ____  ____    _____ _   _ _   _ ____    )";
-            H::setcolor(4);H::gotoxy(42,36);cout<<R"(   / ___| __ )|  _ \|  _ \  |  ___| | | | \ | |  _ \   )";
-            H::setcolor(6);H::gotoxy(42,37);cout<<R"(  | |   |  _ \| |_) | | | | | |_  | | | |  \| | | | |  )";
-            H::setcolor(1);H::gotoxy(42,38);cout<<R"(  | |___| |_) |  _ <| |_| | |  _| | |_| | |\  | |_| |  )";
-            H::setcolor(2);H::gotoxy(42,39);cout<<R"(   \____|____/|_| \_\____/  |_|    \___/|_| \_|____/   )";
-            H::setcolor(4);H::gotoxy(42,40);cout<<R"(                                                       )";
-            H::setcolor(6);H::gotoxy(42,41);cout<<R"( +---------------------------------------------------+ )";
-
-
-            H::setcolor(1);H::gotoxy(97,34);cout<<R"( +--------------------------------+ )";
-            H::setcolor(2);H::gotoxy(97,35);cout<<R"(   ____        _____        ____  | )";
-            H::setcolor(4);H::gotoxy(97,36);cout<<R"(  |  _ \      |_   _|      / ___| | )";
-            H::setcolor(6);H::gotoxy(97,37);cout<<R"(  | |_) |       | |       | |     | )";
-            H::setcolor(1);H::gotoxy(97,38);cout<<R"(  |  __/   _    | |    _  | |___  | )";
-            H::setcolor(2);H::gotoxy(97,39);cout<<R"(  |_|     (_)   |_|   (_)  \____| | )";
-            H::setcolor(4);H::gotoxy(97,40);cout<<R"(                                  | )";
-            H::setcolor(6); H::gotoxy(97,41);cout<<R"( +--------------------------------+ )";
 
             
             H::drawBoxSingleLine(29,0,1,14,i);      
