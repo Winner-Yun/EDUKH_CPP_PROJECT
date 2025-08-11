@@ -55,8 +55,9 @@ class Schedule_Management{
         static void InterfaceADD_update(const char* grade);
         static void DesignInputSchedule(int x, string timeZone, string title);
         static void ProcessOFTimelineAM_PM(string title,int max, const char* timezone, const char* grade);
-        static void AlertMESAGE_SHOW();
+        static void AlertMESAGE_SHOW(int id);
         static void ReadAssClassFileDesign(const char* grade);
+        static void CheckSubjectofCLass(const char* grade);
         
         
 };
@@ -78,6 +79,7 @@ const int MAX = 100;
 int numRows = 0;
 bool is_clickTimeAM = false;
 bool is_clickTimePM = false; 
+bool is_Fail_Load_Sub = false;
 
 Schedule_Management scmanage, scWritemanage[MAX];
 
@@ -364,69 +366,101 @@ void Schedule_Management::InterfaceADD_update(const char* grade){   // Menu OF A
                     
                     case 1: {
                         scmanage.LoadScheduleDataFromFile("AM",grade);
-                        if(numRows == 0){
-                            scmanage.Schedule_ManagementGrade_Process(78, "AM", "TIME", grade);
+                        CheckSubjectofCLass(grade);
+                        if(is_Fail_Load_Sub){
+                            AlertMESAGE_SHOW(2);
                         }
                         else{
-                            int result = MessageBoxA(
-                                NULL,
-                                "This will restore and overwrite the current data.\nDo you want to continue?",
-                                "Restore Confirmation",
-                                MB_YESNO | MB_ICONWARNING | MB_DEFBUTTON2
-                            );
-
-
-                            if (result == IDYES) {
+                            if(numRows == 0){
                                 scmanage.Schedule_ManagementGrade_Process(78, "AM", "TIME", grade);
-                            } else {
-                                H::cls();
+                            }
+                            else{
+                                int result = MessageBoxA(
+                                    NULL,
+                                    "This will restore and overwrite the current data.\nDo you want to continue?",
+                                    "Restore Confirmation",
+                                    MB_YESNO | MB_ICONWARNING | MB_DEFBUTTON2
+                                );
+
+
+                                if (result == IDYES) {
+                                    scmanage.Schedule_ManagementGrade_Process(78, "AM", "TIME", grade);
+                                } else {
+                                    H::cls();
+                                }
                             }
                         }
-
+                        H::cls();
                         break;
                     }
 
 
                 case 2:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"AM","MONDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimeAM){
+                        scmanage.Schedule_ManagementGrade_Process(77,"AM","MONDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
                     H::cls();
                     break;
                 }
                 case 3:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"AM","TUESDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                         if(is_clickTimeAM){
+                            scmanage.Schedule_ManagementGrade_Process(77,"AM","TUESDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
+
                     system("cls");
                     break;
                 }
                 case 4:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                            scmanage.Schedule_ManagementGrade_Process(75,"AM","WEDNESDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimeAM){
+                            scmanage.Schedule_ManagementGrade_Process(75,"AM","WEDNESDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
+                    
                     system("cls");
                     break;
                 }
                 case 5:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                        scmanage.Schedule_ManagementGrade_Process(75,"AM","THURSDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimeAM){
+                            scmanage.Schedule_ManagementGrade_Process(75,"AM","THURSDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
                     
                     system("cls");
@@ -434,30 +468,47 @@ void Schedule_Management::InterfaceADD_update(const char* grade){   // Menu OF A
                 }
                 case 6:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"AM","FRIDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimeAM){
+                            scmanage.Schedule_ManagementGrade_Process(77,"AM","FRIDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
+                    
                     
                     system("cls");
                     break;
                 }
                 case 7:{
                     scmanage.LoadScheduleDataFromFile("AM",grade);
-                    if(is_clickTimeAM){
-                        scmanage.Schedule_ManagementGrade_Process(76,"AM","SATURDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimeAM){
+                            scmanage.Schedule_ManagementGrade_Process(76,"AM","SATURDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
-                    
                     system("cls");
                     break;
                 }
                 case 8:{
                     scmanage.LoadScheduleDataFromFile("PM",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
+                    }
+                    else{
                         if(numRows == 0){
                             scmanage.Schedule_ManagementGrade_Process(78, "PM", "TIME", grade);
                         }
@@ -476,28 +527,42 @@ void Schedule_Management::InterfaceADD_update(const char* grade){   // Menu OF A
                                 H::cls();
                             }
                         }
+                    }
                     break;
                 }
                 case 9:{
                     scmanage.LoadScheduleDataFromFile("PM",grade);
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"PM","MONDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
-                    }
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(77,"PM","MONDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
+                    }  
                     
                     system("cls");
                     break;
                 }
                 case 10:{
                     scmanage.LoadScheduleDataFromFile("PM",grade);
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"PM","TUESDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(77,"PM","TUESDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
+                    
                     
                     system("cls");
                     break;
@@ -505,11 +570,17 @@ void Schedule_Management::InterfaceADD_update(const char* grade){   // Menu OF A
                 
                 case 11:{
                     scmanage.LoadScheduleDataFromFile("PM",grade);
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(75,"PM","WEDNESDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(75,"PM","WEDNESDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
                     
                     system("cls");
@@ -517,34 +588,57 @@ void Schedule_Management::InterfaceADD_update(const char* grade){   // Menu OF A
                 }
                 case 12:{
                     scmanage.LoadScheduleDataFromFile("PM",grade);
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(75,"PM","THURSDAY",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
-                    }
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(75,"PM","THURSDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     
+                    }
+                   
                     system("cls");
                     break;
                 }
                 case 13:{
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(77,"PM","FRIDAY",grade);
+                    scmanage.LoadScheduleDataFromFile("PM",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
-                    }
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(77,"PM","FRIDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     
+                    }
+               
                     system("cls");
                     break;
                 }
                 case 14:{
-                    if(is_clickTimePM){
-                        scmanage.Schedule_ManagementGrade_Process(76,"PM","SATURDAY",grade);
+                    scmanage.LoadScheduleDataFromFile("PM",grade);
+                    CheckSubjectofCLass(grade);
+                    if(is_Fail_Load_Sub){
+                        AlertMESAGE_SHOW(2);
                     }
                     else{
-                        AlertMESAGE_SHOW();
+                        if(is_clickTimePM){
+                            scmanage.Schedule_ManagementGrade_Process(76,"PM","SATURDAY",grade);
+                        }
+                        else{
+                            AlertMESAGE_SHOW(1);
+                        }
                     }
+                    
                     system("cls");
                     break;
                 }
@@ -853,7 +947,6 @@ void Schedule_Management::ReadAssClassFileDesign(const char* grade) {
     H::setcolor(2);H::gotoxy(x+100, 23); cout << "SUBJECT";
     H::setcolor(3);H::gotoxy(x+130, 23); cout << "TEACHER NAME";
     H::setcolor(7);
-
     while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
         if (strcmp(ac.className, grade) == 0) {
             H::setcolor(0);H::gotoxy(x+92,y);cout<<"-------------------------------------------------------------";
@@ -869,9 +962,33 @@ void Schedule_Management::ReadAssClassFileDesign(const char* grade) {
     }
 
     if (!found) {
+        is_Fail_Load_Sub = true;
+    }
+}
+
+void Schedule_Management::CheckSubjectofCLass(const char* grade){
+
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    if (!inFile) {
         H::setcolor(12);
-        H::gotoxy(95, y);
-        cout << "No subjects found for this grade.";
+        H::gotoxy(70, 37);
+        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        return;
+    }
+
+    AssignClassForm ac;
+    bool found = false;
+    
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.className, grade) == 0) {
+           is_Fail_Load_Sub = false;
+           found = true;
+           break;
+        }
+    }
+
+    if (!found) {
+        is_Fail_Load_Sub = true;
     }
 }
 
@@ -2173,17 +2290,33 @@ void Schedule_Management::Title_heading(const char* grade,bool Checkupdate){
     }
 
 
-    void Schedule_Management::AlertMESAGE_SHOW(){
+    void Schedule_Management::AlertMESAGE_SHOW(int id){
         
-        H::setcolor(4);H::gotoxy(21,25);cout<<R"(                                                                                                                                        )";
-        H::setcolor(4);H::gotoxy(21,26);cout<<R"(     _____ _   _ _____ ___________   _____ _   _  _____   _____ ________  ___ _____ _____   ______ ___________  _____ _____   _   _     )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,27);cout<<R"(    |  ___| \ | |_   _|  ___| ___ \ |_   _| | | ||  ___| |_   _|_   _|  \/  ||  ___/  ___|  |  ___|_   _| ___ \/  ___|_   _| | | | |    )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,28);cout<<R"(    | |__ |  \| | | | | |__ | |_/ /   | | | |_| || |__     | |   | | | .  . || |__ \ `--.   | |_    | | | |_/ /\ `--.  | |   | | | |    )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,29);cout<<R"(    |  __|| . ` | | | |  __||    /    | | |  _  ||  __|    | |   | | | |\/| ||  __| `--. \  |  _|   | | |    /  `--. \ | |   | | | |    )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,30);cout<<R"(    | |___| |\  | | | | |___| |\ \    | | | | | || |___    | |  _| |_| |  | || |___/\__/ /  | |    _| |_| |\ \ /\__/ / | |   |_| |_|    )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,31);cout<<R"(    \____/\_| \_/ \_/ \____/\_| \_|   \_/ \_| |_/\____/    \_/  \___/\_|  |_/\____/\____/   \_|    \___/\_| \_|\____/  \_/   (_) (_)    )";H::delay(50);
-        H::setcolor(4);H::gotoxy(21,32);cout<<R"(                                                                                                                                        )";
-        H::delay(1000);                                                                                                                                                                          
+        if(id == 1){
+            H::setcolor(4);H::gotoxy(21,25);cout<<R"(                                                                                                                                        )";
+            H::setcolor(4);H::gotoxy(21,26);cout<<R"(     _____ _   _ _____ ___________   _____ _   _  _____   _____ ________  ___ _____ _____   ______ ___________  _____ _____   _   _     )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,27);cout<<R"(    |  ___| \ | |_   _|  ___| ___ \ |_   _| | | ||  ___| |_   _|_   _|  \/  ||  ___/  ___|  |  ___|_   _| ___ \/  ___|_   _| | | | |    )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,28);cout<<R"(    | |__ |  \| | | | | |__ | |_/ /   | | | |_| || |__     | |   | | | .  . || |__ \ `--.   | |_    | | | |_/ /\ `--.  | |   | | | |    )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,29);cout<<R"(    |  __|| . ` | | | |  __||    /    | | |  _  ||  __|    | |   | | | |\/| ||  __| `--. \  |  _|   | | |    /  `--. \ | |   | | | |    )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,30);cout<<R"(    | |___| |\  | | | | |___| |\ \    | | | | | || |___    | |  _| |_| |  | || |___/\__/ /  | |    _| |_| |\ \ /\__/ / | |   |_| |_|    )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,31);cout<<R"(    \____/\_| \_/ \_/ \____/\_| \_|   \_/ \_| |_/\____/    \_/  \___/\_|  |_/\____/\____/   \_|    \___/\_| \_|\____/  \_/   (_) (_)    )";H::delay(50);
+            H::setcolor(4);H::gotoxy(21,32);cout<<R"(                                                                                                                                        )";
+            H::delay(2000); 
+        } 
+        else if (id == 2){
+            
+            H::setcolor(4);H::gotoxy(26,25);cout<<R"(                                                                                                                           )";
+            H::setcolor(4);H::gotoxy(26,26);cout<<R"(  _   _ _____    _____ _____  ___  _____  _   _  ___________      ___  _   _  ___  _____ _       ___  ______ _      _____  )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,27);cout<<R"( | \ | |  _  |  |_   _|  ___|/ _ \/  __ \| | | ||  ___| ___ \    / _ \| | | |/ _ \|_   _| |     / _ \ | ___ \ |    |  ___| )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,28);cout<<R"( |  \| | | | |    | | | |__ / /_\ \ /  \/| |_| || |__ | |_/ /   / /_\ \ | | / /_\ \ | | | |    / /_\ \| |_/ / |    | |__   )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,29);cout<<R"( | . ` | | | |    | | |  __||  _  | |    |  _  ||  __||    /    |  _  | | | |  _  | | | | |    |  _  || ___ \ |    |  __|  )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,30);cout<<R"( | |\  \ \_/ /    | | | |___| | | | \__/\| | | || |___| |\ \    | | | \ \_/ / | | |_| |_| |____| | | || |_/ / |____| |___  )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,31);cout<<R"( \_| \_/\___/     \_/ \____/\_| |_/\____/\_| |_/\____/\_| \_|   \_| |_/\___/\_| |_/\___/\_____/\_| |_/\____/\_____/\____/  )";H::delay(50);
+            H::setcolor(4);H::gotoxy(26,32);cout<<R"(                                                                                                                           )";
+            H::delay(2000); 
+                                                                                                                         
+                                                                                                                         
+        }                                                                                                                                                                        
 
     }
 
