@@ -174,7 +174,8 @@ void  Teacher::input(){
     H::gotoxy(145, 23); H::inputLetter(subject, 30);
     H::gotoxy(145, 29); H::inputDate(dateOfBirth, '/', false);
     H::gotoxy(145, 36); H::inputUNumber(phoneNumber, 15);
-    H::gotoxy(95, 41);  H::inputUNumber(academyYear,10);
+    // H::gotoxy(95, 41);  H::inputUNumber(academyYear,10);
+	strcpy(academyYear,"2025");
     strcpy(pw, "123");
     
     Teacher::convertEmail();
@@ -248,7 +249,7 @@ void Teacher::newInput(){
 	H::drawBoxSingleLineWithBG(115,28,50,1,0);
 	H::drawBoxSingleLineWithBG(115,35,50,1,0);
 	
-	H::drawBoxSingleLineWithBG(75,40,50,1,0);
+	// H::drawBoxSingleLineWithBG(75,40,50,1,0);
 	
 	H::gotoxy(33, 23);  H::foreColor(6); cout << "TEACHER ID      :";
 	H::gotoxy(33, 29);  H::foreColor(6); cout << "TEACHER NAME    :";
@@ -265,7 +266,7 @@ void Teacher::newInput(){
 	H::gotoxy(145, 23); H::foreColor(6); H::inputLetter(subject,30);
 	H::gotoxy(145, 29); H::foreColor(6); H::inputDate(dateOfBirth,'/',false);   
 	H::gotoxy(145, 36); H::foreColor(6); H::inputUNumber(phoneNumber,15);
-	H::gotoxy(95, 41); H::foreColor(6); H::inputUNumber(academyYear,10);    
+	// H::gotoxy(95, 41); H::foreColor(6); H::inputUNumber(academyYear,10);    
 
 	getch();
 	H::cls();
@@ -564,6 +565,7 @@ void TeacherDesign::sorting(){
 
 void TeacherDesign::system(){
 	H::setFixedScreenConsole(200,45);
+	H::setcursor(false, 0);
 	for (int i = 8; i <= 120; i++) {
 		H::foreColor(4);
 		H::gotoxy(i - 3, 13);  cout << R"(  _____    _       )";
@@ -602,7 +604,7 @@ void TeacherDesign::system(){
 	  H::HLine(192 - i, 43, 1, 34, ' ');
 	}
 	
-	for (int i = 5; i <= 36; i++) {
+	for (int i = 5; i <= 34; i++) {
 	  H::VLine(5, 6, i - 3, 224, ' ');
 	  H::VLine(6, 6, i - 3, 224, ' ');
 	  H::VLine(7, 5, i - 1, 31, ' ');
@@ -618,7 +620,7 @@ void TeacherDesign::system(){
 	  H::VLine(196, 6, i - 3, 224, ' ');
 	  
 	}
-	
+	H::setcursor(true, 1);
 	H::delay(500);
 	H::cls();
 	H::foreColor(0);
@@ -670,6 +672,7 @@ void TeacherDesign::searchTeacher() {
                 H::setcolor(4);
                 TeacherDesign::asciiSearchTeacher();
                 TeacherDesign::designTable();
+				H::setcolor(7);
                 t.output(20);
                 break;
             }
@@ -680,7 +683,9 @@ void TeacherDesign::searchTeacher() {
         H::foreColor(0);
         if (found) {
         	H::foreColor(4);
+			H::drawBoxDoubleLine(17, 19, 166, 1, 9);
 			H::foreColor(1); H::gotoxy(65, 26);
+			
 			cout << "PRESS ";
 			H::foreColor(4); cout << "[ENTER]";
 			H::foreColor(1); cout << " TO SEARCH AGAIN OR ";
@@ -793,10 +798,6 @@ void TeacherDesign::deletedTeacher(){
         bool isDeleted = false;
         char deleteId[20];
 		H::setcolor(4);
-	    H::gotoxy(14,1);  cout << R"( | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |)";
-		H::gotoxy(13, 2); cout << R"(_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|)";
-		H::gotoxy(12, 3); cout << R"(UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU)";
-
 		TeacherDesign::designTable();
 		TeacherDesign::showTeacher();
 		TeacherDesign::asciiDelete();
