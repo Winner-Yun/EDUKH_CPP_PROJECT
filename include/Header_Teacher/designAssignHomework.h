@@ -1,5 +1,5 @@
-#ifndef __DESIGN_ASSIGNHOMEWORK__
-#define __DESIGN_ASSIGNHOMEWORK__
+#ifndef __DESIGN_ASSIGNHOMEWORK_H__
+#define __DESIGN_ASSIGNHOMEWORK_H__
 
  #include "../Header_School/ANTHinsyOOP"
 using namespace ANTHinsyOOP;

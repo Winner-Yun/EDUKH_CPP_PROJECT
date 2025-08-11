@@ -11,7 +11,7 @@
 #include "../include/Header_EDU/TeacherManagement.h"
 #include "../include/Header_EDU/ScheduleForClass.h"
 #include "../include/Header_Teacher/Teach_MainMenu.h"
-#include "../include/Header_EDU/mainController.h"
+#include "../include/Header_EDU/MainController.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;	
