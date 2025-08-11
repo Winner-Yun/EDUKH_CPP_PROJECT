@@ -1,17 +1,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <iostream>
-#include "../include/Header_School/ANTHinsyOOP"
-#include "../include/Header_EDU/Login_Form.h"
-#include "../include/Header_EDU/Main_menu.h"
-#include "../include/Header_EDU/Manage_schedule.h"
-#include "../include/Header_EDU/CustomHeader.h"
-#include "../include/Header_EDU/StudentManagerment.h"
-#include "../include/Header_EDU/Manage_student_teacher_menu.h"
-#include "../include/Header_EDU/TeacherManagement.h"
-#include "../include/Header_EDU/ScheduleForClass.h"
-#include "../include/Header_Teacher/Teach_MainMenu.h"
-#include "../include/Header_EDU/mainController.h"
+#include "../include/Header_EDU/MainController.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;	
@@ -23,16 +13,7 @@ int main() {
     H::DisableScreenResize();	
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45); 
-//       td.teacherManagement();tetet
-    // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu();
-        //   menu.Main_menu();
-//    EDUSYSTEM::displayStartScreen();
-    //     s.Main_StudentManage();
-     Teach_MainMenu::Main("te.yunwinner@gmail.com");
-//    schdule.InterfaceADD_update("10");
-//    logD.MainLogin();
-    // subStuTech.Main_SubMenuMangeStuTech();
+    EDUSYSTEM::displayStartScreen();
     getch();
     return 0;
 }

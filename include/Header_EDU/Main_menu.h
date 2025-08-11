@@ -310,7 +310,8 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-            AssignClassDemo::AssignClassMenu();          
+            AssignClassDemo::AssignClassMenu();
+            H::cls();      
             break;
         }
 
