@@ -44,6 +44,7 @@ int Student::lastId = 0;
 bool isSorted = false;
 
 void Student::System(){
+    H::setcursor(false, 0);
 	for (int i = 8; i <= 120; i++) {
 		H::foreColor(4);
 		H::gotoxy(i - 3, 13);  cout << R"(  _____    _       )";
@@ -82,7 +83,7 @@ void Student::System(){
 	  H::HLine(192 - i, 43, 1, 34, ' ');
 	}
 	
-	for (int i = 5; i <= 36; i++) {
+	for (int i = 5; i <= 34; i++) {
 	  H::VLine(5, 6, i - 3, 224, ' ');
 	  H::VLine(6, 6, i - 3, 224, ' ');
 	  H::VLine(7, 5, i - 1, 31, ' ');
@@ -98,7 +99,7 @@ void Student::System(){
 	  H::VLine(196, 6, i - 3, 224, ' ');
 	  
 	}
-	
+	H::setcursor(true, 1);
 	H::delay(500);
 	H::cls();
 	H::foreColor(0);
@@ -546,7 +547,7 @@ void Student::showAllStudents() {
         H::gotoxy(116, row + 1); cout << setw(16) << left << students[i].tel;
         H::gotoxy(138, row + 1); cout << setw(22) << left << students[i].sYear;
         H::gotoxy(153, row + 1); cout << setw(30) << left << students[i].email;
-        row += 3;
+        row += 2;
         colorIndex++;
     }
 }
@@ -694,6 +695,7 @@ void Student::Main_StudentManage() {
 	int x = 0;
     bool loop = true;
     char option;
+    Student::System();
     H::cls();
     s.Menu("DEFAULT");
     while(loop) {

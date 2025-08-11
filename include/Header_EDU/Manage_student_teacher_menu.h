@@ -61,7 +61,7 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
                 case 3: {
                     H::drawBoxDoubleLineWithBG(79,31,40,1,4);
                     H::setcolor(7);
-                    H::gotoxy(80, 33);cout << "-[    <----------- BACK             ]-" << endl;
+                    H::gotoxy(80, 32);cout << "-[    <----------- BACK             ]-" << endl;
                     H::gotoxy(80, 32);cout << "                                      " << endl;
                     break;
                 }
@@ -131,7 +131,8 @@ void SubMENU_manage_stu_tech::Header(){
     H::setcolor(7);H::gotoxy(52,7);cout<<R"( \____/  /_/ /_/  \____/ \____/ /____/ /_____/            /_/  /_/  /_____/  /_/ |_/  \____/    )";
     H::setcolor(2);H::gotoxy(52,8);cout<<R"(________________________________________________________________________________________________)";
 
-
+    H::drawBoxDoubleLineWithBG(4,1,54,2,4);
+    H::setcolor(4);H::gotoxy(11,2);cout<<"[!] PRESS ESC KEY TO BACK TO MAIN MENU !!";
 }
 
 void SubMENU_manage_stu_tech::Menu_Body(){

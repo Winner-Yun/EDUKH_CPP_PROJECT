@@ -196,14 +196,15 @@ void Edu_Main_Menu::ourProfile(){
 
 void Edu_Main_Menu::Main_menu(){
     bool work = true;
+    int j = 0;
+    int option;
     H::setcursor(false,0);
     
     while (work){
         designPage();  // call design
 
     
-    int j = 0;
-    int option;
+
     clock_t escStart = 0;
     bool escHeld = false;
 
@@ -312,6 +313,9 @@ void Edu_Main_Menu::Main_menu(){
             H::cls();
             AssignClassDemo::AssignClassMenu();
             H::cls();      
+            LoadingHeader(3);
+            EdumasterCustom::LoadingPage(30,30,135,20);
+            H::cls();
             break;
         }
 
@@ -331,6 +335,10 @@ void Edu_Main_Menu::Main_menu(){
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
             ourProfile();
+            H::cls();      
+            LoadingHeader(3);
+            EdumasterCustom::LoadingPage(30,30,135,20);
+            H::cls();
             break;
         }
         
@@ -481,6 +489,14 @@ void Edu_Main_Menu::LoadingHeader(int id){
         H::setcolor(2);H::gotoxy(49,15);cout << R"( |  |  ||  7  |     |  ___!|  _ \ |  |  ||  7___|  __|_!__   7!__   7|  ||  7  ||  !  7                    )";
         H::setcolor(7);H::gotoxy(49,16);cout << R"( |  !  ||  |  |     |  7   |  7  ||  !  ||     7|     77     |7     ||  ||  |  ||     |     ____________   )";
         H::setcolor(7);H::gotoxy(49,17);cout << R"( !_____!!__!__!     !__!   !__!__!!_____!!_____!!_____!!_____!!_____!!__!!__!__!!_____!     7__77__77__7   )";
+    }
+    else if(id == 3){
+        H::setcolor(1);H::gotoxy(38,12);cout << R"( ____________________________     _______________     ____________________________     _______________________________ )";
+        H::setcolor(1);H::gotoxy(38,13);cout << R"( 7  _  77     77     77  7  7     7      77     7     7        77  _  77  77     7     7        77     77     77  7  7 )";
+        H::setcolor(1);H::gotoxy(38,14);cout << R"( |   __||  ___!|  ___!|   __!     !__  __!|  7  |     |  _  _  ||  _  ||  ||  _  |     |  _  _  ||  ___!|  _  ||  |  | )";
+        H::setcolor(1);H::gotoxy(38,15);cout << R"( |  _  ||  __|_|  7___|     |       7  7  |  |  |     |  7  7  ||  7  ||  ||  7  |     |  7  7  ||  __|_|  7  ||  |  | )";
+        H::setcolor(7);H::gotoxy(38,16);cout << R"( |  7  ||     7|     7|  7  |       |  |  |  !  |     |  |  |  ||  |  ||  ||  |  |     |  |  |  ||     7|  |  ||  !  | )";
+        H::setcolor(7);H::gotoxy(38,17);cout << R"( !_____!!_____!!_____!!__!__!       !__!  !_____!     !__!__!__!!__!__!!__!!__!__!     !__!__!__!!_____!!__!__!!_____! )";
     }
 
 }

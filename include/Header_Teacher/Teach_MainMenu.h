@@ -154,6 +154,7 @@ void Teach_MainMenu::Main(const char* email){
                     system("cls");
                     // fill
                     H::setcolor(7);
+                    system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
@@ -167,6 +168,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
                     // fill
+                    system("cls");
                     H::setcolor(7);
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
@@ -180,8 +182,11 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
+
                     QuizDesign::Quiz_Select();
+
                     H::setcolor(7);
+                    system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
@@ -193,9 +198,12 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
+
                     AssignHomework assignHomeWork;
                     assignHomeWork.Main_AssignHomework();
+
                     H::setcolor(7);
+                    system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
@@ -207,8 +215,11 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     H::cls();
+
                     Edu_Main_Menu::ourProfile();
+                    
                     H::setcolor(7);
+                    system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,20);
                     system("cls");
