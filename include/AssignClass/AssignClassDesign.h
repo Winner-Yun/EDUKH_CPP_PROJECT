@@ -8,25 +8,25 @@ class AssignClassDesign{
     public:
         static void AssignClassLogo(int x, int y);
         static void KBText(int x, int y);
-        // Grade 10 Design
+        // Grade 10 Design ------------------------------------------------------------------------------------------------------------------------
         static void AssignGrade10Banner(int x, int y);
         static void AssignGrade10Design();
-        // Grade 11 Design
+        // Grade 11 Design ------------------------------------------------------------------------------------------------------------------------
         static void AssignGrade11Banner(int x, int y);
         static void AssignGrade11Design();
-        // Grade 12 Design
+        // Grade 12 Design ------------------------------------------------------------------------------------------------------------------------
         static void AssignGrade12Banner(int x, int y);
         static void AssignGrade12Design();
-        // 
+        // ------------------------------------------------------------------------------------------------------------------------
         static void AssignTeacherText(int x, int y);
         static void AssignTeacherDesign();
         static void G10(int x, int y);
         static void G11(int x, int y);
         static void G12(int x, int y);
-        // Header
-        static void Header();
+        // Header ------------------------------------------------------------------------------------------------------------------------
+        static void Header(int y);
         static void Footer();
-        // Delete Design
+        // Delete Design ------------------------------------------------------------------------------------------------------------------------
         static void DeleteClassText(int x, int y);
         static void Grade10Text(int x, int y);
         static void Grade11Text(int x, int y);
@@ -34,14 +34,214 @@ class AssignClassDesign{
         static void Home(int x, int y);
         static void Computer(int x, int y);
         static void DeleteClassDesign();
-        // Sort Design
+        // Sort Design ------------------------------------------------------------------------------------------------------------------------
         static void Car(int x, int y);
         static void SortClassText10(int x, int y);
         static void SortClassText11(int x, int y);
         static void SortClassText12(int x, int y);
         static void SortClassDesign();
-
+        static void SortLoading();
+        static void SortGradeIDText(int x, int y);
+        static void SmallToBigText(int x, int y);
+        static void BigToSmallText(int x, int y);
+        static void SortTeacherNameText(int x, int y);
+        static void ZToAText(int x, int y);
+        static void AToZText(int x, int y);
+        // Search Design ------------------------------------------------------------------------------------------------------------------------
+        static void SearchClassText(int x, int y);
+        static void SearchNotFound(int x, int y);
+        static void SearchDesign();
+        static void SearchTable();
 };
+
+void AssignClassDesign::SearchTable()
+{
+    Header(18);
+	H::drawBoxSingleLine(30, 17, 140, 1,6); //  Table Header
+    H::drawBoxSingleLine(30, 17, 140, 22,9); // Table Body Design
+}
+
+void AssignClassDesign::SearchDesign()
+{
+	SearchClassText(29,1);
+	
+    H::HLine(0,5,28,1,178);
+    H::HLine(172,5,28,1,178);
+    
+    for(int i=6;i<45;i++){
+    	H::HLine(0,i,2,1,178);
+    	H::HLine(198,i,2,1,178);
+	}
+	H::HLine(2,44,196,1,178);
+	
+	//Field
+	H::drawBoxDoubleLine(60,11,80,3,232);
+	H::setcolor(7);
+	H::gotoxy(61,13); cout<<"Enter Teacher Name To Search: ";
+
+    // Header(18);
+	// H::drawBoxSingleLine(30, 17, 140, 1,6); //  Table Header
+    // H::drawBoxSingleLine(30, 17, 140, 22,9); // Table Body Design
+    
+    H::drawBoxSingleLineWithBG(30, 42,140,1,187);
+    H::setcolor(191);
+    H::gotoxy(75,43); cout << "Press any key to search again, or ESC to return...";
+	
+	//SearchNotFound(32,25);
+}
+
+
+void AssignClassDesign::SearchClassText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(3); H::gotoxy(x,y+0); cout<<R"(   ▄████████    ▄████████    ▄████████    ▄████████  ▄████████    ▄█    █▄          ▄████████  ▄█          ▄████████    ▄████████    ▄████████)";
+    H::setcolor(3); H::gotoxy(x,y+1); cout<<R"(  ███    ███   ███    ███   ███    ███   ███    ███ ███    ███   ███    ███        ███    ███ ███         ███    ███   ███    ███   ███    ███)";
+    H::setcolor(3); H::gotoxy(x,y+2); cout<<R"(  ███    █▀    ███    █▀    ███    ███   ███    ███ ███    █▀    ███    ███        ███    █▀  ███         ███    ███   ███    █▀    ███    █▀ )";
+    H::setcolor(3); H::gotoxy(x,y+3); cout<<R"(  ███         ▄███▄▄▄       ███    ███  ▄███▄▄▄▄██▀ ███         ▄███▄▄▄▄███▄▄      ███        ███         ███    ███   ███          ███       )";
+    H::setcolor(3); H::gotoxy(x,y+4); cout<<R"(▀███████████ ▀▀███▀▀▀     ▀███████████ ▀▀███▀▀▀▀▀   ███        ▀▀███▀▀▀▀███▀       ███        ███       ▀███████████ ▀███████████ ▀███████████)";
+    H::setcolor(3); H::gotoxy(x,y+5); cout<<R"(         ███   ███    █▄    ███    ███ ▀███████████ ███    █▄    ███    ███        ███    █▄  ███         ███    ███          ███          ███)";
+    H::setcolor(3); H::gotoxy(x,y+6); cout<<R"(   ▄█    ███   ███    ███   ███    ███   ███    ███ ███    ███   ███    ███        ███    ███ ███▌    ▄   ███    ███    ▄█    ███    ▄█    ███)";
+    H::setcolor(3); H::gotoxy(x,y+7); cout<<R"( ▄████████▀    ██████████   ███    █▀    ███    ███ ████████▀    ███    █▀         ████████▀  █████▄▄██   ███    █▀   ▄████████▀   ▄████████▀ )";
+    H::setcolor(3); H::gotoxy(x,y+8); cout<<R"(                                         ███    ███                                           ▀                                               )";
+    
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::SearchNotFound(int x, int y)
+{
+	system("chcp 65001  > nul");
+
+    H::setcolor(4); H::gotoxy(x,y+0); cout<<R"( ███    ██  ██████      ████████ ███████  █████   ██████ ██   ██ ███████ ██████  ███████     ███████  ██████  ██    ██ ███    ██ ██████ )"; 
+    H::setcolor(4); H::gotoxy(x,y+1); cout<<R"( ████   ██ ██    ██        ██    ██      ██   ██ ██      ██   ██ ██      ██   ██ ██          ██      ██    ██ ██    ██ ████   ██ ██   ██)";
+    H::setcolor(4); H::gotoxy(x,y+2); cout<<R"( ██ ██  ██ ██    ██        ██    █████   ███████ ██      ███████ █████   ██████  ███████     █████   ██    ██ ██    ██ ██ ██  ██ ██   ██)"; 
+    H::setcolor(4); H::gotoxy(x,y+3); cout<<R"( ██  ██ ██ ██    ██        ██    ██      ██   ██ ██      ██   ██ ██      ██   ██      ██     ██      ██    ██ ██    ██ ██  ██ ██ ██   ██)"; 
+    H::setcolor(4); H::gotoxy(x,y+4); cout<<R"( ██   ████  ██████         ██    ███████ ██   ██  ██████ ██   ██ ███████ ██   ██ ███████     ██       ██████   ██████  ██   ████ ██████  ██)"; 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    system("chcp 437 > nul");                                                                                                                                                                                                                                                                                                                                  
+}
+
+void AssignClassDesign::SortLoading()
+{
+    const int barWidth = 114;   // Adjusted size
+    const int barX = 43;       // Starting X
+    const int barY = 25;       // Box Y position
+    const int textY = 24;      // Text line above the box
+
+    // Print "Loading..." on the left above the bar
+    H::setcolor(14);
+    H::gotoxy(barX, textY);
+    cout << "Loading...";
+
+    // Print initial "0%" on the right above the bar
+    H::gotoxy(barX + barWidth - 3, textY);
+    cout << "0%";
+
+    // Draw outer box for progress bar
+    H::drawBoxDoubleLine(barX, barY, barWidth, 1, 8);
+
+    // Fill the progress bar gradually
+    for (int i = 0; i <= barWidth; i++)
+    {
+        // Draw filled part inside the box
+        H::HLine(barX, barY + 1, i, 10, 178);
+
+        // Calculate and update percentage above the bar
+        int percent = (i * 100) / barWidth;
+        H::setcolor(14);
+        H::gotoxy(barX + barWidth - 3, textY);
+        cout << setw(3) << percent << "%";
+
+        Sleep(20);
+    }
+
+    // Change "Loading..." to green when complete
+    H::setcolor(10);
+    H::gotoxy(barX, textY);
+    cout << "Loading Complete!";
+}
+
+void AssignClassDesign::SortTeacherNameText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(1); H::gotoxy(x,y+0); cout<<R"( ███████╗ ██████╗ ██████╗ ████████╗    ██████╗ ██╗   ██╗    ████████╗███████╗ █████╗  ██████╗██╗  ██╗███████╗██████╗     ███╗   ██╗ █████╗ ███╗   ███╗███████╗)";
+    H::setcolor(1); H::gotoxy(x,y+1); cout<<R"( ██╔════╝██╔═══██╗██╔══██╗╚══██╔══╝    ██╔══██╗╚██╗ ██╔╝    ╚══██╔══╝██╔════╝██╔══██╗██╔════╝██║  ██║██╔════╝██╔══██╗    ████╗  ██║██╔══██╗████╗ ████║██╔════╝)";
+    H::setcolor(1); H::gotoxy(x,y+2); cout<<R"( ███████╗██║   ██║██████╔╝   ██║       ██████╔╝ ╚████╔╝        ██║   █████╗  ███████║██║     ███████║█████╗  ██████╔╝    ██╔██╗ ██║███████║██╔████╔██║█████╗  )";
+    H::setcolor(1); H::gotoxy(x,y+3); cout<<R"( ╚════██║██║   ██║██╔══██╗   ██║       ██╔══██╗  ╚██╔╝         ██║   ██╔══╝  ██╔══██║██║     ██╔══██║██╔══╝  ██╔══██╗    ██║╚██╗██║██╔══██║██║╚██╔╝██║██╔══╝  )";
+    H::setcolor(1); H::gotoxy(x,y+4); cout<<R"( ███████║╚██████╔╝██║  ██║   ██║       ██████╔╝   ██║          ██║   ███████╗██║  ██║╚██████╗██║  ██║███████╗██║  ██║    ██║ ╚████║██║  ██║██║ ╚═╝ ██║███████╗)";
+    H::setcolor(1); H::gotoxy(x,y+5); cout<<R"( ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═════╝    ╚═╝          ╚═╝   ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝)";
+
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::AToZText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(6); H::gotoxy(x,y+0); cout<<R"(  ██╗ █████╗          ██╗      ███████╗██╗ )";
+    H::setcolor(6); H::gotoxy(x,y+1); cout<<R"( ██╔╝██╔══██╗         ╚██╗     ╚══███╔╝╚██╗)";
+    H::setcolor(6); H::gotoxy(x,y+2); cout<<R"( ██║ ███████║    █████╗╚██╗      ███╔╝  ██║)";
+    H::setcolor(6); H::gotoxy(x,y+3); cout<<R"( ██║ ██╔══██║    ╚════╝██╔╝     ███╔╝   ██║)";
+    H::setcolor(6); H::gotoxy(x,y+4); cout<<R"( ╚██╗██║  ██║         ██╔╝     ███████╗██╔╝)";
+    H::setcolor(6); H::gotoxy(x,y+5); cout<<R"( ╚═╝╚═╝  ╚═╝         ╚═╝      ╚══════╝╚═╝  )";
+    
+    system("chcp 437 > nul");                                                                                        
+}
+
+void AssignClassDesign::ZToAText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(6); H::gotoxy(x,y+0); cout<<R"(  ██╗███████╗         ██╗       █████╗ ██╗ )";
+    H::setcolor(6); H::gotoxy(x,y+1); cout<<R"( ██╔╝╚══███╔╝         ╚██╗     ██╔══██╗╚██╗)";
+    H::setcolor(6); H::gotoxy(x,y+2); cout<<R"( ██║   ███╔╝     █████╗╚██╗    ███████║ ██║)";
+    H::setcolor(6); H::gotoxy(x,y+3); cout<<R"( ██║  ███╔╝      ╚════╝██╔╝    ██╔══██║ ██║)";
+    H::setcolor(6); H::gotoxy(x,y+4); cout<<R"( ╚██╗███████╗         ██╔╝     ██║  ██║██╔╝)";
+    H::setcolor(6); H::gotoxy(x,y+5); cout<<R"(  ╚═╝╚══════╝         ╚═╝      ╚═╝  ╚═╝╚═╝ )";
+    
+    system("chcp 437 > nul");                                                                                        
+}
+
+void AssignClassDesign::SortGradeIDText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(3); H::gotoxy(x,y+0); cout<<R"( ███████╗ ██████╗ ██████╗ ████████╗    ██████╗ ██╗   ██╗     ██████╗ ██████╗  █████╗ ██████╗ ███████╗  ██╗██████╗  )";    
+    H::setcolor(3); H::gotoxy(x,y+1); cout<<R"( ██╔════╝██╔═══██╗██╔══██╗╚══██╔══╝    ██╔══██╗╚██╗ ██╔╝    ██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██╔════╝  ██║██╔══██╗ )";   
+    H::setcolor(3); H::gotoxy(x,y+2); cout<<R"( ███████╗██║   ██║██████╔╝   ██║       ██████╔╝ ╚████╔╝     ██║  ███╗██████╔╝███████║██║  ██║█████╗    ██║██║  ██║ )";   
+    H::setcolor(3); H::gotoxy(x,y+3); cout<<R"( ╚════██║██║   ██║██╔══██╗   ██║       ██╔══██╗  ╚██╔╝      ██║   ██║██╔══██╗██╔══██║██║  ██║██╔══╝    ██║██║  ██║ )";   
+    H::setcolor(3); H::gotoxy(x,y+4); cout<<R"( ███████║╚██████╔╝██║  ██║   ██║       ██████╔╝   ██║       ╚██████╔╝██║  ██║██║  ██║██████╔╝███████╗  ██║██████╔╝ )";   
+    H::setcolor(3); H::gotoxy(x,y+5); cout<<R"( ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═════╝    ╚═╝        ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝  ╚═╝╚═════╝  )";
+                                                                                                                                                                                                            
+    system("chcp 437 > nul"); 
+}
+
+void AssignClassDesign::BigToSmallText(int x, int y)
+{
+    system("chcp 65001  > nul");
+
+    H::setcolor(3); H::gotoxy(x,y+0); cout<<R"(  ██╗██████╗ ██╗ ██████╗          ██╗      ███████╗███╗   ███╗ █████╗ ██╗     ██╗     ██╗ )";
+    H::setcolor(3); H::gotoxy(x,y+1); cout<<R"( ██╔╝██╔══██╗██║██╔════╝          ╚██╗     ██╔════╝████╗ ████║██╔══██╗██║     ██║     ╚██╗)";
+    H::setcolor(3); H::gotoxy(x,y+2); cout<<R"( ██║ ██████╔╝██║██║  ███╗    █████╗╚██╗    ███████╗██╔████╔██║███████║██║     ██║      ██║)";
+    H::setcolor(3); H::gotoxy(x,y+3); cout<<R"( ██║ ██╔══██╗██║██║   ██║    ╚════╝██╔╝    ╚════██║██║╚██╔╝██║██╔══██║██║     ██║      ██║)";
+    H::setcolor(3); H::gotoxy(x,y+4); cout<<R"( ╚██╗██████╔╝██║╚██████╔╝         ██╔╝     ███████║██║ ╚═╝ ██║██║  ██║███████╗███████╗██╔╝)";
+    H::setcolor(3); H::gotoxy(x,y+5); cout<<R"(  ╚═╝╚═════╝ ╚═╝ ╚═════╝          ╚═╝      ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝ )";
+                                                                                         
+    system("chcp 437 > nul");                                                                                        
+}
+
+void AssignClassDesign::SmallToBigText(int x, int y)
+{
+    system("chcp 65001  > nul");
+    H::setcolor(3); H::gotoxy(x,y+0); cout<<R"(  ██╗███████╗███╗   ███╗ █████╗ ██╗     ██╗              ██╗      ██████╗ ██╗ ██████╗ ██╗ )";
+    H::setcolor(3); H::gotoxy(x,y+1); cout<<R"( ██╔╝██╔════╝████╗ ████║██╔══██╗██║     ██║              ╚██╗     ██╔══██╗██║██╔════╝ ╚██╗)";
+    H::setcolor(3); H::gotoxy(x,y+2); cout<<R"( ██║ ███████╗██╔████╔██║███████║██║     ██║         █████╗╚██╗    ██████╔╝██║██║  ███╗ ██║)";
+    H::setcolor(3); H::gotoxy(x,y+3); cout<<R"( ██║ ╚════██║██║╚██╔╝██║██╔══██║██║     ██║         ╚════╝██╔╝    ██╔══██╗██║██║   ██║ ██║)";
+    H::setcolor(3); H::gotoxy(x,y+4); cout<<R"( ╚██╗███████║██║ ╚═╝ ██║██║  ██║███████╗███████╗         ██╔╝     ██████╔╝██║╚██████╔╝██╔╝)";
+    H::setcolor(3); H::gotoxy(x,y+5); cout<<R"(  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝         ╚═╝      ╚═════╝ ╚═╝ ╚═════╝ ╚═╝ )";
+    system("chcp 437 > nul");                                                                                        
+}
 
 void AssignClassDesign::SortClassDesign()
 {
@@ -271,15 +471,15 @@ void AssignClassDesign::Computer(int x, int y)
 
 }
 
-void AssignClassDesign::Header()
+void AssignClassDesign::Header(int y)
 {
-    H::gotoxy(35, 16);  cout << "No.";
-    H::gotoxy(45, 16);  cout << "Grade ID";
-    H::gotoxy(65, 16);  cout << "Teacher ID";
-    H::gotoxy(85, 16);  cout << "Teacher Name";
-    H::gotoxy(110, 16);  cout << "Subject";
-    H::gotoxy(130, 16); cout << "Academic Year";
-    H::gotoxy(150, 16); cout << "Phone Number";
+    H::gotoxy(35, y);  cout << "No."; // y =16
+    H::gotoxy(45, y);  cout << "Grade ID";
+    H::gotoxy(65, y);  cout << "Teacher ID";
+    H::gotoxy(85, y);  cout << "Teacher Name";
+    H::gotoxy(110, y);  cout << "Subject";
+    H::gotoxy(130, y); cout << "Academic Year";
+    H::gotoxy(150, y); cout << "Phone Number";
 }
 
 void AssignClassDesign::Footer()
@@ -461,7 +661,7 @@ void AssignClassDesign::AssignGrade12Design()
 
     H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
     H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
-    Header();
+    Header(16);
 
     // Footer
     Footer();
@@ -494,7 +694,7 @@ void AssignClassDesign::AssignGrade11Design()
 
     H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
     H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
-    Header();
+    Header(16);
 
         // Footer
     Footer();
@@ -527,7 +727,7 @@ void AssignClassDesign::AssignGrade10Design()
 
     H::drawBoxSingleLine(30, 15, 140, 1,6); //  Table Header
     H::drawBoxSingleLine(30, 15, 140, 22,9); // Table Body Design
-    Header();
+    Header(16);
 
         // Footer
     Footer();

@@ -22,11 +22,7 @@ class AssignClass{
         void DisplayAll(const char* className, int page=0, int sortMethod=0) const;
 		void display(int index, int y);
         void DeleteClass(const char* className);
-		// Sort
-		void SortByGradeIDAsc(const char* className);
-		void SortByGradeIDDesc(const char* className);
-		void SortByTeacherNameAZ(const char* className);
-		void SortByTeacherNameZA(const char* className);
+		void SearchClass(const char* className, string& keyword) const;
 		//
 		int CountRecords(const char* className) const;
 		const char* formatTitleName(const char* name, const char* gender);
@@ -37,88 +33,46 @@ class AssignClass{
 
 int AssignClass::idCounter = 1;
 
-void AssignClass::SortByGradeIDAsc(const char* className) {
-    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
-    if (!inFile) {
+void AssignClass::SearchClass(const char* className, string& keyword) const
+{
+	ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+	    if (!inFile) {
         MessageBoxA(NULL, "Error", "File not found", MB_OK);
         return;
     }
 
-    vector<AssignClass> list;
-    AssignClass ac;
-    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+	const int maxResults = 10;  // limit to 10 matches
+    int count = 0;
+    int y = 20;
+    int displayIndex = 1;
+    bool foundAny = false;
+
+	// Lowercase keyword for case-insensitive match
+	string lowerKeyword = keyword;
+	transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower);
+
+	AssignClass ac;
+	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass)) && count < maxResults) {
         if (strcmp(ac.className, className) == 0) {
-            list.push_back(ac);
+            string teacher = ac.teacherName;
+            transform(teacher.begin(), teacher.end(), teacher.begin(), ::tolower);
+
+            if (teacher.find(lowerKeyword) != string::npos) {
+                foundAny = true;
+				AssignClassDesign::SearchTable();
+				H::setcolor(3);
+                ac.display(displayIndex++, y);
+                y += 2;
+                count++;
+            }
         }
     }
+
+	if (!foundAny) {
+		AssignClassDesign::SearchNotFound(32,25);
+    }
+
     inFile.close();
-
-    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
-        return strcmp(a.gradeID, b.gradeID) < 0; // Ascending order
-    });
-}
-
-void AssignClass::SortByGradeIDDesc(const char* className) {
-    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
-    if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
-        return;
-    }
-
-    vector<AssignClass> list;
-    AssignClass ac;
-    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
-        if (strcmp(ac.className, className) == 0) {
-            list.push_back(ac);
-        }
-    }
-    inFile.close();
-
-    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
-        return strcmp(a.gradeID, b.gradeID) > 0; // Descending order
-    });
-}
-
-void AssignClass::SortByTeacherNameAZ(const char* className) {
-    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
-    if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
-        return;
-    }
-
-    vector<AssignClass> list;
-    AssignClass ac;
-    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
-        if (strcmp(ac.className, className) == 0) {
-            list.push_back(ac);
-        }
-    }
-    inFile.close();
-
-    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
-        return strcmp(a.teacherName, b.teacherName) < 0; // Ascending order
-    });
-}
-
-void AssignClass::SortByTeacherNameZA(const char* className) {
-    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
-    if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
-        return;
-    }
-
-    vector<AssignClass> list;
-    AssignClass ac;
-    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
-        if (strcmp(ac.className, className) == 0) {
-            list.push_back(ac);
-        }
-    }
-    inFile.close();
-
-    sort(list.begin(), list.end(), [](const AssignClass& a, const AssignClass& b) {
-        return strcmp(a.teacherName, b.teacherName) > 0; // Descending order
-    });
 }
 
 void AssignClass::DeleteClass(const char* className) 
@@ -267,7 +221,7 @@ void AssignClass::InputClass(const char* className)
 	if(!fin){
 		H::setcolor(250);
     	H::gotoxy(86,37);
-		cerr << "Teacher data file not found.";
+		MessageBoxA(NULL,"Error", "File not found", MB_OK);
 		return;
 	}
 
