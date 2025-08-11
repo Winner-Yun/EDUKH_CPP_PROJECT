@@ -41,6 +41,7 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
             H::gotoxy(80, 22);cout << "                                      " << endl;
             H::setcolor(4);
             H::gotoxy(80, 33);cout << "----------[    <-- BACK    ]----------" << endl;
+            H::setcolor(7);
             H::gotoxy(80, 32);cout << "                                      " << endl;
 
             switch (choice) {

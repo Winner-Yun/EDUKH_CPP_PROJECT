@@ -1,5 +1,5 @@
-#ifndef __TEACHERMANAGEMENT__
-#define __TEACHERMANAGEMENT__
+#ifndef __TEACHERMANAGEMENT_H__
+#define __TEACHERMANAGEMENT_H__
 
 #include "../Header_School/ANTHinsyOOP"
 using namespace ANTHinsyOOP;
