@@ -10,12 +10,13 @@ class Teacher{
 		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
 	public:
 		void generateTeacherID(); 
-		const char* getTeacherId(){
-		    return teacherId;
-		}
-		const char* getTeacherName() const{
-			return teacherName;
-		}
+		const char* getTeacherId() const;
+		const char* getTeacherName() const;
+		const char* getSubject() const;
+		const char* getYear() const;
+		const char* getPhone() const;
+		const char* getGender() const;
+
 		void convertEmail();
 		void input();
 		void output(int y);
@@ -47,6 +48,30 @@ class TeacherDesign{
 
 TeacherDesign td;
 int Teacher::lastId = 0;
+
+const char* Teacher::getTeacherId() const {
+			return teacherId;
+		}
+
+const char* Teacher::getTeacherName() const {
+	return teacherName;
+}
+
+const char* Teacher::getGender() const {
+	return gender;
+}
+
+const char* Teacher::getSubject() const {
+	return subject;
+}
+
+const char* Teacher::getYear() const {
+	return academyYear;
+}
+
+const char* Teacher::getPhone() const {
+	return phoneNumber;
+}
 
 void Teacher::convertEmail(){
 	char cleanedName[30];
@@ -990,6 +1015,7 @@ void TeacherDesign::teacherManagement() {
     	} while(option!=13);	
 		H::setcursor(true, 1);
 		if(x==0){
+			H::cls();
 			break;
 		}if(x==1){
 			H::foreColor(0);
