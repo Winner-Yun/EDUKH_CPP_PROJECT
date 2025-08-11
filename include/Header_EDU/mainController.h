@@ -395,6 +395,7 @@ void EDUSYSTEM::teamProfile(){
     H::cls();
 }
 void EDUSYSTEM::displayStartScreen(){
+	H::setcursor(false,0);
 	H::setFixedScreenConsole(200,45);
 //	Login_Design::loadingProcess();
 	Login_Design::loadingProcess();
