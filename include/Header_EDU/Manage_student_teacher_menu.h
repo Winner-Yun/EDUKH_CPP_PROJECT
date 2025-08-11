@@ -61,7 +61,7 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
                 case 3: {
                     H::drawBoxDoubleLineWithBG(79,31,40,1,4);
                     H::setcolor(7);
-                    H::gotoxy(80, 33);cout << "-[    <----------- BACK             ]-" << endl;
+                    H::gotoxy(80, 32);cout << "-[    <----------- BACK             ]-" << endl;
                     H::gotoxy(80, 32);cout << "                                      " << endl;
                     break;
                 }
