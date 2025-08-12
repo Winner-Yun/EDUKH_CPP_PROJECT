@@ -18,6 +18,7 @@ class AssignClass{
 		char createAt[11]; // 07-03-2025
 		static int idCounter;
     public:
+	    
         void InputClass(const char* className); // classname = 10, 11, 12
         void DisplayAll(const char* className, int page=0, int sortMethod=0) const;
 		void display(int index, int y);
@@ -28,6 +29,7 @@ class AssignClass{
 		const char* formatTitleName(const char* name, const char* gender);
 		static const char* stripTitlePrefix(const char* name);
 };
+
 
 // vector<AssignClass> records;
 
