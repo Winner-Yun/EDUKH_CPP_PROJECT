@@ -26,9 +26,9 @@ int main() {
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();
-      menu.Main_menu();
+    //   menu.Main_menu();
 
-//    EDUSYSTEM::displayStartScreen();
+   EDUSYSTEM::displayStartScreen();
 
 
     //    s.Main_StudentManage();
