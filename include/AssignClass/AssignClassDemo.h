@@ -11,7 +11,7 @@ using namespace ANTHinsyOOP;
 
 class AssignClassDemo {
 	public:
-		static void AssignClassMenu(); // Main Menu
+		static int AssignClassMenu(); // Main Menu
         static void Highlight(int sel);
         // Grade 10
         static void AssignGrade10Menu();
@@ -129,15 +129,9 @@ void AssignClassDemo::AssignGrade12Menu() {
                 break;
             }
             case 4:
-                H::setcolor(7);
-                H::cls();
-                AssignClassMenu();
-                break;
-            case 5:{ // for previous pagination
                 if(currentPage > 0 ) currentPage--;
                 break;
-            }
-            case 6:{ // for next pagination
+            case 5:{ // for previous pagination
                 if (currentPage < maxPage) currentPage++;
                 break;
             }
@@ -238,15 +232,9 @@ void AssignClassDemo::AssignGrade11Menu() {
             }
 
             case 4:
-                H::setcolor(7);
-                H::cls();
-                AssignClassMenu();
-                break;
-            case 5:{ // for previous pagination
                 if(currentPage > 0 ) currentPage--;
                 break;
-            }
-            case 6:{ // for next pagination
+            case 5:{ // for previous pagination
                 if (currentPage < maxPage) currentPage++;
                 break;
             }
@@ -346,15 +334,9 @@ void AssignClassDemo::AssignGrade10Menu() {
                 break;
             }          
             case 4:
-                H::setcolor(7);
-                H::cls();
-                AssignClassMenu();
-                break;
-            case 5:{ // for previous pagination
                 if(currentPage > 0 ) currentPage--;
                 break;
-            }
-            case 6:{ // for next pagination
+            case 5:{ // for previous pagination
                 if (currentPage < maxPage) currentPage++;
                 break;
             }
@@ -465,34 +447,31 @@ struct MenuItem {
 };
 
 MenuItem menuItems[] = {
-    {31, 12, "Add Class", 55},
-    {98, 12, "Delete Class", 55},
-    {119, 12, "Sort Class", 55},
-    {138, 12, "Search Class", 55},
-    {162, 12, "Back", 55},
-    {89, 40, "<---", 55},   // New box 1
-    {108, 40, "--->", 55}   // New box 2
+    {31, 12, "Add Class", 55},       // stays same
+    {118, 12, "Delete Class", 55},     // moved here (from index 2)
+    {138, 12, "Sort Class", 55},   // moved here (from index 3)
+    {158, 12, "Search Class", 55},           // reused position for Search Class from before
+    {89, 40, "<---", 55},            // bottom arrows stay same
+    {108, 40, "--->", 55}
 };
 
 void AssignClassDemo::drawSingleMenuItem(int index, bool isSelected) {
     int bgColor = isSelected ? 199 : menuItems[index].color;
     int width = 15;
 
-    if (index <= 4) {
-        // Top row buttons
+    if (index <= 3) {  // top row buttons 0 to 3
         int x;
         switch(index) {
             case 0: x = 28; break;
-            case 1: x = 97; break;
-            case 2: x = 117; break;
-            case 3: x = 137; break;
-            case 4: x = 157; break;
+            case 1: x = 117; break;  // moved from 97 to 117 (matches new menuItems)
+            case 2: x = 137; break;  // moved from 117 to 137
+            case 3: x = 157; break;  // moved from 137 to 157
         }
         H::drawBoxDoubleLineWithBG(x, 11, width, 1, bgColor);
         H::gotoxy(menuItems[index].x, menuItems[index].y);
         cout << menuItems[index].label;
     } else {
-        // Bottom arrow boxes (index 5 & 6)
+        // bottom arrow boxes (indices 4 and 5)
         H::drawBoxDoubleLineWithBG(menuItems[index].x - 1, menuItems[index].y - 1, 8, 1, bgColor);
         H::gotoxy(menuItems[index].x, menuItems[index].y);
         cout << menuItems[index].label;
@@ -509,7 +488,7 @@ void AssignClassDemo::drawGradeMenu(int selected) {
 int AssignClassDemo::GradeMenu() {
     int selected = 0;
     int prevSelected = -1;
-    int menuSize = sizeof(menuItems) / sizeof(MenuItem); // now 7
+    int menuSize = sizeof(menuItems) / sizeof(MenuItem); // now 6
 
     // Initial draw
     drawGradeMenu(selected);
@@ -534,15 +513,17 @@ int AssignClassDemo::GradeMenu() {
         } else if (ch == 13) { // Enter
             return selected;
         } else if (ch == 27) { // ESC
+            H::setcolor(7);
+            H::cls();
+            AssignClassDesign::AssignClassLogo(53, 0);
             return -1;
         }
     }
 }
 
-
 /* --------------- Main Menu --------------------- */
 
-void AssignClassDemo::AssignClassMenu() {
+int AssignClassDemo::AssignClassMenu() {
     H::setcursor(false, 0);
     int selected = 0;
     AssignClassDesign::AssignClassLogo(53, 0);
@@ -575,10 +556,10 @@ void AssignClassDemo::AssignClassMenu() {
             }
         } else if (key == 13) { // Enter
             switch (selected) {
-                case 0: H::cls(); AssignGrade10Menu(); return;
-                case 1: H::cls(); AssignGrade11Menu(); return;
-                case 2: H::cls(); AssignGrade12Menu(); return;
-                case 3: H::cls(); return; //
+                case 0: H::cls(); AssignGrade10Menu(); break;
+                case 1: H::cls(); AssignGrade11Menu(); break;
+                case 2: H::cls(); AssignGrade12Menu(); break;
+                case 3: H::cls(); return 0; //
             }
         }
         Highlight(selected);
