@@ -311,6 +311,7 @@ void Edu_Main_Menu::Main_menu(){
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
             AssignClassDemo::AssignClassMenu();
+            H::setcolor(7);
             H::cls();      
             LoadingHeader(3);
             EdumasterCustom::LoadingPage(30,30,135,20);
