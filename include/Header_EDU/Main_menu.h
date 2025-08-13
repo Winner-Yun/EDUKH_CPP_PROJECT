@@ -310,7 +310,10 @@ void Edu_Main_Menu::Main_menu(){
             LoadingHeader(2);
             EdumasterCustom::LoadingPage(30,30,135,20);
             H::cls();
-            AssignClassDemo::AssignClassMenu();
+		    int result = AssignClassDemo::AssignClassMenu();
+		    if (result == 0) {
+		        j = 0; 
+		    }
             H::setcolor(7);
             H::cls();      
             LoadingHeader(3);
