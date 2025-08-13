@@ -12,6 +12,7 @@
 #include "../include/Header_EDU/ScheduleForClass.h"
 #include "../include/Header_Teacher/Teach_MainMenu.h"
 #include "../include/Header_EDU/MainController.h"
+#include "../include/Header_Teacher/QuizDesign.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;
@@ -23,13 +24,13 @@ int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
+    // QuizDesign::Quiz_Select();
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();
-    //   menu.Main_menu();
+      menu.Main_menu();
 
-   EDUSYSTEM::displayStartScreen();
-
+//    EDUSYSTEM::displayStartScreen();
 
     //    s.Main_StudentManage();
 //    Teach_MainMenu::Main("te.yunwinner@gmail.com");
