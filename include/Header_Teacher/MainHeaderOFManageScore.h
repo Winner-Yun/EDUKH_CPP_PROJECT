@@ -322,6 +322,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
                         break;
                     }    
                     case 2:{
+                        H::setcursor(true,1);
                         H::drawBoxDoubleLineWithBG(70,20,60,3,7);
                         H::gotoxy(79, 22);
                         cout << "ENTER STUDENT TO SEARCH :  ";

@@ -121,7 +121,7 @@ void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyw
     }
 
     int row = 20;
-    int maxResults = min((int)list.size(), 6); // ✅ Limit to 6
+    int maxResults = min((int)list.size(), 6);
 
     for (int i = 0; i < maxResults; i++, row += 3) {
         int color = (i % 2 == 0) ? 6 : 3;
