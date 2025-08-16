@@ -12,6 +12,7 @@
 #include "../include/Header_EDU/ScheduleForClass.h"
 #include "../include/Header_Teacher/Teach_MainMenu.h"
 #include "../include/Header_EDU/MainController.h"
+#include "../include/Header_Teacher/MainHeaderOFManageScore.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;
@@ -26,15 +27,15 @@ int main() {
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();
-      menu.Main_menu();
+//      menu.Main_menu();
 
 //    EDUSYSTEM::displayStartScreen();
 
-
+    MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
-//    Teach_MainMenu::Main("te.yunwinner@gmail.com");
+    //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-//    logD.MainLogin();
+//   logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

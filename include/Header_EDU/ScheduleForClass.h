@@ -979,7 +979,7 @@ void Schedule_Management::CheckSubjectofCLass(const char* grade){
     AssignClassForm ac;
     bool found = false;
     
-    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClassForm))) {
         if (strcmp(ac.className, grade) == 0) {
            is_Fail_Load_Sub = false;
            found = true;

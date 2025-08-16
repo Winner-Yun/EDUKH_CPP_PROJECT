@@ -5,6 +5,7 @@
 #include "../Header_EDU/Main_menu.h"
 #include "Main_AssHomeworks.h"
 #include "QuizDesign.h"
+#include "MainHeaderOFManageScore.h"
 
 class Teach_MainMenu{
 
@@ -13,7 +14,7 @@ public:
     static void Header(const char* email);
     static void Menu();
     static void Footer();
-    static void ReadData(const char* eamil);
+    static void ReadData(const char* email);
     static void drawTime(int x, int y);
     static void LoadingHeader(int id);
 };
@@ -22,6 +23,8 @@ struct Teacher_formm {
 		char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];
     };
 
+char teacherName[40] = "Unknown";
+char teacherID[15] = "Unknown";
 
 void Teach_MainMenu::Main(const char* email){
     int option;
@@ -140,7 +143,7 @@ void Teach_MainMenu::Main(const char* email){
         if(option==27){
             H::cls();
             LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             system("cls");
         }
 
@@ -150,13 +153,13 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     // fill
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -165,14 +168,14 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
-                    H::cls();
-                    // fill
+                    EdumasterCustom::LoadingPage(30,30,135,5);
+
+                    MainHeaderOFManageScore::ManageScoreMain(teacherID);
+
                     system("cls");
-                    H::setcolor(7);
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
-                    system("cls");
+                    EdumasterCustom::LoadingPage(30,30,135,5);
+                    H::cls();
                     break;
                 }
 
@@ -180,7 +183,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
                     QuizDesign::Quiz_Select();
@@ -188,7 +191,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -196,7 +199,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
                     AssignHomework assignHomeWork;
@@ -205,7 +208,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -213,7 +216,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
                     Edu_Main_Menu::ourProfile();
@@ -221,7 +224,7 @@ void Teach_MainMenu::Main(const char* email){
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -232,7 +235,7 @@ void Teach_MainMenu::Main(const char* email){
                             system("cls");
                             option = 27;
                             LoadingHeader(2);
-                            EdumasterCustom::LoadingPage(30, 30, 135, 20);
+                            EdumasterCustom::LoadingPage(30, 30, 135, 5);
                             H::cls();
                         }
                         break;
@@ -445,8 +448,7 @@ void Teach_MainMenu::Header(const char* email){
 }
 
 void Teach_MainMenu::ReadData(const char* email){
-    char teacherName[40] = "Unknown";
-    char teacherID[10] = "Unknown";
+    
 
     ifstream file("../data/Teacher_Data.bin", ios::binary);
     if (!file) {
