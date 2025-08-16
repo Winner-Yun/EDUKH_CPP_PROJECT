@@ -298,7 +298,7 @@ void Edu_Main_Menu::Main_menu(){
         case 0:{
             system("cls");
             LoadingHeader(2);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             system("cls");
             SubMENU_manage_stu_tech s;
             s.Main_SubMenuMangeStuTech();
@@ -308,7 +308,7 @@ void Edu_Main_Menu::Main_menu(){
         case 1:{
             system("cls");
             LoadingHeader(2);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             H::cls();
 		    int result = AssignClassDemo::AssignClassMenu();
 		    if (result == 0) {
@@ -317,7 +317,7 @@ void Edu_Main_Menu::Main_menu(){
             H::setcolor(7);
             H::cls();      
             LoadingHeader(3);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             H::cls();
             break;
         }
@@ -325,7 +325,7 @@ void Edu_Main_Menu::Main_menu(){
         case 2:{
                 system("cls");
                 LoadingHeader(2);
-                EdumasterCustom::LoadingPage(30,30,135,20);
+                EdumasterCustom::LoadingPage(30,30,135,5);
                 H::cls();
                 Sub_ScheduleDesign subMenu;
                 subMenu.Main_ScheduleSubMenu();  
@@ -335,12 +335,12 @@ void Edu_Main_Menu::Main_menu(){
         case 3:{
             system("cls");
             LoadingHeader(2);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             H::cls();
             ourProfile();
             H::cls();      
             LoadingHeader(3);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             H::cls();
             break;
         }
@@ -357,7 +357,7 @@ void Edu_Main_Menu::Main_menu(){
 
     system("cls");
     LoadingHeader(1);
-    EdumasterCustom::LoadingPage(30,30,135,20);
+    EdumasterCustom::LoadingPage(30,30,135,5);
     H::cls();
 
 }

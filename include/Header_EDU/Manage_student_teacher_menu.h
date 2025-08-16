@@ -78,7 +78,7 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
         if(option==27){
             H::cls();
             LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             system("cls");
         }
 
@@ -89,7 +89,7 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
                     system("cls");
                     s.Main_StudentManage();                 // student call
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
                     break;
                 }
@@ -98,14 +98,14 @@ void SubMENU_manage_stu_tech::Main_SubMenuMangeStuTech(){
                     system("cls");
                     td.teacherManagement();
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
                     break;
                 }
                 case 3:{
                     system("cls");
                     LoadingHeader(1);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     option = 27;
                     system("cls");
                     break;

@@ -75,7 +75,7 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
         if(option==27){
             H::cls();
             LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,20);
+            EdumasterCustom::LoadingPage(30,30,135,5);
             system("cls");
         }
 
@@ -84,11 +84,11 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                 case 1:{
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     scmanage.DesignMain("10");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -96,11 +96,11 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                 case 2:{
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
                     scmanage.DesignMain("11");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
@@ -108,11 +108,11 @@ void Sub_ScheduleDesign::Main_ScheduleSubMenu(){
                 case 3:{
                     system("cls");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
                     scmanage.DesignMain("12");
                     LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,20);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
                     break;
                 }
