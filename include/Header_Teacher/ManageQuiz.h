@@ -35,14 +35,14 @@ void Quiz::inputQuiz() {
     fflush(stdin);
 
     cout << "Enter question: ";
-    getline(cin, question);
+    H::inputAll(question, 100); cout << endl;
 
     cout << "Enter correct answer: ";
-    getline(cin, correctAnswer);
+    H::inputAll(correctAnswer, 100);
 
     for (int i = 0; i < 3; i++) {
         cout << "Enter wrong answer " << (i + 1) << ": ";
-        getline(cin, wrongAnswers[i]);
+        H::inputAll(wrongAnswers[i], 100);
     }
 }
 

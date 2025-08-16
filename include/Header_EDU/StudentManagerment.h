@@ -757,7 +757,7 @@ void Student::Main_StudentManage() {
 	int x = 0;
     bool loop = true;
     char option;
-    Student::System();
+    // Student::System();
     H::cls();
     s.Menu("DEFAULT");
     while(loop) {
