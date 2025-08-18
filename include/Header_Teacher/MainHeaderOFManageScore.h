@@ -15,10 +15,10 @@ public:
    static void MenuSelect(const char* teacherID,const char* grade);
    static void MenuGradeDesignDesign();
    static void MenuProcess(const char* teacherID, const char* grade);
-   static void FooterDesign();
    static void ReadFileAssMenu(const char* teacherID);
    static void HeaderMenuSelect(const char* grade);
    string TeacherListMenu();
+   static void LoadingHeader(int id);
 
 };
 
@@ -139,9 +139,16 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
         } else if (key == 13) {
             if (grades[currentSelection] == "<| BACK") {
                 running = false;
+                H::cls();
             } else {
                 system("cls");
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30, 30, 135, 5);
+                H::cls();
                 MenuProcess(teacherID, grades[currentSelection].c_str());
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30, 30, 135, 5);
+                H::cls();
             }
         } else if (key == 27) { // ESC
             running = false;
@@ -160,6 +167,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
         MessageBoxA(NULL, "Error", "Student_Data.bin not found", MB_OK);
         return;
     }
+
     Student_format sd;
     while (inFile.read(reinterpret_cast<char*>(&sd), sizeof(Student_format))) {
         if (strcmp(sd.grade, grade) == 0) {
@@ -170,6 +178,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
         }
     }
     inFile.close();
+
     if (studentIDs.empty()) {
         MessageBoxA(NULL, "No Student found", "Info", MB_OK);
         return;
@@ -178,6 +187,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
     // --- Menu State Variables ---
     int horizontalChoice = 1;
     int verticalChoice = 0;
+    int verticalSubChoice = 0; 
     bool verticalActive = true;
 
     const int consoleWidth = 200;
@@ -185,27 +195,24 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
     const int boxHeight = 1;
     const int normalColor = 7;
     const int highlightColor = 31;
-    const int activeHorizontalColor = 31;
+    const int activeHorizontalColor = 111;
     const int inactiveHorizontalColor = 7;
 
     bool running = true;
-    int pageIndex = 0;            
-    const int rowsPerPage = 6;    
+    int pageIndex = 0;
+    const int rowsPerPage = 6;
     int totalStudents = managePro.countRecords(grade);
     int totalPages = (totalStudents + rowsPerPage - 1) / rowsPerPage;
-
+    // Design Header
+    MenuSelect(teacherID, grade);
     while (running) {
-        H::cls();
         H::setcursor(false, 0);
 
-        //Design
-        MenuSelect(teacherID, grade);
-
-       
         // --- Horizontal Menu ---
         int xPos[] = {30, 70, 110, 145};
-        string menuLabels[] = {"<- SHOW PREVIOUS", "SEARCH LIST", "BACK", "SHOW NEXT ->"};
+        string menuLabels[] = {"<- SHOW PREVIOUS", "SEARCH LIST", "CLEAR SCORE", "SHOW NEXT ->"};
         int menuWidths[] = {23, 17, 17, 23};
+
         for (int i = 0; i < 4; i++) {
             int color = (i == horizontalChoice - 1) ?
                 (verticalActive ? inactiveHorizontalColor : activeHorizontalColor) : 7;
@@ -222,106 +229,119 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
         int endIndex = min(startIndex + rowsPerPage, (int)studentIDs.size());
 
         for (int i = startIndex; i < endIndex; ++i) {
-            int displayIndex = i - startIndex; 
+            int displayIndex = i - startIndex;
             int yBox = startY + displayIndex * (boxHeight + 2);
-
             bool isSelected = (displayIndex == verticalChoice && verticalActive);
 
+            // Draw student row box
             if (isSelected) {
                 H::drawBoxSingleLineWithBG(startX, yBox, boxWidth, boxHeight, highlightColor);
-                H::setcolor(highlightColor);
             } else {
                 H::drawBoxSingleLineWithBG(startX, yBox, boxWidth, boxHeight, normalColor);
-                H::setcolor(normalColor);
             }
 
-            H::gotoxy(60, yBox + 1);
-            cout << "STUDENT SCORE: "; 
+            int subX[] = {74,90, 102};
+
+            for (int j = 0; j < 3; j++) {
+                int boxW = 7; 
+                int boxH = 1;
+
+                if (isSelected && j == verticalSubChoice)
+                    H::drawBoxSingleLineWithBG(subX[j], yBox, boxW, boxH, activeHorizontalColor);
+                else
+                    H::drawBoxSingleLineWithBG(subX[j], yBox, boxW, boxH, normalColor);
+
+                H::setcolor(isSelected && j == verticalSubChoice ? activeHorizontalColor : normalColor);
+                H::gotoxy(subX[j] + 1, yBox + 1);
+
+            }
+            H::setcolor(isSelected ? highlightColor : normalColor);
+            H::gotoxy(59, yBox + 1);
+            cout << "ENTER SCORE:";
         }
 
-
-        // read File
+        // Read File
         managePro.readFile(grade, pageIndex, rowsPerPage);
 
-
-
-        // --- Key Handling ---
+        //  Key Handling 
         int key = _getch();
+
         if (key == 224) {
             key = _getch();
-            if (key == 75) { // Left
-                verticalActive = false;
-                horizontalChoice = (horizontalChoice - 1 + 4) % 4;
-                if (horizontalChoice == 0) horizontalChoice = 4;
-                
-            }
-            else if (key == 77) { // Right
-                verticalActive = false;
-                horizontalChoice = (horizontalChoice % 4) + 1;
-            }
-            else if (key == 72) { // Up
-                verticalActive = true;
-                verticalChoice--;
-                if (verticalChoice < 0) {
-                    if (pageIndex > 0) {
-                        pageIndex--;
-                        verticalChoice = rowsPerPage - 1;
-                        if (pageIndex == totalPages - 1) {
-                            verticalChoice = (totalStudents - 1) % rowsPerPage;
-                        }
-                    } else {
-                        verticalChoice = 0;
+            if (verticalActive) {
+                if (key == 72) { // Up
+                    verticalChoice--;
+                    if (verticalChoice < 0) {
+                        if (pageIndex > 0) {
+                            H::clearBox(11,20,178,16,7);
+                            pageIndex--;
+                            verticalChoice = rowsPerPage - 1;
+                            if (pageIndex == totalPages - 1)
+                                verticalChoice = (totalStudents - 1) % rowsPerPage;
+                        } else verticalChoice = 0;
                     }
-                }
-            }
-            else if (key == 80) { // Down
-                verticalActive = true;
-                verticalChoice++;
-                if (startIndex + verticalChoice >= studentIDs.size()) {
-                    verticalChoice = endIndex - startIndex - 1; // Stay at last
-                } else if (verticalChoice >= rowsPerPage || startIndex + verticalChoice >= studentIDs.size()) {
-                    if (pageIndex < totalPages - 1) {
-                        pageIndex++;
-                        verticalChoice = 0;
-                    } else {
+                } else if (key == 80) { // Down
+                    verticalChoice++;
+                    if (startIndex + verticalChoice >= studentIDs.size()) {
                         verticalChoice = endIndex - startIndex - 1;
+                    } else if (verticalChoice >= rowsPerPage) {
+                        if (pageIndex < totalPages - 1) {
+                            H::clearBox(11,20,178,16,7);
+                            pageIndex++;
+                            verticalChoice = 0;
+                        } else
+                            verticalChoice = endIndex - startIndex - 1;
                     }
+                } else if (key == 75) { // Left
+                    verticalSubChoice = (verticalSubChoice + 2) % 3;
+                } else if (key == 77) { // Right
+                    verticalSubChoice = (verticalSubChoice + 1) % 3;
+                }
+            } else { // Horizontal menu active
+                if (key == 75) { // Left
+                    horizontalChoice--;
+                    if (horizontalChoice < 1) horizontalChoice = 4;
+                } else if (key == 77) { // Right
+                    horizontalChoice++;
+                    if (horizontalChoice > 4) horizontalChoice = 1;
                 }
             }
+        }
+        else if (key == 9) { // Tab 
+            verticalActive = !verticalActive;
         }
         else if (key == 13) { // Enter
             if (verticalActive) {
                 int selectedIndex = pageIndex * rowsPerPage + verticalChoice;
                 if (selectedIndex < studentIDs.size()) {
-                    char setScoreStudent[20];
-
+                    char inputScore[20];
                     int yBox = startY + verticalChoice * (boxHeight + 2);
-
-                    H::gotoxy(75, yBox + 1);
+                    int editX = (verticalSubChoice == 0 ? 76 : (verticalSubChoice == 1 ? 92 : 104));
 
                     while (true) {
-                            
-                            H::gotoxy(76, yBox + 1);
-                            cout << "    ";  
-                            H::gotoxy(76, yBox + 1);
+                        H::gotoxy(editX, yBox + 1);
+                        cout << "    ";  
+                        H::gotoxy(editX, yBox + 1);
+                        H::inputUNumber(inputScore, 4);
+                        int val = stoi(inputScore);
+                        if (val <= 100) break;
+                    }
 
-                            H::inputUNumber(setScoreStudent, 4);
-                            int val = stoi(setScoreStudent);
-                            if (val <= 100) {
-                                break;
-                            } 
-                        }        
-
-                   managePro.writeSetSchoolscore(studentIDs[selectedIndex].c_str(), setScoreStudent);
+                    if (verticalSubChoice == 0)
+                        managePro.writeSetSchoolscore(studentIDs[selectedIndex].c_str(), inputScore);
+                    else if (verticalSubChoice == 1)
+                        managePro.writeSetH1Score(studentIDs[selectedIndex].c_str(), inputScore);
+                    else if (verticalSubChoice == 2)
+                        managePro.writeSetH2Score(studentIDs[selectedIndex].c_str(), inputScore);
                 }
-            } else {
+            } else { // Horizontal menu actions
                 switch (horizontalChoice) {
-                    case 1: {
-                        // Previous Page
-                        if (pageIndex > 0) pageIndex--;
+                    case 1: if (pageIndex > 0){
+                        pageIndex--; 
+                        H::clearBox(11,20,178,16,7);
                         break;
-                    }    
-                    case 2:{
+                    }
+                    case 2: { 
                         H::setcursor(true,1);
                         H::drawBoxDoubleLineWithBG(70,20,60,3,7);
                         H::gotoxy(79, 22);
@@ -331,14 +351,16 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
                         H::clearBox(11,20,178,16,7);
                         managePro.searchRecords(grade, strname);
                         getch();
+                        H::clearBox(11,20,178,16,7);
                         break;
                     }
                     case 3:{
-                         running = false;
-                         H::cls();
+                        managePro.clearScore();
+                        H::clearBox(11,20,178,16,7);
+                        break;
                     }
                     case 4: {
-                        // Next Page
+                        H::clearBox(11,20,178,16,7);
                         if (pageIndex < totalPages - 1) pageIndex++;
                         break;
                     }
@@ -351,7 +373,6 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
         }
     }
 }
-
 
 
 void MainHeaderOFManageScore::MenuGradeDesignDesign(){
@@ -459,19 +480,19 @@ void MainHeaderOFManageScore::MenuSelect(const char* teacherID,const char* grade
     H::setcolor(6);H::gotoxy(12,11);cout << "NOTE: GRADES ARE BASED ON THE AVERAGE SCORE (AVG).\n";
 
 
-    H::setcolor(6);H::gotoxy(90,9);cout<<" [ TIP 1 ] USE ~ UP AND DOWN ARROWS ~ TO SELECT THE SUBJECT OF SCORE IN CLASS THAT YOU WANT TO INPUT ";
-    H::setcolor(6);H::gotoxy(90,11);cout<<" [ TIP 2 ] USE ~ LEFT AND RIGHT ARROWS ~  TO SELECT THE MENU. ALSO USE ~ ENTER KEY ~ TO SELECT IT ";
+    H::setcolor(6);H::gotoxy(82,9);cout<<" [ TIP 1 ] USE ~ UP AND DOWN ARROWS ~ TO GO UP AND DOWN. USE ~ LEFT AND RIGHT ARROWS ~ TO GO LEFT AND RIGHT.";
+    H::setcolor(4);H::gotoxy(82,11);cout<<" [ NOTE ] TAP TO SWITCH MENU BETWEEN ENTER SCORE AND CONTROL MENU. ALSO USE ~ ENTER KEY ~ TO SELECT IT";
 
     H::drawBoxSingleLine(10,13,180,3,7);
     H::gotoxy(18,15);H::setcolor(1);cout<<"NO";
     H::gotoxy(26,15);H::setcolor(2);cout<<"NAME";
     H::gotoxy(49,15);H::setcolor(3);cout<<"ID";
-    H::gotoxy(58,15);H::setcolor(31);cout<<" SCORE OF SUBJECT IN CLASS ";
-    H::gotoxy(92,15);H::setcolor(10);cout<<"Q1";
-    H::gotoxy(104,15);H::setcolor(10);cout<<"Q2";
-    H::gotoxy(116,15);H::setcolor(10);cout<<"Q3";
-    H::gotoxy(127,15);H::setcolor(6);cout<<"H1";
-    H::gotoxy(137,15);H::setcolor(6);cout<<"H2";
+    H::gotoxy(58,15);H::setcolor(6);cout<<" SCORE OF ACTIVITY IN CLASS ";
+    H::gotoxy(92,15);H::setcolor(6);cout<<"H1";
+    H::gotoxy(104,15);H::setcolor(6);cout<<"H2";
+    H::gotoxy(116,15);H::setcolor(10);cout<<"Q1";
+    H::gotoxy(127,15);H::setcolor(10);cout<<"Q2";
+    H::gotoxy(137,15);H::setcolor(10);cout<<"Q3";
     H::gotoxy(147,15);H::setcolor(7);cout<<"TOTAL SCORE";
     H::gotoxy(164,15);H::setcolor(7);cout<<"AVG SCORE";
     H::gotoxy(179,15);H::setcolor(7);cout<<"Gr";
@@ -520,6 +541,26 @@ void MainHeaderOFManageScore::HeaderMenuSelect(const char* grade){
         system("chcp 437 >nul");
     }
      
+}
+
+void MainHeaderOFManageScore::LoadingHeader(int id){
+    if(id == 1){
+         H::setcolor(4);H::gotoxy(70,16);cout << R"( ____   ____________________________________              )";
+         H::setcolor(4);H::gotoxy(70,17);cout << R"( 7  7   7     77     77     77  7  77      7              )";
+         H::setcolor(4);H::gotoxy(70,18);cout << R"( |  |   |  7  ||   __!|  7  ||  |  |!__  __!              )";
+         H::setcolor(4);H::gotoxy(70,19);cout << R"( |  !___|  |  ||  !  7|  |  ||  |  |  7  7                )";
+         H::setcolor(7);H::gotoxy(70,20);cout << R"( |     7|  !  ||     ||  !  ||  !  |  |  |  ____________  )";
+         H::setcolor(7);H::gotoxy(70,21);cout << R"( !_____!!_____!!_____!!_____!!_____!  !__!  7__77__77__7  )";
+    }
+    else if(id == 2){
+        H::setcolor(2);H::gotoxy(49,12);cout << R"( ______________     ___________________________________________________________________                    )";
+        H::setcolor(2);H::gotoxy(49,13);cout << R"( 7     77     7     7     77  _  77     77     77     77     77     77  77     77     7                    )";
+        H::setcolor(2);H::gotoxy(49,14);cout << R"( |  7  ||  _  |     |  -  ||    _||  7  ||  ___!|  ___!|  ___!|  ___!|  ||  _  ||   __!                    )";
+        H::setcolor(2);H::gotoxy(49,15);cout << R"( |  |  ||  7  |     |  ___!|  _ \ |  |  ||  7___|  __|_!__   7!__   7|  ||  7  ||  !  7                    )";
+        H::setcolor(7);H::gotoxy(49,16);cout << R"( |  !  ||  |  |     |  7   |  7  ||  !  ||     7|     77     |7     ||  ||  |  ||     |     ____________   )";
+        H::setcolor(7);H::gotoxy(49,17);cout << R"( !_____!!__!__!     !__!   !__!__!!_____!!_____!!_____!!_____!!_____!!__!!__!__!!_____!     7__77__77__7   )";
+    }
+
 }
 
 #endif

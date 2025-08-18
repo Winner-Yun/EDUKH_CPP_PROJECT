@@ -13,6 +13,7 @@
 #include "../include/Header_Teacher/Teach_MainMenu.h"
 #include "../include/Header_EDU/MainController.h"
 #include "../include/Header_Teacher/MainHeaderOFManageScore.h"
+#include "../include/Header_Teacher/MainAssignHomwork.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;
@@ -24,15 +25,17 @@ int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
+    H::setFont(15);
     // QuizDesign::Quiz_Select();
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu();
-//      menu.Main_menu();
+    //   subSche.Main_ScheduleSubMenu(); 	
+    //   menu.Main_menu();
 
 //    EDUSYSTEM::displayStartScreen();
+//   MainAssignHomwork::AssignHMain("T-013");
 
-    MainHeaderOFManageScore::ManageScoreMain("T-013");
+      MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");

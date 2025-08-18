@@ -25,11 +25,14 @@ class MainHeadOF_ManageScore{
                         const char* gr    = "F"  );
             //File process
         void writeSetSchoolscore(const char* studentID, const char* newScore);
+        void writeSetH1Score(const char* studentID, const char* newScore);
+        void writeSetH2Score(const char* studentID, const char* newScore);
         void updateTotals();
         void searchRecords(const char* grade, const string& keyword);
         void readFile(const char* grade, int pageIndex, int rowsPerPage);
         void writeDatatoFile(const char* grade);
         int countRecords(const char* grade);
+        void clearScore();
 };
 //Student Format
  struct Student_format {
@@ -136,15 +139,15 @@ void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyw
         H::gotoxy(69, row);
         cout << list[i].score_sch;
         H::gotoxy(92, row);
-        cout << list[i].sc_q1;
-        H::gotoxy(104, row);
-        cout << list[i].sc_q2;
-        H::gotoxy(116, row);
-        cout << list[i].sc_q3;
-        H::gotoxy(127, row);
         cout << list[i].sc_h1;
-        H::gotoxy(137, row);
+        H::gotoxy(104, row);
         cout << list[i].sc_h2;
+        H::gotoxy(116, row);
+        cout << list[i].sc_q1;
+        H::gotoxy(127, row);
+        cout << list[i].sc_q2;
+        H::gotoxy(137, row);
+        cout << list[i].sc_q3;
         H::gotoxy(149, row);
         cout << list[i].toalScore;
         H::gotoxy(165, row);
@@ -154,10 +157,51 @@ void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyw
     }
 }
 
+void MainHeadOF_ManageScore::clearScore() {
+    // Ask user first
+    int choice = MessageBoxA(
+        NULL,
+        "Are you sure you want to clear ALL scores?",
+        "Confirm Clear",
+        MB_YESNO | MB_ICONQUESTION
+    );
 
+    if (choice != IDYES) {
+        MessageBoxA(NULL, "Clear operation canceled.", "Canceled", MB_OK | MB_ICONINFORMATION);
+        return; // user chose No
+    }
+
+    fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
+    if (!file) {
+        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK | MB_ICONERROR);
+        return;
+    }
+
+    bool anyCleared = false;
+    MainHeadOF_ManageScore s;
+
+    while (file.read(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore))) {
+        // reset this record
+        s.setData(s.strname, s.strID, s.strgrade);
+
+        // move pointer back and overwrite
+        file.seekp(-static_cast<int>(sizeof(MainHeadOF_ManageScore)), ios::cur);
+        file.write(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore));
+        file.flush();
+
+        anyCleared = true;
+    }
+
+    file.close();
+
+}
 
 
 void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const char* newScore) {
+    int score = atoi(newScore);
+    char normalized[8];
+    snprintf(normalized, sizeof(normalized), "%d", score);
+
     fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
     if (!file) {
         MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
@@ -169,14 +213,13 @@ void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const ch
 
     while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
         if (strcmp(rec.strID, studentID) == 0) {
-            strncpy(rec.score_sch, newScore, sizeof(rec.score_sch)-1);
-            rec.score_sch[sizeof(rec.score_sch)-1] = '\0';
+            strncpy(rec.score_sch, normalized, sizeof(rec.score_sch) - 1);
+            rec.score_sch[sizeof(rec.score_sch) - 1] = '\0';
             rec.updateTotals();
-            file.clear(); // clear EOF/fail flags after read
+            file.clear();
             file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
             file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
             file.flush();
-
             found = true;
             break;
         }
@@ -188,6 +231,81 @@ void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const ch
 
     file.close();
 }
+
+
+void MainHeadOF_ManageScore::writeSetH1Score(const char* studentID, const char* newScore) {
+    int score = atoi(newScore);
+
+    char normalized[8];
+    snprintf(normalized, sizeof(normalized), "%d", score);
+
+    fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
+    if (!file) {
+        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+        return;
+    }
+
+    bool found = false;
+    MainHeadOF_ManageScore rec;
+
+    while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
+        if (strcmp(rec.strID, studentID) == 0) {
+            strncpy(rec.sc_h1, normalized, sizeof(rec.sc_h1) - 1);
+            rec.sc_h1[sizeof(rec.sc_h1) - 1] = '\0';
+            rec.updateTotals();
+            file.clear();
+            file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
+            file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
+            file.flush();
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        MessageBoxA(NULL, "Error", "Student ID not found in file", MB_OK);
+    }
+
+    file.close();
+}
+
+void MainHeadOF_ManageScore::writeSetH2Score(const char* studentID, const char* newScore) {
+    int score = atoi(newScore);
+
+    char normalized[8];
+    snprintf(normalized, sizeof(normalized), "%d", score);
+
+    fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
+    if (!file) {
+        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+        return;
+    }
+
+    bool found = false;
+    MainHeadOF_ManageScore rec;
+
+    while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
+        if (strcmp(rec.strID, studentID) == 0) {
+            strncpy(rec.sc_h2, normalized, sizeof(rec.sc_h2) - 1);
+            rec.sc_h2[sizeof(rec.sc_h2) - 1] = '\0';
+            rec.updateTotals();
+            file.clear();
+            file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
+            file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
+            file.flush();
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        MessageBoxA(NULL, "Error", "Student ID not found in file", MB_OK);
+    }
+
+    file.close();
+}
+
+
 
 
  
@@ -324,16 +442,16 @@ void MainHeadOF_ManageScore::readFile(const char* grade, int pageIndex, int rows
         cout << list[i].strID;
         H::gotoxy(75, row);
         cout << " " << list[i].score_sch << " ";
-        H::gotoxy(92, row);
-        cout << list[i].sc_q1;
-        H::gotoxy(104, row);
-        cout << list[i].sc_q2;
+        H::gotoxy(91, row);
+        cout<< " " << list[i].sc_h1  << " ";
+        H::gotoxy(103, row);
+        cout<< " "  << list[i].sc_h2  << " ";
         H::gotoxy(116, row);
-        cout << list[i].sc_q3;
+        cout << list[i].sc_q1;
         H::gotoxy(127, row);
-        cout << list[i].sc_h1;
+        cout << list[i].sc_q2;
         H::gotoxy(137, row);
-        cout << list[i].sc_h2;
+        cout << list[i].sc_q3;
         H::gotoxy(149, row);
         cout << list[i].toalScore;
         H::gotoxy(165, row);

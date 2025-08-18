@@ -3,7 +3,6 @@
 #include "../Header_School/ANTHinsyOOP"
 #include "../Header_EDU/CustomHeader.h"
 #include "../Header_EDU/Main_menu.h"
-#include "Main_AssHomeworks.h"
 #include "QuizDesign.h"
 #include "MainHeaderOFManageScore.h"
 
@@ -202,8 +201,6 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    AssignHomework assignHomeWork;
-                    assignHomeWork.Main_AssignHomework();
 
                     H::setcolor(7);
                     system("cls");

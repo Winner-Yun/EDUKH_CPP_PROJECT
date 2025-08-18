@@ -1,5 +1,5 @@
 #ifndef __MAIN_CONTROLLER__
-#define __MAIN_CONTROLLER_
+#define __MAIN_CONTROLLER__
 
 #include "../Header_School/ANTHinsyOOP"
 #include"Login_Form.h"
