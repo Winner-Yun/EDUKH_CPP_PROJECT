@@ -33,9 +33,9 @@ int main() {
     //   menu.Main_menu();
 
 //    EDUSYSTEM::displayStartScreen();
-//   MainAssignHomwork::AssignHMain("T-013");
+   MainAssignHomwork::AssignHMain("T-013");
 
-      MainHeaderOFManageScore::ManageScoreMain("T-013");
+//      MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
