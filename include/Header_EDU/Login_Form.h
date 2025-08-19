@@ -42,6 +42,57 @@ class Login_Design {
     // ---------------------------------------------------------<< Login Main Process >>-------------------------------------------------------------
    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    
+    #include <conio.h>
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+// password input with position
+    void inputPasswordMask(int x, int y, char* password, int maxLen) {
+        int i = 0;
+        bool showPassword = false;  // start hidden
+        char ch;
+
+        H::gotoxy(x, y);  // move cursor to position
+
+        while (true) {
+            ch = _getch(); // read key without echo
+
+            // Enter key -> finish input
+            if (ch == 13) { 
+                password[i] = '\0';
+                break;
+            }
+            // Backspace
+            else if (ch == 8) {
+                if (i > 0) {
+                    i--;
+                    password[i] = '\0';
+                    cout << "\b \b"; // erase last char
+                }
+            }
+            // Toggle password visibility (example: press TAB key)
+            else if (ch == 9) {
+                showPassword = !showPassword; 
+                // redraw password
+                H::gotoxy(x, y);
+                for (int j = 0; j < i; j++) {
+                    cout << (showPassword ? password[j] : '*');
+                }
+                // clear the rest if needed
+                cout << string(maxLen - i, ' ');
+                H::gotoxy(x + i, y);
+            }
+            // Normal input
+            else if (i < maxLen - 1 && isprint(ch)) {
+                password[i++] = ch;
+                password[i] = '\0';
+                cout << (showPassword ? ch : '*');
+            }
+        }
+    }
+
+
    void Login_Design::MainLogin(){
 
 
@@ -61,7 +112,7 @@ class Login_Design {
             H::drawBoxSingleLineWithBG(123,33,53,1,0);
             H::gotoxy(123,27);H::setcolor(15);HLVInput::inputEmail(this->strGmail, 40);
             //password form
-            H::gotoxy(123,34);H::setcolor(15);H::inputPasswordMask(this->strPassword,19);
+            H::gotoxy(123,34);H::setcolor(15);inputPasswordMask(123, 34, this->strPassword, 19);;
             processLogin(strGmail , strPassword , attmp);
             
         }
