@@ -32,12 +32,12 @@ int main() {
     //   subSche.Main_ScheduleSubMenu(); 	
     //   menu.Main_menu();
 
-//    EDUSYSTEM::DisplayStartScreen();
+   EDUSYSTEM::DisplayStartScreen();
 //      MainAssignHomwork::AssignHMain("T-011");
 //     MainAssignHomwork::AssignHMainProcess("T-011","11");
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013");
-       s.Main_StudentManage();
+    //    s.Main_StudentManage();
     //   Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //   logD.MainLogin();
