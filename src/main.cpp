@@ -14,6 +14,7 @@
 #include "../include/Header_EDU/MainController.h"
 #include "../include/Header_Teacher/MainHeaderOFManageScore.h"
 #include "../include/Header_Teacher/MainAssignHomwork.h"
+ #include "../include/TeacherProfile/TeacherProfileDemo.h"
 
 using namespace ANTHinsyOOP;
 Edu_Main_Menu menu;
