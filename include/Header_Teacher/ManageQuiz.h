@@ -2,19 +2,32 @@
 #define ___INC_MANAGE_QUIZ_H___
 
 #include "../Header_School/ANTHinsyOOP"
+#include "../Header_Teacher/QuizDesign.h"
+#include "QuizDesign.h"
+
 using namespace ANTHinsyOOP;
 
 class Quiz {
 private:
-    string question;
-    string correctAnswer;
-    string wrongAnswers[3];
+    char question[100];
+    char answers[4][50];     // 4 possible answers
+    char correctIndex[5];     // store as char array "1","2","3","4"
+    int points;               // each question worth 10
 
 public:
+    Quiz() : points(10) {
+        correctIndex[0] = '1'; // default "1"
+        correctIndex[1] = '\0';
+    }
+
     void inputQuiz();
     void displayQuiz() const;
     void saveToFile(ofstream &out) const;
     void loadFromFile(ifstream &in);
+
+    int getCorrectIndex() const {   // convert to int
+        return atoi(correctIndex) - 1;  // 0-based
+    }
 };
 
 class QuizManager {
@@ -31,54 +44,71 @@ public:
 // ====================== Quiz Method Definitions ======================
 
 void Quiz::inputQuiz() {
-    cin.clear();
-    fflush(stdin);
+    H::setcolor(7); H::gotoxy(17, 18); H::inputAll(question, 100);
 
-    cout << "Enter question: ";
-    H::inputAll(question, 100); cout << endl;
+    // Answer 1
+    H::setcolor(7); H::gotoxy(17, 28);  H::inputAll(answers[0], 50);
 
-    cout << "Enter correct answer: ";
-    H::inputAll(correctAnswer, 100);
+    // Answer 2
+    H::setcolor(7); H::gotoxy(107, 28); H::inputAll(answers[1], 50);
 
-    for (int i = 0; i < 3; i++) {
-        cout << "Enter wrong answer " << (i + 1) << ": ";
-        H::inputAll(wrongAnswers[i], 100);
+    // Answer 3
+    H::setcolor(7); H::gotoxy(17, 36); H::inputAll(answers[2], 50);
+
+    // Answer 4
+    H::setcolor(7); H::gotoxy(107, 36); H::inputAll(answers[3], 50);
+
+    do {
+        H::setcolor(7); H::gotoxy(80, 43); cout << "Which answer is correct? (1-4): ";
+        H::inputNumber(correctIndex, 2);
+    } while (atoi(correctIndex) < 1 || atoi(correctIndex) > 4);
+    int choice = atoi(correctIndex);
+
+    switch (choice) {
+        case 1:
+            H::drawBoxSingleLineWithBG(15, 26, 80, 3, 2);
+            H::setcolor(7); H::gotoxy(17, 28); cout << answers[0];
+            break;
+        case 2:
+            H::drawBoxSingleLineWithBG(105, 26, 80, 3, 2);
+            H::setcolor(7); H::gotoxy(107, 28); cout << answers[1];
+            break;
+        case 3:
+            H::drawBoxSingleLineWithBG(15, 34, 80, 3, 2);
+            H::setcolor(7); H::gotoxy(17, 36); cout << answers[2];
+            break;
+        case 4:
+            H::drawBoxSingleLineWithBG(105, 34, 80, 3, 2);
+            H::setcolor(7); H::gotoxy(107, 36); cout << answers[3];
+            break;
     }
+    points = 10;
 }
 
 void Quiz::displayQuiz() const {
     cout << "Question: " << question << "\n";
-    cout << "Correct answer: " << correctAnswer << "\n";
-    for (int i = 0; i < 3; i++) {
-        cout << "Wrong answer " << (i + 1) << ": " << wrongAnswers[i] << "\n";
+    for (int i = 0; i < 4; i++) {
+        cout << (i + 1) << ") " << answers[i];
+        if (i == getCorrectIndex()) cout << "  <-- Correct";
+        cout << "\n";
     }
+    cout << "Points: " << points << "\n";
 }
 
 void Quiz::saveToFile(ofstream &out) const {
-    auto writeString = [&](const string &s) {
-        size_t len = s.size();
-        out.write(reinterpret_cast<const char*>(&len), sizeof(len));
-        out.write(s.c_str(), len);
-    };
-
-    writeString(question);
-    writeString(correctAnswer);
-    for (int i = 0; i < 3; i++)
-        writeString(wrongAnswers[i]);
+    out.write(reinterpret_cast<const char*>(question), sizeof(question));
+    for (int i = 0; i < 4; i++)
+        out.write(reinterpret_cast<const char*>(answers[i]), sizeof(answers[i]));
+    out.write(reinterpret_cast<const char*>(correctIndex), sizeof(correctIndex));
+    out.write(reinterpret_cast<const char*>(&points), sizeof(points));
 }
 
 void Quiz::loadFromFile(ifstream &in) {
-    auto readString = [&](string &s) {
-        size_t len;
-        in.read(reinterpret_cast<char*>(&len), sizeof(len));
-        s.resize(len);
-        in.read(&s[0], len);
-    };
-
-    readString(question);
-    readString(correctAnswer);
-    for (int i = 0; i < 3; i++)
-        readString(wrongAnswers[i]);
+    in.read(reinterpret_cast<char*>(question), sizeof(question));
+    for (int i = 0; i < 4; i++)
+        in.read(reinterpret_cast<char*>(answers[i]), sizeof(answers[i]));
+    in.read(reinterpret_cast<char*>(correctIndex), sizeof(correctIndex));
+    in.read(reinterpret_cast<char*>(&points), sizeof(points));
 }
 
 // ====================== QuizManager Method Definitions ======================
@@ -95,18 +125,30 @@ void QuizManager::createQuiz() {
     }
 
     char choice;
+    int count = 0;
     do {
+        H::cls();
+        QuizDesign::QuizScreen();
         Quiz q;
+        cout << "Creating Question #" << (count + 1) << "\n\n";
         q.inputQuiz();
         q.saveToFile(out);
+
+        count++;
+        if (count >= 10) {
+            cout << "Maximum of 10 questions reached.\n";
+            break;
+        }
+
         cout << "Add another question? (y/n): ";
         cin >> choice;
         cin.clear();
         fflush(stdin);
-    } while (choice == 'y' || choice == 'Y');
+    } while ((choice == 'y' || choice == 'Y') && count < 10);
 
     out.close();
 }
+
 
 void QuizManager::updateQuiz() {
     ifstream in(filename, ios::binary);
@@ -228,7 +270,6 @@ void QuizManager::deleteQuiz() {
         }
     }
 
-    // Save remaining quizzes
     ofstream out(filename, ios::binary | ios::trunc);
     if (!out) {
         cerr << "Error opening file for writing.\n";

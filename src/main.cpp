@@ -1,4 +1,4 @@
-#include <windows.h>
+	#include <windows.h>
 #include <conio.h>
 #include <iostream>
 #include "../include/Header_School/ANTHinsyOOP"
@@ -26,16 +26,16 @@ int main() {
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
     H::setFont(15);
-    // QuizDesign::Quiz_Select();
+    QuizDesign::Quiz_Select();
     //   td.teacherManagement();
-    // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu(); 	
+    // EdumasterCustom::LoadingPage(23, 3, 140, 20);
+    //   subSche.Main_ScheduleSubMenu();
     //   menu.Main_menu();
 
 //    EDUSYSTEM::displayStartScreen();
-   MainAssignHomwork::AssignHMain("T-013");
+//    MainAssignHomwork::AssignHMain("T-013");
 
-//      MainHeaderOFManageScore::ManageScoreMain("T-013");
+    //  MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
