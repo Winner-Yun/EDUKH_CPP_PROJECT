@@ -128,7 +128,6 @@ void QuizManager::createQuiz() {
     int count = 0;
     do {
         H::cls();
-        QuizDesign::QuizScreen();
         Quiz q;
         cout << "Creating Question #" << (count + 1) << "\n\n";
         q.inputQuiz();
