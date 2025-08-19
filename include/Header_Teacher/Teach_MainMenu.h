@@ -68,7 +68,7 @@ void Teach_MainMenu::Main(const char* email){
             H::gotoxy(75, 39);cout << "-------------------" << endl;
 
             H::setcolor(7);
-            H::gotoxy(121, 38);cout << "----------[      LOGOUT      ]----------" << endl;
+            H::gotoxy(121, 38);cout << "----------[     LOGOUT     ]----------" << endl;
             H::setcolor(4);
             H::gotoxy(131, 37);cout << R"(\----------------/)"<< endl;
             H::gotoxy(131, 39);cout << "__________________" << endl;
@@ -123,7 +123,7 @@ void Teach_MainMenu::Main(const char* email){
                 case 6: {
                     H::drawBoxDoubleLineWithBG(120,37,40,1,250);
                     H::setcolor(4);
-                    H::gotoxy(121, 38);cout << "----------[      LOGOUT      ]----------" << endl;
+                    H::gotoxy(121, 38);cout << "----------[     LOGOUT     ]----------" << endl;
                     H::setcolor(4);
                     H::gotoxy(131, 37);cout << R"(\----------------/)"<< endl;
                     H::gotoxy(131, 39);cout << "__________________" << endl;
@@ -216,7 +216,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    Edu_Main_Menu::ourProfile();
+                   Edu_Main_Menu::MainAboutUs();
                     
                     H::setcolor(7);
                     system("cls");
@@ -386,6 +386,7 @@ void Teach_MainMenu::Header(const char* email){
     H::setcolor(7);H::gotoxy(3,2);cout<<R"( ╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝ )";
     H::setcolor(1);H::gotoxy(3,42);cout<<R"( ███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗███████╗ )";
     H::setcolor(7);H::gotoxy(3,43);cout<<R"( ╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝ )";
+
 
 
     

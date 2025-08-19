@@ -82,8 +82,8 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
 
     int currentSelection = 0;
     bool running = true;
+    MenuGradeDesignDesign();
     while (running) {
-      MenuGradeDesignDesign();
        
       for (size_t i = 0; i < grades.size(); ++i) {
             int yBox = startY + static_cast<int>(i) * (boxHeight + 3); 
@@ -95,7 +95,6 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                   H::setcolor(7);
                   H::gotoxy(startX + (boxWidth / 2) - ((grades[i].size() + 2) / 2), yBox+2); 
                   cout << " " << grades[i] << " ";
-                  H::HLine(82,12,36,3,178);
                }
                else{
                   H::clearBox(startX,yBox,boxWidth,boxHeight,7);
@@ -103,7 +102,6 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                   H::setcolor(7);
                   H::gotoxy(startX + (boxWidth / 2) - ((grades[i].size() + 9) / 2), yBox+2); 
                   cout << " GRADE: " << grades[i] << " ";
-                  H::HLine(82,12,36,3,178);
                }
             } else {
                 if (grades[i] == "<| BACK"){
@@ -112,7 +110,6 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                   H::setcolor(79);
                   H::gotoxy(startX + (boxWidth / 2) - ((grades[i].size() + 2) / 2), yBox+2); 
                   cout << " " << grades[i] << " ";
-                  H::HLine(82,12,36,3,178);
 
                 }
                 else{
@@ -121,7 +118,6 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                   H::setcolor(31);
                   H::gotoxy(startX + (boxWidth / 2) - ((grades[i].size() + 9) / 2), yBox+2); 
                   cout << " GRADE: " << grades[i] << " ";
-                   H::HLine(82,12,36,3,178);
                   
                 }
             }
@@ -141,6 +137,7 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                 running = false;
                 H::cls();
             } else {
+                H::setcolor(7);
                 system("cls");
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 30, 135, 5);
@@ -149,6 +146,7 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 30, 135, 5);
                 H::cls();
+                MenuGradeDesignDesign();
             }
         } else if (key == 27) { // ESC
             running = false;
@@ -336,11 +334,13 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
                 }
             } else { // Horizontal menu actions
                 switch (horizontalChoice) {
-                    case 1: if (pageIndex > 0){
-                        pageIndex--; 
-                        H::clearBox(11,20,178,16,7);
+                    case 1:{ 
+                        if (pageIndex > 0){
+                            pageIndex--; 
+                            H::clearBox(11,20,178,16,7);
+                        }
                         break;
-                    }
+                     }
                     case 2: { 
                         H::setcursor(true,1);
                         H::drawBoxDoubleLineWithBG(70,20,60,3,7);
@@ -376,39 +376,50 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
 
 
 void MainHeaderOFManageScore::MenuGradeDesignDesign(){
-      H::drawBoxDoubleLineWithBG(1,1,97,1,153);
-      H::drawBoxDoubleLineWithBG(101,1,99,1,170);
+
+    H::HLine(14,3,34,7,254);
+    H::HLine(150,3,35,7,254);
+
+    H::HLine(14,41,34,7,254);
+    H::HLine(150,41,35,7,254);
 
 
-      H::HLine(60,13,23,3,178);
-      H::HLine(40,14,23,3,178);
+    H::drawBoxSingleLineWithBG(49,0,100,5,79);
+    H::drawBoxSingleLineWithBG(49,38,100,5,79);
 
-      H::HLine(117,13,23,3,178);
-      H::HLine(137,14,23,3,178);
-      
-      H::HLine(60,40,23,3,178);
-      H::HLine(40,39,23,3,178);
+    H::drawBoxSingleLineWithBG(2,1,11,41,31);
+    H::drawBoxSingleLineWithBG(186,1,11,41,31);
+    
+    H::HLine(14,19,45,7,254);
+    H::HLine(14,25,45,7,254);
 
-      H::HLine(82,41,36,3,178);
+    H::HLine(140,19,45,7,254);
+    H::HLine(140,25,45,7,254);
 
-      H::HLine(117,40,23,3,178);
-      H::HLine(137,39,23,3,178);
-      
+    H::HLine(58,10,20,7,254);
+    H::HLine(58,34,20,7,254);
 
-      H::gotoxy(125,17);H::setcolor(7);cout<<"  [ TIP 1! ] ENTER TO SELECT THE OPTION.  ";
-      H::gotoxy(125,19);H::setcolor(7);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
-      H::gotoxy(125,21);H::setcolor(7);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.  ";
-      H::gotoxy(125,23);H::setcolor(7);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.  ";
+    H::HLine(120,10,20,7,254);
+    H::HLine(120,34,20,7,254);
+
+    H::VLine(59,10,23,7,219);
+    H::VLine(140,10,23,7,219);
+    
+
+    H::gotoxy(52,40);H::setcolor(7);cout<<"  [ TIP 1! ] ENTER TO SELECT THE OPTION.    ";
+    H::gotoxy(102,40);H::setcolor(7);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
+    H::gotoxy(52,42);H::setcolor(7);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.       ";
+    H::gotoxy(102,42);H::setcolor(7);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.   ";
 
 
-      
-      system("chcp 65001 > nul");
-      H::setcolor(3);H::gotoxy(10,5);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████     ██████  ███████ ███████ ██████   ██████  ███    ██ ██████  ██ ███    ██  ██████       ██████  ██████   █████  ██████  ███████ )";
-      H::setcolor(3);H::gotoxy(10,6);cout<<R"( ██      ██   ██ ██    ██ ██    ██ ██      ██          ██   ██ ██      ██      ██   ██ ██    ██ ████   ██ ██   ██ ██ ████   ██ ██           ██       ██   ██ ██   ██ ██   ██ ██      )";
-      H::setcolor(1);H::gotoxy(10,7);cout<<R"( ██      ███████ ██    ██ ██    ██ ███████ █████       ██████  █████   ███████ ██████  ██    ██ ██ ██  ██ ██   ██ ██ ██ ██  ██ ██   ███     ██   ███ ██████  ███████ ██   ██ █████   )";
-      H::setcolor(1);H::gotoxy(10,8);cout<<R"( ██      ██   ██ ██    ██ ██    ██      ██ ██          ██   ██ ██           ██ ██      ██    ██ ██  ██ ██ ██   ██ ██ ██  ██ ██ ██    ██     ██    ██ ██   ██ ██   ██ ██   ██ ██      )";
-      H::setcolor(1);H::gotoxy(10,9);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████     ██   ██ ███████ ███████ ██       ██████  ██   ████ ██████  ██ ██   ████  ██████       ██████  ██   ██ ██   ██ ██████  ███████ )";
-      system("chcp 437 >nul");      
+    
+    system("chcp 65001 > nul");
+    H::setcolor(79);H::gotoxy(51,1);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████      ██████  ██████   █████  ██████  ███████ )";
+    H::setcolor(79);H::gotoxy(51,2);cout<<R"( ██      ██   ██ ██    ██ ██    ██ ██      ██          ██       ██   ██ ██   ██ ██   ██ ██      )";
+    H::setcolor(79);H::gotoxy(51,3);cout<<R"( ██      ███████ ██    ██ ██    ██ ███████ █████       ██   ███ ██████  ███████ ██   ██ █████   )";
+    H::setcolor(79);H::gotoxy(51,4);cout<<R"( ██      ██   ██ ██    ██ ██    ██      ██ ██          ██    ██ ██   ██ ██   ██ ██   ██ ██      )";
+    H::setcolor(79);H::gotoxy(51,5);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████      ██████  ██   ██ ██   ██ ██████  ███████ )";
+    system("chcp 437 >nul");      
 }
 
 

@@ -14,6 +14,8 @@ class Teacher{
 		const char* getTeacherName() const;
 		const char* getSubject() const;
 		const char* getYear() const;
+		const char* getDateOfBirth() const;
+		const char* getEmail() const;
 		const char* getPhone() const;
 		const char* getGender() const;
 
@@ -53,8 +55,8 @@ TeacherDesign td;
 int Teacher::lastId = 0;
 
 const char* Teacher::getTeacherId() const {
-			return teacherId;
-		}
+	return teacherId;
+}
 
 const char* Teacher::getTeacherName() const {
 	return teacherName;
@@ -72,6 +74,12 @@ const char* Teacher::getYear() const {
 	return academyYear;
 }
 
+const char* Teacher::getDateOfBirth() const {
+	return dateOfBirth;
+}
+const char* Teacher::getEmail() const {
+	return email;
+}
 const char* Teacher::getPhone() const {
 	return phoneNumber;
 }
