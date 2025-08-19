@@ -106,6 +106,7 @@ using namespace std;
             H::setcursor(true,1);
             if(trueInput){
                 loginDesignCon();
+                H::gotoxy(123,37); H::setcolor(2); cout << "TAP TO SHOW/HIDE PASSWORD";
             }   //call design of  login
           
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
@@ -145,10 +146,10 @@ using namespace std;
                 trueInput = false;
                 attmp++;
                 H::setcolor(4);
-                H::gotoxy(120, 38);
+                H::gotoxy(120, 39);
                 cout << "             [!] INVALID EMAIL OR PASSWORD               ";
                 H::delay(1000);
-                H::gotoxy(120, 38);
+                H::gotoxy(120, 39);
                 cout << "                                                         ";
             }
         }
@@ -165,10 +166,10 @@ using namespace std;
                 trueInput = false;
                 attmp++;
                 H::setcolor(4);
-                H::gotoxy(120, 38);
+                H::gotoxy(120, 39);
                 cout << "             [!] INVALID EMAIL OR PASSWORD               ";
                 H::delay(1000);
-                H::gotoxy(120, 38);
+                H::gotoxy(120, 39);
                 cout << "                                                         ";
             }
         }
@@ -176,10 +177,10 @@ using namespace std;
             trueInput = false;
             attmp++;
             H::setcolor(4);
-            H::gotoxy(120, 38);
+            H::gotoxy(120, 39);
             cout << "             [!] INVALID EMAIL OR PASSWORD               ";
             H::delay(1000);
-            H::gotoxy(120, 38);
+            H::gotoxy(120, 39);
             cout << "                                                         ";
         }
 
