@@ -382,8 +382,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID , const c
 
         switch (activeIndex) {
             case 0: // RECREATE
-                cout << "You selected RECREATE       ";
-                // call your delete function here
+                assH.recreateHomework(teacherID,grade,homeWorkID);
                 break;
             case 1: // RECREATE
                 cout << "You selected DELETE     ";
@@ -393,9 +392,8 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID , const c
                 cout << "You selected PUBLISH      ";
                 // call your publish function here
                 break;
-            case 3: // BACK
-                cout << "Going BACK                ";
-                running = false; // exit menu
+            case 3: 
+                running = false; 
                 break;
         }
     } else if (ch == 27) { // ESC
