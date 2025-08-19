@@ -465,7 +465,7 @@ void Login_Design::loadingProcess() {
         H::setcolor(23);H::gotoxy(17,33);cout<<"LEFT & RIGHT";
         H::setcolor(71);H::gotoxy(17,34);cout<<"ESC";
         H::setcolor(87);H::gotoxy(39,34);cout<<"ENTER";
-        H::setcolor(215);H::gotoxy(50,37);cout<<"   PTC, CBRD FUND, ANT SCHOOL,";
+        H::setcolor(215);H::gotoxy(50,37);cout<<" PTC, CBRD FUND, ANT SCHOOL ";
 
 
         // BOX LOGIN Field 

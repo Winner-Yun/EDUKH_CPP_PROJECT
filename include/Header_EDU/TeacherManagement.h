@@ -172,6 +172,7 @@ void  Teacher::input(){
     // H::gotoxy(76, 41);  H::foreColor(6); cout << "ACADEMIC YEAR   :";
 
 //    string stracademyYear;
+	H::setcursor(true, 1);
     H::gotoxy(60, 23); cout << teacherId;
     H::gotoxy(60, 29); H::inputLetter(teacherName, 30);
     H::gotoxy(60, 36); H::inputLetter(gender, 30);
@@ -657,9 +658,9 @@ void TeacherDesign::system(){
 	  H::VLine(196, 6, i - 3, 224, ' ');
 	  
 	}
-	H::setcursor(true, 1);
 	H::delay(500);
 	H::cls();
+	H::setcursor(true, 1);
 	H::foreColor(0);
 }
 
@@ -667,6 +668,7 @@ void TeacherDesign::searchTeacher() {
     H::setFixedScreenConsole(200, 45);
     H::cls();
     H::foreColor(3);
+	H::setcursor(false, 0);
     H::gotoxy(51, 9);  cout << R"(  ______   ________       _       _______      ______  ____  ____  _____  __ __  _____   ______  )";
     H::gotoxy(51, 10); cout << R"(.' ____ \ |_   __  |     / \     |_   __ \   .' ___  ||_   ||   _||_   _||_   \|_   _|.' ___  | )";
     H::gotoxy(51, 11); cout << R"(| (___ \_|  | |_ \_|    / _ \      | |__) | / .'   \_|  | |__| |    | |    |   \ | | / .'   \_| )";
@@ -688,6 +690,7 @@ void TeacherDesign::searchTeacher() {
 
         H::drawBoxDoubleLine(84, 10, 37, 1, 3);
     	H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER TEACHER ID FOR SEARCH : T-";
+		H::setcursor(true, 1);
 		H::inputNumber(searchID, 4);
 
         fstream teachF("../data/Teacher_Data.bin", ios::in | ios::binary); //open file
@@ -735,6 +738,7 @@ void TeacherDesign::searchTeacher() {
             H::clearBox(0, 44, 200, -1, 7);
             H::gotoxy(70, 40);
             H::foreColor(12); H::gotoxy(65, 43);
+			H::setcursor(false, 0);
 			cout << "TEACHER ID NOT FOUND. PRESS ";
 			H::foreColor(14); cout << "[ENTER]";
 			H::foreColor(12); cout << " TO TRY AGAIN OR ";
@@ -837,8 +841,9 @@ void TeacherDesign::deletedTeacher(){
 		TeacherDesign::designTable();
 		TeacherDesign::showTeacher();
 		TeacherDesign::asciiDelete();
-		H::drawBoxDoubleLine(84, 10, 35, 1, 3);
+		H::drawBoxDoubleLine(84, 10, 36, 1, 3);
       	H::setcolor(7); H::gotoxy(85, 11); cout << "ENTER TEACHER ID TO DELETE : T-";
+		H::setcursor(true, 1);
         H::inputUNumber(deleteId, 4);
 
         fstream backup("../data/backup_data.bin", ios::out | ios::binary); // create back up file
@@ -871,6 +876,7 @@ void TeacherDesign::deletedTeacher(){
 			TeacherDesign::showTeacher();
 			TeacherDesign::asciiDelete();
 			H::clearBox(0, 44, 200, -1, 7);
+			H::setcursor(false, 0);
             H::foreColor(2); H::gotoxy(84, 43); cout << "TEACHER ID " << deleteId << " DELETE SUCCESSFULLY!";
             break;
         } else {
@@ -880,6 +886,7 @@ void TeacherDesign::deletedTeacher(){
 			H::gotoxy(13, 2); cout << R"(_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|)";
 			H::gotoxy(12, 3); cout << R"(UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU)";
 			
+			H::setcursor(false, 0);
 			H::delay(10); H::foreColor(3); H::gotoxy(63, 4);  cout << R"( ____       _      _         _____               _                )";
 			H::delay(10); H::foreColor(4); H::gotoxy(63, 5);  cout << R"(|  _ \  ___| | ___| |_ ___  |_   _|__  __ _  ___| |__   ___ _ __ )";
 			H::delay(10); H::foreColor(5); H::gotoxy(63, 6);  cout << R"(| | | |/ _ \ |/ _ \ __/ _ \   | |/ _ \/ _` |/ __| '_ \ / _ \ '__|)";
@@ -888,12 +895,12 @@ void TeacherDesign::deletedTeacher(){
 			H::HLine(63, 10, 66, 5, 223);
 
 			TeacherDesign::designTable();
-
+			H::setcursor(false, 0);
 			H::gotoxy(52, 26); H::setcolor(4); cout << R"(  _____               _                  _   _       _      _____                     _   _ _ _   )";
 			H::gotoxy(52, 27); H::setcolor(4); cout << R"( |_   _|__  __ _  ___| |__   ____ __    | \ | | ___ | |_   |  ___|__  _   _ _ __   __| | | | | |  )";
 			H::gotoxy(52, 28); H::setcolor(4); cout << R"(   | |/ _ \/ _` |/ __| '_ \ / _ \ '__|  |  \| |/ _ \| __|  | |_ / _ \| | | | '_ \ / _` | | | | |  )";
 			H::gotoxy(52, 29); H::setcolor(4); cout << R"(   | |  __/ (_| | (__| | | |  __/ |     | |\  | (_) | |_   |  _| (_) | |_| | | | | (_| | |_|_|_|  )";
-			H::gotoxy(52, 30); H::setcolor(4); cout << R"(   |_|\___|\__,_|\___|_| |_|\___| |_|   |_| \_|\___/ \__|  |_|  \___/ \__,_|_| |_|\__,_| (_|_|_)  )";
+			H::gotoxy(52, 30); H::setcolor(4); cout << R"(   |_|\___|\__,_|\___|_| |_|\___|_|     |_| \_|\___/ \__|  |_|  \___/ \__,_|_| |_|\__,_| (_|_|_)  )";
             if (x != 27) break;
         }
     } while (true);

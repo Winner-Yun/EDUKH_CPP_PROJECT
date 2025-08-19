@@ -172,6 +172,7 @@ void Teach_MainMenu::Main(const char* email){
 
                     MainHeaderOFManageScore::ManageScoreMain(teacherID);
 
+                    H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,5);
