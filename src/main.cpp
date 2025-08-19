@@ -30,15 +30,15 @@ int main() {
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu(); 	
-    //   menu.Main_menu();
+//       menu.Main_menu();
 
 //    EDUSYSTEM::displayStartScreen();
     //  MainAssignHomwork::AssignHMain("T-013");
-     MainAssignHomwork::AssignHMainProcess("T-013","12");
+//     MainAssignHomwork::AssignHMainProcess("T-013","12");
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
-//      Teach_MainMenu::Main("te.yunwinner@gmail.com");
+      Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //   logD.MainLogin();
     // subStuTech.Main_SubMenuMangeStuTech();
