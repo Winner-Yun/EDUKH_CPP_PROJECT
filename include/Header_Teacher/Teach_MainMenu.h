@@ -5,6 +5,7 @@
 #include "../Header_EDU/Main_menu.h"
 #include "QuizDesign.h"
 #include "MainHeaderOFManageScore.h"
+#include "MainAssignHomwork.h"
 
 class Teach_MainMenu{
 
@@ -201,6 +202,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
+                    MainAssignHomwork::AssignHMain(teacherID);
 
                     H::setcolor(7);
                     system("cls");

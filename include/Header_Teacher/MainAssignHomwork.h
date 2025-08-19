@@ -15,7 +15,7 @@ public:
     static void MenuGradeDesignDesign();
     static void ReadFileAssMenu(const char* teacherID);
     static void AssignHMainProcess(const char* id , const char* grade);
-    static void DesignAssingMain(const char* grade);
+    static void DesignAssingMain(const char* teacherID, const char* grade);
     static void HeaderOFGrade(const char* grade);
     static void LoadingHeader(int id);
     static void AssignHomeWorkMainDesign(const char* id , const char* grade, const char* homeWorkID);
@@ -29,7 +29,7 @@ void MainAssignHomwork::AssignHMain(const char* teacherID ){
 }
 
 void MainAssignHomwork::ReadFileAssMenu(const char* teacherID) {
-    const int consoleWidth = 200;
+    const int consoleWidth = 199;
     const int consoleHeight = 45;
     H::cls();
 
@@ -204,7 +204,7 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
     H::setcursor(false,0);
     do{
 
-        DesignAssingMain("11");      
+        DesignAssingMain(id,"11");      
 
         do{
             H::drawBoxDoubleLineWithBG(35,20,40,1,47);
@@ -281,14 +281,8 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
 
                 case 2:{
                     H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
                     AssignHomeWorkMainDesign(id ,  grade , "2");
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    H::cls();
+                    H::clearBox(16, 12, 166, 28, 7);
                     break;
                 }
 
@@ -305,7 +299,7 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
 }
 
 
-void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID , const char* grade , const char* homeWorkID) {
+void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const char* grade, const char* homeWorkID) {
     H::clearBox(16, 12, 166, 28, 7);
 
     H::VLine(32,30,10,1,219);
@@ -319,96 +313,157 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID , const c
 
     H::drawBoxDoubleLineWithBG(21, 14, 156, 4, 111);
 
-
     time_t now = time(0);
     tm *ltm = localtime(&now);
     H::drawBoxSingleLineWithBG(49,14,100,3,7);
     H::setcolor(6);H::gotoxy(50, 15); cout << "Teacher Name : "; H::setcolor(7); cout << assH.getnameFromFile(teacherID);
     H::setcolor(6); H::gotoxy(50, 17); cout << "Teacher ID   : "; H::setcolor(7); cout << teacherID;
-    H::setcolor(6); H::gotoxy(130, 15); cout << "Grade : "; H::setcolor(7); cout << grade;
-    H::setcolor(6); H::gotoxy(130, 17); cout << "Date  : "; 
-    H::setcolor(7);
-    cout << setfill('0') << setw(2) << ltm->tm_mday << "/"
-         << setfill('0') << setw(2) << ltm->tm_mon + 1 << "/"
-         << (1900 + ltm->tm_year);
-
+    H::setcolor(6); H::gotoxy(123, 15); cout << "Grade : "; H::setcolor(7); cout << grade;
+    H::setcolor(6); H::gotoxy(123, 17); cout << "UPDATE DATE :"; 
+    
     H::drawBoxDoubleLineWithBG(20, 19, 158, 8, 7);
-    H::drawBoxSingleLine(88,14,25,1,7);
-    H::gotoxy(90,15);H::setcolor(2);cout<<"ASSIGN AT HOMEWORK 0"<<homeWorkID;
+    H::drawBoxSingleLine(84,14,25,1,7);
+    H::gotoxy(86,15);H::setcolor(2);cout<<"ASSIGN AT HOMEWORK 0"<<homeWorkID;
 
-    H::setcolor(2);
-    H::gotoxy(22, 20); cout << "Homework 0"<<homeWorkID<<" Description:";
-    H::setcolor(7);
-    H::gotoxy(22, 22); cout << ">> "<< assH.getDescriptionFromFile(teacherID,homeWorkID,grade);
+    H::setcolor(2);H::gotoxy(22, 20); cout << "Homework 0"<<homeWorkID<<" Description:";
+    
+    H::setcolor(6);H::gotoxy(22, 24); cout << "* NOTE :";
 
-    H::setcolor(6);
-    H::gotoxy(22, 24); cout << "* NOTE :";
-    H::setcolor(7);
-    H::gotoxy(22, 26); cout << ">> "<< assH.gethomeWorkNote(teacherID,homeWorkID,grade);
+    H::VLine(150,19,8,7,186);
 
-    const char* menuItems[4] = {"RE/CREATE", "DELETE", "PUBLISH", "BACK"};
+    H::gotoxy(152,20);H::setcolor(1);cout<<"DEADLINE DD/MM/YY :";
+
+
     int activeIndex = 0;
     bool running = true;
 
     while (running) {
-    H::drawBoxDoubleLineWithBG(46, 28, 100, 4, 3);
+        bool isPublished = assH.isPublished(teacherID, grade, homeWorkID);
+        const char* menuItems[4] = { "RE/CREATE", "CLEAR", isPublished ? "UNPUBLISH" : "PUBLISH", "BACK" };
+        bool checkExprire = assH.checkExpire(teacherID, grade, homeWorkID);
 
-    for (int i = 0; i < 4; i++) {
-        int xPos = 59 + i * 22;
-        int yPos = 30;
-
-        if (i == activeIndex) {
-            H::setcolor(12);
-            H::gotoxy(xPos, yPos);
-            cout << "[ " << menuItems[i] << " ]";
-        } else {
-            H::setcolor(7);
-            H::gotoxy(xPos, yPos);
-            cout << "  " << menuItems[i] << "  ";
+        if(checkExprire ){
+            H::drawBoxSingleLine(151,25,12,1,4);
+            H::setcolor(4);H::gotoxy(154,26);cout<<"EXPIRED";
+            assH.unpublishHomework(teacherID, grade, homeWorkID);
+            isPublished = false;
+            menuItems[2] = "PUBLISH";
         }
-    }
-
-    int ch = _getch();
-    if (ch == 0 || ch == 224) {
-        ch = _getch();
-        if (ch == 75 && activeIndex > 0) {    
-            activeIndex--;
-        } else if (ch == 77 && activeIndex < 3) { 
-            activeIndex++;
+        else{
+            H::drawBoxSingleLine(151,25,12,1,2);
+            H::setcolor(2);H::gotoxy(154,26);cout<<"STABLE";
         }
-    } else if (ch == 13) { // ENTER
-        H::gotoxy(60, 34);
-        H::setcolor(10);
 
-        switch (activeIndex) {
-            case 0: // RECREATE
-                assH.recreateHomework(teacherID,grade,homeWorkID);
-                break;
-            case 1: // RECREATE
-                cout << "You selected DELETE     ";
-                // call your recreate function here
-                break;
-            case 2: // PUBLISH
-                cout << "You selected PUBLISH      ";
-                // call your publish function here
-                break;
-            case 3: 
-                running = false; 
-                break;
+        if(isPublished){
+            H::drawBoxSingleLine(165,25,12,1,6);
+            H::setcolor(6);H::gotoxy(166,26);cout<<"PUBLISHED ";
         }
-    } else if (ch == 27) { // ESC
-        running = false;
+        else{
+            H::drawBoxSingleLine(165,25,12,1,3);
+            H::setcolor(3);H::gotoxy(166,26);cout<<"InProgress";
+        }
+
+        H::setcursor(false,0);
+        H::setcolor(2);H::gotoxy(22, 22); cout << ">> ";
+        H::setcolor(6);H::gotoxy(22, 26); cout << ">> ";
+        H::setcolor(1);H::gotoxy(152, 22); cout << ">> ";
+        H::drawBoxDoubleLineWithBG(46, 28, 100, 4, 3);
+        H::setcolor(7);H::gotoxy(137,17);cout<< assH.getDateFromFile(teacherID,homeWorkID,grade);
+        H::setcolor(7);H::gotoxy(25,22);cout<< assH.getDescriptionFromFile(teacherID,homeWorkID,grade);
+        H::setcolor(7);H::gotoxy(25,26);cout<< assH.gethomeWorkNote(teacherID,homeWorkID,grade);
+        H::setcolor(7);H::gotoxy(155,22);cout<< assH.getDeadlineFromFile(teacherID,homeWorkID,grade);
+
+        for (int i = 0; i < 4; i++) {
+            int xPos = 59 + i * 22;
+            int yPos = 30;
+
+            if (i == activeIndex) {
+                H::setcolor(12);
+                H::gotoxy(xPos, yPos);
+                cout << "[ " << menuItems[i] << " ]";
+            } else {
+                H::setcolor(7);
+                H::gotoxy(xPos, yPos);
+                cout << "  " << menuItems[i] << "  ";
+            }
+        }
+
+        int ch = _getch();
+        if (ch == 0 || ch == 224) {
+            ch = _getch();
+            if (ch == 75 && activeIndex > 0) activeIndex--;
+            else if (ch == 77 && activeIndex < 3) activeIndex++;
+        } else if (ch == 13) {
+            H::gotoxy(60, 34);
+            H::setcolor(10);
+
+            switch (activeIndex) {
+                case 0: // Recreate
+                    if (isPublished) {
+                        MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
+                    }else{
+                        if (MessageBoxA(NULL, "Are you sure you want to RECREATE this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        H::setcursor(true,1);
+                        assH.recreateHomework(teacherID, grade, homeWorkID);
+                        H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
+                        H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
+                        H::setcolor(7); H::gotoxy(155, 22); cout << string(23, ' ');
+                    }
+                    }
+                    break;
+
+               case 1: // Clear
+                    if (isPublished) {
+                        MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
+                    } else {
+                        if (MessageBoxA(NULL, "Are you sure you want to CLEAR this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                            assH.clearHomework(teacherID, grade, homeWorkID);
+                            H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
+                            H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
+                            H::setcolor(7); H::gotoxy(155, 22); cout << string(23, ' ');
+                        }
+                    }
+                    break;
+                case 2: // Publish / Unpublish
+                    if (isPublished) {
+                        if (MessageBoxA(NULL, "Are you sure you want to UNPUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                            assH.unpublishHomework(teacherID, grade, homeWorkID);
+                            isPublished = false;
+                            menuItems[2] = "PUBLISH";
+                        }
+                    } else {
+                        if (MessageBoxA(NULL, "Are you sure you want to PUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                            assH.publishHomework(teacherID, grade, homeWorkID);
+                            isPublished = true;
+                            menuItems[2] = "UNPUBLISH";
+                        }
+                    }
+                    H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
+                    H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
+                    H::setcolor(7); H::gotoxy(155, 22); cout << string(23, ' ');
+                    break;
+
+                case 3: // Back
+                    running = false; 
+                    break;
+            }
+        } else if (ch == 27) {
+            running = false;   
+        }
     }
 }
 
-}
 
 
-
-
-void MainAssignHomwork::DesignAssingMain(const char* grade){
+void MainAssignHomwork::DesignAssingMain(const char* teacherID, const char* grade){
     HeaderOFGrade(grade);
+    H::HLine(18,16,87,7,205);
+    H::drawBoxSingleLineWithBG(102,14,60,3,7);
+    H::gotoxy(103,15);cout<<"TEACHER NAME  : "<<assH.getnameFromFile(teacherID)<<" | "<<"TEACHER ID: "<<teacherID;
+    H::gotoxy(103,17);cout<<"WORK AT GRADE : "<<grade;
 
+   
+                                                                                                                                                                                                      
     system("chcp 65001 > nul");
 
 
@@ -479,6 +534,15 @@ void MainAssignHomwork::DesignAssingMain(const char* grade){
     H::gotoxy(122,25);H::setcolor(7);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
     H::gotoxy(122,27);H::setcolor(7);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.       ";
     H::gotoxy(122,29);H::setcolor(7);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.   ";
+
+                                                                                                                                                                                                           
+    H::setcolor(7);H::gotoxy(17,37);cout<<R"( |\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /||\     /| )";
+    H::setcolor(1);H::gotoxy(17,38);cout<<R"( | )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( | )";
+    H::setcolor(1);H::gotoxy(17,39);cout<<R"( | (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) || (___) | )";
+    H::setcolor(7);H::gotoxy(17,40);cout<<R"( |  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  ||  ___  | )";
+    H::setcolor(1);H::gotoxy(17,41);cout<<R"( | (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) || (   ) | )";
+    H::setcolor(1);H::gotoxy(17,42);cout<<R"( | )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( || )   ( | )";
+    H::setcolor(7);H::gotoxy(17,43);cout<<R"( |/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \||/     \| )";
 }
 
 void MainAssignHomwork::HeaderOFGrade(const char* grade){

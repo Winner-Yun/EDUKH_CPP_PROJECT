@@ -36,7 +36,7 @@ void MainHeaderOFManageScore::ManageScoreMain(const char* teacherID ){
 
 
 void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
-    const int consoleWidth = 200;
+    const int consoleWidth = 199;
     const int consoleHeight = 45;
     H::cls();
 
@@ -158,7 +158,7 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
 // Modified MenuProcess
 void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* grade) {
     vector<string> studentIDs;
-    managePro.writeDatatoFile(grade);
+    managePro.writeDatatoFile(teacherID,grade);
 
     ifstream inFile("../data/Student_Data.bin", ios::binary);
     if (!inFile) {
@@ -199,7 +199,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
     bool running = true;
     int pageIndex = 0;
     const int rowsPerPage = 6;
-    int totalStudents = managePro.countRecords(grade);
+    int totalStudents = managePro.countRecords(teacherID,grade);
     int totalPages = (totalStudents + rowsPerPage - 1) / rowsPerPage;
     // Design Header
     MenuSelect(teacherID, grade);
@@ -259,7 +259,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
         }
 
         // Read File
-        managePro.readFile(grade, pageIndex, rowsPerPage);
+        managePro.readFile(teacherID,grade, pageIndex, rowsPerPage);
 
         //  Key Handling 
         int key = _getch();
@@ -326,11 +326,11 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
                     }
 
                     if (verticalSubChoice == 0)
-                        managePro.writeSetSchoolscore(studentIDs[selectedIndex].c_str(), inputScore);
+                        managePro.writeSetSchoolscore(teacherID,grade,studentIDs[selectedIndex].c_str(), inputScore);
                     else if (verticalSubChoice == 1)
-                        managePro.writeSetH1Score(studentIDs[selectedIndex].c_str(), inputScore);
+                        managePro.writeSetH1Score(teacherID,grade,studentIDs[selectedIndex].c_str(), inputScore);
                     else if (verticalSubChoice == 2)
-                        managePro.writeSetH2Score(studentIDs[selectedIndex].c_str(), inputScore);
+                        managePro.writeSetH2Score(teacherID,grade,studentIDs[selectedIndex].c_str(), inputScore);
                 }
             } else { // Horizontal menu actions
                 switch (horizontalChoice) {
@@ -349,13 +349,13 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
                         char strname[20];
                         H::inputLetter(strname,16);
                         H::clearBox(11,20,178,16,7);
-                        managePro.searchRecords(grade, strname);
+                        managePro.searchRecords(teacherID,grade, strname);
                         getch();
                         H::clearBox(11,20,178,16,7);
                         break;
                     }
                     case 3:{
-                        managePro.clearScore();
+                        managePro.clearScore(teacherID,grade);
                         H::clearBox(11,20,178,16,7);
                         break;
                     }

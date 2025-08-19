@@ -8,31 +8,33 @@ using namespace ANTHinsyOOP;
 
 class MainHeadOF_ManageScore{
     private:
-        char strname[20], strID[15], strgrade[3], score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];
+        char strname[20], strID[15], strgrade[3], assignBY[20],score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];
     public:
 
-        void setData(  const char* name   = "___",
-                        const char* id     = "___",
-                        const char* grade  = "___",
-                        const char* sch    = "0",
-                        const char* q1     = "0",
-                        const char* q2     = "0",
-                        const char* q3     = "0",
-                        const char* h1     = "0",
-                        const char* h2     = "0",
-                        const char* total  = "00.00",
-                        const char* avg    = "00.00",  
-                        const char* gr    = "F"  );
-            //File process
-        void writeSetSchoolscore(const char* studentID, const char* newScore);
-        void writeSetH1Score(const char* studentID, const char* newScore);
-        void writeSetH2Score(const char* studentID, const char* newScore);
+        void setData(const char* name   = "___",
+                 const char* id     = "___",
+                 const char* grade  = "___",
+                 const char* teacherID = "___",
+                 const char* sch    = "0",
+                 const char* q1     = "0",
+                 const char* q2     = "0",
+                 const char* q3     = "0",
+                 const char* h1     = "0",
+                 const char* h2     = "0",
+                 const char* total  = "00.00",
+                 const char* avg    = "00.00",  
+                 const char* gr     = "F");
+
+        // File process
+        void writeSetSchoolscore(const char* teacherID, const char* grade, const char* studentID, const char* newScore);
+        void writeSetH1Score(const char* teacherID, const char* grade, const char* studentID, const char* newScore);
+        void writeSetH2Score(const char* teacherID, const char* grade, const char* studentID, const char* newScore);
         void updateTotals();
-        void searchRecords(const char* grade, const string& keyword);
-        void readFile(const char* grade, int pageIndex, int rowsPerPage);
-        void writeDatatoFile(const char* grade);
-        int countRecords(const char* grade);
-        void clearScore();
+        void searchRecords(const char* teacherID, const char* grade, const string& keyword);
+        void readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage);
+        void writeDatatoFile(const char* teacherID, const char* grade);
+        int countRecords(const char* teacherID, const char* grade);
+        void clearScore(const char* teacherID, const char* grade);
 };
 //Student Format
  struct Student_format {
@@ -45,10 +47,24 @@ class MainHeadOF_ManageScore{
 MainHeadOF_ManageScore Mscore,scores[MAX];
 int scoreCount = 0;
 
-void MainHeadOF_ManageScore::setData(const char* name,const char* id, const char* grade,const char* sch,const char* q1,const char* q2,const char* q3,const char* h1,const char* h2,const char* total,const char* avg,const char* gr ) {
+void MainHeadOF_ManageScore::setData(const char* name,
+                                     const char* id,
+                                     const char* grade,
+                                     const char* teacherID,
+                                     const char* sch,
+                                     const char* q1,
+                                     const char* q2,
+                                     const char* q3,
+                                     const char* h1,
+                                     const char* h2,
+                                     const char* total,
+                                     const char* avg,
+                                     const char* gr) 
+{
     strcpy(strname, name);
     strcpy(strID, id);
     strcpy(strgrade, grade);
+    strcpy(assignBY, teacherID);   // ✅ new line
     strcpy(score_sch, sch);
     strcpy(sc_q1, q1);
     strcpy(sc_q2, q2);
@@ -56,9 +72,10 @@ void MainHeadOF_ManageScore::setData(const char* name,const char* id, const char
     strcpy(sc_h1, h1);
     strcpy(sc_h2, h2);
     strcpy(toalScore, total);
-    strcpy(avgScore,  avg);
-    strcpy(this->gr,  gr);
+    strcpy(avgScore, avg);
+    strcpy(this->gr, gr);
 }
+
 
 void MainHeadOF_ManageScore::updateTotals() {
     int q1 = atoi(sc_q1);
@@ -87,7 +104,7 @@ void MainHeadOF_ManageScore::updateTotals() {
     }
 }
 
-void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyword) {
+void MainHeadOF_ManageScore::searchRecords(const char* teacherID, const char* grade, const string& keyword) {
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
         MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
@@ -101,7 +118,8 @@ void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyw
     transform(lowerKeyword.begin(), lowerKeyword.end(), lowerKeyword.begin(), ::tolower);
 
     while (inFile.read(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore))) {
-        if (strcmp(s.strgrade, grade) == 0) {
+        // ✅ filter by grade + teacherID
+        if (strcmp(s.strgrade, grade) == 0 && strcmp(s.assignBY, teacherID) == 0) {
             string name = s.strname;
             string id   = s.strID;
 
@@ -157,18 +175,19 @@ void MainHeadOF_ManageScore::searchRecords(const char* grade, const string& keyw
     }
 }
 
-void MainHeadOF_ManageScore::clearScore() {
-    // Ask user first
+
+void MainHeadOF_ManageScore::clearScore(const char* teacherID, const char* grade) {
+
     int choice = MessageBoxA(
         NULL,
-        "Are you sure you want to clear ALL scores?",
+        "Are you sure you want to clear ALL scores for this teacher and grade?",
         "Confirm Clear",
         MB_YESNO | MB_ICONQUESTION
     );
 
     if (choice != IDYES) {
         MessageBoxA(NULL, "Clear operation canceled.", "Canceled", MB_OK | MB_ICONINFORMATION);
-        return; // user chose No
+        return; 
     }
 
     fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
@@ -181,23 +200,32 @@ void MainHeadOF_ManageScore::clearScore() {
     MainHeadOF_ManageScore s;
 
     while (file.read(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore))) {
-        // reset this record
-        s.setData(s.strname, s.strID, s.strgrade);
 
-        // move pointer back and overwrite
-        file.seekp(-static_cast<int>(sizeof(MainHeadOF_ManageScore)), ios::cur);
-        file.write(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore));
-        file.flush();
+        if (strcmp(s.assignBY, teacherID) == 0 && strcmp(s.strgrade, grade) == 0) {
 
-        anyCleared = true;
+            s.setData(s.strname, s.strID, s.strgrade, s.assignBY);
+
+            // move pointer back and overwrite
+            file.seekp(-static_cast<int>(sizeof(MainHeadOF_ManageScore)), ios::cur);
+            file.write(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore));
+            file.flush();
+
+            anyCleared = true;
+        }
     }
 
     file.close();
 
+    if (anyCleared) {
+        MessageBoxA(NULL, "Scores cleared successfully.", "Success", MB_OK | MB_ICONINFORMATION);
+    } else {
+        MessageBoxA(NULL, "No matching records found for this teacher and grade.", "Info", MB_OK | MB_ICONINFORMATION);
+    }
 }
 
 
-void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const char* newScore) {
+
+void MainHeadOF_ManageScore::writeSetSchoolscore(const char* teacherID, const char* grade, const char* studentID, const char* newScore) {
     int score = atoi(newScore);
     char normalized[8];
     snprintf(normalized, sizeof(normalized), "%d", score);
@@ -212,10 +240,15 @@ void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const ch
     MainHeadOF_ManageScore rec;
 
     while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
-        if (strcmp(rec.strID, studentID) == 0) {
+        // ✅ Match student ID + teacher ID + grade
+        if (strcmp(rec.strID, studentID) == 0 &&
+            strcmp(rec.assignBY, teacherID) == 0 &&
+            strcmp(rec.strgrade, grade) == 0) 
+        {
             strncpy(rec.score_sch, normalized, sizeof(rec.score_sch) - 1);
             rec.score_sch[sizeof(rec.score_sch) - 1] = '\0';
-            rec.updateTotals();
+
+            rec.updateTotals();  // ✅ pass teacher + grade
             file.clear();
             file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
             file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
@@ -226,14 +259,15 @@ void MainHeadOF_ManageScore::writeSetSchoolscore(const char* studentID, const ch
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Error", "Student ID not found in file", MB_OK);
+        MessageBoxA(NULL, "Error", "Student ID not found for this teacher and grade", MB_OK);
     }
 
     file.close();
 }
 
 
-void MainHeadOF_ManageScore::writeSetH1Score(const char* studentID, const char* newScore) {
+
+void MainHeadOF_ManageScore::writeSetH1Score(const char* teacherID, const char* grade, const char* studentID, const char* newScore) {
     int score = atoi(newScore);
 
     char normalized[8];
@@ -249,10 +283,15 @@ void MainHeadOF_ManageScore::writeSetH1Score(const char* studentID, const char* 
     MainHeadOF_ManageScore rec;
 
     while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
-        if (strcmp(rec.strID, studentID) == 0) {
+        // ✅ check Student ID + Teacher ID + Grade
+        if (strcmp(rec.strID, studentID) == 0 &&
+            strcmp(rec.assignBY, teacherID) == 0 &&
+            strcmp(rec.strgrade, grade) == 0) 
+        {
             strncpy(rec.sc_h1, normalized, sizeof(rec.sc_h1) - 1);
             rec.sc_h1[sizeof(rec.sc_h1) - 1] = '\0';
-            rec.updateTotals();
+
+            rec.updateTotals();  // ✅ recalc totals with teacher+grade
             file.clear();
             file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
             file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
@@ -263,15 +302,17 @@ void MainHeadOF_ManageScore::writeSetH1Score(const char* studentID, const char* 
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Error", "Student ID not found in file", MB_OK);
+        MessageBoxA(NULL, "Error", "Student ID not found for this teacher and grade", MB_OK);
     }
 
     file.close();
 }
 
-void MainHeadOF_ManageScore::writeSetH2Score(const char* studentID, const char* newScore) {
+
+void MainHeadOF_ManageScore::writeSetH2Score(const char* teacherID, const char* grade, const char* studentID, const char* newScore) {
     int score = atoi(newScore);
 
+    // Normalize score into string
     char normalized[8];
     snprintf(normalized, sizeof(normalized), "%d", score);
 
@@ -285,33 +326,42 @@ void MainHeadOF_ManageScore::writeSetH2Score(const char* studentID, const char* 
     MainHeadOF_ManageScore rec;
 
     while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
-        if (strcmp(rec.strID, studentID) == 0) {
+        // Check teacher, grade, and student
+        if (strcmp(rec.assignBY, teacherID) == 0 &&
+            strcmp(rec.strgrade, grade) == 0 &&
+            strcmp(rec.strID, studentID) == 0) {
+
+            // Update H2 score safely
             strncpy(rec.sc_h2, normalized, sizeof(rec.sc_h2) - 1);
             rec.sc_h2[sizeof(rec.sc_h2) - 1] = '\0';
+
+            // Recalculate totals
             rec.updateTotals();
+
+            // Move back and overwrite record
             file.clear();
             file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
             file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
             file.flush();
+
             found = true;
             break;
         }
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Error", "Student ID not found in file", MB_OK);
+        MessageBoxA(NULL, "Error", "Matching record not found (Teacher, Grade, or StudentID mismatch)", MB_OK | MB_ICONERROR);
     }
 
     file.close();
 }
 
-
-
-
  
-void MainHeadOF_ManageScore::writeDatatoFile(const char* grade) {
+void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* grade) {
 
-    vector<Student_format> students;{
+    // 1. Load all students from this grade
+    vector<Student_format> students;
+    {
         ifstream inFile("../data/Student_Data.bin", ios::binary);
         if (!inFile) {
             MessageBoxA(NULL, "Error", "Student_Data.bin not found", MB_OK);
@@ -333,12 +383,15 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* grade) {
     }
 
     // 2. Load existing ManageScore_data.bin records
-    vector<MainHeadOF_ManageScore> scoresExisting;{
+    vector<MainHeadOF_ManageScore> scoresExisting;
+    {
         ifstream inFile("../data/ManageScore_data.bin", ios::binary);
         if (inFile) {
             MainHeadOF_ManageScore temp;
             while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MainHeadOF_ManageScore))) {
-                if (strcmp(temp.strgrade, grade) == 0) {
+                // Only load records for this teacher + grade
+                if (strcmp(temp.assignBY, teacherID) == 0 &&
+                    strcmp(temp.strgrade, grade) == 0) {
                     scoresExisting.push_back(temp);
                 }
             }
@@ -346,10 +399,9 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* grade) {
         }
     }
 
-    // 3. Create a new synced list
+    // 3. Create a new synced list (for this teacher + grade)
     vector<MainHeadOF_ManageScore> newScores;
     for (auto &s : students) {
-   
         bool found = false;
         for (auto &old : scoresExisting) {
             if (strcmp(old.strID, s.id) == 0) {
@@ -360,30 +412,29 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* grade) {
         }
 
         if (!found) {
-            
             MainHeadOF_ManageScore fresh;
-            fresh.setData(s.name, s.id, s.grade);
+            fresh.setData(s.name, s.id, s.grade,teacherID); // add teacher ID here
             newScores.push_back(fresh);
         }
     }
 
-    // 4. Write the new synced data back (overwrite only this grade’s records)
+    // 4. Merge back into full file (preserve other teachers/grades)
     {
-        
         vector<MainHeadOF_ManageScore> allRecords;
         ifstream inFile("../data/ManageScore_data.bin", ios::binary);
         if (inFile) {
             MainHeadOF_ManageScore temp;
             while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MainHeadOF_ManageScore))) {
-                // keep other grades
-                if (strcmp(temp.strgrade, grade) != 0) {
+                // keep other teacher/grade combos
+                if (!(strcmp(temp.assignBY, teacherID) == 0 &&
+                      strcmp(temp.strgrade, grade) == 0)) {
                     allRecords.push_back(temp);
                 }
             }
             inFile.close();
         }
 
-        // then add the updated grade data
+        // then add the updated grade data for this teacher
         allRecords.insert(allRecords.end(), newScores.begin(), newScores.end());
 
         // overwrite file with merged data
@@ -398,7 +449,7 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* grade) {
 }
 
 
-void MainHeadOF_ManageScore::readFile(const char* grade, int pageIndex, int rowsPerPage) {
+void MainHeadOF_ManageScore::readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage) {
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
         MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
@@ -408,8 +459,11 @@ void MainHeadOF_ManageScore::readFile(const char* grade, int pageIndex, int rows
     vector<MainHeadOF_ManageScore> list;
     MainHeadOF_ManageScore s;
 
+    // ✅ Load only records for this teacher and grade
     while (inFile.read(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore))) {
-        if (strcmp(s.strgrade, grade) == 0) list.push_back(s);
+        if (strcmp(s.strgrade, grade) == 0 && strcmp(s.assignBY, teacherID) == 0) {
+            list.push_back(s);
+        }
     }
     inFile.close();
 
@@ -443,9 +497,9 @@ void MainHeadOF_ManageScore::readFile(const char* grade, int pageIndex, int rows
         H::gotoxy(75, row);
         cout << " " << list[i].score_sch << " ";
         H::gotoxy(91, row);
-        cout<< " " << list[i].sc_h1  << " ";
+        cout << " " << list[i].sc_h1  << " ";
         H::gotoxy(103, row);
-        cout<< " "  << list[i].sc_h2  << " ";
+        cout << " " << list[i].sc_h2  << " ";
         H::gotoxy(116, row);
         cout << list[i].sc_q1;
         H::gotoxy(127, row);
@@ -467,7 +521,7 @@ void MainHeadOF_ManageScore::readFile(const char* grade, int pageIndex, int rows
 }
 
 
-int MainHeadOF_ManageScore::countRecords(const char* grade) {
+int MainHeadOF_ManageScore::countRecords(const char* teacherID, const char* grade) {
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
         MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
@@ -476,8 +530,9 @@ int MainHeadOF_ManageScore::countRecords(const char* grade) {
 
     int count = 0;
     MainHeadOF_ManageScore temp;
+
     while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MainHeadOF_ManageScore))) {
-        if (strcmp(temp.strgrade, grade) == 0) {
+        if (strcmp(temp.strgrade, grade) == 0 && strcmp(temp.assignBY, teacherID) == 0) {
             count++;
         }
     }
