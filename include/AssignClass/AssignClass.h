@@ -28,6 +28,11 @@ class AssignClass{
 		int CountRecords(const char* className) const;
 		const char* formatTitleName(const char* name, const char* gender);
 		static const char* stripTitlePrefix(const char* name);
+		// getter
+		const char* getGrade() const { return className; }  // "10" / "11" / "12"	
+		const char* getTeacherID() const { return teacherID; }
+		const char* getSubject() const { return subject; }
+		const char* getStudyYear() const { return academicYear; } 
 };
 
 
