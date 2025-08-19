@@ -68,7 +68,7 @@ void Teach_MainMenu::Main(const char* email){
             H::gotoxy(75, 39);cout << "-------------------" << endl;
 
             H::setcolor(7);
-            H::gotoxy(121, 38);cout << "----------[      LOGOUT      ]----------" << endl;
+            H::gotoxy(121, 38);cout << "----------[     LOGOUT     ]----------" << endl;
             H::setcolor(4);
             H::gotoxy(131, 37);cout << R"(\----------------/)"<< endl;
             H::gotoxy(131, 39);cout << "__________________" << endl;
@@ -123,7 +123,7 @@ void Teach_MainMenu::Main(const char* email){
                 case 6: {
                     H::drawBoxDoubleLineWithBG(120,37,40,1,250);
                     H::setcolor(4);
-                    H::gotoxy(121, 38);cout << "----------[      LOGOUT      ]----------" << endl;
+                    H::gotoxy(121, 38);cout << "----------[     LOGOUT     ]----------" << endl;
                     H::setcolor(4);
                     H::gotoxy(131, 37);cout << R"(\----------------/)"<< endl;
                     H::gotoxy(131, 39);cout << "__________________" << endl;
