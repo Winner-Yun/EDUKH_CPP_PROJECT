@@ -207,7 +207,12 @@ void QuizDesign::QuizMenu() {
 
     //Box
     H::drawBoxDoubleLine(70, 9, 120, 31, 2);
-    H::drawBoxDoubleLineWithBG(72, 10, 116, 29, 2);
+    H::HLine(70, 9, 120, 2, 219);
+    H::VLine(70, 8, 33, 2, 219);
+    H::VLine(71, 8, 33, 2, 219);
+    H::VLine(190, 8, 33, 2, 219);
+    H::VLine(191, 8, 33, 2, 219);
+    H::HLine(70, 41, 120, 2, 219);
     QuizDesign::QuizMenuScreen();
     H::gotoxy(68, 43); H::setcolor(6);  cout << "[Tip!]"; H::setcolor(7);  cout << " : Use Arrow "; H::setcolor(1);  cout << "[Up]"; H::setcolor(7);  cout << " - Arrow "; H::setcolor(4);  cout << "[Down]"; H::setcolor(7); cout << " to Move | "; H::setcolor(2); cout << "[Enter]"; H::setcolor(7); cout << " to Select.";
 }
@@ -567,6 +572,7 @@ void QuizDesign::ManageQuizMenu(int grade) {
 
     switch (x) {
         case 0:
+            QuizDesign::QuizScreen();
             manager.createQuiz();
             break;
         case 1:
