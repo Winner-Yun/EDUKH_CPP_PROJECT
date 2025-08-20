@@ -24,7 +24,6 @@ Schedule_Management schdule;
 int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
-    // H::setConsoleTitle("-----------------------------------------------------------------------------------------------------      EDU-MASTER-KH-SYSTEM-EMIS      -----------------------------------------------------------------------------------------------------");
     H::setFixedScreenConsole(200,45);
     H::setFont(15);
     // QuizDesign::Quiz_Select();
@@ -35,14 +34,13 @@ int main() {
 
  //  EDUSYSTEM::DisplayStartScreen();
 //      MainAssignHomwork::AssignHMain("T-011");
-//     MainAssignHomwork::AssignHMainProcess("T-011","10");
+//     MainAssignHomwork::AssignHMainProcess("T-011","11");
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
     //   Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-   logD.MainLogin();
-//TeacherProfile::navigateMenu();
+  logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
