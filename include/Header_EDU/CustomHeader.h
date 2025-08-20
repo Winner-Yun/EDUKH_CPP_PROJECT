@@ -55,6 +55,7 @@ int EdumasterCustom::ArrowKeyConTrol(int maxOption, int _stepDown_UP, int fchoic
 }
 
 void EdumasterCustom::LoadingPage(int x, int y, int width, int speed) {
+	H::setcursor(false, 0);
     H::setcolor(7);H::gotoxy(x,y-1);cout<<"LOADING...";
     H::drawBoxSingleLineWithBG(x, y, width+5, 1, 15);
     for (int i = 0; i <= width; i++) {

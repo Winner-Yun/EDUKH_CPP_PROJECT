@@ -570,7 +570,7 @@ void EDUSYSTEM::TeamProfile(){
 	H::VLine(94,14,3,7,186);
 	
 	H::drawBoxDoubleLineWithBG(80,17,30,1,196);
-	H::gotoxy(82,18);H::foreColor(199);cout<<"MENTER NAME : RUN LIHOU";
+	H::gotoxy(82,18);H::foreColor(199);cout<<"MENTOR NAME : RUN LIHOU";
 	H::VLine(94,19,2,7,186);
 	H::HLine(15,22,170,7,223);
 	
@@ -686,10 +686,10 @@ void EDUSYSTEM::TeamProfile(){
 }
 
 void EDUSYSTEM::DisplayStartScreen(){
-		H::setcursor(false,0);
+	H::setcursor(false,0);
+	H::setConsoleTitle("-----------------------------------------------------------------------------------------------------      EDU-MASTER-KH-SYSTEM-EMIS      -----------------------------------------------------------------------------------------------------");
 	H::setFixedScreenConsole(200,45);
-//	Login_Design::loadingProcess();
-//	Login_Design::loadingProcess();
+	Login_Design::loadingProcess();
 	do {
 		ShowWelcomeScreen();
 		int x = 0;  

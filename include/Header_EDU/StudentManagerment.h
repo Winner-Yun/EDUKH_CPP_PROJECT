@@ -99,9 +99,9 @@ void Student::System(){
 	  H::VLine(196, 6, i - 3, 224, ' ');
 	  
 	}
-	H::setcursor(true, 1);
 	H::delay(500);
 	H::cls();
+    H::setcursor(true, 1);
 	H::foreColor(0);
 }
 
@@ -376,6 +376,7 @@ void Student::Design_Update() {
 }
 
 void Student::Delete_Loading() {
+    H::setcursor(false, 0);
 	H::foreColor(3); H::gotoxy(60, 9); cout << R"( ______   ________  _____     ________  _________   _____  ____  _____    ______  )";
 	H::foreColor(3); H::gotoxy(60, 10); cout << R"(|_   _ `.|_   __  ||_   _|   |_   __  ||  _   _  ||_   _||_   \|_   _| .' ___  | )";
 	H::foreColor(3); H::gotoxy(60, 11); cout << R"(  | | `. \ | |_ \_|  | |       | |_ \_||_/ | | \_|  | |    |   \ | |  / .'   \_| )";
@@ -392,6 +393,7 @@ void Student::Delete_Loading() {
 }
 
 void Student::Search_Loading() {
+    H::setcursor(false, 0);
 	H::foreColor(3); H::gotoxy(52, 9); cout << R"(  ______   ________       _       _______      ______  ____  ____  _____  ____  _____   ______  )";
 	H::foreColor(3); H::gotoxy(52, 10); cout << R"(.' ____ \ |_   __  |     / \     |_   __ \   .' ___  ||_   ||   _||_   _||_   \|_   _|.' ___  | )";
 	H::foreColor(3); H::gotoxy(52, 11); cout << R"(| (___ \_|  | |_ \_|    / _ \      | |__) | / .'   \_|  | |__| |    | |    |   \ | | / .'   \_| )";
@@ -408,6 +410,7 @@ void Student::Search_Loading() {
 }
 
 void Student::Add_Loading() {
+    H::setcursor(false, 0);
 	H::foreColor(3); H::gotoxy(60, 9);  cout << R"(   ______  _______     ________       _     _________  _____  ____  _____    ______ )";
 	H::foreColor(3); H::gotoxy(60, 10); cout << R"( .' ___  ||_   __ \   |_   __  |     / \   |  _   _  ||_   _||_   \|_   _| .' ___  | )";
 	H::foreColor(3); H::gotoxy(60, 11); cout << R"(/ .'   \_|  | |__) |    | |_ \_|    / _ \  |_/ | | \_|  | |    |   \ | |  / .'   \_| )";
@@ -424,6 +427,7 @@ void Student::Add_Loading() {
 }
 
 void Student::Sort_Loading() {
+    H::setcursor(false, 0);
 	H::foreColor(3); H::gotoxy(60, 9);  cout << R"(  ______     ___   _______   _________  _____  ____  _____   ______  )";
 	H::foreColor(3); H::gotoxy(60, 10); cout << R"(.' ____ \  .'   `.|_   __ \ |  _   _  ||_   _||_   \|_   _|.' ___  | )";
 	H::foreColor(3); H::gotoxy(60, 11); cout << R"(| (___ \_|/  .-.  \ | |__) ||_/ | | \_|  | |    |   \ | | / .'   \_| )";
@@ -727,6 +731,7 @@ void Student::Search() {
             H::clearBox(0, 44, 200, -1, 7);
             H::gotoxy(70, 40);
             H::foreColor(12); H::gotoxy(65, 43);
+            H::setcursor(false, 0);
             cout << "STUDENT ID NOT FOUND. PRESS ";
             H::foreColor(14); cout << "[ENTER]";
             H::foreColor(12); cout << " TO TRY AGAIN OR ";
@@ -757,7 +762,7 @@ void Student::Main_StudentManage() {
 	int x = 0;
     bool loop = true;
     char option;
-    // Student::System();
+    Student::System();
     H::cls();
     s.Menu("DEFAULT");
     while(loop) {

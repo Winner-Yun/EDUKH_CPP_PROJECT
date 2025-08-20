@@ -406,10 +406,10 @@ void MainHeaderOFManageScore::MenuGradeDesignDesign(){
     H::VLine(140,10,23,7,219);
     
 
-    H::gotoxy(52,40);H::setcolor(7);cout<<"  [ TIP 1! ] ENTER TO SELECT THE OPTION.    ";
-    H::gotoxy(102,40);H::setcolor(7);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
-    H::gotoxy(52,42);H::setcolor(7);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.       ";
-    H::gotoxy(102,42);H::setcolor(7);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.   ";
+    H::gotoxy(52,40);H::setcolor(79);cout<<"  [ TIP 1! ] ENTER TO SELECT THE OPTION.    ";
+    H::gotoxy(102,40);H::setcolor(79);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
+    H::gotoxy(52,42);H::setcolor(79);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.       ";
+    H::gotoxy(102,42);H::setcolor(79);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.   ";
 
 
     

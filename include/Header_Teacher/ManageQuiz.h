@@ -114,7 +114,7 @@ void Quiz::loadFromFile(ifstream &in) {
 // ====================== QuizManager Method Definitions ======================
 
 QuizManager::QuizManager(int grade) {
-    filename = "grade" + to_string(grade) + ".bin";
+    filename = "../data/grade" + to_string(grade) + ".bin";
 }
 
 void QuizManager::createQuiz() {
@@ -127,7 +127,6 @@ void QuizManager::createQuiz() {
     char choice;
     int count = 0;
     do {
-        H::cls();
         Quiz q;
         cout << "Creating Question #" << (count + 1) << "\n\n";
         q.inputQuiz();
@@ -139,7 +138,7 @@ void QuizManager::createQuiz() {
             break;
         }
 
-        cout << "Add another question? (y/n): ";
+        H::setcolor(7); H::gotoxy(80, 43); cout << "Add another question? (y/n): ";
         cin >> choice;
         cin.clear();
         fflush(stdin);
