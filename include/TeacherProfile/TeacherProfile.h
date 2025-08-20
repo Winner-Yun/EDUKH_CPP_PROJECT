@@ -7,7 +7,12 @@
 #include "TeacherProfileDesign.h"
 #include "ConsoleColor.h"
 #include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 #include <windows.h>
+#include <conio.h>
 using namespace ANTHinsyOOP;
 
 class TeacherProfile
@@ -29,6 +34,7 @@ class TeacherProfile
         static void drawMenu(int selected);
     	//
         void ProfileMenu();
+        bool ProfileMenu(bool& shouldExit); // Add overloaded version
         void display();
         void displayProfile();
         void displayAssignClass();
@@ -41,6 +47,8 @@ class TeacherProfile
         void showAssignedClasses();
         // ---------------------------------------
         void showAssignedClassesPaginate();
+        // ---------------------------------------
+        void changePassword();
 
         const Teacher& getTeacher() const { return teacher; }
         const char* getTeacherId() const { return teacherId;} 
@@ -78,33 +86,283 @@ void getTeacherProfileByEmail(const char* emailToFind, TeacherProfile& profile) 
 // ==========================================================================
 // ---- ProfileMenu: call on *this* and use 0-based cases ----
 void TeacherProfile::ProfileMenu() {
+    bool shouldExit = false;
+    ProfileMenu(shouldExit);
+}
+
+bool TeacherProfile::ProfileMenu(bool& shouldExit) {
     while (true) {
         int choice = navigateMenu();
-		H::setcolor(7);
-        H::cls();
         if (choice == -1) {
-        	H::setcolor(7);
-        	H::cls();
-            break;  
+            // ESC was pressed, just return to main profile display
+            // Don't clear screen, just return to let the profile display continue
+            return false; // Return false to indicate ESC was pressed
         }
 
+        // Clear screen for menu options
+        H::setcolor(7);
+        H::cls();
+        
         switch (choice) {
-            case 0:
-                break;
-
-            case 1: {
+            case 0:{
+                changePassword();
+                getch();
+                // After password change, redraw the profile
                 H::setcolor(7);
                 H::cls();
+                // Redraw the profile display without calling ProfileMenu again
+                // Just redraw the basic profile elements
+                TeacherProfileDesign::TeacherProfileText(42, 2);
+                // Redraw borders and basic structure
+                for(int i=0;i<9;i++){
+                    H::HLine(40,i,2,3,219);
+                    H::HLine(158,i,2,3,219);
+                }
+                H::HLine(40,0,40,3,219);
+                H::HLine(40,9,40,3,219);
+                H::HLine(118,0,40,3,219);
+                H::HLine(118,9,42,3,219);
+                H::drawBoxSingleLineWithBG(1,4,38,1,196);
+                H::drawBoxSingleLineWithBG(161,4,38,1,196);
+                for(int i=7;i<42;i++){
+                    H::HLine(10,i,2,9,178);
+                    H::HLine(188,i,2,9,178);
+                }
+                // Profile Box
+                H::drawBoxSingleLineWithBG(16,11,50,28,179);
+                // image profile
+                H::drawBoxDoubleLineWithBG(26,12,30,8,119);
+                H::drawBoxDoubleLineWithBG(36,13,10,2,145);
+                H::drawBoxDoubleLineWithBG(28,18,26,2,145);
+                H::drawBoxDoubleLineWithBG(21,23,40,3,230);
+                H::drawBoxDoubleLineWithBG(21,29,40,9,230);
+                // display profile info
+                display();
+                // Table and other elements
+                H::drawBoxSingleLineWithBG(71, 18, 70, 1,196);
+                H::setcolor(199);
+                system("chcp 65001 > nul");
+                H::gotoxy(82,19); cout<<"]|I{•------» RESPONSIBILITY CLASSES «------•}I|[";
+                system("chcp 437 > nul");
+                TeacherProfileDesign::TeacherProfileTable(71,22);
+                showAssignedClasses();
+                TeacherProfileDesign::bus(112,10);
+                H::drawBoxSingleLineWithBG(71,12,40,2,179);
+                // Setting Menu
+                system("chcp 65001 > nul");
+                H::gotoxy(149,12); cout<<" «-(¯`v´¯)-« Setting »-(¯`v´¯)-» ";
+                system("chcp 437 > nul");
+                H::drawBoxSingleLineWithBG(146, 11, 38, 1,247); 
+                H::drawBoxSingleLineWithBG(146, 14, 38, 25,145);
+                H::drawBoxSingleLineWithBG(146, 38, 38, 1,247); 
+                for(int i=14;i<20;i++) {
+                    H::HLine(164,i,2,247,177);
+                }
+                H::HLine(145,20,40,247,177);
+                for(int i=32;i<38;i++) {
+                    H::HLine(164,i,2,247,177);
+                }
+                H::HLine(145,31,40,247,177);
+                H::drawBoxSingleLineWithBG(149,22,32,1,233);
+                H::drawBoxSingleLineWithBG(149,27,32,1,233);
+                // Footer
+                H::drawBoxSingleLineWithBG(0,42,199,1,247);
+                H::gotoxy(45,43);
+                setConsoleColor(BLACK, WHITE); 
+                cout<<"Tips: [Use Arrow Up/Down to move]		[Press Enter to select]		[Press ESC to go back]";
+                break;
+            }
+
+            case 1: {
                 TeacherProfileDesign::ViewAssignClassText(3, 1);
                 showAssignedClassesPaginate();
+                // After returning from viewing classes, redraw the profile
+                H::setcolor(7);
+                H::cls();
+                // Redraw the profile display without calling ProfileMenu again
+                // Just redraw the basic profile elements
+                TeacherProfileDesign::TeacherProfileText(42, 2);
+                // Redraw borders and basic structure
+                for(int i=0;i<9;i++){
+                    H::HLine(40,i,2,3,219);
+                    H::HLine(158,i,2,3,219);
+                }
+                H::HLine(40,0,40,3,219);
+                H::HLine(40,9,40,3,219);
+                H::HLine(118,0,40,3,219);
+                H::HLine(118,9,42,3,219);
+                H::drawBoxSingleLineWithBG(1,4,38,1,196);
+                H::drawBoxSingleLineWithBG(161,4,38,1,196);
+                for(int i=7;i<42;i++){
+                    H::HLine(10,i,2,9,178);
+                    H::HLine(188,i,2,9,178);
+                }
+                // Profile Box
+                H::drawBoxSingleLineWithBG(16,11,50,28,179);
+                // image profile
+                H::drawBoxDoubleLineWithBG(26,12,30,8,119);
+                H::drawBoxDoubleLineWithBG(36,13,10,2,145);
+                H::drawBoxDoubleLineWithBG(28,18,26,2,145);
+                H::drawBoxDoubleLineWithBG(21,23,40,3,230);
+                H::drawBoxDoubleLineWithBG(21,29,40,9,230);
+                // display profile info
+                display();
+                // Table and other elements
+                H::drawBoxSingleLineWithBG(71, 18, 70, 1,196);
+                H::setcolor(199);
+                system("chcp 65001 > nul");
+                H::gotoxy(82,19); cout<<"]|I{•------» RESPONSIBILITY CLASSES «------•}I|[";
+                system("chcp 437 > nul");
+                TeacherProfileDesign::TeacherProfileTable(71,22);
+                showAssignedClasses();
+                TeacherProfileDesign::bus(112,10);
+                H::drawBoxSingleLineWithBG(71,12,40,2,179);
+                // Setting Menu
+                system("chcp 65001 > nul");
+                H::gotoxy(149,12); cout<<" «-(¯`v´¯)-« Setting »-(¯`v´¯)-» ";
+                system("chcp 437 > nul");
+                H::drawBoxSingleLineWithBG(146, 11, 38, 1,247); 
+                H::drawBoxSingleLineWithBG(146, 14, 38, 25,145);
+                H::drawBoxSingleLineWithBG(146, 38, 38, 1,247); 
+                for(int i=14;i<20;i++) {
+                    H::HLine(164,i,2,247,177);
+                }
+                H::HLine(145,20,40,247,177);
+                for(int i=32;i<38;i++) {
+                    H::HLine(164,i,2,247,177);
+                }
+                H::HLine(145,31,40,247,177);
+                H::drawBoxSingleLineWithBG(149,22,32,1,233);
+                H::drawBoxSingleLineWithBG(149,27,32,1,233);
+                // Footer
+                H::drawBoxSingleLineWithBG(0,42,199,1,247);
+                H::gotoxy(45,43);
+                setConsoleColor(BLACK, WHITE); 
+                cout<<"Tips: [Use Arrow Up/Down to move]		[Press Enter to select]		[Press ESC to go back]";
                 break;
             }
         }
     }
+    return true; // This line should never be reached, but added for completeness
 }
 
 
+// ---- Display: call on *this* ----
 
+void TeacherProfile::changePassword()
+{
+	H::setcursor(true,1);
+    char currentPw[20], newPw[20], confirmPw[20];
+    bool passwordCorrect = false;
+    
+    while (!passwordCorrect) {
+        // Draw the change password interface
+        TeacherProfileDesign::ChangePasswordText(37, 1);
+        
+        // Ask for current password
+        H::gotoxy(74,13); cout << "Enter Current Password: ";
+        H::inputAll(currentPw, 20);
+        
+        // Verify the password
+        fstream file("../data/Teacher_Data.bin", ios::binary | ios::in | ios::out);
+        if (!file) {
+            cerr << "Cannot open Teacher_Data.bin!" << endl;
+            return;
+        }
+
+        Teacher temp;
+        bool found = false;
+        bool verified = false;
+
+        while (file.read(reinterpret_cast<char*>(&temp), sizeof(Teacher))) {
+            if (strcmp(temp.getTeacherId(), teacherId) == 0) {  // match current teacher
+                found = true;
+                if (temp.verifyPassword(currentPw)) {
+                    verified = true;
+                    passwordCorrect = true;
+                }
+                break;
+            }
+        }
+        file.close();
+        
+        if (!found) {
+            H::gotoxy(76, 27); cout << "Teacher not found!";
+            return;
+        }
+        
+        if (!verified) {
+            H::gotoxy(76, 27); cout << "Incorrect password!";
+            H::gotoxy(76, 28); cout << "Press Enter to try again or ESC to go back";
+            
+            // Wait for user input
+            int ch = _getch();
+            if (ch == 27) { // ESC key
+                return; // Go back to profile
+            } else if (ch == 13) { // Enter key
+                H::cls(); // Clear screen
+                // Continue the loop to ask for password again
+                continue;
+            }
+            return; // Default case, go back
+        }
+    }
+    
+    // Now ask for new password
+    H::gotoxy(74,17); cout<<"Enter New Password     : ";
+    H::inputAll(newPw, 20);
+    H::gotoxy(74,21); cout<<"Enter Confirm Password : ";
+    H::inputAll(confirmPw, 20);
+
+    if (strcmp(newPw, confirmPw) != 0) {
+        H::gotoxy(76, 26);
+        cout << "Passwords do not match!";
+        H::gotoxy(76, 27); cout << "Press Enter to try again or ESC to go back";
+        
+        // Wait for user input
+        int ch = _getch();
+        if (ch == 27) { // ESC key
+            return; // Go back to profile
+        } else if (ch == 13) { // Enter key
+            H::cls(); // Clear screen
+            // Call changePassword again to restart the process
+            changePassword();
+            return;
+        }
+        return; // Default case, go back
+    }
+
+    // Update password in object
+    fstream file("../data/Teacher_Data.bin", ios::binary | ios::in | ios::out);
+    if (!file) {
+        cerr << "Cannot open Teacher_Data.bin!" << endl;
+        return;
+    }
+
+    Teacher temp;
+    bool found = false;
+
+    while (file.read(reinterpret_cast<char*>(&temp), sizeof(Teacher))) {
+        if (strcmp(temp.getTeacherId(), teacherId) == 0) {  // match current teacher
+            found = true;
+            // Update password in object
+            temp.setPassword(newPw);
+
+            // Move write pointer back to overwrite
+            file.seekp(-static_cast<int>(sizeof(Teacher)), ios::cur);
+            file.write(reinterpret_cast<char*>(&temp), sizeof(Teacher));
+            file.close();
+
+            H::gotoxy(76, 26); cout << "Password updated successfully!";
+            return;
+        }
+    }
+
+    if (!found) {
+        H::gotoxy(76, 27); cout << "Teacher not found!";
+        file.close();
+    }
+}
 
 void TeacherProfile::showAssignedClassesPaginate()
 {
@@ -177,9 +435,9 @@ void TeacherProfile::showAssignedClassesPaginate()
         // wait for key
         int ch = _getch();
         if (ch == 27){
+        	// ESC pressed, clear screen and return to ProfileMenu
         	H::setcolor(7);
         	H::cls();
-        	this->displayProfile();
         	break;
 		}                // ESC = exit
         if (ch == 75 && currentPage > 0) currentPage--;          // Left arrow
@@ -327,8 +585,15 @@ void TeacherProfile::displayProfile()
 	H::gotoxy(45,43);
 	setConsoleColor(BLACK, WHITE); 
 	cout<<"Tips: [Use Arrow Up/Down to move]		[Press Enter to select]		[Press ESC to go back]";
-	ProfileMenu();
 	
+	// Call ProfileMenu and check if ESC was pressed
+	bool shouldExit = false;
+	if (!ProfileMenu(shouldExit)) {
+		// ESC was pressed, exit the profile view entirely
+		H::setcolor(7);
+		H::cls();
+		return;
+	}
 }
 
 // ========================== Draw Menu ==========================
@@ -375,8 +640,6 @@ int TeacherProfile::navigateMenu() {
         } else if (ch == 13) { // ENTER
             return selected; // return the selected menu item
         } else if (ch == 27) { // ESC key
-        	H::setcolor(7);
-        	H::cls();
             return -1; // special value to indicate "back to main menu"
         }
     }

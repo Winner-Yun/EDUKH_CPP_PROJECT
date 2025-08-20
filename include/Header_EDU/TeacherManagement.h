@@ -18,6 +18,11 @@ class Teacher{
 		const char* getEmail() const;
 		const char* getPhone() const;
 		const char* getGender() const;
+		const char* getPassword() const { return pw; }
+		void setPassword(const char* newPw) { strcpy(pw, newPw); }
+		bool verifyPassword(const char* currentPw) const {
+        	return strcmp(pw, currentPw) == 0;
+    	}
 
 		void convertEmail();
 		void input();
