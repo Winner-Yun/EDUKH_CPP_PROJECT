@@ -41,6 +41,8 @@ class TeacherProfile
         void showAssignedClasses();
         // ---------------------------------------
         void showAssignedClassesPaginate();
+        // ---------------------------------------
+        void changePassword();
 
         const Teacher& getTeacher() const { return teacher; }
         const char* getTeacherId() const { return teacherId;} 
@@ -89,8 +91,12 @@ void TeacherProfile::ProfileMenu() {
         }
 
         switch (choice) {
-            case 0:
+            case 0:{
+                H::setcolor(7);
+                H::cls();
+                changePassword();
                 break;
+            }
 
             case 1: {
                 H::setcolor(7);
@@ -104,7 +110,68 @@ void TeacherProfile::ProfileMenu() {
 }
 
 
+// ---- Display: call on *this* ----
 
+void TeacherProfile::changePassword()
+{
+	H::setcursor(true,1);
+    TeacherProfileDesign::ChangePasswordText(37, 1);
+    char currentPw[20], newPw[20], confirmPw[20];
+
+    H::gotoxy(74,13); cout << "Enter Current Password: ";
+    H::inputAll(currentPw, 20); 
+
+    fstream file("../data/Teacher_Data.bin", ios::binary | ios::in | ios::out);
+    if (!file) {
+        cerr << "Cannot open Teacher_Data.bin!" << endl;
+        return;
+    }
+
+    Teacher temp;
+    bool found = false;
+
+    while (file.read(reinterpret_cast<char*>(&temp), sizeof(Teacher))) {
+        if (strcmp(temp.getTeacherId(), teacherId) == 0) {  // match current teacher
+            found = true;
+            if (!temp.verifyPassword(currentPw)) {
+                H::gotoxy(76, 27); cout << "Incorrect password!";
+                file.close();
+                return;
+            }
+
+
+            // Ask for new password
+            H::gotoxy(74,17); cout<<"Enter New Password     : ";
+            H::inputAll(newPw, 20);
+            H::gotoxy(74,21); cout<<"Enter Confirm Password : ";
+            H::inputAll(confirmPw, 20);
+
+            if (strcmp(newPw, confirmPw) != 0) {
+                H::gotoxy(76, 26);
+                cout << "Passwords do not match!";
+                file.close();
+                return;
+            }
+
+            // Update password in object
+            temp.setPassword(newPw);
+
+            // Move write pointer back to overwrite
+            file.seekp(-static_cast<int>(sizeof(Teacher)), ios::cur);
+            file.write(reinterpret_cast<char*>(&temp), sizeof(Teacher));
+            file.close();
+
+            H::gotoxy(50, 26); cout << "Password updated successfully!";
+            return;
+        }
+    }
+
+     if (!found) {
+        H::gotoxy(76, 26);
+        cout << "Teacher not found!";
+        file.close();
+    }
+}
 
 void TeacherProfile::showAssignedClassesPaginate()
 {

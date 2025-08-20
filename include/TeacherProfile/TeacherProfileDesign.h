@@ -18,8 +18,33 @@ class TeacherProfileDesign
         static void ProfileDesign();
 		//
 		static void ViewAssignClassText(int x, int y);
+		// 
+		static void ChangePasswordText(int x, int y);
 
 };
+
+void TeacherProfileDesign::ChangePasswordText(int x, int y)
+{
+    system("chcp 65001  > nul");
+	H::setcolor(3); H::gotoxy(x,y+0); cout<<R"(  ██████╗██╗  ██╗ █████╗ ███╗   ██╗ ██████╗ ███████╗    ██████╗  █████╗ ███████╗███████╗██╗    ██╗ ██████╗ ██████╗ ██████╗ )";
+	H::setcolor(3); H::gotoxy(x,y+1); cout<<R"( ██╔════╝██║  ██║██╔══██╗████╗  ██║██╔════╝ ██╔════╝    ██╔══██╗██╔══██╗██╔════╝██╔════╝██║    ██║██╔═══██╗██╔══██╗██╔══██╗)";
+	H::setcolor(3); H::gotoxy(x,y+2); cout<<R"( ██║     ███████║███████║██╔██╗ ██║██║  ███╗█████╗      ██████╔╝███████║███████╗███████╗██║ █╗ ██║██║   ██║██████╔╝██║  ██║)";
+	H::setcolor(3); H::gotoxy(x,y+3); cout<<R"( ██║     ██╔══██║██╔══██║██║╚██╗██║██║   ██║██╔══╝      ██╔═══╝ ██╔══██║╚════██║╚════██║██║███╗██║██║   ██║██╔══██╗██║  ██║)";
+	H::setcolor(3); H::gotoxy(x,y+4); cout<<R"( ╚██████╗██║  ██║██║  ██║██║ ╚████║╚██████╔╝███████╗    ██║     ██║  ██║███████║███████║╚███╔███╔╝╚██████╔╝██║  ██║██████╔╝)";
+	H::setcolor(3); H::gotoxy(x,y+5); cout<<R"(  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝    ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ )";
+    system("chcp 437  > nul");
+    
+    H::drawBoxDoubleLine(70,10,60,20);
+    // Field
+    H::drawBoxSingleLine(72,12,56,1,6);
+    H::drawBoxSingleLine(72,16,56,1,6);
+    H::drawBoxSingleLine(72,20,56,1,6);
+    
+//    H::gotoxy(74,13); cout<<"Enter Current Password : ";
+//    H::gotoxy(74,17); cout<<"Enter New Password     : ";
+//    H::gotoxy(74,21); cout<<"Enter Confirm Password : ";
+    
+}
 
 void TeacherProfileDesign::ViewAssignClassText(int x, int y)
 {
