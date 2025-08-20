@@ -185,6 +185,7 @@ using namespace std;
         }
 
         if (attmp == 3) {
+            H::setcursor(false,0);
             for (int i = 60; i >= 0; i--) {
                 H::gotoxy(120, 38);
                 H::setcolor(4);
