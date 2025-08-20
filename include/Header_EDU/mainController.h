@@ -687,7 +687,6 @@ void EDUSYSTEM::TeamProfile(){
 
 void EDUSYSTEM::DisplayStartScreen(){
 	H::setcursor(false,0);
-	H::setConsoleTitle("-----------------------------------------------------------------------------------------------------      EDU-MASTER-KH-SYSTEM-EMIS      -----------------------------------------------------------------------------------------------------");
 	H::setFixedScreenConsole(200,45);
 	Login_Design::loadingProcess();
 	do {
