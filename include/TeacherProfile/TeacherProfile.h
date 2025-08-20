@@ -24,19 +24,26 @@ class TeacherProfile
         // ---------------------------------------
         Teacher teacher;
     public:
-        static void ProfileMenu();
+    	//
+    	static int navigateMenu(); 
+        static void drawMenu(int selected);
+    	//
+        void ProfileMenu();
         void display();
+        void displayProfile();
         void displayAssignClass();
         // ---------------------------------------
         TeacherProfile() {}
         TeacherProfile(const Teacher& t);
         // ---------------------------------------
+        void showAssignClass(int No, int y, const AssignClass& assign);
         void displayAssignClasses() const;
+        void showAssignedClasses();
         // ---------------------------------------
-        //TeacherProfile() {}
-        //TeacherProfile(const Teacher& t) : teacher(t) {}
+        void showAssignedClassesPaginate();
 
         const Teacher& getTeacher() const { return teacher; }
+        const char* getTeacherId() const { return teacherId;} 
 };
 
 TeacherProfile::TeacherProfile(const Teacher& t) {
@@ -51,7 +58,6 @@ TeacherProfile::TeacherProfile(const Teacher& t) {
 }
 
 void getTeacherProfileByEmail(const char* emailToFind, TeacherProfile& profile) {
-	
     ifstream fin("../data/Teacher_Data.bin", ios::binary);
     Teacher teacher;
 
@@ -66,80 +72,180 @@ void getTeacherProfileByEmail(const char* emailToFind, TeacherProfile& profile) 
             break;
         }
     }
-    fin.close();
+    fin.close();;
 }
 
 // ==========================================================================
-void TeacherProfile::ProfileMenu()
+// ---- ProfileMenu: call on *this* and use 0-based cases ----
+void TeacherProfile::ProfileMenu() {
+    while (true) {
+        int choice = navigateMenu();
+		H::setcolor(7);
+        H::cls();
+        if (choice == -1) {
+        	H::setcolor(7);
+        	H::cls();
+            break;  
+        }
+
+        switch (choice) {
+            case 0:
+                break;
+
+            case 1: {
+                H::setcolor(7);
+                H::cls();
+                TeacherProfileDesign::ViewAssignClassText(3, 1);
+                showAssignedClassesPaginate();
+                break;
+            }
+        }
+    }
+}
+
+
+
+
+void TeacherProfile::showAssignedClassesPaginate()
 {
-	TeacherProfile tp;
-	tp.displayAssignClasses();
-    int choice = TeacherProfileDesign::navigateMenu();
-    switch (choice){
-        case 1:{
-            // Change Password
-            break;
-        }
-        case 2:{
-            // View Assign Class
-            break;
-        }
-    }
-}
+	H::setcolor(3);
+	H::gotoxy(25,12); cout<<"ID : ";
+	H::setcolor(2); cout<<this->teacherId;
+	H::setcolor(3); H::gotoxy(155,12); cout<<"Name : ";
+	H::setcolor(2); cout<<this->teacherName;
+	
+    ifstream fin("../data/AssignClass_Data.bin", ios::binary);
 
-void TeacherProfile::displayAssignClasses() const {
-    ifstream checkFile("../data/AssignClass_Data.bin", ios::binary);
-    if (!checkFile) {
-        cout << "Cannot open AssignClass_Data.bin\n";
+    if (!fin) {
+        cerr << "Error opening AssignClass_Data.bin" << endl;
         return;
     }
 
-    vector<AssignClass> classes;
-    AssignClass c;
-
-    // Load only records that match this teacher
-    while (checkFile.read(reinterpret_cast<char*>(&c), sizeof(AssignClass))) {
-        if (strcmp(c.getTeacherID(), this->teacher.getTeacherId()) == 0) {
-            classes.push_back(c);
+    // Load all assigned classes for this teacher into a vector
+    vector<AssignClass> assignedClasses;
+    AssignClass assign;
+    while (fin.read((char*)&assign, sizeof(AssignClass))) {
+        if (strcmp(assign.getTeacherID(), teacherId) == 0) {
+            assignedClasses.push_back(assign);
         }
     }
-    checkFile.close();
+    fin.close();
 
-    if (classes.empty()) {
-        cout << "No assigned classes found for this teacher.\n";
+    if (assignedClasses.empty()) {
+        H::gotoxy(90, 25);
+        cout << "No assigned classes found!";
         return;
     }
 
-    // Sort by studyYear descending
-    sort(classes.begin(), classes.end(), [](const AssignClass& a, const AssignClass& b) {
-        return string(a.getStudyYear()) > string(b.getStudyYear());
-    });
+    const int rowsPerPage = 10;  
+    int currentPage = 0;
+    int totalPages = (assignedClasses.size() + rowsPerPage - 1) / rowsPerPage;
 
-    // Start row position
-    int y = 25;
-    int No = 1;
+    while (true) {
+        // clear area (adjust height for your UI)
+        for (int i = 19; i <= 38; i++) {
+            H::gotoxy(70, i);
+            cout << string(80, ' '); // clear 80 chars per row
+        }
+        
+        H::drawBoxSingleLine(68, 16, 70, 1,6); //  Table Header
+		H::drawBoxSingleLine(68, 16, 70, 21,3); // Table Body Design
 
-    TeacherProfileDesign::TeacherProfileTable(71,22);
+        // show header
+        H::gotoxy(73, 17); cout << "No";
+        H::gotoxy(88, 17); cout << "Class";
+        H::gotoxy(105, 17); cout << "Subject";
+        H::gotoxy(128, 17); cout << "Year";
 
-    // Display only last 8
-    int count = 0;
-    for (auto& cls : classes) {
-        if (count >= 8) break;
+        // show rows
+        int startIdx = currentPage * rowsPerPage;
+        int endIdx = min((int)assignedClasses.size(), startIdx + rowsPerPage);
 
-        H::gotoxy(73, y);  cout << No++;
-        H::gotoxy(88, y);  cout << cls.getGrade();
-        H::gotoxy(105, y); cout << cls.getSubject();
-        H::gotoxy(128, y); cout << cls.getStudyYear();
+        int y = 19;
+        int No = startIdx + 1;
 
-        y += 2;
-        ++count;
+        for (int i = startIdx; i < endIdx; i++) {
+            showAssignClass(No, y, assignedClasses[i]);
+            No++;
+            y += 2;
+        }
+
+        // footer info
+        H::gotoxy(98, 40);
+        cout << "Page " << (currentPage + 1) << " / " << totalPages;
+
+        // wait for key
+        int ch = _getch();
+        if (ch == 27){
+        	H::setcolor(7);
+        	H::cls();
+        	this->displayProfile();
+        	break;
+		}                // ESC = exit
+        if (ch == 75 && currentPage > 0) currentPage--;          // Left arrow
+        else if (ch == 77 && currentPage < totalPages - 1) currentPage++; // Right arrow
     }
 }
 
 
+
+void TeacherProfile::showAssignedClasses()
+{
+    ifstream fin("../data/AssignClass_Data.bin", ios::binary);
+
+    if (!fin) {
+        cerr << "Error opening AssignClass_Data.bin" << endl;
+        return;
+    }
+
+    AssignClass assign;
+    int No=1;
+    int y=25;
+
+    while (fin.read((char*)&assign, sizeof(AssignClass)))
+    {
+        // check if teacherID matches current profile
+        if(strcmp(assign.getTeacherID(), teacherId)==0){
+            showAssignClass(No, y, assign);
+            No++;
+            y += 2;
+        }
+    }
+    fin.close();    
+}
+
+void TeacherProfile::showAssignClass(int No, int y, const AssignClass& assign) {
+	H::setcolor(2);
+    H::gotoxy(73, y);  cout << No;
+    H::gotoxy(88, y);  cout << assign.getClassName();     // not getGrade
+    H::gotoxy(105, y); cout << assign.getSubject();
+    H::gotoxy(128, y); cout << assign.getAcademicYear();  // not getStudyYear
+}
 
 
 void TeacherProfile::display()
+{
+	H::setcolor(233); H::gotoxy(36,24); cout << "ID : "; 
+    H::setcolor(234); cout << getTeacherId();
+    H::setcolor(233); H::gotoxy(21,26); cout << "Name : "; 
+    H::setcolor(234); cout << teacherName;
+    H::setcolor(233); H::gotoxy(46,26); cout << "Gender : "; 
+    H::setcolor(234); cout << gender;
+    H::setcolor(233); H::gotoxy(22,30); cout << "Subject       : ";
+    H::setcolor(234); cout << subject;
+    H::setcolor(233); H::gotoxy(22,32); cout << "Date Of Birth : ";
+    H::setcolor(234); cout << dateOfBirth;
+    H::setcolor(233); H::gotoxy(22,34); cout << "Study Year    : "; 
+    H::setcolor(234); cout << academyYear;
+    H::setcolor(233); H::gotoxy(22,36); cout << "Email         : "; 
+    H::setcolor(234); cout << email;
+    H::setcolor(233); H::gotoxy(22,38); cout << "Phone         : "; 
+    H::setcolor(234); cout << phoneNumber;
+    
+    //
+}
+
+void TeacherProfile::displayProfile()
 {
 	H::setcursor(false,0);
 	TeacherProfileDesign::TeacherProfileText(42, 2);
@@ -174,24 +280,9 @@ void TeacherProfile::display()
 	H::drawBoxDoubleLineWithBG(21,23,40,3,230);
 	H::drawBoxDoubleLineWithBG(21,29,40,9,230);
 	
-    H::setcolor(233); H::gotoxy(36,24); cout << "ID : "; 
-    H::setcolor(234); cout << teacherId;
-    H::setcolor(233); H::gotoxy(21,26); cout << "Name : "; 
-    H::setcolor(234); cout << teacherName;
-    H::setcolor(233); H::gotoxy(46,26); cout << "Gender : "; 
-    H::setcolor(234); cout << gender;
-
-    H::setcolor(233); H::gotoxy(22,30); cout << "Subject       : ";
-    H::setcolor(234); cout << subject;
-    H::setcolor(233); H::gotoxy(22,32); cout << "Date Of Birth : ";
-    H::setcolor(234); cout << dateOfBirth;
-    H::setcolor(233); H::gotoxy(22,34); cout << "Study Year    : "; 
-    H::setcolor(234); cout << academyYear;
-    H::setcolor(233); H::gotoxy(22,36); cout << "Email         : "; 
-    H::setcolor(234); cout << email;
-    H::setcolor(233); H::gotoxy(22,38); cout << "Phone         : "; 
-    H::setcolor(234); cout << phoneNumber;
-
+	// display
+	display();
+    
     H::drawBoxSingleLineWithBG(71, 18, 70, 1,196); //  Table Bar
 	H::setcolor(199);
 	system("chcp 65001 > nul");
@@ -199,6 +290,9 @@ void TeacherProfile::display()
 	system("chcp 437 > nul");
 	// Table
 	TeacherProfileDesign::TeacherProfileTable(71,22);
+
+    showAssignedClasses();
+    
 	
 	TeacherProfileDesign::bus(112,10);
 	H::drawBoxSingleLineWithBG(71,12,40,2,179);
@@ -207,6 +301,7 @@ void TeacherProfile::display()
 	system("chcp 65001 > nul");
 	H::gotoxy(149,12); cout<<" «-(¯`v´¯)-« Setting »-(¯`v´¯)-» ";
 	system("chcp 437 > nul");
+	
 	H::drawBoxSingleLineWithBG(146, 11, 38, 1,247); 
 	H::drawBoxSingleLineWithBG(146, 14, 38, 25,145);
 	H::drawBoxSingleLineWithBG(146, 38, 38, 1,247); 
@@ -229,11 +324,62 @@ void TeacherProfile::display()
 	
 	// Footer
 	H::drawBoxSingleLineWithBG(0,42,199,1,247);
-	H::gotoxy(38,43);
+	H::gotoxy(45,43);
 	setConsoleColor(BLACK, WHITE); 
-	cout<<"Tips: [Use Arrow Up/Down to move]			[Press Enter to select]				[Press ESC to go back]";
-	
+	cout<<"Tips: [Use Arrow Up/Down to move]		[Press Enter to select]		[Press ESC to go back]";
 	ProfileMenu();
+	
+}
+
+// ========================== Draw Menu ==========================
+
+const int SIZES = 2;
+string settingMenu[SIZES] = {
+    "1. Change Password",
+    "2. View Assigned Classes"
+};
+int menuX = 151;
+int menuY[SIZES] = {23, 28};
+
+// Draw menu with arrow highlighting
+void TeacherProfile::drawMenu(int selected) {
+    for (int i = 0; i < SIZES; i++) {
+        H::gotoxy(menuX, menuY[i]);
+        if (i == selected) {
+        	H::setcolor(234);
+            cout << "-> " << settingMenu[i]; // highlight with arrow
+        } else {
+        	H::setcolor(233);
+            cout << "   " << settingMenu[i];
+        }
+    }
+}
+
+// Function to navigate menu and return choice
+int TeacherProfile::navigateMenu() {
+    int selected = 0;
+    drawMenu(selected);
+    while (true) {
+        int ch = _getch();
+
+        if (ch == 0 || ch == 224) { // arrow keys
+            ch = _getch();
+            if (ch == 72) { // UP
+                selected--;
+                if (selected < 0) selected = SIZES - 1;
+            } else if (ch == 80) { // DOWN
+                selected++;
+                if (selected >= SIZES) selected = 0;
+            }
+            drawMenu(selected);
+        } else if (ch == 13) { // ENTER
+            return selected; // return the selected menu item
+        } else if (ch == 27) { // ESC key
+        	H::setcolor(7);
+        	H::cls();
+            return -1; // special value to indicate "back to main menu"
+        }
+    }
 }
 
 #endif

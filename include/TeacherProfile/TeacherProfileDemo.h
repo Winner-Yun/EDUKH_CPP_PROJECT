@@ -5,10 +5,10 @@
 
 void displayTeacherProfile(const char* emailToFind)
 {
-    // const char* searchEmail = "te.nakia@gmail.com";
+    //const char* searchEmail = "te.nakia@gmail.com";
     TeacherProfile profile;
     getTeacherProfileByEmail(emailToFind, profile);
-    profile.display();
+    profile.displayProfile();
 }
 
 #endif
