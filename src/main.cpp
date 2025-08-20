@@ -40,11 +40,7 @@ int main() {
     //    s.Main_StudentManage();
     //   Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-<<<<<<< HEAD
-//   logD.MainLogin();
-=======
   logD.MainLogin();
->>>>>>> 6c37cfa2d92b35b8103b7c0556c8d5e41d702474
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
