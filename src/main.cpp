@@ -34,14 +34,14 @@ int main() {
     //   menu.Main_menu();
 
 //   EDUSYSTEM::DisplayStartScreen();
-//      MainAssignHomwork::AssignHMain("T-011");
+      MainAssignHomwork::AssignHMain("T-011");
 //     MainAssignHomwork::AssignHMainProcess("T-011","10");
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
     //   Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-   logD.MainLogin();
+//   logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
