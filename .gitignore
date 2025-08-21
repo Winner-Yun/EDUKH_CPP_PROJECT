@@ -2,3 +2,5 @@
 src/main.exe
 *.exe
 src/output/
+*.gch
+src/demo.cpp

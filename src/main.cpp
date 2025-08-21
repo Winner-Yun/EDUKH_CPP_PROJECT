@@ -14,10 +14,8 @@
 #include "../include/Header_EDU/MainController.h"
 #include "../include/Header_Teacher/MainHeaderOFManageScore.h"
 #include "../include/Header_Teacher/MainAssignHomwork.h"
-#include "../include/Header_Student/Sudent_Menu.h"
 
 using namespace ANTHinsyOOP;
-
 Edu_Main_Menu menu;
 Sub_ScheduleDesign subSche;
 SubMENU_manage_stu_tech subStuTech;
@@ -28,11 +26,10 @@ int main() {
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
     H::setFont(15);
-    Student_MainMenu::Main("stu.ewewewewew@gmail.com");
     // QuizDesign::Quiz_Select();
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu(); 	 
+    //   subSche.Main_ScheduleSubMenu(); 	
     //   menu.Main_menu();
 
  //  EDUSYSTEM::DisplayStartScreen();
@@ -41,9 +38,9 @@ int main() {
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013");
     //    s.Main_StudentManage();
-    //   Teach_MainMenu::Main("te.yunwinner@gmail.com");
+    //Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-//   logD.MainLogin();
+  logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
