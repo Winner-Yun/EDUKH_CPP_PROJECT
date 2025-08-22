@@ -8,13 +8,14 @@ using namespace ANTHinsyOOP;
 
 class MainHeadOF_ManageScore{
     private:
-        char strname[20], strID[15], strgrade[3], assignBY[20],score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];
+        char strname[20], strID[15], strgrade[3], assignBY[20],atSubject[20],score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];
     public:
 
         void setData(const char* name   = "___",
                  const char* id     = "___",
                  const char* grade  = "___",
                  const char* teacherID = "___",
+                 const char* atSubject = "___",
                  const char* sch    = "0",
                  const char* q1     = "0",
                  const char* q2     = "0",
@@ -32,7 +33,7 @@ class MainHeadOF_ManageScore{
         void updateTotals();
         void searchRecords(const char* teacherID, const char* grade, const string& keyword);
         void readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage);
-        void writeDatatoFile(const char* teacherID, const char* grade);
+        void writeDatatoFile(const char* teacherID, const char* grade,const char* subject);
         int countRecords(const char* teacherID, const char* grade);
         void clearScore(const char* teacherID, const char* grade);
 };
@@ -51,6 +52,7 @@ void MainHeadOF_ManageScore::setData(const char* name,
                                      const char* id,
                                      const char* grade,
                                      const char* teacherID,
+                                     const char* subject,
                                      const char* sch,
                                      const char* q1,
                                      const char* q2,
@@ -64,7 +66,8 @@ void MainHeadOF_ManageScore::setData(const char* name,
     strcpy(strname, name);
     strcpy(strID, id);
     strcpy(strgrade, grade);
-    strcpy(assignBY, teacherID);   // ✅ new line
+    strcpy(assignBY, teacherID);  
+    strcpy(atSubject, subject);  
     strcpy(score_sch, sch);
     strcpy(sc_q1, q1);
     strcpy(sc_q2, q2);
@@ -357,7 +360,7 @@ void MainHeadOF_ManageScore::writeSetH2Score(const char* teacherID, const char* 
 }
 
  
-void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* grade) {
+void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* grade , const char* subject) {
 
     // 1. Load all students from this grade
     vector<Student_format> students;
@@ -413,7 +416,7 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* 
 
         if (!found) {
             MainHeadOF_ManageScore fresh;
-            fresh.setData(s.name, s.id, s.grade,teacherID); // add teacher ID here
+            fresh.setData(s.name, s.id, s.grade,teacherID,subject); 
             newScores.push_back(fresh);
         }
     }

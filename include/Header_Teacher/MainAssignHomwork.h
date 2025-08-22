@@ -10,25 +10,26 @@ using namespace ANTHinsyOOP;
 class MainAssignHomwork{
 
 public:
-    static void AssignHMain(const char* teacherId);
-    static void MenuSelect(const char* teacherID,const char* grade);
+    static void AssignHMain(const char* teacherId,const char* subject);
     static void MenuGradeDesignDesign();
-    static void ReadFileAssMenu(const char* teacherID);
-    static void AssignHMainProcess(const char* id , const char* grade);
-    static void DesignAssingMain(const char* teacherID, const char* grade);
+    static void ReadFileAssMenu(const char* teacherID,const char* subject);
+    static void AssignHMainProcess(const char* id , const char* grade,const char* subject);
+    static void DesignAssingMain(const char* teacherID, const char* grade, const char* subject);
     static void HeaderOFGrade(const char* grade);
     static void LoadingHeader(int id);
-    static void AssignHomeWorkMainDesign(const char* id , const char* grade, const char* homeWorkID);
+    static void AssignHomeWorkMainDesign(const char* id , const char* grade, const char* homeWorkID,const char* subject);
 };
 
 AssignClassForm ass;
 
-void MainAssignHomwork::AssignHMain(const char* teacherID ){                                                                                                                                                                               
+void MainAssignHomwork::AssignHMain(const char* teacherID,const char* subject ){     
+   string upperSubject = subject;
+   transform(upperSubject.begin(), upperSubject.end(), upperSubject.begin(), ::toupper);                                                                                                                                                                          
    H::setcursor(false,0);
-   ReadFileAssMenu(teacherID);
+   ReadFileAssMenu(teacherID,upperSubject.c_str());
 }
 
-void MainAssignHomwork::ReadFileAssMenu(const char* teacherID) {
+void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subject) {
     const int consoleWidth = 199;
     const int consoleHeight = 45;
     H::cls();
@@ -133,7 +134,7 @@ void MainAssignHomwork::ReadFileAssMenu(const char* teacherID) {
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30, 30, 135, 5);
                     H::cls();
-                    AssignHMainProcess(teacherID, grades[currentSelection].c_str());
+                    AssignHMainProcess(teacherID, grades[currentSelection].c_str(),subject);
                     H::cls();
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30, 30, 135, 5);
@@ -196,7 +197,7 @@ void MainAssignHomwork::MenuGradeDesignDesign(){
                                                                                                                                                                                                
 }
 
-void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
+void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade,const char* subject){
     H::setcolor(7);
     H::cls();
     int option;
@@ -204,7 +205,7 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
     H::setcursor(false,0);
     do{
 
-        DesignAssingMain(id,"11");      
+        DesignAssingMain(id,"11",subject);      
 
         do{
             H::drawBoxDoubleLineWithBG(35,20,40,1,47);
@@ -274,14 +275,14 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
                 switch (choice) {
                 case 1:{
                     H::setcolor(7);
-                    AssignHomeWorkMainDesign(id ,  grade , "1");
+                    AssignHomeWorkMainDesign(id ,  grade , "1", subject);
                     H::clearBox(16, 12, 166, 28, 7);
                     break;
                 }
 
                 case 2:{
                     H::setcolor(7);
-                    AssignHomeWorkMainDesign(id ,  grade , "2");
+                    AssignHomeWorkMainDesign(id ,  grade , "2", subject);
                     H::clearBox(16, 12, 166, 28, 7);
                     break;
                 }
@@ -299,7 +300,7 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade){
 }
 
 
-void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const char* grade, const char* homeWorkID) {
+void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const char* grade, const char* homeWorkID,const char* subject) {
     H::clearBox(16, 12, 166, 28, 7);
 
     H::VLine(32,30,10,1,219);
@@ -324,6 +325,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
     H::drawBoxDoubleLineWithBG(20, 19, 158, 8, 7);
     H::drawBoxSingleLine(84,14,25,1,7);
     H::gotoxy(86,15);H::setcolor(2);cout<<"ASSIGN AT HOMEWORK 0"<<homeWorkID;
+    H::gotoxy(84,17);H::setcolor(2);cout<<"ASSIGN AT SUBJECT : "<<subject;
 
     H::setcolor(2);H::gotoxy(22, 20); cout << "Homework 0"<<homeWorkID<<" Description:";
     
@@ -404,7 +406,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                     }else{
                         if (MessageBoxA(NULL, "Are you sure you want to RECREATE this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                         H::setcursor(true,1);
-                        assH.recreateHomework(teacherID, grade, homeWorkID);
+                        assH.recreateHomework(teacherID, grade, homeWorkID,subject);
                         H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
                         H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
                         H::setcolor(7); H::gotoxy(155, 22); cout << string(23, ' ');
@@ -417,7 +419,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                         MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
                     } else {
                         if (MessageBoxA(NULL, "Are you sure you want to CLEAR this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
-                            assH.clearHomework(teacherID, grade, homeWorkID);
+                            assH.clearHomework(teacherID, grade, homeWorkID, subject);
                             H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
                             H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
                             H::setcolor(7); H::gotoxy(155, 22); cout << string(23, ' ');
@@ -455,12 +457,12 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
 
 
 
-void MainAssignHomwork::DesignAssingMain(const char* teacherID, const char* grade){
+void MainAssignHomwork::DesignAssingMain(const char* teacherID, const char* grade,const char* subject){
     HeaderOFGrade(grade);
     H::HLine(18,16,87,7,205);
     H::drawBoxSingleLineWithBG(102,14,60,3,7);
     H::gotoxy(103,15);cout<<"TEACHER NAME  : "<<assH.getnameFromFile(teacherID)<<" | "<<"TEACHER ID: "<<teacherID;
-    H::gotoxy(103,17);cout<<"WORK AT GRADE : "<<grade;
+    H::gotoxy(103,17);cout<<"WORK AT GRADE : "<<grade<< " | "<<"SUBJECT RESPONSIBILITY : "<<subject;
 
    
                                                                                                                                                                                                       

@@ -26,6 +26,7 @@ struct Teacher_formm {
 
 char teacherName[40] = "Unknown";
 char teacherID[15] = "Unknown";
+char subject[20] = "Unknown";
 
 void Teach_MainMenu::Main(const char* email){
     int option;
@@ -171,7 +172,7 @@ void Teach_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,5);
 
-                    MainHeaderOFManageScore::ManageScoreMain(teacherID);
+                    MainHeaderOFManageScore::ManageScoreMain(teacherID,subject);
 
                     H::setcolor(7);
                     system("cls");
@@ -204,7 +205,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    MainAssignHomwork::AssignHMain(teacherID);
+                    MainAssignHomwork::AssignHMain(teacherID,subject);
 
                     H::setcolor(7);
                     system("cls");
@@ -392,7 +393,6 @@ void Teach_MainMenu::Header(const char* email){
     H::setcolor(7);H::gotoxy(3,43);cout<<R"( ╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝ )";
 
 
-
     
     H::setcolor(3);H::gotoxy(20,4);cout<<R"(                 .--.    )";
     H::setcolor(3);H::gotoxy(20,5);cout<<R"(                 / ,-'   )";
@@ -426,6 +426,7 @@ void Teach_MainMenu::Header(const char* email){
     H::setcolor(1);H::gotoxy(48,12);cout<<R"(  ▀█   ███   █▀    ███    █▀  █▀    ▀█   █▀         ▀█   ███   █▀    ██████████  ▀█   █▀  ████████▀   )";
 
     system("chcp 437 >nul");
+
 
     H::HLine(20,14,79,1,198);
     H::HLine(99,14,79,2,198);
@@ -462,6 +463,7 @@ void Teach_MainMenu::ReadData(const char* email){
         if (strcmp(t.email, email) == 0) {
             strcpy(teacherName , t.teacherName);
             strcpy(teacherID , t.teacherId);
+            strcpy(subject, t.subject);
         }
     }
     H::setcolor(7);

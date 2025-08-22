@@ -10,12 +10,12 @@ using namespace ANTHinsyOOP;
 class MainHeaderOFManageScore{
 
 public:
-   static void ManageScoreMain(const char* teacherID );  // Main Header
+   static void ManageScoreMain(const char* teacherID ,const char* subject);  // Main Header
 
-   static void MenuSelect(const char* teacherID,const char* grade);
+   static void MenuSelect(const char* teacherID,const char* grade ,const char* subject);
    static void MenuGradeDesignDesign();
-   static void MenuProcess(const char* teacherID, const char* grade);
-   static void ReadFileAssMenu(const char* teacherID);
+   static void MenuProcess(const char* teacherID, const char* grade,const char* subject);
+   static void ReadFileAssMenu(const char* teacherID ,const char* subject);
    static void HeaderMenuSelect(const char* grade);
    string TeacherListMenu();
    static void LoadingHeader(int id);
@@ -29,13 +29,13 @@ MainHeadOF_ManageScore managePro;
 
 
 
-void MainHeaderOFManageScore::ManageScoreMain(const char* teacherID ){                                                                                                                                                                               
+void MainHeaderOFManageScore::ManageScoreMain(const char* teacherID ,const char* subject){                                                                                                                                                                               
    H::setcursor(false,0);
-   ReadFileAssMenu(teacherID);
+   ReadFileAssMenu(teacherID,subject);
 }
 
 
-void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
+void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID ,const char* subject) {
     const int consoleWidth = 199;
     const int consoleHeight = 45;
     H::cls();
@@ -142,7 +142,7 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 30, 135, 5);
                 H::cls();
-                MenuProcess(teacherID, grades[currentSelection].c_str());
+                MenuProcess(teacherID, grades[currentSelection].c_str(),subject);
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 30, 135, 5);
                 H::cls();
@@ -156,9 +156,9 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID) {
 }
 
 // Modified MenuProcess
-void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* grade) {
+void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* grade ,const char* subject) {
     vector<string> studentIDs;
-    managePro.writeDatatoFile(teacherID,grade);
+    managePro.writeDatatoFile(teacherID,grade,subject);
 
     ifstream inFile("../data/Student_Data.bin", ios::binary);
     if (!inFile) {
@@ -202,7 +202,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
     int totalStudents = managePro.countRecords(teacherID,grade);
     int totalPages = (totalStudents + rowsPerPage - 1) / rowsPerPage;
     // Design Header
-    MenuSelect(teacherID, grade);
+    MenuSelect(teacherID, grade, subject);
     while (running) {
         H::setcursor(false, 0);
 
@@ -424,7 +424,7 @@ void MainHeaderOFManageScore::MenuGradeDesignDesign(){
 
 
 
-void MainHeaderOFManageScore::MenuSelect(const char* teacherID,const char* grade){
+void MainHeaderOFManageScore::MenuSelect(const char* teacherID,const char* grade ,const char* subject){
    H::setcolor(0);
    H::cls();
    H::HLine(1,0,198,1,239);
@@ -442,34 +442,47 @@ void MainHeaderOFManageScore::MenuSelect(const char* teacherID,const char* grade
 
     while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClassForm))) {
         if (strcmp(ac.teacherID, teacherID) == 0) {
-            const int nameFieldWidth = 18;
+            const int nameFieldWidth = 19;
 
             string nameStr(ac.teacherName);
             if (nameStr.size() < nameFieldWidth) {
                 nameStr += string(nameFieldWidth - nameStr.size(), ' ');
             }
+            transform(nameStr.begin(), nameStr.end(), nameStr.begin(), ::toupper);
 
             string idStr(ac.teacherID);
             if (idStr.size() < nameFieldWidth) {
                 idStr += string(nameFieldWidth - idStr.size(), ' ');
             }
+            transform(idStr.begin(), idStr.end(), idStr.begin(), ::toupper);
 
             string GradeStr(grade);
             if (GradeStr.size() < nameFieldWidth) {
                 GradeStr += string(nameFieldWidth - GradeStr.size(), ' ');
             }
+            transform(GradeStr.begin(), GradeStr.end(), GradeStr.begin(), ::toupper);
+
+            string SubjectStr(subject);
+            if (SubjectStr.size() < nameFieldWidth) {
+                SubjectStr += string(nameFieldWidth - SubjectStr.size(), ' ');
+            }
+            transform(SubjectStr.begin(), SubjectStr.end(), SubjectStr.begin(), ::toupper);
+
 
             H::setcolor(31);
-            H::gotoxy(159, 3);
-            cout << "  TEACHER NAME  : " << nameStr;
+            H::gotoxy(158, 3);
+            cout << "  TEACHER NAME    : " << nameStr;
 
             H::setcolor(31);
-            H::gotoxy(159, 4);
-            cout << "  TEACHER ID    : " << idStr;
+            H::gotoxy(158, 4);
+            cout << "  TEACHER ID      : " << idStr;
 
             H::setcolor(31);
-            H::gotoxy(159, 5);
-            cout << "  WORK AT GRADE : " << GradeStr;
+            H::gotoxy(158, 5);
+            cout << "  WORK AT GRADE   : " << GradeStr;
+            H::setcolor(31);
+            H::gotoxy(158, 6);
+            cout << "  WORK AT SUBJECT : " << SubjectStr;
 
             found = true;
         }
