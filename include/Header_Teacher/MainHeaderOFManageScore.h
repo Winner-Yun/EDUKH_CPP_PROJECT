@@ -11,7 +11,6 @@ class MainHeaderOFManageScore{
 
 public:
    static void ManageScoreMain(const char* teacherID ,const char* subject);  // Main Header
-
    static void MenuSelect(const char* teacherID,const char* grade ,const char* subject);
    static void MenuGradeDesignDesign();
    static void MenuProcess(const char* teacherID, const char* grade,const char* subject);

@@ -15,6 +15,7 @@
 #include "../include/Header_Teacher/MainHeaderOFManageScore.h"
 #include "../include/Header_Teacher/MainAssignHomwork.h"
 #include "../include/Header_Student/Sudent_Menu.h"
+#include "../include/Header_EDU/ManageScoreHeader.h"
 
 using namespace ANTHinsyOOP;
 
@@ -26,22 +27,23 @@ Schedule_Management schdule;
 int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
-    H::setFixedScreenConsole(200,45);
+    H::setFixedScreenConsole(200,45);	
     H::setFont(15);
-    Student_MainMenu::Main("stu.ewewewewew@gmail.com");
+//     Student_MainMenu::Main("stu.ewewewewew@gmail.com");
     // QuizDesign::Quiz_Select();
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
-    //   subSche.Main_ScheduleSubMenu(); 	 
-//      menu.Main_menu();
+    //   subSche.Main_ScheduleSubMenu(); 	
+    MainManageScore::ManageScoreProcess(); 
+      menu.Main_menu();
 
 //   EDUSYSTEM::DisplayStartScreen();
-       MainAssignHomwork::AssignHMain("T-011","bio");
-//     MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
+//       MainAssignHomwork::AssignHMain("T-011","bio");
+     MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
 
-//     MainHeaderOFManageScore::ManageScoreMain("T-013","khmer");
+//    MainHeaderOFManageScore::ManageScoreMain("T-011","MATH");
     //    s.Main_StudentManage();
-//      Teach_MainMenu::Main("te.yunwinner@gmail.com");
+    //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //   logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
