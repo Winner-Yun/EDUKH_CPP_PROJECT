@@ -7,6 +7,7 @@ class AssignHomeWorkProcess{
 private:
     char teacherID[10];
     char teacherName[20];
+    char subject[20];
     char grade[10];
     char homeWorkID[2];
     char homeworkDescription[123];
@@ -16,20 +17,19 @@ private:
     char createTime[20]; 
 public:
 
-    static void AssignHomeWorkMainDesign(const char* grade);
     const char* getnameFromFile(const char* id);
     const char* getDescriptionFromFile(const char* teacherID,const char* homeWorkID,const char* grade);
     const char* gethomeWorkNote(const char* teacherID,const char* homeWorkID,const char* grade);
     const char* getDateFromFile(const char* tID, const char* hwID, const char* g);
     const char* getDeadlineFromFile(const char* tID, const char* g, const char* hwID);
 
-    void recreateHomework(const char* tID, const char* g, const char* hwID);
+    void recreateHomework(const char* tID, const char* g, const char* hwID,const char* subject);
 
-    void setAllData(const char* tID, const char* tName, const char* g,
+    void setAllData(const char* tID, const char* tName, const char* subject, const char* g,
                                        const char* hwID, const char* hwDesc,
                                        const char* hwNote, const char* dlDate);
 
-    void clearHomework(const char* tID, const char* g, const char* hwID);
+    void clearHomework(const char* tID, const char* g, const char* hwID,const char* subject);
     void publishHomework(const char* tID, const char* g, const char* hwID);
     void unpublishHomework(const char* tID, const char* g, const char* hwID);
 
@@ -172,11 +172,12 @@ const char* AssignHomeWorkProcess::getDeadlineFromFile(const char* tID, const ch
 }
 
 
-void AssignHomeWorkProcess::setAllData(const char* tID, const char* tName, const char* g,
+void AssignHomeWorkProcess::setAllData(const char* tID, const char* tName, const char* subject,const char* g,
                                        const char* hwID, const char* hwDesc,
                                        const char* hwNote, const char* dlDate ) {
     strcpy(teacherID, tID);
     strcpy(teacherName, tName);
+    strcpy(this->subject, subject);
     strcpy(grade, g);
     strcpy(homeWorkID, hwID);
     strcpy(homeworkDescription, hwDesc);
@@ -190,7 +191,7 @@ void AssignHomeWorkProcess::setAllData(const char* tID, const char* tName, const
 }
 
 
-void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, const char* hwID) {
+void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, const char* hwID, const char* subject) {
     const char* filePath = "../data/AssignCHomeWork.bin";
     const char* tempFilePath = "../data/temp.bin";
 
@@ -202,6 +203,7 @@ void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, con
     strcpy(teacherID, tID);
     strcpy(grade, g);
     strcpy(homeWorkID, hwID);
+    strcpy(this->subject, subject);
 
     // Clear previous UI fields
     H::setcolor(7); H::gotoxy(25, 22); cout << string(122, ' ');
@@ -302,7 +304,7 @@ void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, con
 }
 
 
-void AssignHomeWorkProcess::clearHomework(const char* tID, const char* g, const char* hwID) {
+void AssignHomeWorkProcess::clearHomework(const char* tID, const char* g, const char* hwID,const char* subject) {
     const char* filePath = "../data/AssignCHomeWork.bin";
     const char* tempFilePath = "../data/temp.bin";
 
@@ -312,7 +314,7 @@ void AssignHomeWorkProcess::clearHomework(const char* tID, const char* g, const 
     };
 
     // Reset the homework data but keep IDs
-    setAllData(tID, assH.getnameFromFile(tID), g, hwID, "None", "None", "None");
+    setAllData(tID, assH.getnameFromFile(tID), g, hwID, subject,"None", "None", "None");
 
     ifstream inFile(filePath, ios::binary);
     if (!inFile) {

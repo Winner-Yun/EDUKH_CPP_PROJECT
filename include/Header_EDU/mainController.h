@@ -21,6 +21,7 @@ class EDUSYSTEM{
 };
 EDUSYSTEM abu;
 Login_Design logD;
+bool notLoadingYet = true;
 
 void EDUSYSTEM::OpenAboutUsPage(){
  	system("start /Website/htmlAboutUs/index.html");
@@ -688,7 +689,10 @@ void EDUSYSTEM::TeamProfile(){
 void EDUSYSTEM::DisplayStartScreen(){
 	H::setcursor(false,0);
 	H::setFixedScreenConsole(200,45);
-	Login_Design::loadingProcess();
+	if(notLoadingYet){
+		Login_Design::loadingProcess();
+		notLoadingYet = false;
+	}
 	do {
 		ShowWelcomeScreen();
 		int x = 0;  

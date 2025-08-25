@@ -2,9 +2,11 @@
 #define __EDU_STUDENT_MAIN_MENU__
 #include "../Header_School/ANTHinsyOOP"
 #include "../Header_EDU/CustomHeader.h"
-#include "../Header_EDU/Main_menu.h"
-#include "../TeacherProfile/TeacherProfileDemo.h"
 #include "../Header_EDU/Login_Form.h"
+#include "../Header_EDU/Main_menu.h"
+#include "DisplaySchedule.h"
+#include "Seft_Schedule.h"
+#include "DisplayViewHomeWork.h"
 
 class Student_MainMenu{
 
@@ -20,6 +22,7 @@ public:
 
 char studentName[40] = "Unknown";
 char studentID[15] = "Unknown";
+char grade[5] = "None";
 
 void Student_MainMenu::Main(const char* email){
     int option;
@@ -150,13 +153,6 @@ void Student_MainMenu::Main(const char* email){
             
         }while(option != 27 && option != 13);
 
-        if(option==27){
-            H::cls();
-            LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,5);
-            system("cls");
-        }
-
         if (option == 13) {
                 switch (choice) {
                 case 1:{
@@ -179,9 +175,8 @@ void Student_MainMenu::Main(const char* email){
                     system("cls");
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,5);
-
-            
-
+                    H::cls();
+                    DisplaySchedule::DesignMain(grade);
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
@@ -197,7 +192,7 @@ void Student_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                   
+                   ViewHomeWork::ViewHomeMain(grade);
 
                     H::setcolor(7);
                     system("cls");
@@ -229,7 +224,7 @@ void Student_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                   
+                   Schedule_Management_Seft::DesignMain(studentID);
                     
                     H::setcolor(7);
                     system("cls");
@@ -245,7 +240,7 @@ void Student_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                   
+                    Edu_Main_Menu::MainAboutUs();
                     
                     H::setcolor(7);
                     system("cls");
@@ -259,8 +254,8 @@ void Student_MainMenu::Main(const char* email){
                         {
                             H::setcolor(7);
                             system("cls");
-                            option = 27;
-                            LoadingHeader(2);
+                            option = 0;
+                            LoadingHeader(1);
                             EdumasterCustom::LoadingPage(30, 30, 135, 5);
                             H::cls();
                         }
@@ -270,7 +265,7 @@ void Student_MainMenu::Main(const char* email){
 
             }
         }
-    }while(option != 27);
+    }while(option != 0);
 }
 
 void Student_MainMenu::drawTime(int x, int y) {
@@ -496,6 +491,7 @@ void Student_MainMenu::ReadData(const char* email){
         if (strcmp(s.email, email) == 0) {
             strcpy(studentName , s.name);
             strcpy(studentID , s.id);
+            strcpy(grade , s.grade);
         }
     }
     H::setcolor(7);
