@@ -97,7 +97,6 @@ bool TeacherProfile::ProfileMenu(bool& shouldExit) {
         int choice = navigateMenu();
         if (choice == -1) {
             // ESC was pressed, just return to main profile display
-            // Don't clear screen, just return to let the profile display continue
             return false; // Return false to indicate ESC was pressed
         }
 
@@ -108,23 +107,16 @@ bool TeacherProfile::ProfileMenu(bool& shouldExit) {
         switch (choice) {
             case 0:{
                 changePassword();
-                // After password change, redraw the profile
                 H::setcolor(7);
                 H::cls();
-                // Redraw the profile display without calling ProfileMenu again
-                // Just redraw the basic profile elements
                 ProfileDesign();
                 break;
             }
-
             case 1: {
                 TeacherProfileDesign::ViewAssignClassText(3, 1);
                 showAssignedClassesPaginate();
-                // After returning from viewing classes, redraw the profile
                 H::setcolor(7);
                 H::cls();
-                // Redraw the profile display without calling ProfileMenu again
-                // Just redraw the basic profile elements
                 ProfileDesign();
                 break;
             }
