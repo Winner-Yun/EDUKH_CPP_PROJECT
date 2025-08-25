@@ -7,6 +7,7 @@
 #include "MainHeaderOFManageScore.h"
 #include "MainAssignHomwork.h"
 #include "../TeacherProfile/TeacherProfileDemo.h"
+#include "QuizMainMenu.h"
 
 class Teach_MainMenu{
 
@@ -189,7 +190,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    QuizDesign::Quiz_Select();
+                    QuizMenu::QuizGradeMenu(teacherID);
 
                     H::setcolor(7);
                     system("cls");
