@@ -28,22 +28,22 @@ int main() {
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
     H::setFont(15);
-    Student_MainMenu::Main("stu.ewewewewew@gmail.com");
+    //Student_MainMenu::Main("stu.ewewewewew@gmail.com");
     // QuizDesign::Quiz_Select();
     //   td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu(); 	 
-//      menu.Main_menu();
+     menu.Main_menu();
 
-   EDUSYSTEM::DisplayStartScreen();
+   //EDUSYSTEM::DisplayStartScreen();
 //      MainAssignHomwork::AssignHMain("T-011");
 //     MainAssignHomwork::AssignHMainProcess("T-011","11");
 
 //     MainHeaderOFManageScore::ManageScoreMain("T-013","khmer");
     //    s.Main_StudentManage();
-//      Teach_MainMenu::Main("te.yunwinner@gmail.com");
+ //     Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
-  //logD.MainLogin();
+ // logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;
