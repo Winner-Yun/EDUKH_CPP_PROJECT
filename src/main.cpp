@@ -43,11 +43,7 @@ int main() {
 
 //    MainHeaderOFManageScore::ManageScoreMain("T-011","MATH");
     //    s.Main_StudentManage();
-<<<<<<< HEAD
-     Teach_MainMenu::Main("te.yunwinner@gmail.com");
-=======
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
->>>>>>> 38524ca780a8502f85e5d9a5b41bdd68c1ea32ff
 //    schdule.InterfaceADD_update("10");
 //   logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
