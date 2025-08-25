@@ -289,7 +289,7 @@ void Student_MainMenu::drawTime(int x, int y) {
         cout <<" "<< hour12 << ":";
     }
     if (minute < 10) cout << "0";
-    cout << minute << " " << period;
+    cout << minute << " " << period << " ";
 }
 
 

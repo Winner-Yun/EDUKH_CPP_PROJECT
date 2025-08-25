@@ -7,6 +7,7 @@
 #include "MainHeaderOFManageScore.h"
 #include "MainAssignHomwork.h"
 #include "../TeacherProfile/TeacherProfileDemo.h"
+#include "QuizMainMenu.h"
 
 class Teach_MainMenu{
 
@@ -189,7 +190,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    QuizDesign::Quiz_Select();
+                    QuizMenu::QuizGradeMenu(teacherID);
 
                     H::setcolor(7);
                     system("cls");
@@ -270,7 +271,7 @@ void Teach_MainMenu::drawTime(int x, int y) {
         cout <<" "<< hour12 << ":";
     }
     if (minute < 10) cout << "0";
-    cout << minute << " " << period;
+    cout << minute << " " << period << " ";
 }
 
 

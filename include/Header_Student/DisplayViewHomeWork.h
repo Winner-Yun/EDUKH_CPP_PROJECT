@@ -14,6 +14,8 @@ class ViewHomeWork{
         static void MenuGradeDesignDesign();
         static void ViewHomeWorkDetails(const char* subject, const char* grade);
         static void ViewHomeWorkDesign();
+        static void HeaderDisplay(const char* homeWorkID);
+        static void LoadingHeader(int id);
 };
 
 struct AssignHomeWork{
@@ -72,7 +74,7 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
     int boxWidth = 30;
     int boxHeight = 3;
     int normalColor = 3;
-    int highlightColor = 63;
+    int highlightColor = 31;
 
  
     int cols, rows;
@@ -154,6 +156,12 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
                 H::setcolor(7);
                 system("cls");
                 ViewHomeWorkDetails(subjects[currentSelection].c_str(), grade);
+                H::cls();
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30, 30, 135, 5);
+                H::cls();
+                running = false;
+                ViewHomeMain(grade);
             }
         } else if (key == 27) { // ESC
             running = false;
@@ -176,8 +184,8 @@ void ViewHomeWork::MenuGradeDesignDesign(){
     H::drawBoxSingleLineWithBG(41,0,118,5,47);
     H::drawBoxSingleLineWithBG(41,38,118,5,47);
 
-    H::drawBoxSingleLineWithBG(2,1,11,41,63);
-    H::drawBoxSingleLineWithBG(186,1,11,41,63);
+    H::drawBoxSingleLineWithBG(2,1,11,41,31);
+    H::drawBoxSingleLineWithBG(186,1,11,41,31);
     
     H::HLine(14,19,45,3,254);
     H::HLine(14,25,45,3,254);
@@ -229,6 +237,9 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
             found = true;
         }
     }
+    sort(homeworks.begin(), homeworks.end(), [](const AssignHomeWork& a, const AssignHomeWork& b) {
+        return atoi(a.homeWorkID) < atoi(b.homeWorkID);
+    });
 
     if (!found || homeworks.empty()) {
         H::setcolor(14);
@@ -244,7 +255,7 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
     int boxHeight = 3;
     int gapY = 3;
     int normalColor = 3;
-    int highlightColor = 63;
+    int highlightColor = 31;
     int currentSelection = 0;
     bool running = true;
     ifstream teacherFile("../data/Teacher_Data.bin", ios::binary);
@@ -314,10 +325,10 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
             H::setcolor(7);
             H::clearBox(22, 4, 158, 38, 7);
             int detailStartY = 5;
-            H::setcolor(14);
+            H::setcolor(7);
 
             const AssignHomeWork& hw = homeworks[currentSelection];
-            H::gotoxy(50, detailStartY); cout << "_______________________________________[ HOMEWORK "<< hw.homeWorkID << " DETAILS ]_______________________________________";
+            HeaderDisplay(hw.homeWorkID);
             string teacherName = "UNKNOWN";
             for (const auto& teacher : teachers) {
                 if (strcmp(teacher.teacherId, hw.teacherID) == 0) {
@@ -329,47 +340,48 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
 
             int boxWidth = 72; 
             int fullBoxWidth = 146; 
-            int boxHeight = 2;
+            int boxHeight = 3;
             int gapY = 3;
             int startXLeft = 28; 
             int startXRight = startXLeft + boxWidth + 2; 
             int currentY = detailStartY + 3;
 
-            auto drawInfoBox = [&](const string& label, const string& value, bool isFullWidth = false) {
+            auto drawInfoBox = [&](const string& label, const string& value, bool isFullWidth = false, int customColor = -1) {
                 if (isFullWidth) {
                     H::clearBox(startXLeft, currentY, fullBoxWidth, boxHeight, 7);
-                    H::drawBoxSingleLineWithBG(startXLeft, currentY, fullBoxWidth, boxHeight, 6);
-                    H::setcolor(2);
-                    H::gotoxy(startXLeft + 2, currentY + 1);
+                    H::drawBoxSingleLineWithBG(startXLeft, currentY, fullBoxWidth, boxHeight, 7);
+                    H::setcolor(6);
+                    H::gotoxy(startXLeft + 2, currentY + 2);
                     cout << label << value;
                     currentY += boxHeight + gapY;
                 } else {
                     static bool isLeft = true; 
                     int startX = isLeft ? startXLeft : startXRight;
-                    H::clearBox(startX, currentY, boxWidth, boxHeight, 7);
+                    H::clearBox(startX, currentY, boxWidth, boxHeight, 31);
                     H::drawBoxSingleLineWithBG(startX, currentY, boxWidth, boxHeight, 3);
-                    H::setcolor(7);
-                    H::gotoxy(startX + 2, currentY + 1);
+                    H::setcolor(customColor == -1 ? 7 : customColor);  // default 7 unless overridden
+                    H::gotoxy(startX + 2, currentY + 2);
                     cout << label << value;
                     if (!isLeft) currentY += boxHeight + gapY;
                     isLeft = !isLeft; 
+
                 }
             };
 
-            drawInfoBox("TEACHER ID      : ", string(hw.teacherID));
-            drawInfoBox("TEACHER NAME    : ", teacherName);
+            drawInfoBox("HOMEWORK NUMBER : ", string(hw.homeWorkID));
+            drawInfoBox("ASSIGNED BY     : ", teacherName);
             drawInfoBox("SUBJECT         : ", string(hw.subject));
             drawInfoBox("GRADE           : ", string(hw.grade));
             drawInfoBox("HOMEWORK ID     : ", string(hw.homeWorkID));
             drawInfoBox("DESCRIPTION     : ", string(hw.homeworkDescription), true); // Full width
             drawInfoBox("NOTE            : ", string(hw.homeWorkNote), true); // Full width
-            drawInfoBox("DEADLINE DATE   : ", string(hw.deadLineDate));
+            drawInfoBox("DEADLINE DATE   : ", string(hw.deadLineDate),false, 12);
             drawInfoBox("ASSIGNED DATE   : ", string(hw.date));
-            drawInfoBox("CREATED TIME    : ", string(hw.createTime));
+            drawInfoBox("ASSIGNED TIME   : ", string(hw.createTime));
 
-            H::gotoxy(startXLeft + 2, currentY + 1);
-            H::setcolor(14);
-            cout << "PRESS ANY KEY TO GO BACK...";
+            H::gotoxy(28 ,35);
+            H::setcolor(2);
+            cout << "[!] PRESS ANY KEY TO GO BACK...";
             _getch();
             H::setcolor(7);
             H::cls();
@@ -379,38 +391,155 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
         }
     }
     H::setcolor(7);
-    ViewHomeMain(grade);
 }
 
 void ViewHomeWork::ViewHomeWorkDesign(){
     H::cls();
-    H::drawBoxSingleLineWithBG(20, 2, 162, 40, 47);
-    H::drawBoxSingleLineWithBG(22, 4, 158, 36, 0);
-    H::drawBoxSingleLineWithBG(22, 4, 158, 3, 1); 
-    H::drawBoxSingleLineWithBG(22, 40, 158, 3, 1); 
-    H::drawBoxSingleLineWithBG(20, 2, 162, 3, 2);
-    H::drawBoxSingleLineWithBG(20, 39, 162, 3, 2);
-    H::drawBoxSingleLineWithBG(20, 2, 3, 40, 47);
-    H::drawBoxSingleLineWithBG(179, 2, 3, 40, 47);
+    H::HLine(1,3,19,7,254);
+    H::HLine(1,22,19,7,254);
+    H::HLine(182,3,17,7,254);
+    H::HLine(182,22,17,7,254);
+
+    H::HLine(1,41,19,7,254);
+    H::HLine(182,41,17,7,254);
+    H::drawBoxSingleLineWithBG(20, 1, 162, 40, 47);
+    H::drawBoxSingleLineWithBG(22, 3, 158, 36, 0);
+    H::drawBoxSingleLineWithBG(22, 3, 158, 3, 1); 
+    H::drawBoxSingleLineWithBG(22, 39, 158, 3, 1); 
+    H::drawBoxSingleLineWithBG(20, 1, 162, 3, 2);
+    H::drawBoxSingleLineWithBG(20, 38, 162, 3, 2);
+    H::drawBoxSingleLineWithBG(20, 1, 3, 40, 47);
+    H::drawBoxSingleLineWithBG(179, 1, 3, 40, 47);
 
     H::setcolor(11); 
-    H::gotoxy(62, 4); cout << "~ USE UP AND DOWN ARROW KEYS TO NAVIGATE AND ENTER TO SELECT AN OPTION ~";
-    H::drawBoxSingleLine(30, 40, 35, 1, 4);
-    H::gotoxy(32, 41); cout << "ECS KEY TO BACK TO SUBJECT MENU";
+    H::gotoxy(62, 3); cout << "~ USE UP AND DOWN ARROW KEYS TO NAVIGATE AND ENTER TO SELECT AN OPTION ~";
+    H::drawBoxSingleLine(30, 39, 35, 1, 4);
+    H::gotoxy(32, 40); cout << "ECS KEY TO BACK TO SUBJECT MENU";
 
     system("chcp 65001 > nul");
-    H::setcolor(63); H::gotoxy(45, 9); cout << R"(                                                                                                                )";
-    H::setcolor(63); H::gotoxy(45, 10); cout << R"(    ██╗  ██╗ ██████╗ ███╗   ███╗███████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗   ██╗   ██╗██╗███████╗██╗    ██╗    )";
-    H::setcolor(63); H::gotoxy(45, 11); cout << R"(    ██║  ██║██╔═══██╗████╗ ████║██╔════╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝   ██║   ██║██║██╔════╝██║    ██║    )";
-    H::setcolor(63); H::gotoxy(45, 12); cout << R"(    ███████║██║   ██║██╔████╔██║█████╗  ██║ █╗ ██║██║   ██║██████╔╝█████╔╝    ██║   ██║██║█████╗  ██║ █╗ ██║    )";
-    H::setcolor(63); H::gotoxy(45, 13); cout << R"(    ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██║███╗██║██║   ██║██╔══██║██╔═██╗    ╚██╗ ██╔╝██║██╔══╝  ██║███╗██║    )";
-    H::setcolor(63); H::gotoxy(45, 14); cout << R"(    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗    ╚████╔╝ ██║███████╗╚███╔███╔╝    )";
-    H::setcolor(63); H::gotoxy(45, 15); cout << R"(    ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝     )";
+    H::setcolor(1); H::gotoxy(25, 9); cout << R"( ██████████████████████  )";
+    H::setcolor(1); H::gotoxy(25, 10); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(25, 11); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 12); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 13); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(25, 14); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(25, 15); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 16); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 17); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 18); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 19); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(25, 20); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 21); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 22); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(25, 23); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(25, 24); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 25); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 26); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 27); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 28); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(25, 29); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 30); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 31); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(25, 32); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(25, 33); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 34); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 35); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 36); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(25, 37); cout << R"( ██████████████████████  )";
+
+    H::setcolor(1); H::gotoxy(152, 9); cout << R"( ██████████████████████  )";
+    H::setcolor(1); H::gotoxy(152, 10); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(152, 11); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 12); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 13); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(152, 14); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(152, 15); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 16); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 17); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 18); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 19); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(152, 20); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 21); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 22); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(152, 23); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(152, 24); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 25); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 26); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 27); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 28); cout << R"( ██                  ██  )";
+    H::setcolor(1); H::gotoxy(152, 29); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 30); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 31); cout << R"( ██     ▄███▄▄▄█     ██  )";  
+    H::setcolor(1); H::gotoxy(152, 32); cout << R"( ██     ▀   ▀▀▀      ██  )";  
+    H::setcolor(1); H::gotoxy(152, 33); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 34); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 35); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 36); cout << R"( ██                  ██  )";  
+    H::setcolor(1); H::gotoxy(152, 37); cout << R"( ██████████████████████  )";
+
+
+    H::setcolor(2); H::gotoxy(45, 8); cout << R"(                                                                                                                )";
+    H::setcolor(2); H::gotoxy(45, 9); cout << R"(    ██╗  ██╗ ██████╗ ███╗   ███╗███████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗   ██╗   ██╗██╗███████╗██╗    ██╗    )";
+    H::setcolor(2); H::gotoxy(45, 10); cout << R"(    ██║  ██║██╔═══██╗████╗ ████║██╔════╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝   ██║   ██║██║██╔════╝██║    ██║    )";
+    H::setcolor(2); H::gotoxy(45, 11); cout << R"(    ███████║██║   ██║██╔████╔██║█████╗  ██║ █╗ ██║██║   ██║██████╔╝█████╔╝    ██║   ██║██║█████╗  ██║ █╗ ██║    )";
+    H::setcolor(2); H::gotoxy(45, 12); cout << R"(    ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  ██║███╗██║██║   ██║██╔══██║██╔═██╗    ╚██╗ ██╔╝██║██╔══╝  ██║███╗██║    )";
+    H::setcolor(2); H::gotoxy(45, 13); cout << R"(    ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗    ╚████╔╝ ██║███████╗╚███╔███╔╝    )";
+    H::setcolor(7); H::gotoxy(45, 14); cout << R"(    ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝     ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝     )";
+
+                                  
+   
     system("chcp 437 > nul");
 
-
+    
 
 
 }
 
+void ViewHomeWork::HeaderDisplay(const char* homeWorkID){
+    if(strcmp(homeWorkID, "1") == 0){
+        H::setcolor(11); 
+          system("chcp 65001 > nul");                                                                                                            
+            H::setcolor(31); H::gotoxy(45, 1); cout << R"(  ▄▄    ▄▄    ▄▄▄▄    ▄▄▄  ▄▄▄  ▄▄▄▄▄▄▄▄ ▄▄      ▄▄   ▄▄▄▄    ▄▄▄▄▄▄    ▄▄   ▄▄▄      ▄▄▄▄      ▄▄▄    )";
+            H::setcolor(31); H::gotoxy(45, 2); cout << R"(  ██    ██   ██▀▀██   ███  ███  ██▀▀▀▀▀▀ ██      ██  ██▀▀██   ██▀▀▀▀██  ██  ██▀      ██▀▀██    █▀██    )";
+            H::setcolor(31); H::gotoxy(45, 3); cout << R"(  ██    ██  ██    ██  ████████  ██       ▀█▄ ██ ▄█▀ ██    ██  ██    ██  ██▄██       ██    ██     ██    )";
+            H::setcolor(31); H::gotoxy(45, 4); cout << R"(  ████████  ██    ██  ██ ██ ██  ███████   ██ ██ ██  ██    ██  ███████   █████       ██ ██ ██     ██    )";
+            H::setcolor(31); H::gotoxy(45, 5); cout << R"(  ██    ██  ██    ██  ██ ▀▀ ██  ██        ███▀▀███  ██    ██  ██  ▀██▄  ██  ██▄     ██    ██     ██    )";
+            H::setcolor(31); H::gotoxy(45, 6); cout << R"(  ██    ██   ██▄▄██   ██    ██  ██▄▄▄▄▄▄  ███  ███   ██▄▄██   ██    ██  ██   ██▄     ██▄▄██   ▄▄▄██▄▄▄ )";
+            H::setcolor(31); H::gotoxy(45, 7); cout << R"(  ▀▀    ▀▀    ▀▀▀▀    ▀▀    ▀▀  ▀▀▀▀▀▀▀▀  ▀▀▀  ▀▀▀    ▀▀▀▀    ▀▀    ▀▀▀ ▀▀    ▀▀      ▀▀▀▀    ▀▀▀▀▀▀▀▀ )";
+        system("chcp 437 > nul");
+    }
+    else{
+         system("chcp 65001 > nul");                                                                                                            
+            H::setcolor(31); H::gotoxy(45, 1); cout << R"(  ▄▄    ▄▄    ▄▄▄▄    ▄▄▄  ▄▄▄  ▄▄▄▄▄▄▄▄ ▄▄      ▄▄   ▄▄▄▄    ▄▄▄▄▄▄    ▄▄   ▄▄▄      ▄▄▄▄      ▄▄▄▄▄    )";
+            H::setcolor(31); H::gotoxy(45, 2); cout << R"(  ██    ██   ██▀▀██   ███  ███  ██▀▀▀▀▀▀ ██      ██  ██▀▀██   ██▀▀▀▀██  ██  ██▀      ██▀▀██    █▀▀▀▀██▄  )";
+            H::setcolor(31); H::gotoxy(45, 3); cout << R"(  ██    ██  ██    ██  ████████  ██       ▀█▄ ██ ▄█▀ ██    ██  ██    ██  ██▄██       ██    ██         ██  )";
+            H::setcolor(31); H::gotoxy(45, 4); cout << R"(  ████████  ██    ██  ██ ██ ██  ███████   ██ ██ ██  ██    ██  ███████   █████       ██ ██ ██       ▄█▀   )";
+            H::setcolor(31); H::gotoxy(45, 5); cout << R"(  ██    ██  ██    ██  ██ ▀▀ ██  ██        ███▀▀███  ██    ██  ██  ▀██▄  ██  ██▄     ██    ██     ▄█▀     )";
+            H::setcolor(31); H::gotoxy(45, 6); cout << R"(  ██    ██   ██▄▄██   ██    ██  ██▄▄▄▄▄▄  ███  ███   ██▄▄██   ██    ██  ██   ██▄     ██▄▄██   ▄▄██▄▄▄▄▄  )";
+            H::setcolor(31); H::gotoxy(45, 7); cout << R"(  ▀▀    ▀▀    ▀▀▀▀    ▀▀    ▀▀  ▀▀▀▀▀▀▀▀  ▀▀▀  ▀▀▀    ▀▀▀▀    ▀▀    ▀▀▀ ▀▀    ▀▀      ▀▀▀▀    ▀▀▀▀▀▀▀▀▀  )";
+        system("chcp 437 > nul");
+    }
+}       
+
+void ViewHomeWork::LoadingHeader(int id){
+    if(id == 1){
+         H::setcolor(4);H::gotoxy(70,16);cout << R"( ____   ____________________________________              )";
+         H::setcolor(4);H::gotoxy(70,17);cout << R"( 7  7   7     77     77     77  7  77      7              )";
+         H::setcolor(4);H::gotoxy(70,18);cout << R"( |  |   |  7  ||   __!|  7  ||  |  |!__  __!              )";
+         H::setcolor(4);H::gotoxy(70,19);cout << R"( |  !___|  |  ||  !  7|  |  ||  |  |  7  7                )";
+         H::setcolor(7);H::gotoxy(70,20);cout << R"( |     7|  !  ||     ||  !  ||  !  |  |  |  ____________  )";
+         H::setcolor(7);H::gotoxy(70,21);cout << R"( !_____!!_____!!_____!!_____!!_____!  !__!  7__77__77__7  )";
+    }
+    else if(id == 2){
+        H::setcolor(2);H::gotoxy(49,12);cout << R"( ______________     ___________________________________________________________________                    )";
+        H::setcolor(2);H::gotoxy(49,13);cout << R"( 7     77     7     7     77  _  77     77     77     77     77     77  77     77     7                    )";
+        H::setcolor(2);H::gotoxy(49,14);cout << R"( |  7  ||  _  |     |  -  ||    _||  7  ||  ___!|  ___!|  ___!|  ___!|  ||  _  ||   __!                    )";
+        H::setcolor(2);H::gotoxy(49,15);cout << R"( |  |  ||  7  |     |  ___!|  _ \ |  |  ||  7___|  __|_!__   7!__   7|  ||  7  ||  !  7                    )";
+        H::setcolor(7);H::gotoxy(49,16);cout << R"( |  !  ||  |  |     |  7   |  7  ||  !  ||     7|     77     |7     ||  ||  |  ||     |     ____________   )";
+        H::setcolor(7);H::gotoxy(49,17);cout << R"( !_____!!__!__!     !__!   !__!__!!_____!!_____!!_____!!_____!!_____!!__!!__!__!!_____!     7__77__77__7   )";
+    }
+
+}
+
+                                                                                                              
 #endif
