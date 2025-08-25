@@ -19,6 +19,10 @@ class Student {
         string getYear() const { return sYear; }
         string getEmail() const { return email; }
         string getPw() const { return pw; }
+        void setPassword(const char* newPw) { strcpy(pw, newPw); }
+		bool verifyPassword(const char* currentPw) const {
+        	return strcmp(pw, currentPw) == 0;
+    	}
         // ============ Constructor ============
         Student() {
 	        strcpy(id, "");
