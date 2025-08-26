@@ -21,40 +21,56 @@ struct Question {
 };
 
 class Quiz {
-private:
-    char teacherID[20];
-    char teacherName[25];     // From AssignClass
-    char subject[20];         // From AssignClass
-    char quizID[2];           // Quiz 1, 2, 3
-    char className[3];        // From AssignClass (10,11,12)
-    char deadline[11];        // due date
-    char lastUpdateDate[11];  // last modified date 10/10/1010
-    char publish[2];
+    private:
+        char teacherID[20];
+        char teacherName[25];     // From AssignClass
+        char subject[20];         // From AssignClass
+        char quizID[2];           // Quiz 1, 2, 3
+        char className[3];        // From AssignClass (10,11,12)
+        char deadline[11];        // due date
+        char lastUpdateDate[11];  // last modified date 10/10/1010
+        char publish[2];
+        Question questions[10];   // fixed 10 pages
 
-    Question questions[10];   // fixed 10 pages
+    public:
+        static void CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject);
+        static void UpdateQuiz(const char* teacherID, const char* className, const char* quizID);
+        static void PublishQuiz(const char* teacherID, const char* className, const char* quizID);
+        static void ReadQuiz(const char* teacherID, const char* className, const char* quizID);
+        static const char* getFileName(const char* className);
+        static bool isPublished(const char* teacherID, const char* className, const char* quizID);
+        bool isComplete() const;
 
-public:
-    // ========== CRUD ==========
-    static void CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject);
-    static void UpdateQuiz(const char* teacherID, const char* className, const char* quizID);
-    static void PublishQuiz(const char* teacherID, const char* className, const char* quizID);
-    static void ReadQuiz(const char* teacherID, const char* className, const char* quizID);
-    static const char* getFileName(const char* className);
-    static bool isPublished(const char* teacherID, const char* className, const char* quizID);
-    bool isComplete() const;
+        // Getters
+        const char* getClassName() const { return className; }
+        const char* getSubject() const { return subject; }
+        const char* getPublish() const { return publish; }
+        const char* getQuizID() const { return quizID; }
+        const char* getDeadline() const { return deadline; }
+        const char* getlastUpdateDate() const { return lastUpdateDate; }
 
-    // file I/O
-    void saveToFile(ofstream& out) const {
-        out.write((char*)this, sizeof(Quiz));
-    }
-    void loadFromFile(ifstream& in) {
-        in.read((char*)this, sizeof(Quiz));
-    }
+        // file I/O
+        void saveToFile(ofstream& out) const {
+            out.write((char*)this, sizeof(Quiz));
+        }
+        void loadFromFile(ifstream& in) {
+            in.read((char*)this, sizeof(Quiz));
+        }
 
-    // getter (for student side)
-    const Question& getQuestion(int i) const {
-        return questions[i];
-    }
+        // getter (for student side)
+        const Question& getQuestion(int i) const {
+            return questions[i];
+        }
+
+        int getQuestionCount() const {
+            int count = 0;
+            for (int i = 0; i < 10; i++) {
+                if (strlen(questions[i].text) > 0) {
+                    count++;
+                }
+            }
+            return count;
+        }
 };
 
 bool Quiz::isComplete() const {
@@ -168,13 +184,9 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
     if (page == 10) {
         int overwriteChoice = MessageBox(
             NULL,
-            "All 10 questions already exist. Do you want to Re-Create and start over?",
-            "Re-Create Quiz?",
-            MB_YESNO | MB_ICONQUESTION
+            "All 10 questions already exist. Do you want to Re-Create and start over?", "Re-Create Quiz?", MB_YESNO | MB_ICONQUESTION
         );
-
         if (overwriteChoice == IDYES) {
-            // Clear all questions
             for (int i = 0; i < 10; i++) {
                 q.questions[i].text[0] = '\0';
                 q.questions[i].answer1[0] = '\0';
@@ -185,7 +197,8 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
                 q.questions[i].score[0] = '\0';  
                 q.questions[i].timeQuiz[0] = '\0';
             }
-            page = 0; // start from first question again
+            q.deadline[0] = '\0';
+            page = 0;
         }
     }
 
@@ -199,16 +212,16 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         system("cls");
         QuizDesign::DesginQuizPage(className, quizID);
         H::setcursor(true, 1);
-
+        H::setcolor(7); H::gotoxy(165, 12); cout << "10";
+        H::setcolor(7); H::gotoxy(165, 14); cout << "60";
         H::setcolor(7); H::gotoxy(171, 22); cout << q.lastUpdateDate;
         H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
 
         // Input page-level score and time
-        H::setcolor(7); H::gotoxy(165, 12); H::inputNumber(q.questions[page].score, 4);
-
-        H::setcolor(7); H::gotoxy(165, 14); H::inputNumber(q.questions[page].timeQuiz, 5);
+        strcpy(q.questions[page].score, "10");
+        strcpy(q.questions[page].timeQuiz, "60");
 
         if (!deadlineSet) {
             H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
@@ -247,15 +260,26 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         page++;
         if (page < 10) {
             H::setcursor(false, 0);
-            H::setcolor(7); H::gotoxy(40, 43); cout << "Do you want to input next page? (Y/N): ";
-            cin >> choice;
-            cin.ignore(); // remove leftover newline
-            if (choice != 'Y' && choice != 'y') {
-                H::setcursor(false, 0);
-                H::setcolor(7); H::gotoxy(40, 43); cout << "Progress saved! You can resume later.";
-                return;
+            H::setcolor(7); 
+            H::gotoxy(55, 42);
+            cout << "PRESS [ ENTER / Y ] TO INPUT NEXT PAGE    |    PRESS [ ESC / N ]";
+
+            bool waiting = true;
+            while (waiting) {
+                int key = _getch(); // get key press without Enter
+                if (key == 13 || key == 'Y' || key == 'y') { // Enter or Y/y
+                    waiting = false; // continue to next page
+                } else if (key == 27 || key == 'N' || key == 'n') { // ESC or N/n
+                    H::setcursor(false, 0);
+                    H::setcolor(7); 
+                    H::gotoxy(40, 43);
+                    cout << "Progress saved! You can resume later.";
+                    return; // exit function
+                }
+                // any other key is ignored
             }
         }
+
     }
 
     H::setcolor(7); H::gotoxy(10, 43); cout << "Quiz completed successfully for Class " << q.className << " (" << q.quizID << ") on " << q.lastUpdateDate;
@@ -326,7 +350,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(40, 35); cout << "                                                                                ";
         H::setcolor(7); H::gotoxy(40, 35); cout << q.questions[page].answer4;
 
-        H::setcolor(7); H::gotoxy(50, 42); cout << "PRESS [Left] | [Right] TO MOVE, PRESS [ENTER] TO UPDATE, [ESC] TO EXIT";
+        H::setcolor(7); H::gotoxy(50, 42); cout << "PRESS [Left] | [Right] TO MOVE, [ENTER] TO UPDATE PAGE, [D] TO CHANGE DEADLINE, [ESC] TO EXIT";
 
         int ch = getch();
 
@@ -335,13 +359,24 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
             if (ch == 75 && page > 0) page--;   // left arrow
             else if (ch == 77 && page < 9) page++; // right arrow
         }
+        else if (ch == 'D' || ch == 'd') { // 🔹 Update deadline
+            H::setcursor(true, 1);
+            H::setcolor(7); H::gotoxy(171, 24); cout << "          ";
+            H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
+
+            // Save immediately
+            quizzes[quizIndex] = q;
+            ofstream out(filename, ios::binary | ios::trunc);
+            for (auto &quizItem : quizzes) out.write((char*)&quizItem, sizeof(Quiz));
+            out.close();
+
+            MessageBox(NULL, "Deadline updated successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+            QuizDesign::DesginQuizPage(className, quizID);
+        }
         else if (ch == 13) { // ENTER to edit page
             H::setcursor(true, 1);
-            H::setcolor(7); H::gotoxy(165, 12); cout << "    ";
-            H::setcolor(7); H::gotoxy(165, 12); H::inputNumber(q.questions[page].score, 4);
-
-            H::setcolor(7); H::gotoxy(165, 14); cout << "     ";
-            H::setcolor(7); H::gotoxy(165, 14); H::inputNumber(q.questions[page].timeQuiz, 5);
+            strcpy(q.questions[page].score, "10");
+            strcpy(q.questions[page].timeQuiz, "60");
 
             H::setcolor(7); H::gotoxy(20, 11); cout << "                                                                                                                        ";
             H::setcolor(7); H::gotoxy(20, 11); H::inputAll(q.questions[page].text, 121);
