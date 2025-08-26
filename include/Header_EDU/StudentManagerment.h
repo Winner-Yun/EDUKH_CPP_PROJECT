@@ -9,6 +9,32 @@ class Student {
 		int No;
         static int lastId;
 	public:
+        // ============ Getter ============
+        string getId() const { return id; }
+        string getName() const { return name; }
+        string getGender() const { return gender; }
+        string getBdate() const { return bdate; }
+        string getGrade() const { return grade; }
+        string getTel() const { return tel; }
+        string getYear() const { return sYear; }
+        string getEmail() const { return email; }
+        string getPw() const { return pw; }
+        void setPassword(const char* newPw) { strcpy(pw, newPw); }
+		bool verifyPassword(const char* currentPw) const {
+        	return strcmp(pw, currentPw) == 0;
+    	}
+        // ============ Constructor ============
+        Student() {
+	        strcpy(id, "");
+	        strcpy(name, "");
+	        strcpy(grade, "");
+	        strcpy(sYear, "");
+	        strcpy(gender, "");
+	        strcpy(bdate, "");
+	        strcpy(tel, "");
+	        strcpy(email, "");
+    	}
+        //
 		void Main_StudentManage(); //Main
 
 		//Student Management Design Method

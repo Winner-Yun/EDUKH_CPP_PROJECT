@@ -152,7 +152,7 @@ void AssignClassDesign::SortLoading()
         H::gotoxy(barX + barWidth - 3, textY);
         cout << setw(3) << percent << "%";
 
-        Sleep(20);
+        Sleep(15);
     }
 
     // Change "Loading..." to green when complete
@@ -775,16 +775,6 @@ void AssignClassDesign::AssignClassLogo(int x, int y) {
     H::VLine(100, 10, 3, 153, 223);
     // Box Menu
     H::drawBoxDoubleLineWithBG(61, 13, 78, 12, 2);
-    //Menu
-    // H::drawBoxDoubleLineWithBG(85, 13, 29, 1, 213);
-    // H::drawBoxDoubleLineWithBG(61, 18, 29, 1, 213);
-    // H::drawBoxDoubleLineWithBG(110, 18, 29, 1, 213);
-    // H::drawBoxDoubleLineWithBG(85, 23, 29, 1, 213);
-    // H::setcolor(215);
-    // H::gotoxy(90,14); cout << "1. Assign Grade 10";
-    // H::gotoxy(66,19); cout << "2. Assign Grade 11";
-    // H::gotoxy(115,19); cout << "3. Assign Grade 12";
-    // H::gotoxy(90,24); cout << "4. Back to Main Menu";
     //
     H::VLine(100, 15, 7, 153, 223);
     H::VLine(74, 10, 7, 153, 223);
@@ -818,6 +808,9 @@ void AssignClassDesign::AssignClassLogo(int x, int y) {
         H::drawBoxDoubleLineWithBG(rx, y1, 5, 1, 136);
         if (y2 != -1) H::drawBoxDoubleLineWithBG(rx, y2, 5, 1, 136);
     }
+    
+    H::setcolor(237);
+    H::gotoxy(75,42); cout<<" Press arrow [UP] [DOWN] [LEFT] [RIGHT] For Move! ";
 
 }
 

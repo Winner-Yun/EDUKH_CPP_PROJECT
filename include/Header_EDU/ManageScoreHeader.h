@@ -29,6 +29,10 @@ class MainManageScore{
         bool IsPublished(const char* grade);
         void ReadAVGScore(const char* grade);
         void MainControlScore(const char* grade);
+        // Getter ================
+        const char* getStudentID() const { return studentID; }
+        const char* getAvgScore() const { return AvgScore; }
+        const char* getRank() const { return rank; }
 };
 struct ManageScore {
     char strname[20], strID[15], strgrade[3], assignBY[20],atSubject[20],score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];  

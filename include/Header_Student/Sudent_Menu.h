@@ -7,6 +7,7 @@
 #include "DisplaySchedule.h"
 #include "Seft_Schedule.h"
 #include "DisplayViewHomeWork.h"
+#include "../StudentProfile/StudentProfile.h"
 
 class Student_MainMenu{
 
@@ -161,7 +162,8 @@ void Student_MainMenu::Main(const char* email){
                     LoadingHeader(2);
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     system("cls");
-                   
+                    StudentProfile sp;
+                    sp.displayByEmail(email);
                     H::setcolor(7);
                     system("cls");
                     LoadingHeader(2);
