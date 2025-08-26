@@ -185,13 +185,13 @@ void MainManageScore::MainControlScore(const char* grade) {
         ReadAVGScore(grade);
         if(!IsPublished(grade)) {
             H::setcolor(4);
-            H::drawBoxSingleLineWithBG(2, 39, 20, 2, 4);
-            H::gotoxy(5, 40); cout << " UNPUBLISHED ";
+            H::drawBoxSingleLineWithBG(2, 39, 20, 3, 4);
+            H::gotoxy(5, 41); cout << " UNPUBLISHED ";
             H::setcolor(2);
         } else {
             H::setcolor(2);
-            H::drawBoxSingleLineWithBG(2, 39, 20, 2, 6);
-            H::gotoxy(7, 40); cout << " PUBLISHED ";
+            H::drawBoxSingleLineWithBG(2, 39, 20, 3, 6);
+            H::gotoxy(7, 41); cout << " PUBLISHED ";
             H::setcolor(4);
         }
         H::VLine(193, 19, 16, 2, 179);
@@ -209,7 +209,7 @@ void MainManageScore::MainControlScore(const char* grade) {
         else if (key == 77) { // RIGHT arrow
             if (pageIndex < totalPages - 1) pageIndex++;
         }
-        else if (key == 'P' || key == 'p') {
+        else if (key == 130 || key == 112) { 
             if (!IsPublished(grade)) {
                 int result = MessageBoxA(
                     NULL,
@@ -231,7 +231,6 @@ void MainManageScore::MainControlScore(const char* grade) {
                     "Confirm Unpublish",
                     MB_YESNO | MB_ICONQUESTION
                 );
-
                 if (result == IDYES) {
                     ClearSummaryFile();
                     MessageBoxA(NULL, "Scores have been unpublish.", "Unpublished", MB_OK | MB_ICONINFORMATION);
