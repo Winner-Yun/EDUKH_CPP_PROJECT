@@ -9,9 +9,9 @@ using namespace ANTHinsyOOP;
 
 class QuizMenu {
     public:
-        static void QuizGradeMenu(const char* teacherID);
-        static void QuizChooseMenu(const char* teacherID, const char* className);
-        static void QuizManageMenu(const char* teacherID, const char* className, const char* quizID);
+        static void QuizGradeMenu(const char* teacherID, const char* subject);
+        static void QuizChooseMenu(const char* teacherID, const char* className, const char* subject);
+        static void QuizManageMenu(const char* teacherID, const char* className, const char* quizID, const char* subject);
         static void LoadingHeader(int id);
 };
 
@@ -33,7 +33,7 @@ bool isTeacherAssignedToClass(const char* teacherID, const char* className) {
     return false;
 }
 
-void QuizMenu::QuizGradeMenu(const char* teacherID) {
+void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
     int option;
     int choice = 1;
     H::setcursor(false, 0);
@@ -95,7 +95,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID) {
                         // LoadingHeader(2);
                         // EdumasterCustom::LoadingPage(30,30,135,5);
                         system("cls");
-                        QuizMenu::QuizChooseMenu(teacherID, "10");
+                        QuizMenu::QuizChooseMenu(teacherID, "10", subject);
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 10.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
@@ -107,7 +107,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID) {
                         system("cls");
                         // LoadingHeader(2);
                         // EdumasterCustom::LoadingPage(30,30,135,5);
-                        QuizMenu::QuizChooseMenu(teacherID, "11");
+                        QuizMenu::QuizChooseMenu(teacherID, "11", subject);
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 11.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
@@ -120,7 +120,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID) {
                         // LoadingHeader(2);
                         // EdumasterCustom::LoadingPage(30,30,135,5);
                         H::cls();
-                        QuizMenu::QuizChooseMenu(teacherID, "12");
+                        QuizMenu::QuizChooseMenu(teacherID, "12", subject);
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 12.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
@@ -142,7 +142,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID) {
     } while(option != 27);
 }
 
-void QuizMenu::QuizChooseMenu(const char* teacherID, const char* className) {
+void QuizMenu::QuizChooseMenu(const char* teacherID, const char* className, const char* subject) {
     int option;
     int choice = 1;
     H::setcursor(false, 0);
@@ -205,21 +205,25 @@ void QuizMenu::QuizChooseMenu(const char* teacherID, const char* className) {
     if (option == 13) {
         switch (choice) {
             case 1: // Quiz 1
-                QuizManageMenu(teacherID, className, "1");
+                QuizManageMenu(teacherID, className, "1", subject);
             case 2: // Quiz 2
-                QuizManageMenu(teacherID, className, "2");
+                QuizManageMenu(teacherID, className, "2", subject);
             case 3: // Quiz 3
-                QuizManageMenu(teacherID, className, "3");
+                QuizManageMenu(teacherID, className, "3", subject);
                 break;
             case 4: // Back
+                QuizGradeMenu(teacherID, subject);
                 break;
         }
+    } else if (option == 27) {
+        QuizGradeMenu(teacherID, subject);
     }
 }
 
-void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, const char* quizID) {
+void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, const char* quizID, const char* subject) {
     int option;
     int choice = 1; // start at CREATE
+    bool published = Quiz::isPublished(teacherID, className, quizID);
     H::cls();
     QuizDesign::QuizMenu();
 
@@ -229,10 +233,9 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
     do {
         H::setcursor(false, 0);
         QuizDesign::QuizButton();
-        bool published = Quiz::isPublished(teacherID, className, quizID);
         if (published) {
             H::drawBoxSingleLineWithBG(16, 26, 40, 3, 5);
-            H::setcolor(7); H::gotoxy(28, 28); cout << "U N P U B L I S H";
+            H::setcolor(7); H::gotoxy(26, 28); cout << "U N P U B L I S H";
         } else {
             H::drawBoxSingleLineWithBG(16, 26, 40, 3, 5);
             H::setcolor(7); H::gotoxy(28, 28); cout << "P U B L I S H";
@@ -252,15 +255,15 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
                 break;
             }
             case 3: {
-                bool published = Quiz::isPublished(teacherID, className, quizID);
                 if (published) {
                     H::clearBox(16, 27, 40, 3, 215);
-                    H::setcolor(215); H::gotoxy(28, 28); cout << "U N P U B L I S H";
+                    H::setcolor(215); H::gotoxy(26, 28); cout << "U N P U B L I S H";
+                    QuizDesign::QuizDeleteButton("1");
                 } else {
                     H::clearBox(16, 27, 40, 3, 215);
                     H::setcolor(215); H::gotoxy(28, 28); cout << "P U B L I S H";
+                    QuizDesign::QuizDeleteButton("2");
                 }
-                QuizDesign::QuizDeleteButton();
                 break;
             }
             case 4: {
@@ -274,7 +277,7 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
         option = getch();
         choice = EdumasterCustom::ArrowKeyConTrol(4, 1, choice, option); // 4 options
 
-    } while (option != 13 && option != 27);
+    } while (option != 13 && option != 27) ;
 
     H::cls();
     H::setcursor(true, 1);
@@ -282,18 +285,19 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
     if (option == 13) {
         switch (choice) {
             case 1: // CREATE
-                Quiz::CreateQuiz(teacherID, className, quizID);
-                QuizManageMenu(teacherID, className, quizID);
+                Quiz::CreateQuiz(teacherID, className, quizID, subject);
+                QuizManageMenu(teacherID, className, quizID, subject);
             case 2: // UPDATE
                 Quiz::UpdateQuiz(teacherID, className, quizID);
-                QuizManageMenu(teacherID, className, quizID);
+                QuizManageMenu(teacherID, className, quizID, subject);
             case 3: // DELETE
                 Quiz::PublishQuiz(teacherID, className, quizID);
-                QuizManageMenu(teacherID, className, quizID);
+                QuizManageMenu(teacherID, className, quizID, subject);
             case 4: // BACK
-                QuizMenu::QuizChooseMenu(teacherID, className);
-                break;
+                QuizMenu::QuizChooseMenu(teacherID, className, subject);
         }
+    } else if (option == 27) {
+        QuizMenu::QuizChooseMenu(teacherID, className, subject);
     }
 }
 
