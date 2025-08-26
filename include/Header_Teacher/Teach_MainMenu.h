@@ -190,7 +190,7 @@ void Teach_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                    QuizMenu::QuizGradeMenu(teacherID);
+                    QuizMenu::QuizGradeMenu(teacherID, subject);
 
                     H::setcolor(7);
                     system("cls");

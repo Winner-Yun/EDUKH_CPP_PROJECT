@@ -1,7 +1,6 @@
 #ifndef ___INC_MANAGE_QUIZ_H___
 #define ___INC_MANAGE_QUIZ_H___
 
-#include <conio.h>
 #include "../Header_School/ANTHinsyOOP"
 #include "QuizDesign.h"
 
@@ -36,7 +35,7 @@ private:
 
 public:
     // ========== CRUD ==========
-    static void CreateQuiz(const char* teacherID, const char* className, const char* quizID);
+    static void CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject);
     static void UpdateQuiz(const char* teacherID, const char* className, const char* quizID);
     static void PublishQuiz(const char* teacherID, const char* className, const char* quizID);
     static void ReadQuiz(const char* teacherID, const char* className, const char* quizID);
@@ -106,15 +105,15 @@ string getTodayDate() {
 Quiz q;
 
 // ===================== CREATE / RESUME WITH PAGE-LEVEL SCORE/TIME =====================
-void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* quizID) {
-    const char* filename = getFileName(className);
-    if (!filename) {
-        H::setcolor(7); H::gotoxy(40, 43); cout << "Invalid class name.";
+void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject) {
+    if (Quiz::isPublished(teacherID, className, quizID)) {
+        MessageBox(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
-    if (strcmp(q.publish, "1") == 0) {
-        MessageBox(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
+    const char* filename = getFileName(className);
+    if (!filename) {
+        H::setcolor(7); H::gotoxy(40, 43); cout << "Invalid class name.";
         return;
     }
 
@@ -140,11 +139,11 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
     }
 
     if (!partialFound) {
-        // New quiz, initialize info
         strcpy(q.teacherID, teacherID);
         strcpy(q.className, className);
         strcpy(q.quizID, quizID);
         strcpy(q.publish, "2");
+        strcpy(q.subject, subject);
 
         // Initialize all questions as empty
         for (int i = 0; i < 10; i++) {
@@ -154,8 +153,8 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
             q.questions[i].answer3[0] = '\0';
             q.questions[i].answer4[0] = '\0';
             q.questions[i].correctAnswer[0] = '\0';
-            q.questions[i].score[0] = '\0';  // add score per page
-            q.questions[i].timeQuiz[0] = '\0'; // add time per page
+            q.questions[i].score[0] = '\0';  
+            q.questions[i].timeQuiz[0] = '\0'; 
         }
     }
 
@@ -163,6 +162,31 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
     int page = 0;
     for (; page < 10; page++) {
         if (strlen(q.questions[page].text) == 0) break; // empty page
+    }
+
+    // Check if all 10 questions are already filled
+    if (page == 10) {
+        int overwriteChoice = MessageBox(
+            NULL,
+            "All 10 questions already exist. Do you want to Re-Create and start over?",
+            "Re-Create Quiz?",
+            MB_YESNO | MB_ICONQUESTION
+        );
+
+        if (overwriteChoice == IDYES) {
+            // Clear all questions
+            for (int i = 0; i < 10; i++) {
+                q.questions[i].text[0] = '\0';
+                q.questions[i].answer1[0] = '\0';
+                q.questions[i].answer2[0] = '\0';
+                q.questions[i].answer3[0] = '\0';
+                q.questions[i].answer4[0] = '\0';
+                q.questions[i].correctAnswer[0] = '\0';
+                q.questions[i].score[0] = '\0';  
+                q.questions[i].timeQuiz[0] = '\0';
+            }
+            page = 0; // start from first question again
+        }
     }
 
     char choice;
@@ -239,13 +263,12 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
 // MessageBox( NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
 // ===================== UPDATE =====================
 void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* quizID) {
-    const char* filename = getFileName(className);
-    if (!filename) return;
-
-    if (strcmp(q.publish, "1") == 0) {
+    if (Quiz::isPublished(teacherID, className, quizID)) {
         MessageBox(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
+    const char* filename = getFileName(className);
+    if (!filename) return;
 
     ifstream in(filename, ios::binary);
     if (!in) {
@@ -438,76 +461,24 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
     }
 
     // Toggle publish/unpublish
-    if (strcmp(q.publish, "1") == 0) {  // Currently published → unpublish
-        strcpy(q.publish, "2");
+    if (strcmp(q.publish, "1") == 0) {  
+    // Published → unpublish
+        strcpy(q.publish, "0"); // use "0" for unpublished instead of "2"
         MessageBox(NULL, "Quiz unpublished successfully!", "Info", MB_OK | MB_ICONINFORMATION);
-    } else {  // Currently unpublished → try to publish
+    } else {
         if (!q.isComplete()) {
             MessageBox(NULL, "Cannot publish! All 10 pages must be fully created.", "Error", MB_OK | MB_ICONERROR);
             return;
         }
-        strcpy(q.publish, "1");
+        strcpy(q.publish, "1"); // published
         MessageBox(NULL, "Quiz published successfully!", "Info", MB_OK | MB_ICONINFORMATION);
     }
+
 
     quizzes[quizIndex] = q;
     ofstream out(filename, ios::binary | ios::trunc);
     for (auto &quizItem : quizzes) out.write((char*)&quizItem, sizeof(Quiz));
     out.close();
-}
-
-
-// ===================== READ QUIZ =====================
-void Quiz::ReadQuiz(const char* teacherID, const char* className, const char* quizID) {
-    const char* filename = getFileName(className);
-    if (!filename) {
-        cout << "Invalid class name.\n";
-        return;
-    }
-
-    ifstream in(filename, ios::binary);
-    if (!in) {
-        cout << "File not found.\n";
-        return;
-    }
-
-    Quiz q;
-    bool found = false;
-    while (in.read((char*)&q, sizeof(Quiz))) {
-        if (strcmp(q.teacherID, teacherID) == 0 &&
-            strcmp(q.quizID, quizID) == 0) {
-            found = true;
-            break;
-        }
-    }
-    in.close();
-
-    if (!found) {
-        cout << "Quiz not found for teacher " << teacherID 
-             << " class " << className 
-             << " quiz " << quizID << "\n";
-        return;
-    }
-
-    cout << "\n--- Quiz Info ---\n";
-    cout << "Teacher ID: " << q.teacherID << "\n";
-    cout << "Class: " << q.className << "\n";
-    cout << "Quiz ID: " << q.quizID << "\n";
-    cout << "Deadline: " << q.deadline << "\n";
-    cout << "Last Update: " << q.lastUpdateDate << "\n";
-
-    cout << "\n--- Questions ---\n";
-    for (int i = 0; i < 10; i++) {
-        if (strlen(q.questions[i].text) == 0) continue; // skip empty pages
-
-        cout << "\nPage " << setw(2) << setfill('0') << (i + 1) << ":\n";
-        cout << "Score: " << q.questions[i].score << " | Time: " << q.questions[i].timeQuiz << " minutes\n";
-        cout << "Q: " << q.questions[i].text << "\n";
-        cout << "1) " << q.questions[i].answer1 << " (Correct)\n";
-        cout << "2) " << q.questions[i].answer2 << "\n";
-        cout << "3) " << q.questions[i].answer3 << "\n";
-        cout << "4) " << q.questions[i].answer4 << "\n";
-    }
 }
 
 #endif

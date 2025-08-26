@@ -17,7 +17,7 @@ class QuizDesign{
         static void QuizButton();
         static void QuizCreateButton();
         static void QuizUpdateButton();
-        static void QuizDeleteButton();
+        static void QuizDeleteButton(const char* published);
         static void QuizScreen();
         static void gradeTitle(const char* className);
         static void DesginQuizPage(const char* className, const char* quizID);
@@ -113,7 +113,7 @@ void QuizDesign::QuizUpdateButton(){
     H::setcolor(7); H::gotoxy(102, 18); cout << R"(      |_|                                               )";
 }
 
-void QuizDesign::QuizDeleteButton() {
+void QuizDesign::QuizDeleteButton(const char* published) {
     H::setcolor(7); H::gotoxy(72, 11); cout << R"(                                                                                                                    )";
     H::setcolor(7); H::gotoxy(72, 12); cout << R"(                                                                                                                    )";
     H::setcolor(7); H::gotoxy(72, 13); cout << R"(                                                                                                                    )";
@@ -125,32 +125,41 @@ void QuizDesign::QuizDeleteButton() {
     H::setcolor(7); H::gotoxy(72, 19); cout << R"(                                                                                                                    )";
     H::setcolor(7); H::gotoxy(72, 20); cout << R"(                                                                                                                    )";
     H::setcolor(7); H::gotoxy(72, 21); cout << R"(                                     __________________   __________________                                        )";
-    H::setcolor(7); H::gotoxy(72, 22); cout << R"(                                 .-/|  ---  Quiz  ---  \ /    \             |\-.                                    )";
-    H::setcolor(7); H::gotoxy(72, 23); cout << R"(                                 ||||                   |     /             ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 24); cout << R"(                                 ||||  Q: ____________  |  Q:/ ___________  ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 25); cout << R"(                                 ||||                   |    \              ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 26); cout << R"(                                 ||||    1. _______     |     \ _______     ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 27); cout << R"(                                 ||||                   |     /             ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 28); cout << R"(                                 ||||    2. _______     |     \ _______     ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 29); cout << R"(                                 ||||                   |     /             ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 30); cout << R"(                                 ||||    3. _______     |     \ _______     ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 31); cout << R"(                                 ||||                   |     /             ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 32); cout << R"(                                 ||||    4. _______     |     \ _______     ||||                                    )";
-    H::setcolor(7); H::gotoxy(72, 33); cout << R"(                                 ||||__________________ | ____/_____________||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 22); cout << R"(                                 .-/|  ---  Quiz  ---  \ /                  |\-.                                    )";
+    H::setcolor(7); H::gotoxy(72, 23); cout << R"(                                 ||||                   |                   ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 24); cout << R"(                                 ||||  Q: What is ...?  |  Q: Why are ...?  ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 25); cout << R"(                                 ||||                   |                   ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 26); cout << R"(                                 ||||    1. Answer 1    |    1. Answer 1    ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 27); cout << R"(                                 ||||                   |                   ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 28); cout << R"(                                 ||||    2. Answer 2    |    2. Answer 2    ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 29); cout << R"(                                 ||||                   |                   ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 30); cout << R"(                                 ||||    3. Answer 3    |    3. Answer 3    ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 31); cout << R"(                                 ||||                   |                   ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 32); cout << R"(                                 ||||    4. Answer 4    |    4. Answer 4    ||||                                    )";
+    H::setcolor(7); H::gotoxy(72, 33); cout << R"(                                 ||||__________________ | __________________||||                                    )";
     H::setcolor(7); H::gotoxy(72, 34); cout << R"(                                 ||/===================\|/===================\||                                    )";
     H::setcolor(7); H::gotoxy(72, 35); cout << R"(                                 `--------------------~___~-------------------''                                    )";
     H::setcolor(1); H::gotoxy(72, 36); cout << R"(                                                                                                                    )";
     H::setcolor(1); H::gotoxy(72, 37); cout << R"(                                                                                                                    )";
     H::setcolor(1); H::gotoxy(72, 38); cout << R"(                                                                                                                    )";
     H::setcolor(1); H::gotoxy(72, 39); cout << R"(                                                                                                                    )";
-
-    H::setcolor(7); H::gotoxy(102, 13); cout << R"( ____       _      _             ___        _     )";
-    H::setcolor(7); H::gotoxy(102, 14); cout << R"(|  _ \  ___| | ___| |_ ___      / _ \ _   _(_)____)";
-    H::setcolor(4); H::gotoxy(102, 15); cout << R"(| | | |/ _ \ |/ _ \ __/ _ \    | | | | | | | |_  /)";
-    H::setcolor(4); H::gotoxy(102, 16); cout << R"(| |_| |  __/ |  __/ ||  __/    | |_| | |_| | |/ / )";
-    H::setcolor(7); H::gotoxy(102, 17); cout << R"(|____/ \___|_|\___|\__\___|     \__\_\\__,_|_/___|)";
+    
+    if (strcmp(published, "2") == 0) {
+        H::setcolor(7); H::gotoxy(100, 13); cout << R"( ____        _     _ _     _          ___        _     )";
+        H::setcolor(7); H::gotoxy(100, 14); cout << R"(|  _ \ _   _| |__ | (_)___| |__      / _ \ _   _(_)____)";
+        H::setcolor(2); H::gotoxy(100, 15); cout << R"(| |_) | | | | '_ \| | / __| '_ \    | | | | | | | |_  /)";
+        H::setcolor(2); H::gotoxy(100, 16); cout << R"(|  __/| |_| | |_) | | \__ \ | | |   | |_| | |_| | |/ / )";
+        H::setcolor(7); H::gotoxy(100, 17); cout << R"(|_|    \__,_|_.__/|_|_|___/_| |_|    \__\_\\__,_|_/___|)";
+    }
+    else if (strcmp(published, "1") == 0) {
+        H::setcolor(7); H::gotoxy(97, 13); cout << R"( _   _       ____        _     _ _     _          ___        _     )";
+        H::setcolor(7); H::gotoxy(97, 14); cout << R"(| | | |_ __ |  _ \ _   _| |__ | (_)___| |__      / _ \ _   _(_)____)";
+        H::setcolor(4); H::gotoxy(97, 15); cout << R"(| | | | '_ \| |_) | | | | '_ \| | / __| '_ \    | | | | | | | |_  /)";
+        H::setcolor(4); H::gotoxy(97, 16); cout << R"(| |_| | | | |  __/| |_| | |_) | | \__ \ | | |   | |_| | |_| | |/ / )";
+        H::setcolor(7); H::gotoxy(97, 17); cout << R"( \___/|_| |_|_|    \__,_|_.__/|_|_|___/_| |_|    \__\_\\__,_|_/___|)";
+    }
 }
-  
+
 void QuizDesign::QuizButton() {
     H::drawBoxSingleLineWithBG(16, 14, 40, 3, 5);
 	H::setcolor(7); H::gotoxy(24, 16); cout << "C R E A T E   Q U I Z";
