@@ -164,6 +164,31 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         if (strlen(q.questions[page].text) == 0) break; // empty page
     }
 
+    // Check if all 10 questions are already filled
+    if (page == 10) {
+        int overwriteChoice = MessageBox(
+            NULL,
+            "All 10 questions already exist. Do you want to Re-Create and start over?",
+            "Re-Create Quiz?",
+            MB_YESNO | MB_ICONQUESTION
+        );
+
+        if (overwriteChoice == IDYES) {
+            // Clear all questions
+            for (int i = 0; i < 10; i++) {
+                q.questions[i].text[0] = '\0';
+                q.questions[i].answer1[0] = '\0';
+                q.questions[i].answer2[0] = '\0';
+                q.questions[i].answer3[0] = '\0';
+                q.questions[i].answer4[0] = '\0';
+                q.questions[i].correctAnswer[0] = '\0';
+                q.questions[i].score[0] = '\0';  
+                q.questions[i].timeQuiz[0] = '\0';
+            }
+            page = 0; // start from first question again
+        }
+    }
+
     char choice;
     string today = getTodayDate();
     strcpy(q.lastUpdateDate, today.c_str());

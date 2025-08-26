@@ -36,7 +36,7 @@ int main() {
     //   subSche.Main_ScheduleSubMenu(); 	 
     //MainManageScore::ManageScoreProcess(); 
       //menu.Main_menu();;
-   EDUSYSTEM::DisplayStartScreen();
+//    EDUSYSTEM::DisplayStartScreen();
 //      MainAssignHomwork::AssignHMain("T-011");
 //     MainAssignHomwork::AssignHMainProcess("T-011","11");
 //MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
@@ -45,7 +45,7 @@ int main() {
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
     //  Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
- // logD.MainLogin();
+ logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();
     getch();
     return 0;

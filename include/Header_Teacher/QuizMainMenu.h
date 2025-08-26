@@ -82,7 +82,6 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
         if(option == 27) {
             H::cls();
             LoadingHeader(1);
-            // EdumasterCustom::LoadingPage(30, 30, 135, 5);
             system("cls");
         }
 
@@ -92,10 +91,8 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                     if (isTeacherAssignedToClass(teacherID, "10")) {
                         H::setcolor(7);
                         system("cls");
-                        // LoadingHeader(2);
-                        // EdumasterCustom::LoadingPage(30,30,135,5);
-                        system("cls");
                         QuizMenu::QuizChooseMenu(teacherID, "10", subject);
+                        break;
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 10.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
@@ -105,9 +102,8 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                     if (isTeacherAssignedToClass(teacherID, "11")) {
                         H::setcolor(7);
                         system("cls");
-                        // LoadingHeader(2);
-                        // EdumasterCustom::LoadingPage(30,30,135,5);
                         QuizMenu::QuizChooseMenu(teacherID, "11", subject);
+                        break;
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 11.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
@@ -117,24 +113,18 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                     if (isTeacherAssignedToClass(teacherID, "12")) {
                         H::setcolor(7);
                         system("cls");
-                        // LoadingHeader(2);
-                        // EdumasterCustom::LoadingPage(30,30,135,5);
-                        H::cls();
                         QuizMenu::QuizChooseMenu(teacherID, "12", subject);
+                        break;
                     } else {
                         MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 12.", "Notice", MB_OK | MB_ICONASTERISK);
                     }
                     break;
                 }
                 case 4: {
-                    if (MessageBoxA(NULL, "Do you want to go back?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK) {
-                        H::setcolor(7);
-                        system("cls");
-                        option = 27;
-                        // LoadingHeader(2);
-                        // EdumasterCustom::LoadingPage(30, 30, 135, 5);
-                        H::cls();
-                    }
+                    H::setcolor(7);
+                    system("cls");
+                    option = 27;
+                    H::cls();
                     break;
                 }
             }
@@ -206,17 +196,16 @@ void QuizMenu::QuizChooseMenu(const char* teacherID, const char* className, cons
         switch (choice) {
             case 1: // Quiz 1
                 QuizManageMenu(teacherID, className, "1", subject);
+                break;
             case 2: // Quiz 2
                 QuizManageMenu(teacherID, className, "2", subject);
+                break;
             case 3: // Quiz 3
                 QuizManageMenu(teacherID, className, "3", subject);
                 break;
             case 4: // Back
-                QuizGradeMenu(teacherID, subject);
                 break;
         }
-    } else if (option == 27) {
-        QuizGradeMenu(teacherID, subject);
     }
 }
 
@@ -287,14 +276,18 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
             case 1: // CREATE
                 Quiz::CreateQuiz(teacherID, className, quizID, subject);
                 QuizManageMenu(teacherID, className, quizID, subject);
+                break;
             case 2: // UPDATE
                 Quiz::UpdateQuiz(teacherID, className, quizID);
                 QuizManageMenu(teacherID, className, quizID, subject);
+                break;
             case 3: // DELETE
                 Quiz::PublishQuiz(teacherID, className, quizID);
                 QuizManageMenu(teacherID, className, quizID, subject);
+                break;
             case 4: // BACK
                 QuizMenu::QuizChooseMenu(teacherID, className, subject);
+                break;
         }
     } else if (option == 27) {
         QuizMenu::QuizChooseMenu(teacherID, className, subject);
