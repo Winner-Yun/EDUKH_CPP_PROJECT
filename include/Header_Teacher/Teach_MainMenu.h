@@ -237,7 +237,7 @@ void Teach_MainMenu::Main(const char* email){
                             H::setcolor(7);
                             system("cls");
                             option = 27;
-                            LoadingHeader(2);
+                            LoadingHeader(1);
                             EdumasterCustom::LoadingPage(30, 30, 135, 5);
                             H::cls();
                         }
@@ -248,6 +248,7 @@ void Teach_MainMenu::Main(const char* email){
             }
         }
     }while(option != 27);
+    H::setcolor(7);
 }
 
 void Teach_MainMenu::drawTime(int x, int y) {

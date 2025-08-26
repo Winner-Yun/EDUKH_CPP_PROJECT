@@ -874,7 +874,7 @@ void TeacherDesign::searchTeacher(int pageIndex) {
 		H::gotoxy(73, 11);cout<< "              ";
         H::drawBoxDoubleLine(73, 10, 61, 1, 3);
         H::gotoxy(75, 11); H::setcolor(7);
-        cout << "ENTER STUDENT NAME FOR SEARCH : ";
+        cout << "ENTER TEACHER NAME FOR SEARCH : ";
         H::inputLetter(searchName, 20);
 
         H::cls();
@@ -897,9 +897,9 @@ void TeacherDesign::searchTeacher(int pageIndex) {
 
         int total = results.size();
         if (total == 0) {
-            H::gotoxy(85, 20);
+            H::gotoxy(97, 20);
             H::setcolor(4);
-            cout << "NO STUDENT FOUND.";
+            cout << "NO TEACHER FOUND.";
         } else {
             int page = 0;
                 H::clearBox(16, 19, 168, 22, 3);
@@ -1009,12 +1009,13 @@ void TeacherDesign::updateTeacher(int pageindex) {
 		} else {
 			H::clearBox(16, 19, 168, 22, 3);
 			H::setcursor(false, 0);
-			H::gotoxy(52, 26); H::setcolor(4); cout << R"( ____  _             _            _      _   _       _      _____                     _   _ _ _ )";
-			H::gotoxy(52, 27); H::setcolor(4); cout << R"(/ ___|| |_ _   _  __| | ___ _ __ | |_   | \ | | ___ | |_   |  ___|__  _   _ _ __   __| | | | | |)";
-			H::gotoxy(52, 28); H::setcolor(4); cout << R"(\___ \| __| | | |/ _` |/ _ \ '_ \| __|  |  \| |/ _ \| __|  | |_ / _ \| | | | '_ \ / _` | | | | |)";
-			H::gotoxy(52, 29); H::setcolor(4); cout << R"( ___) | |_| |_| | (_| |  __/ | | | |_   | |\  | (_) | |_   |  _| (_) | |_| | | | | (_| | |_|_|_|)";
-			H::gotoxy(52, 30); H::setcolor(4); cout << R"(|____/ \__|\__,_|\__,_|\___|_| |_|\__|  |_| \_|\___/ \__|  |_|  \___/ \__,_|_| |_|\__,_| (_|_|_))";
-			getch();
+			H::gotoxy(52, 26); H::setcolor(4); cout << R"( _____               _                   _   _       _      _____                     _   _ _ _ )";
+			H::gotoxy(52, 27); H::setcolor(4); cout << R"(|_   _|             | |                 | \ | | ___ | |_   |  ___|__  _   _ _ __   __| | | | | |)";
+			H::gotoxy(52, 28); H::setcolor(4); cout << R"(	| | ___  __ _  ___| |__   ___ _ __    |  \| |/ _ \| __|  | |_ / _ \| | | | '_ \ / _` | | | | |)";
+			H::gotoxy(52, 29); H::setcolor(4); cout << R"(	| |/ _ \/ _` |/ __| '_ \ / _ \ '__|   | |\  | (_) | |_   |  _| (_) | |_| | | | | (_| | |_|_|_|)";
+			H::gotoxy(52, 30); H::setcolor(4); cout << R"(	\_/\___|\__,_|\___|_| |_|\___|_|      |_| \_|\___/ \__|  |_|  \___/ \__,_|_| |_|\__,_| (_|_|_))";
+			getch();												
+                                     
 		}
 
 	H::cls();
@@ -1208,33 +1209,44 @@ void TeacherDesign::teacherManagement() {
 			}
     	} while(option!=13);	
 		H::setcursor(true, 1);
-		if(x==0){
+		if (x == 0) {
 			H::cls();
 			break;
-		}if(x==1){
+		}
+		if (x == 1) {
 			H::foreColor(0);
 			TeacherDesign::sortTeacherByName(pageIndex);
 		}
-		if(x==2){
-			H::cls();
-			H::foreColor(0);
-			TeacherDesign::insertTeacher();
+		if (x == 2) { // ADD
+			if (MessageBoxA(NULL, "Do you really want to add a teacher?", "Confirm",
+				MB_ICONQUESTION | MB_YESNO) == IDYES) {
+				H::cls();
+				H::foreColor(0);
+				TeacherDesign::insertTeacher();
+			}
 		}
-		if(x==3){
-			H::cls();
-			H::foreColor(0);
-			TeacherDesign::updateTeacher(pageIndex);
-		}	
-		if(x==4){
-			H::cls();
-			H::foreColor(0);
-			TeacherDesign::deletedTeacher(pageIndex);
+		if (x == 3) { // UPDATE
+			if (MessageBoxA(NULL, "Do you really want to update?", "Confirm",
+				MB_ICONQUESTION | MB_YESNO) == IDYES) {
+				H::cls();
+				H::foreColor(0);
+				TeacherDesign::updateTeacher(pageIndex);
+			}
 		}
-		if(x==5){
+		if (x == 4) { // DELETE
+			if (MessageBoxA(NULL, "Do you really want to delete?", "Confirm",
+				MB_ICONQUESTION | MB_YESNO) == IDYES) {
+				H::cls();
+				H::foreColor(0);
+				TeacherDesign::deletedTeacher(pageIndex);
+			}
+		}
+		if (x == 5) {
 			H::cls();
 			H::foreColor(0);
 			TeacherDesign::searchTeacher(pageIndex);
 		}
+
 		H::cls();
 	} while(true);
 }

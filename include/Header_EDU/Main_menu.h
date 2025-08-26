@@ -133,7 +133,7 @@ void Edu_Main_Menu::Main_menu(){
         // Check if ESC has been held for 3 seconds
         if (escHeld && ((clock() - escStart) / CLOCKS_PER_SEC >= 3)) {
             system("cls");
-            j = 4; 
+            j = 5; 
             break;
         }
 

@@ -2,7 +2,6 @@
 #define __EDU_STUDENT_MAIN_MENU__
 #include "../Header_School/ANTHinsyOOP"
 #include "../Header_EDU/CustomHeader.h"
-#include "../Header_EDU/Login_Form.h"
 #include "../Header_EDU/Main_menu.h"
 #include "DisplaySchedule.h"
 #include "Seft_Schedule.h"
@@ -20,6 +19,12 @@ public:
     static void drawTime(int x, int y);
     static void LoadingHeader(int id);
 };
+
+struct Student_form_Stu {
+        char id[6], name[19], gender[7], bdate[15], grade[3], tel[10], sYear[5], email[30], pw[19];
+		int No;
+        static int lastId;
+    };
 
 char studentName[40] = "Unknown";
 char studentID[15] = "Unknown";
@@ -268,6 +273,7 @@ void Student_MainMenu::Main(const char* email){
             }
         }
     }while(option != 0);
+    H::setcolor(7);
 }
 
 void Student_MainMenu::drawTime(int x, int y) {
@@ -488,8 +494,8 @@ void Student_MainMenu::ReadData(const char* email){
         cout << "Failed to open file.\n";
     }
 
-    Student_form s;
-    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student_form))) {
+    Student_form_Stu s;
+    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student_form_Stu))) {
         if (strcmp(s.email, email) == 0) {
             strcpy(studentName , s.name);
             strcpy(studentID , s.id);
@@ -498,7 +504,7 @@ void Student_MainMenu::ReadData(const char* email){
     }
     H::setcolor(7);
     H::gotoxy(110, 18);
-    cout << "HELLO....! :                        ID :";
+    cout << "HELLO....! :         ";
 
     char upperName[40];
     strcpy(upperName, studentName);
@@ -516,7 +522,7 @@ void Student_MainMenu::ReadData(const char* email){
 
     H::setcolor(3);
     H::gotoxy(idX, 18);
-    cout <<" ~ "<< studentID;
+    cout <<" ID : ~ "<< studentID;
 
 }
 

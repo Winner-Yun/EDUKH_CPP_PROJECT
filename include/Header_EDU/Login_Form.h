@@ -5,6 +5,7 @@
 #include "Main_menu.h"
 #include "CustomHeader.h"
 #include "../Header_Teacher/Teach_MainMenu.h"
+#include "../Header_Student/Sudent_Menu.h"
 
 using namespace ANTHinsyOOP;
 
@@ -42,11 +43,6 @@ class Login_Design {
     // ---------------------------------------------------------<< Login Main Process >>-------------------------------------------------------------
    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    
-    #include <conio.h>
-#include <iostream>
-#include <cstring>
-using namespace std;
-
 // password input with position
     void inputPasswordMask(int x, int y, char* password, int maxLen) {
         int i = 0;
@@ -136,9 +132,11 @@ using namespace std;
         else if (startsWith(inputEmail, "stu")) {
             if (compareCredentials_STU(inputEmail, inputPassword)) {
                 trueInput = true;
+                H::cls();
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 21, 135, 20);
-                Teach_MainMenu::Main(inputEmail);
+                H::cls();
+                Student_MainMenu::Main(inputEmail);
 
 
             }
