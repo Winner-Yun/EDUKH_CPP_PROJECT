@@ -7,6 +7,7 @@
 #include "Seft_Schedule.h"
 #include "DisplayViewHomeWork.h"
 #include "../StudentProfile/StudentProfile.h"
+#include "DoQuiz.h"
 
 class Student_MainMenu{
 
@@ -215,7 +216,7 @@ void Student_MainMenu::Main(const char* email){
                     EdumasterCustom::LoadingPage(30,30,135,5);
                     H::cls();
 
-                   
+                    DoQuiz::MenuBySubject(studentID, grade);
 
                     H::setcolor(7);
                     system("cls");
