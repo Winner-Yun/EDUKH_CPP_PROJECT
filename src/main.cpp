@@ -31,7 +31,7 @@ int main() {
     H::setFont(15);
 //     Student_MainMenu::Main("stu.winner@gmail.com");
     // QuizDesign::Quiz_Select();
-    //    td.teacherManagement();
+//       td.teacherManagement();
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu(); 	 
     //MainManageScore::ManageScoreProcess(); 
@@ -42,7 +42,7 @@ int main() {
 //MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
     //MainHeaderOFManageScore::ManageScoreMain("T-011","MATH");
 //        s.Main_StudentManage();
-//      Teach_MainMenu::Main("te.yunwinner@gmail.com");
+     Teach_MainMenu::Main("te.yunwinner@gmail.com");
 //    schdule.InterfaceADD_update("10");
 //  logD.MainLogin();
 //     subStuTech.Main_SubMenuMangeStuTech();

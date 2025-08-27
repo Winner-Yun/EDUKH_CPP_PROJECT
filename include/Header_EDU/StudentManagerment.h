@@ -77,6 +77,9 @@ int Student::getTotalStudents() {
     Student temp;
     while (file.read(reinterpret_cast<char*>(&temp), sizeof(Student))) count++;
     file.close();
+    if(count == 0){
+        count = 1;
+    }
     return count;
 }
 
@@ -564,7 +567,7 @@ void Student::InputData(int pageIndex) {
 
     // ------------------ Date of Birth ------------------
     H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->bdate, true);
+    H::inputDate(this->bdate, false);
 
     // ------------------ Grade Selection ------------------
     const char* grades[] = {"10", "11", "12"};
@@ -712,7 +715,9 @@ void Student::showAllStudents(int pageIndex) {
         row += 2;
         colorIndex++;
     }
-
+    if(count == 0){
+		count = 1;
+	}
     H::gotoxy(73, 11);
     H::setcolor(7);
     cout << "PAGE " << (pageIndex + 1) << " OF " << ((count + 10) / 11);
@@ -797,7 +802,7 @@ void Student::Update(int pageIndex) {
 
             // ------------------ Date of Birth ------------------
             H::gotoxy(startX + 98, startY + 2);
-            H::inputDate(this->bdate, true);
+            H::inputDate(this->bdate, false);
 
             // ------------------ Grade Selection ------------------
             const char* grades[] = {"10", "11", "12"};
@@ -840,6 +845,7 @@ void Student::Update(int pageIndex) {
     rename("../data/Temp.bin", "../data/Student_Data.bin");
 
     if (updated) {
+        H::cls();
         Add_Loading();
     } else {
         H::clearBox(16, 19, 168, 22, 3);
@@ -1051,14 +1057,12 @@ void Student::Main_StudentManage() {
                         break;
 
                     case 3: // UPDATE
-                        if (MessageBoxA(NULL, "Do you really want to update?", "Confirm", MB_ICONQUESTION | MB_YESNO) == IDYES) {
-                            H::cls();
-                            s.Update(pageIndex);
-                        }
+                        H::cls();
+                        s.Update(pageIndex);
                         break;
 
                     case 4: // DELETE
-                        if (MessageBoxA(NULL, "Do you really want to delete?", "Confirm", MB_ICONQUESTION | MB_YESNO) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Do you really want to delete?", "Confirm", MB_ICONQUESTION | MB_YESNO) == IDYES) {
                             s.Delete(pageIndex);
                         }
                         break;

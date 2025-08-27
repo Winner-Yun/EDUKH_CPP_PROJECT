@@ -404,7 +404,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                     if (isPublished) {
                         MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
                     }else{
-                        if (MessageBoxA(NULL, "Are you sure you want to RECREATE this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to RECREATE this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                         H::setcursor(true,1);
                         assH.recreateHomework(teacherID, grade, homeWorkID,subject);
                         H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
@@ -418,7 +418,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                     if (isPublished) {
                         MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
                     } else {
-                        if (MessageBoxA(NULL, "Are you sure you want to CLEAR this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to CLEAR this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.clearHomework(teacherID, grade, homeWorkID, subject);
                             H::setcolor(7); H::gotoxy(25, 22); cout << string(120, ' ');
                             H::setcolor(7); H::gotoxy(25, 26); cout << string(120, ' ');
@@ -428,13 +428,13 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                     break;
                 case 2: // Publish / Unpublish
                     if (isPublished) {
-                        if (MessageBoxA(NULL, "Are you sure you want to UNPUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to UNPUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.unpublishHomework(teacherID, grade, homeWorkID);
                             isPublished = false;
                             menuItems[2] = "PUBLISH";
                         }
                     } else {
-                        if (MessageBoxA(NULL, "Are you sure you want to PUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to PUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.publishHomework(teacherID, grade, homeWorkID);
                             isPublished = true;
                             menuItems[2] = "UNPUBLISH";

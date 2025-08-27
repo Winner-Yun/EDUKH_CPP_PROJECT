@@ -485,7 +485,7 @@ void Login_Design::loadingProcess() {
         H::drawBoxSingleLine(10,20,83,1,7);
         H::setcolor(10);
         H::gotoxy(9, 21); cout << "                                                                                     ";
-        H::gotoxy(9, 22); cout << "          DEVELOPED BY: YUN WINNER, RY KIMCHHAY, VANNA NICHH, SLES ROFATH            ";
+        H::gotoxy(9, 22); cout << "          DEVELOPED BY: YUN WINNER, RY KIMCHHAY, VANNA NICH, SLES ROFATH            ";
         H::gotoxy(9, 23); cout << "                                                                                     ";
 
 
