@@ -1043,13 +1043,11 @@ void Student::Main_StudentManage() {
                         break;
 
                     case 2: // ADD
-                        if (MessageBoxA(NULL, "Do you really want to add a student?", "Confirm", MB_ICONQUESTION | MB_YESNO) == IDYES) {
                             H::cls();
                             s.Design_Input();
                             s.InputData(pageIndex);
                             s.convertToEmail();
                             s.SaveToFile();
-                        }
                         break;
 
                     case 3: // UPDATE

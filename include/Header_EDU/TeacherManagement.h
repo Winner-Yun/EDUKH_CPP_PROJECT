@@ -176,7 +176,7 @@ void  Teacher::input(){
     system("chcp 437 > nul");
     H::drawBoxDoubleLine(boxX, boxY + 20, formW - 20, 6, 7);
     system("chcp 65001 > nul");
-    H::foreColor(3); H::gotoxy(boxX + 2, boxY + 16); cout << "▲▼ Use Arrow Keys to Select Gender and Grade";
+    H::foreColor(3); H::gotoxy(boxX + 2, boxY + 16); cout << "▲▼ Use Arrow Keys to Select Gender and Subject";
     H::foreColor(3); H::gotoxy(boxX + 2, boxY + 18); cout << "-> Press Enter to Confirm";
     H::foreColor(2); H::gotoxy(boxX + 2, boxY + 20); cout << " [ ✨ Enter details in fields above ✨  ] ";
     system("chcp 437 > nul");
@@ -256,18 +256,35 @@ void  Teacher::input(){
 
     // ------------------ Date of Birth ------------------
     H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->dateOfBirth, true);
+    H::inputDate(this->dateOfBirth,false);
 
     // ------------------ Subject ------------------
-	char temp[20]; 
-	H::gotoxy(startX + 98, startY + 5);
-	H::inputLetter(temp, 18);
+	const char* subjects[] = {"MATHEMATICS", "PHYSICS", "CHEMISTRY", "BIOLOGY",
+        "ENGLISH", "KHMER", "HISTORY", "GEOGRAPHY",
+        "COMPUTER", "SPORT", "ART"};
+            int subjectIndex = 0;
+            if (strcmp(this->subject, "11") == 0) subjectIndex = 1;
+            else if (strcmp(this->subject, "12") == 0) subjectIndex = 2;
 
-	for (int i = 0; temp[i] != '\0'; ++i) {
-		temp[i] = toupper(temp[i]);
-	}
+            H::setcursor(false, 0);
+            while (true) {
+                H::gotoxy(startX + 98, startY + 5);
+                cout << "                 ";
+                H::gotoxy(startX + 98, startY + 5);
+                H::setcolor(6);
+                cout << subjects[subjectIndex];
 
-	strcpy(this->subject, temp);
+                int key = _getch();
+                if (key == 224) {
+                    key = _getch();
+                    if (key == 72 || key == 75) subjectIndex = (subjectIndex - 1 + 3) % 3;
+                    else if (key == 80 || key == 77) subjectIndex = (subjectIndex + 1) % 3;
+                } else if (key == 13) {
+                    strcpy(this->subject, subjects[subjectIndex]);
+                    break;
+                }
+            }
+            H::setcursor(true, 1);
 
     // ------------------ Phone Number ------------------
     H::gotoxy(startX + 98, startY + 8);
@@ -335,7 +352,7 @@ void Teacher::newInput(){
         "TEACHER NAME    :",
         "GENDER (▲▼)     :",
         "DATE OF BIRTH DD/MM/YY  :",
-        "SUBJECT                 :",
+        "SUBJECT (▲▼)            :",
         "PHONE NUMBER            :"
     };
 
@@ -351,7 +368,7 @@ void Teacher::newInput(){
     system("chcp 437 > nul");
     H::drawBoxDoubleLine(boxX, boxY + 20, formW - 20, 6, 7);
     system("chcp 65001 > nul");
-    H::foreColor(3); H::gotoxy(boxX + 2, boxY + 16); cout << "▲▼ Use Arrow Keys to Select Gender and Grade";
+    H::foreColor(3); H::gotoxy(boxX + 2, boxY + 16); cout << "▲▼ Use Arrow Keys to Select Gender and Subject";
     H::foreColor(3); H::gotoxy(boxX + 2, boxY + 18); cout << "-> Press Enter to Confirm";
     H::foreColor(2); H::gotoxy(boxX + 2, boxY + 20); cout << " [ ✨ Enter details in fields above ✨  ] ";
     system("chcp 437 > nul");
@@ -1218,12 +1235,9 @@ void TeacherDesign::teacherManagement() {
 			TeacherDesign::sortTeacherByName(pageIndex);
 		}
 		if (x == 2) { // ADD
-			if (MessageBoxA(NULL, "Do you really want to add a teacher?", "Confirm",
-				MB_ICONQUESTION | MB_YESNO) == IDYES) {
 				H::cls();
 				H::foreColor(0);
 				TeacherDesign::insertTeacher();
-			}
 		}
 		if (x == 3) { // UPDATE
 			if (MessageBoxA(NULL, "Do you really want to update?", "Confirm",

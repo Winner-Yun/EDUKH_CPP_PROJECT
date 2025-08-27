@@ -333,7 +333,7 @@ void Login_Design::loadingProcess() {
         
         H::setcolor(6);H::gotoxy(140, 36); cout << " [1] YUN WINNER  "; Sleep(50);
         H::setcolor(4);H::gotoxy(140, 37); cout << " [2] RY KIMCHHAY "; Sleep(50);
-        H::setcolor(1);H::gotoxy(140, 38); cout << " [3] VANNA NICHH "; Sleep(50);
+        H::setcolor(1);H::gotoxy(140, 38); cout << " [3] VANNA NICH  "; Sleep(50);
         H::setcolor(2);H::gotoxy(140, 39); cout << " [4] SLES ROFATH "; Sleep(50);
 
         H::setcolor(7);

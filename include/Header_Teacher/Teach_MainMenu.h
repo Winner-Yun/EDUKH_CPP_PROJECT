@@ -443,7 +443,7 @@ void Teach_MainMenu::Header(const char* email){
     H::setcolor(7);H::gotoxy(108,31);cout<<" DEVELOPED  BY:           ,            ,            ,             ";
     H::setcolor(111);H::gotoxy(124,31);cout<<"YUN WINNER";
     H::setcolor(31);H::gotoxy(136,31);cout<<"RY KIMCHHAY";
-    H::setcolor(223);H::gotoxy(149,31);cout<<"VANNA NICHH";
+    H::setcolor(223);H::gotoxy(149,31);cout<<"VANNA NICH";
     H::setcolor(47);H::gotoxy(162,31);cout<<"SLES ROFATH";
 
 

@@ -430,7 +430,7 @@ void Edu_Main_Menu::TeamProfile(){
 	H::VLine(94,14,3,7,186);
 	
 	H::drawBoxDoubleLineWithBG(80,17,30,1,196);
-	H::gotoxy(82,18);H::foreColor(199);cout<<"MENTOR NAME : RUN LIHOU";
+	H::gotoxy(82,18);H::foreColor(199);cout<<"MENTOR NAME : RUN LIHUO";
 	H::VLine(94,19,2,7,186);
 	H::HLine(15,22,170,7,223);
 	
@@ -629,7 +629,7 @@ void Edu_Main_Menu::LetterFromUs(){
 	VN("We are "); 
 	
 	H::foreColor(4); H::foreColor(199); 
-	VN("Generation 2 scholarship students");
+	VN("Second~Generation scholarship students");
 	
 	H::foreColor(7); 
 	VN(" at ANT Technology Training Center, learning ");  // normal part
