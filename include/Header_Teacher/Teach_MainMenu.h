@@ -232,16 +232,20 @@ void Teach_MainMenu::Main(const char* email){
                     break;
                 }
                 case 6:{
-                    if (MessageBoxA(NULL, "Do you want to Logout?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK)
-                        {
-                            H::setcolor(7);
-                            system("cls");
-                            option = 27;
-                            LoadingHeader(1);
-                            EdumasterCustom::LoadingPage(30, 30, 135, 5);
-                            H::cls();
-                        }
-                        break;
+                    if (MessageBoxA(GetConsoleWindow(),
+                                    "Do you want to Logout?",
+                                    "Confirmation",
+                                    MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL) == IDOK)
+                    {
+                        H::setcolor(7);
+                        system("cls");
+                        option = 27;
+                        LoadingHeader(1);
+                        EdumasterCustom::LoadingPage(30, 30, 135, 5);
+                        H::cls();
+                    }
+
+                     break;
                 }
 
 

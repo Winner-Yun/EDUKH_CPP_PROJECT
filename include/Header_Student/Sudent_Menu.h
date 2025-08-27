@@ -258,7 +258,7 @@ void Student_MainMenu::Main(const char* email){
                     break;
                 }
                 case 7:{
-                    if (MessageBoxA(NULL, "Do you want to Logout?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK)
+                    if(MessageBoxA(GetConsoleWindow(), "Do you want to Logout?", "Confirmation", MB_OKCANCEL | MB_ICONQUESTION) == IDOK)
                         {
                             H::setcolor(7);
                             system("cls");

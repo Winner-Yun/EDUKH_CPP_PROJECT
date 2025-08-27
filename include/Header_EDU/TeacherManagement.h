@@ -50,7 +50,7 @@ class TeacherDesign{
 		static void asciiDelete();				// delete by using ascii code
 		static void asciiTeacherNotFound();
 		static void asciiSearchTeacher();
-		static void sorting();							// sorting by using ascii code
+		static void sorting();					// sorting by using ascii code
 
 		int getTotalTeachers();
 		
@@ -261,7 +261,7 @@ void  Teacher::input(){
     // ------------------ Subject ------------------
 	const char* subjects[] = {"MATHEMATICS", "PHYSICS", "CHEMISTRY", "BIOLOGY",
         "ENGLISH", "KHMER", "HISTORY", "GEOGRAPHY",
-        "COMPUTER", "SPORT", "ART"};
+        "COMPUTER", "SPORT", "KHMER"};
             int subjectIndex = 0;
             if (strcmp(this->subject, "11") == 0) subjectIndex = 1;
             else if (strcmp(this->subject, "12") == 0) subjectIndex = 2;
@@ -437,18 +437,35 @@ void Teacher::newInput(){
 
     // ------------------ Date of Birth ------------------
     H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->dateOfBirth, true);
+    H::inputDate(this->dateOfBirth, false);
 
     // ------------------ Subject Selection ------------------
-	char temp[20]; 
-	H::gotoxy(startX + 98, startY + 5);
-	H::inputLetter(temp, 18);
+	const char* subjects[] = {"MATHEMATICS", "PHYSICS", "CHEMISTRY", "BIOLOGY",
+        "ENGLISH", "KHMER", "HISTORY", "GEOGRAPHY",
+        "COMPUTER", "SPORT", "KHMER"};
+            int subjectIndex = 0;
+            if (strcmp(this->subject, "11") == 0) subjectIndex = 1;
+            else if (strcmp(this->subject, "12") == 0) subjectIndex = 2;
 
-	for (int i = 0; temp[i] != '\0'; ++i) {
-		temp[i] = toupper(temp[i]);
-	}
+            H::setcursor(false, 0);
+            while (true) {
+                H::gotoxy(startX + 98, startY + 5);
+                cout << "                 ";
+                H::gotoxy(startX + 98, startY + 5);
+                H::setcolor(6);
+                cout << subjects[subjectIndex];
 
-	strcpy(this->subject, temp);
+                int key = _getch();
+                if (key == 224) {
+                    key = _getch();
+                    if (key == 72 || key == 75) subjectIndex = (subjectIndex - 1 + 3) % 3;
+                    else if (key == 80 || key == 77) subjectIndex = (subjectIndex + 1) % 3;
+                } else if (key == 13) {
+                    strcpy(this->subject, subjects[subjectIndex]);
+                    break;
+                }
+            }
+     H::setcursor(true, 1);
 
     // ------------------ Phone Number ------------------
     H::gotoxy(startX + 98, startY + 8);
@@ -676,7 +693,9 @@ void TeacherDesign::showTeacher(int pageIndex) {
         y += 2;
         row++;
     }
-
+	if(count ==0){
+		count = 1;
+	}
     H::gotoxy(73, 11);
     H::setcolor(7);
     cout << "PAGE " << (pageIndex + 1) << " OF " << ((count + 10) / 11);
@@ -1143,7 +1162,7 @@ int TeacherDesign::getTotalTeachers() {
     while (file.read(reinterpret_cast<char*>(&temp), sizeof(Teacher))) {
         count++;
     }
-    file.close();
+	file.close();
     return count;
 }
 
@@ -1240,15 +1259,12 @@ void TeacherDesign::teacherManagement() {
 				TeacherDesign::insertTeacher();
 		}
 		if (x == 3) { // UPDATE
-			if (MessageBoxA(NULL, "Do you really want to update?", "Confirm",
-				MB_ICONQUESTION | MB_YESNO) == IDYES) {
-				H::cls();
-				H::foreColor(0);
-				TeacherDesign::updateTeacher(pageIndex);
-			}
+			H::cls();
+			H::foreColor(0);
+			TeacherDesign::updateTeacher(pageIndex);
 		}
 		if (x == 4) { // DELETE
-			if (MessageBoxA(NULL, "Do you really want to delete?", "Confirm",
+			if(MessageBoxA(GetConsoleWindow(), "Do you really want to delete?", "Confirm",
 				MB_ICONQUESTION | MB_YESNO) == IDYES) {
 				H::cls();
 				H::foreColor(0);
