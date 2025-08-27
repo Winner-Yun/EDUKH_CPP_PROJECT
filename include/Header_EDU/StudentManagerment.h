@@ -566,8 +566,7 @@ void Student::InputData(int pageIndex) {
     H::setcursor(true, 1);
 
     // ------------------ Date of Birth ------------------
-    H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->bdate, false);
+    EdumasterCustom::inputDate(startX + 98, startY + 2,this->bdate, false);
 
     // ------------------ Grade Selection ------------------
     const char* grades[] = {"10", "11", "12"};
@@ -801,8 +800,8 @@ void Student::Update(int pageIndex) {
             H::setcursor(true, 1);
 
             // ------------------ Date of Birth ------------------
-            H::gotoxy(startX + 98, startY + 2);
-            H::inputDate(this->bdate, false);
+        
+            EdumasterCustom::inputDate(startX + 98, startY + 2,this->bdate, false);
 
             // ------------------ Grade Selection ------------------
             const char* grades[] = {"10", "11", "12"};
