@@ -259,33 +259,40 @@ void  Teacher::input(){
     H::inputDate(this->dateOfBirth,false);
 
     // ------------------ Subject ------------------
-	const char* subjects[] = {"MATHEMATICS", "PHYSICS", "CHEMISTRY", "BIOLOGY",
-        "ENGLISH", "KHMER", "HISTORY", "GEOGRAPHY",
-        "COMPUTER", "SPORT", "KHMER"};
-            int subjectIndex = 0;
-            if (strcmp(this->subject, "11") == 0) subjectIndex = 1;
-            else if (strcmp(this->subject, "12") == 0) subjectIndex = 2;
-
-            H::setcursor(false, 0);
-            while (true) {
-                H::gotoxy(startX + 98, startY + 5);
-                cout << "                 ";
-                H::gotoxy(startX + 98, startY + 5);
-                H::setcolor(6);
-                cout << subjects[subjectIndex];
-
-                int key = _getch();
-                if (key == 224) {
-                    key = _getch();
-                    if (key == 72 || key == 75) subjectIndex = (subjectIndex - 1 + 3) % 3;
-                    else if (key == 80 || key == 77) subjectIndex = (subjectIndex + 1) % 3;
-                } else if (key == 13) {
-                    strcpy(this->subject, subjects[subjectIndex]);
-                    break;
-                }
-            }
-            H::setcursor(true, 1);
-
+	H::setcursor(false, 0);
+    const char* subjects[] = {
+        "MATHEMATICS",
+        "PHYSICS",
+        "CHEMISTRY",
+        "BIOLOGY",
+        "COMPUTER",
+        "HISTORY",
+        "GEOGRAPHY",
+        "ENGLISH",
+        "KHMER",
+        "SPORT",
+        "ART"
+    };
+    int sIndex = 0;  
+    int totalSubjects = sizeof(subjects) / sizeof(subjects[0]);
+    while (true) {
+        H::gotoxy(startX + 98, startY + 5);
+        cout << "                  ";
+        H::gotoxy(startX + 98, startY + 5);
+        H::setcolor(6);
+        cout << subjects[sIndex];
+        int key = _getch();
+        if (key == 224) { 
+            key = _getch();
+            if (key == 72 || key == 75)
+                sIndex = (sIndex - 1 + totalSubjects) % totalSubjects;
+            else if (key == 80 || key == 77)
+                sIndex = (sIndex + 1) % totalSubjects;
+        } else if (key == 13) {
+            strcpy(this->subject, subjects[sIndex]);
+            break;
+        }
+    }
     // ------------------ Phone Number ------------------
     H::gotoxy(startX + 98, startY + 8);
     H::input4Tel(this->phoneNumber, 10);
@@ -440,31 +447,40 @@ void Teacher::newInput(){
     H::inputDate(this->dateOfBirth, false);
 
     // ------------------ Subject Selection ------------------
-	const char* subjects[] = {"MATHEMATICS", "PHYSICS", "CHEMISTRY", "BIOLOGY",
-        "ENGLISH", "KHMER", "HISTORY", "GEOGRAPHY",
-        "COMPUTER", "SPORT", "KHMER"};
-            int subjectIndex = 0;
-            if (strcmp(this->subject, "11") == 0) subjectIndex = 1;
-            else if (strcmp(this->subject, "12") == 0) subjectIndex = 2;
-
-            H::setcursor(false, 0);
-            while (true) {
-                H::gotoxy(startX + 98, startY + 5);
-                cout << "                 ";
-                H::gotoxy(startX + 98, startY + 5);
-                H::setcolor(6);
-                cout << subjects[subjectIndex];
-
-                int key = _getch();
-                if (key == 224) {
-                    key = _getch();
-                    if (key == 72 || key == 75) subjectIndex = (subjectIndex - 1 + 3) % 3;
-                    else if (key == 80 || key == 77) subjectIndex = (subjectIndex + 1) % 3;
-                } else if (key == 13) {
-                    strcpy(this->subject, subjects[subjectIndex]);
-                    break;
-                }
-            }
+	H::setcursor(false, 0);
+    const char* subjects[] = {
+        "MATHEMATICS",
+        "PHYSICS",
+        "CHEMISTRY",
+        "BIOLOGY",
+        "COMPUTER",
+        "HISTORY",
+        "GEOGRAPHY",
+        "ENGLISH",
+        "KHMER",
+        "SPORT",
+        "ART"
+    };
+    int sIndex = 0;  
+    int totalSubjects = sizeof(subjects) / sizeof(subjects[0]);
+    while (true) {
+        H::gotoxy(startX + 98, startY + 5);
+        cout << "                  ";
+        H::gotoxy(startX + 98, startY + 5);
+        H::setcolor(6);
+        cout << subjects[sIndex];
+        int key = _getch();
+        if (key == 224) { 
+            key = _getch();
+            if (key == 72 || key == 75)
+                sIndex = (sIndex - 1 + totalSubjects) % totalSubjects;
+            else if (key == 80 || key == 77)
+                sIndex = (sIndex + 1) % totalSubjects;
+        } else if (key == 13) {
+            strcpy(this->subject, subjects[sIndex]);
+            break;
+        }
+    }
      H::setcursor(true, 1);
 
     // ------------------ Phone Number ------------------
