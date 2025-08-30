@@ -123,7 +123,7 @@ Quiz q;
 // ===================== CREATE / RESUME WITH PAGE-LEVEL SCORE/TIME =====================
 void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject) {
     if (Quiz::isPublished(teacherID, className, quizID)) {
-        MessageBox(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -182,7 +182,7 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
 
     // Check if all 10 questions are already filled
     if (page == 10) {
-        int overwriteChoice = MessageBox(
+        int overwriteChoice = MessageBoxA(
             NULL,
             "All 10 questions already exist. Do you want to Re-Create and start over?", "Re-Create Quiz?", MB_YESNO | MB_ICONQUESTION
         );
@@ -284,11 +284,11 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
 
     H::setcolor(7); H::gotoxy(10, 43); cout << "Quiz completed successfully for Class " << q.className << " (" << q.quizID << ") on " << q.lastUpdateDate;
 }
-// MessageBox( NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
+// MessageBoxA( NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
 // ===================== UPDATE =====================
 void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* quizID) {
     if (Quiz::isPublished(teacherID, className, quizID)) {
-        MessageBox(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
     const char* filename = getFileName(className);
@@ -296,7 +296,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
 
     ifstream in(filename, ios::binary);
     if (!in) {
-        MessageBox(NULL, "No quiz file found for this class!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "No quiz file found for this class!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -316,7 +316,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
     }
 
     if (quizIndex == -1) {
-        MessageBox(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -370,7 +370,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
             for (auto &quizItem : quizzes) out.write((char*)&quizItem, sizeof(Quiz));
             out.close();
 
-            MessageBox(NULL, "Deadline updated successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+            MessageBoxA(NULL, "Deadline updated successfully!", "Info", MB_OK | MB_ICONINFORMATION);
             QuizDesign::DesginQuizPage(className, quizID);
         }
         else if (ch == 13) { // ENTER to edit page
@@ -472,7 +472,7 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
 
     ifstream in(filename, ios::binary);
     if (!in) {
-        MessageBox(NULL, "No quiz file found!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "No quiz file found!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -491,7 +491,7 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
     }
 
     if (quizIndex == -1) {
-        MessageBox(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -499,14 +499,14 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
     if (strcmp(q.publish, "1") == 0) {  
     // Published → unpublish
         strcpy(q.publish, "0"); // use "0" for unpublished instead of "2"
-        MessageBox(NULL, "Quiz unpublished successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+        MessageBoxA(NULL, "Quiz unpublished successfully!", "Info", MB_OK | MB_ICONINFORMATION);
     } else {
         if (!q.isComplete()) {
-            MessageBox(NULL, "Cannot publish! All 10 pages must be fully created.", "Error", MB_OK | MB_ICONERROR);
+            MessageBoxA(NULL, "Cannot publish! All 10 pages must be fully created.", "Error", MB_OK | MB_ICONERROR);
             return;
         }
         strcpy(q.publish, "1"); // published
-        MessageBox(NULL, "Quiz published successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+        MessageBoxA(NULL, "Quiz published successfully!", "Info", MB_OK | MB_ICONINFORMATION);
     }
 
 

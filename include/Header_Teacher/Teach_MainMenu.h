@@ -233,9 +233,9 @@ void Teach_MainMenu::Main(const char* email){
                 }
                 case 6:{
                     if (MessageBoxA(GetConsoleWindow(),
-                                    "Do you want to Logout?",
-                                    "Confirmation",
-                                    MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL) == IDOK)
+                        "Do you want to Logout?",
+                        "Confirmation",
+                        MB_OKCANCEL | MB_ICONQUESTION | MB_SYSTEMMODAL) == IDOK)
                     {
                         H::setcolor(7);
                         system("cls");
