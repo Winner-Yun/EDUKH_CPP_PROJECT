@@ -136,16 +136,48 @@ void QuizMenu::QuizChooseMenu(const char* teacherID, const char* className, cons
     int option;
     int choice = 1;
     H::setcursor(false, 0);
+    H::cls();
+    system("chcp 65001 > nul");
+    H::setcolor(3);H::gotoxy(56,3);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████  ██    ██ ██ ███████)";
+    H::setcolor(3);H::gotoxy(56,4);cout<<R"( ██      ██   ██ ██    ██ ██    ██ ██      ██           ██    ██ ██    ██ ██    ███ )";
+    H::setcolor(3);H::gotoxy(56,5);cout<<R"( ██      ███████ ██    ██ ██    ██ ███████ █████        ██    ██ ██    ██ ██   ███  )";
+    H::setcolor(3);H::gotoxy(56,6);cout<<R"( ██      ██   ██ ██    ██ ██    ██      ██ ██           ██ ▄▄ ██ ██    ██ ██  ███   )";
+    H::setcolor(3);H::gotoxy(56,7);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████   ██████  ██ ███████)";
+    H::setcolor(3);H::gotoxy(56,8);cout<<R"(                                                            ▀▀                      )";
+    system("chcp 437 >nul");
+    H::HLine(7, 0, 186, 7, 228);
+    H::HLine(7, 1, 186, 7, 219);
+    H::HLine(7, 9, 186, 7, 219);
+    
+    H::drawBoxSingleLineWithBG(1, 0, 5, 43, 247);
+	H::drawBoxSingleLineWithBG(194, 0, 5, 43, 247);
+	H::drawBoxSingleLineWithBG(3, 0, 1, 43, 145);
+	H::drawBoxSingleLineWithBG(196, 0, 1, 43, 145);
+
+    H::drawBoxDoubleLineWithBG(12, 12, 4, 29, 198);
+    H::drawBoxDoubleLineWithBG(16, 13, 4, 27, 151);
+    H::drawBoxDoubleLineWithBG(20, 14, 4, 25, 219);
+
+    H::drawBoxDoubleLineWithBG(184, 12, 4, 29, 198);
+    H::drawBoxDoubleLineWithBG(180, 13, 4, 27, 151);
+    H::drawBoxDoubleLineWithBG(176, 14, 4, 25, 219);
+
+    H::drawBoxDoubleLineWithBG(36, 41, 130, 1, 173);
+    H::drawBoxDoubleLineWithBG(39, 40, 124, 1, 4);
+    H::gotoxy(68, 41); H::setcolor(6);  cout << "[Tip!]"; H::setcolor(7);  cout << " : Use Arrow "; H::setcolor(1);  cout << "[Up]"; H::setcolor(7);  cout << " - Arrow "; H::setcolor(4);  cout << "[Down]"; H::setcolor(7); cout << " to Move | "; H::setcolor(2); cout << "[Enter]"; H::setcolor(7); cout << " to Select.";
+
+    H::drawBoxSingleLineWithBG(50, 10, 1, 28, 247);
+    H::drawBoxSingleLineWithBG(150, 10, 1, 28, 247);
+
+    H::HLine(7, 15, 4, 7, 219);
+    H::HLine(7, 27, 4, 7, 219);
+    H::HLine(7, 39, 4, 7, 219);
+
+    H::HLine(189, 15, 4, 7, 219);
+    H::HLine(189, 27, 4, 7, 219);
+    H::HLine(189, 39, 4, 7, 219);
 
     do {
-        H::cls();
-        H::setcolor(3); H::gotoxy(86, 3); cout << R"( __  __  ____  _  _  __  __ )";
-        H::setcolor(3); H::gotoxy(86, 4); cout << R"((  \/  )( ___)( \( )(  )(  ))";
-        H::setcolor(3); H::gotoxy(86, 5); cout << R"( )    (  )__)  )  (  )(__)( )";
-        H::setcolor(3); H::gotoxy(86, 6); cout << R"((_/\/\_)(____)(_)\_)(______))";
-        H::HLine(7, 1, 186, 7, 220);
-        H::HLine(7, 9, 186, 7, 223);
-
         H::drawBoxSingleLineWithBG(75, 12, 50, 3, 1);
         H::setcolor(2); H::gotoxy(94, 14); cout << "Q U I Z   1";
 

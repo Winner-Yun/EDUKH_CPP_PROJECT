@@ -262,18 +262,16 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
             H::setcursor(false, 0);
             H::setcolor(7); 
             H::gotoxy(55, 42);
-            cout << "PRESS [ ENTER / Y ] TO INPUT NEXT PAGE    |    PRESS [ ESC / N ]";
-
+            cout << "PRESS "; H::setcolor(167); cout << "[ ENTER / Y ]"; H::setcolor(7); cout << " TO INPUT NEXT PAGE    |    PRESS "; H::setcolor(199); cout << "[ ESC / N ]";
+            H::setcolor(7);
             bool waiting = true;
             while (waiting) {
                 int key = _getch(); // get key press without Enter
                 if (key == 13 || key == 'Y' || key == 'y') { // Enter or Y/y
                     waiting = false; // continue to next page
                 } else if (key == 27 || key == 'N' || key == 'n') { // ESC or N/n
-                    H::setcursor(false, 0);
-                    H::setcolor(7); 
-                    H::gotoxy(40, 43);
-                    cout << "Progress saved! You can resume later.";
+                    H::setcursor(false, 0); 
+                    H::setcolor(7); H::gotoxy(40, 43); cout << "Progress saved! You can resume later.";
                     return; // exit function
                 }
                 // any other key is ignored
@@ -307,8 +305,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
 
     int quizIndex = -1;
     for (int i = 0; i < quizzes.size(); i++) {
-        if (strcmp(quizzes[i].teacherID, teacherID) == 0 &&
-            strcmp(quizzes[i].quizID, quizID) == 0) {
+        if (strcmp(quizzes[i].teacherID, teacherID) == 0 && strcmp(quizzes[i].quizID, quizID) == 0) {
             quizIndex = i;
             q = quizzes[i];
             break;
@@ -350,7 +347,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(40, 35); cout << "                                                                                ";
         H::setcolor(7); H::gotoxy(40, 35); cout << q.questions[page].answer4;
 
-        H::setcolor(7); H::gotoxy(50, 42); cout << "PRESS [Left] | [Right] TO MOVE, [ENTER] TO UPDATE PAGE, [D] TO CHANGE DEADLINE, [ESC] TO EXIT";
+        H::setcolor(7); H::gotoxy(30, 42); cout << "PRESS "; H::setcolor(151); cout << "[Left]"; H::setcolor(7); cout << " | "; H::setcolor(151); cout << "[Right]"; H::setcolor(7); cout << " TO MOVE,      "; H::setcolor(167); cout << "[ENTER]"; H::setcolor(7); cout << " TO UPDATE PAGE,      "; H::setcolor(103); cout << "[D]"; H::setcolor(7); cout << " TO CHANGE DEADLINE,      "; H::setcolor(199); cout << "[ESC]"; H::setcolor(7); cout << " TO EXIT";
 
         int ch = getch();
 
@@ -496,7 +493,7 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
     }
 
     // Toggle publish/unpublish
-    if (strcmp(q.publish, "1") == 0) {  
+    if (strcmp(q.publish, "1") == 0) {
     // Published → unpublish
         strcpy(q.publish, "0"); // use "0" for unpublished instead of "2"
         MessageBox(NULL, "Quiz unpublished successfully!", "Info", MB_OK | MB_ICONINFORMATION);
@@ -508,7 +505,6 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
         strcpy(q.publish, "1"); // published
         MessageBox(NULL, "Quiz published successfully!", "Info", MB_OK | MB_ICONINFORMATION);
     }
-
 
     quizzes[quizIndex] = q;
     ofstream out(filename, ios::binary | ios::trunc);

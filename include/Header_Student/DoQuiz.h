@@ -211,7 +211,7 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
     }
 
     int gridWidth = cols * (boxWidth + 4);
-    int gridHeight = rows * (boxHeight + 4);
+    int gridHeight = rows * (boxHeight + 2);
     int startX = (consoleWidth - gridWidth) / 2;
     int startY = (consoleHeight - gridHeight) / 2;
 
@@ -580,46 +580,45 @@ void DoQuiz::MenuGradeDesignDesign(){
 }
 
 void DoQuiz::MenuQuizDesignDesign(){
-    H::HLine(14,3,34,1,254);
-    H::HLine(150,3,35,1,254);
-
-    H::HLine(14,41,34,1,254);
-    H::HLine(150,41,35,1,254);
-
-    H::drawBoxSingleLineWithBG(41,0,118,5,47);
-    H::drawBoxSingleLineWithBG(41,38,118,5,47);
-
-    H::drawBoxSingleLineWithBG(2,1,11,41,31);
-    H::drawBoxSingleLineWithBG(186,1,11,41,31);
-    
-    H::HLine(14,19,45,3,254);
-    H::HLine(14,25,45,3,254);
-
-    H::HLine(140,19,45,3,254);
-    H::HLine(140,25,45,3,254);
-
-    H::HLine(58,10,20,3,254);
-    H::HLine(58,34,20,3,254);
-
-    H::HLine(120,10,20,3,254);
-    H::HLine(120,34,20,3,254);
-
-    H::VLine(59,10,23,3,219);
-    H::VLine(140,10,23,3,219);
-
-    H::gotoxy(52,40);H::setcolor(47);cout<<"  [ TIP 1! ] ENTER TO SELECT THE OPTION.    ";
-    H::gotoxy(102,40);H::setcolor(47);cout<<"  [ TIP 2! ] ESC KEY TO BACK TO MAIN MENU.  ";
-    H::gotoxy(52,42);H::setcolor(47);cout<<"  [ TIP 3! ] UP ARROW KEY TO MOVE UP.       ";
-    H::gotoxy(102,42);H::setcolor(47);cout<<"  [ TIP 4! ] DOWN ARROW KEY TO MOVE DOWN.   ";
-
     system("chcp 65001 > nul");
-    H::setcolor(47);H::gotoxy(56,1);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████  ██    ██ ██ ███████)";
-    H::setcolor(47);H::gotoxy(56,2);cout<<R"( ██      ██   ██ ██    ██ ██    ██ ██      ██           ██    ██ ██    ██ ██    ███ )";
-    H::setcolor(47);H::gotoxy(56,3);cout<<R"( ██      ███████ ██    ██ ██    ██ ███████ █████        ██    ██ ██    ██ ██   ███  )";
-    H::setcolor(47);H::gotoxy(56,4);cout<<R"( ██      ██   ██ ██    ██ ██    ██      ██ ██           ██ ▄▄ ██ ██    ██ ██  ███   )";
-    H::setcolor(47);H::gotoxy(56,5);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████   ██████  ██ ███████)";
-    H::setcolor(47);H::gotoxy(56,6);cout<<R"(                                                            ▀▀                      )";
+    H::setcolor(3);H::gotoxy(56,3);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████  ██    ██ ██ ███████)";
+    H::setcolor(3);H::gotoxy(56,4);cout<<R"( ██      ██   ██ ██    ██ ██    ██ ██      ██           ██    ██ ██    ██ ██    ███ )";
+    H::setcolor(3);H::gotoxy(56,5);cout<<R"( ██      ███████ ██    ██ ██    ██ ███████ █████        ██    ██ ██    ██ ██   ███  )";
+    H::setcolor(3);H::gotoxy(56,6);cout<<R"( ██      ██   ██ ██    ██ ██    ██      ██ ██           ██ ▄▄ ██ ██    ██ ██  ███   )";
+    H::setcolor(3);H::gotoxy(56,7);cout<<R"(  ██████ ██   ██  ██████   ██████  ███████ ███████       ██████   ██████  ██ ███████)";
+    H::setcolor(3);H::gotoxy(56,8);cout<<R"(                                                            ▀▀                      )";
     system("chcp 437 >nul");
+    H::HLine(7, 0, 186, 7, 228);
+    H::HLine(7, 1, 186, 7, 219);
+    H::HLine(7, 9, 186, 7, 219);
+    
+    H::drawBoxSingleLineWithBG(1, 0, 5, 43, 247);
+	H::drawBoxSingleLineWithBG(194, 0, 5, 43, 247);
+	H::drawBoxSingleLineWithBG(3, 0, 1, 43, 145);
+	H::drawBoxSingleLineWithBG(196, 0, 1, 43, 145);
+
+    H::drawBoxDoubleLineWithBG(12, 12, 4, 29, 198);
+    H::drawBoxDoubleLineWithBG(16, 13, 4, 27, 151);
+    H::drawBoxDoubleLineWithBG(20, 14, 4, 25, 219);
+
+    H::drawBoxDoubleLineWithBG(184, 12, 4, 29, 198);
+    H::drawBoxDoubleLineWithBG(180, 13, 4, 27, 151);
+    H::drawBoxDoubleLineWithBG(176, 14, 4, 25, 219);
+
+    H::drawBoxDoubleLineWithBG(36, 41, 130, 1, 173);
+    H::drawBoxDoubleLineWithBG(39, 40, 124, 1, 4);
+    H::gotoxy(68, 41); H::setcolor(6);  cout << "[Tip!]"; H::setcolor(7);  cout << " : Use Arrow "; H::setcolor(1);  cout << "[Up]"; H::setcolor(7);  cout << " - Arrow "; H::setcolor(4);  cout << "[Down]"; H::setcolor(7); cout << " to Move | "; H::setcolor(2); cout << "[Enter]"; H::setcolor(7); cout << " to Select.";
+
+    H::drawBoxSingleLineWithBG(50, 10, 1, 28, 247);
+    H::drawBoxSingleLineWithBG(150, 10, 1, 28, 247);
+
+    H::HLine(7, 15, 4, 7, 219);
+    H::HLine(7, 27, 4, 7, 219);
+    H::HLine(7, 39, 4, 7, 219);
+
+    H::HLine(189, 15, 4, 7, 219);
+    H::HLine(189, 27, 4, 7, 219);
+    H::HLine(189, 39, 4, 7, 219);
 }
 
 #endif
