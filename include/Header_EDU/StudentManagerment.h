@@ -621,29 +621,15 @@ void Student::convertToEmail() {
 
 void Student::SaveToFile() {
     ofstream file1("../data/Student_Data.bin", ios::binary | ios::app);
-    ofstream file2("../data/TeacherAndStudent_data.bin", ios::binary | ios::app);
 
-    if (file1.is_open() && file2.is_open()) {
+    if (file1.is_open()) {
         file1.write(reinterpret_cast<char*>(this), sizeof(Student));
-        file2.write(reinterpret_cast<char*>(this), sizeof(Student));
         file1.close();
-        file2.close();
     } else {
         H::setcolor(74); H::gotoxy(92, 48); cout << "Unable to open one or both files";
     }
 }
 
-void Student::updateSharedFileFromStudentData() {
-    ifstream in("../data/Student_Data.bin", ios::binary);
-    ofstream out("../data/TeacherAndStudent_data.bin", ios::binary);
-
-    Student temp;
-    while (in.read(reinterpret_cast<char*>(&temp), sizeof(Student))) {
-        out.write(reinterpret_cast<char*>(&temp), sizeof(Student));
-    }
-    in.close();
-    out.close();
-}
 
 void Student::showAllStudents(int pageIndex) {
     ifstream file("../data/Student_Data.bin", ios::binary);
@@ -660,7 +646,7 @@ void Student::showAllStudents(int pageIndex) {
         H::gotoxy(90, 25); H::setcolor(4); cout << "Unable to open Student_Data.bin";
         return;
     }
-
+    memset(&s, 0, sizeof(Student));
     while (file.read(reinterpret_cast<char*>(&students[count]), sizeof(Student)) && count < MAX_STUDENTS) {
         count++;
     }
@@ -704,24 +690,28 @@ void Student::showAllStudents(int pageIndex) {
     for (int i = startIndex; i < endIndex; ++i) {
         int color = colorCodes[colorIndex % 5];
         H::setcolor(color);
-        H::gotoxy(19, row + 1);  cout << setw(10) << left << students[i].id;
-        H::gotoxy(34, row + 1);  cout << setw(24) << left << students[i].name;
-        H::gotoxy(60, row + 1);  cout << setw(12) << left << students[i].gender;
-        H::gotoxy(78, row + 1);  cout << setw(18) << left << students[i].bdate;
-        H::gotoxy(101, row + 1); cout << setw(14) << left << students[i].grade;
-        H::gotoxy(116, row + 1); cout << setw(16) << left << students[i].tel;
-        H::gotoxy(138, row + 1); cout << setw(22) << left << students[i].sYear;
-        H::gotoxy(153, row + 1); cout << setw(30) << left << students[i].email;
+
+        H::gotoxy(19, row + 1);  cout << setw(10) << left << string(students[i].id);
+        H::gotoxy(34, row + 1);  cout << setw(24) << left << string(students[i].name);
+        H::gotoxy(60, row + 1);  cout << setw(12) << left << string(students[i].gender);
+        H::gotoxy(78, row + 1);  cout << setw(18) << left << string(students[i].bdate);
+        H::gotoxy(101, row + 1); cout << setw(14) << left << string(students[i].grade);
+        H::gotoxy(116, row + 1); cout << setw(16) << left << string(students[i].tel);
+        H::gotoxy(138, row + 1); cout << setw(22) << left << string(students[i].sYear);
+        H::gotoxy(153, row + 1); cout << setw(30) << left << string(students[i].email);
+
         row += 2;
         colorIndex++;
     }
+
     if(count == 0){
-		count = 1;
-	}
+        count = 1;
+    }
     H::gotoxy(73, 11);
     H::setcolor(7);
     cout << "PAGE " << (pageIndex + 1) << " OF " << ((count + 10) / 11);
 }
+
 
 
 void Student::Update(int pageIndex) {
@@ -852,7 +842,6 @@ void Student::Update(int pageIndex) {
         s.NotFound();
         getch();
     }
-    updateSharedFileFromStudentData();
 }
 
 
@@ -888,7 +877,7 @@ void Student::Delete(int pageIndex) {
         s.NotFound();
         getch();
     }
-    updateSharedFileFromStudentData();
+
 }
 string toUpperr(const char* str) {
     std::string result;
@@ -941,14 +930,14 @@ void Student::Search(int pageIndex) {
                 for (int i = start; i < end; i++) {
                     H::drawBoxDoubleLine(17, row + 1, 166, 1, 9);
                     H::setcolor(7);
-                    H::gotoxy(19, row + 2);  cout << setw(10) << left << results[i].id;
-                    H::gotoxy(34, row + 2);  cout << setw(24) << left << results[i].name;
-                    H::gotoxy(60, row + 2);  cout << setw(12) << left << results[i].gender;
-                    H::gotoxy(78, row + 2);  cout << setw(18) << left << results[i].bdate;
-                    H::gotoxy(101, row + 2); cout << setw(14) << left << results[i].grade;
-                    H::gotoxy(116, row + 2); cout << setw(16) << left << results[i].tel;
-                    H::gotoxy(138, row + 2); cout << setw(22) << left << results[i].sYear;
-                    H::gotoxy(153, row + 2); cout << setw(30) << left << results[i].email;
+                    H::gotoxy(19, row + 2);  cout << setw(10) << left << string(results[i].id);
+                    H::gotoxy(34, row + 2);  cout << setw(24) << left << string(results[i].name);
+                    H::gotoxy(60, row + 2);  cout << setw(12) << left << string(results[i].gender);
+                    H::gotoxy(78, row + 2);  cout << setw(18) << left << string(results[i].bdate);
+                    H::gotoxy(101, row + 2); cout << setw(14) << left << string(results[i].grade);
+                    H::gotoxy(116, row + 2); cout << setw(16) << left << string(results[i].tel);
+                    H::gotoxy(138, row + 2); cout << setw(22) << left << string(results[i].sYear);
+                    H::gotoxy(153, row + 2); cout << setw(30) << left << string(results[i].email);
                     row += 2;
                 }
 
@@ -1001,7 +990,7 @@ void Student::Main_StudentManage() {
     int totalStudents = s.getTotalStudents();
     int maxPage = (totalStudents + 10) / 11 - 1;
     char option;
-    Student::System();
+    // Student::System();
     H::cls();
     s.Menu("DEFAULT",pageIndex);
     while(loop) {

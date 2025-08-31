@@ -273,11 +273,11 @@ void QuizDesign::QuizGButton() {
     H::drawBoxSingleLineWithBG(16, 14, 40, 3, 1);
 	H::setcolor(7); H::gotoxy(27, 16); cout << "G R A D E    1 0";
 	H::drawBoxSingleLineWithBG(16, 20, 40, 3, 1);
-	H::setcolor(7); H::gotoxy(27, 22); cout << "G R A D E    1 1";
+	H::setcolor(7); H::gotoxy(27, 22); cout << "G R A D E    1 1";  
 	H::drawBoxSingleLineWithBG(16, 26, 40, 3, 1);
 	H::setcolor(7); H::gotoxy(27, 28); cout << "G R A D E    1 2";
 	H::drawBoxSingleLineWithBG(16, 32, 40, 3, 4);
-	H::setcolor(7); H::gotoxy(31, 34); cout << "B A C K";
+	H::setcolor(7); H::gotoxy(31, 34); cout << "B A C K"; 
 }
 
 void QuizDesign::gradeTitle(const char* className) {

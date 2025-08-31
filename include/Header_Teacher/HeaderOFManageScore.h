@@ -44,6 +44,23 @@ class MainHeadOF_ManageScore{
         static int lastId;
 };
 
+struct ManageScore_format {
+    char strname[20];
+    char strID[15];
+    char strgrade[3];
+    char assignBY[20];
+    char atSubject[20];
+    char score_sch[30];
+    char sc_q1[5];
+    char sc_q2[5];
+    char sc_q3[5];
+    char sc_h1[5];
+    char sc_h2[5];
+    char totalScore[15];
+    char avgScore[15];
+    char gr[2];
+};
+
 
 MainHeadOF_ManageScore Mscore,scores[MAX];
 int scoreCount = 0;
@@ -61,22 +78,180 @@ void MainHeadOF_ManageScore::setData(const char* name,
                                      const char* h2,
                                      const char* total,
                                      const char* avg,
-                                     const char* gr) 
-{
-    strcpy(strname, name);
-    strcpy(strID, id);
-    strcpy(strgrade, grade);
-    strcpy(assignBY, teacherID);  
-    strcpy(atSubject, subject);  
-    strcpy(score_sch, sch);
-    strcpy(sc_q1, q1);
-    strcpy(sc_q2, q2);
-    strcpy(sc_q3, q3);
-    strcpy(sc_h1, h1);
-    strcpy(sc_h2, h2);
-    strcpy(toalScore, total);
-    strcpy(avgScore, avg);
-    strcpy(this->gr, gr);
+                                     const char* g)
+    {
+        memset(this->strname, 0, sizeof(this->strname));
+        strncpy(this->strname, name, sizeof(this->strname) - 1);
+
+        memset(this->strID, 0, sizeof(this->strID));
+        strncpy(this->strID, id, sizeof(this->strID) - 1);
+
+        memset(this->strgrade, 0, sizeof(this->strgrade));
+        strncpy(this->strgrade, grade, sizeof(this->strgrade) - 1);
+
+        memset(this->assignBY, 0, sizeof(this->assignBY));
+        strncpy(this->assignBY, teacherID, sizeof(this->assignBY) - 1);
+
+        memset(this->atSubject, 0, sizeof(this->atSubject));
+        strncpy(this->atSubject, subject, sizeof(this->atSubject) - 1);
+
+        memset(this->score_sch, 0, sizeof(this->score_sch));
+        strncpy(this->score_sch, sch, sizeof(this->score_sch) - 1);
+
+        memset(this->sc_q1, 0, sizeof(this->sc_q1));
+        strncpy(this->sc_q1, q1, sizeof(this->sc_q1) - 1);
+
+        memset(this->sc_q2, 0, sizeof(this->sc_q2));
+        strncpy(this->sc_q2, q2, sizeof(this->sc_q2) - 1);
+
+        memset(this->sc_q3, 0, sizeof(this->sc_q3));
+        strncpy(this->sc_q3, q3, sizeof(this->sc_q3) - 1);
+
+        memset(this->sc_h1, 0, sizeof(this->sc_h1));
+        strncpy(this->sc_h1, h1, sizeof(this->sc_h1) - 1);
+
+        memset(this->sc_h2, 0, sizeof(this->sc_h2));
+        strncpy(this->sc_h2, h2, sizeof(this->sc_h2) - 1);
+
+        memset(this->toalScore, 0, sizeof(this->toalScore));
+        strncpy(this->toalScore, total, sizeof(this->toalScore) - 1);
+
+        memset(this->avgScore, 0, sizeof(this->avgScore));
+        strncpy(this->avgScore, avg, sizeof(this->avgScore) - 1);
+
+        memset(this->gr, 0, sizeof(this->gr));
+        strncpy(this->gr, g, sizeof(this->gr) - 1);
+    }
+
+void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* grade, const char* subject) {
+    ifstream inFile("../data/Student_data.bin", ios::binary);
+    if (!inFile) {
+        MessageBoxA(NULL, "Error", "Student_data.bin not found", MB_OK);
+        return;
+    }
+
+    Student_format student;
+    while (inFile.read(reinterpret_cast<char*>(&student), sizeof(Student_format))) {
+        if (strcmp(student.grade, grade) == 0) {
+            ManageScore_format rec = {};
+
+            // Copy safely (ensures no garbage values, no overflow)
+            strncpy(rec.strname, student.name, sizeof(rec.strname) - 1);
+            strncpy(rec.strID, student.id, sizeof(rec.strID) - 1);
+            strncpy(rec.strgrade, student.grade, sizeof(rec.strgrade) - 1);
+            strncpy(rec.assignBY, teacherID, sizeof(rec.assignBY) - 1);
+            strncpy(rec.atSubject, subject, sizeof(rec.atSubject) - 1);
+
+            // Scores default "0" or empty
+            strcpy(rec.score_sch, "0");
+            strcpy(rec.sc_q1, "0");
+            strcpy(rec.sc_q2, "0");
+            strcpy(rec.sc_q3, "0");
+            strcpy(rec.sc_h1, "0");
+            strcpy(rec.sc_h2, "0");
+            strcpy(rec.totalScore, "0");
+            strcpy(rec.avgScore, "0");
+            strcpy(rec.gr, "-");
+
+            // Write as one struct
+            fstream outFile("../data/ManageScore_data.bin", ios::app | ios::binary);
+            if (!outFile) {
+                MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+                return;
+            }
+            outFile.write(reinterpret_cast<char*>(&rec), sizeof(ManageScore_format));
+            outFile.close();
+        }
+    }
+    inFile.close();
+}
+
+void MainHeadOF_ManageScore::readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage) {
+     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
+    if (!inFile) {
+        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+        return;
+    }
+
+    vector<MainHeadOF_ManageScore> list;
+    ManageScore_format rec;
+
+    while (inFile.read(reinterpret_cast<char*>(&rec), sizeof(ManageScore_format))) {
+        if (strcmp(rec.strgrade, grade) == 0 && strcmp(rec.assignBY, teacherID) == 0) {
+            MainHeadOF_ManageScore s;
+
+            // Copy into class members safely
+            strncpy(s.strname, rec.strname, sizeof(s.strname));
+            strncpy(s.strID, rec.strID, sizeof(s.strID));
+            strncpy(s.strgrade, rec.strgrade, sizeof(s.strgrade));
+            strncpy(s.assignBY, rec.assignBY, sizeof(s.assignBY));
+            strncpy(s.atSubject, rec.atSubject, sizeof(s.atSubject));
+            strncpy(s.score_sch, rec.score_sch, sizeof(s.score_sch));
+            strncpy(s.sc_q1, rec.sc_q1, sizeof(s.sc_q1));
+            strncpy(s.sc_q2, rec.sc_q2, sizeof(s.sc_q2));
+            strncpy(s.sc_q3, rec.sc_q3, sizeof(s.sc_q3));
+            strncpy(s.sc_h1, rec.sc_h1, sizeof(s.sc_h1));
+            strncpy(s.sc_h2, rec.sc_h2, sizeof(s.sc_h2));
+            strncpy(s.toalScore, rec.totalScore, sizeof(s.toalScore));
+            strncpy(s.avgScore, rec.avgScore, sizeof(s.avgScore));
+            strncpy(s.gr, rec.gr, sizeof(s.gr));
+
+            list.push_back(s);
+        }
+    }
+    inFile.close();
+
+    int totalStudents = list.size();
+    if (totalStudents == 0) {
+        H::gotoxy(75, 20);
+        cout << "No students to show.";
+        return;
+    }
+
+    int totalPages = (totalStudents + rowsPerPage - 1) / rowsPerPage;
+    if (totalPages == 0) totalPages = 1;
+
+    if (pageIndex < 0) pageIndex = 0;
+    if (pageIndex >= totalPages) pageIndex = totalPages - 1;
+
+    int start = pageIndex * rowsPerPage;
+    int end   = min(start + rowsPerPage, totalStudents);
+    int row   = 20;
+
+    for (int i = start; i < end; i++, row += 3) {
+        int color = (i % 2 == 0) ? 6 : 3;
+        H::setcolor(color);
+
+        H::gotoxy(18, row);
+        cout << setw(2) << setfill('0') << i + 1;
+        H::gotoxy(26, row);
+        cout << string(list[i].strname); // Only up to '\0'
+        H::gotoxy(48, row);
+        cout << string(list[i].strID);
+        H::gotoxy(75, row);
+        cout << " " << string(list[i].score_sch) << " ";
+        H::gotoxy(91, row);
+        cout << " " << string(list[i].sc_h1)  << " ";
+        H::gotoxy(103, row);
+        cout << " " << string(list[i].sc_h2)  << " ";
+        H::gotoxy(116, row);
+        cout << string(list[i].sc_q1);
+        H::gotoxy(127, row);
+        cout << string(list[i].sc_q2);
+        H::gotoxy(137, row);
+        cout << string(list[i].sc_q3);
+        H::gotoxy(149, row);
+        cout << string(list[i].toalScore);
+        H::gotoxy(165, row);
+        cout << string(list[i].avgScore);
+        H::gotoxy(179, row);
+        cout << string(list[i].gr);
+    }
+
+    // Page info
+    H::setcolor(6);
+    H::gotoxy(92, 39);
+    cout << "PAGE: " << pageIndex + 1 << " / " << totalPages;
 }
 
 
@@ -251,7 +426,7 @@ void MainHeadOF_ManageScore::writeSetSchoolscore(const char* teacherID, const ch
             strncpy(rec.score_sch, normalized, sizeof(rec.score_sch) - 1);
             rec.score_sch[sizeof(rec.score_sch) - 1] = '\0';
 
-            rec.updateTotals();  // ✅ pass teacher + grade
+            rec.updateTotals();  
             file.clear();
             file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
             file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
@@ -360,168 +535,6 @@ void MainHeadOF_ManageScore::writeSetH2Score(const char* teacherID, const char* 
 }
 
  
-void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* grade , const char* subject) {
-
-    // 1. Load all students from this grade
-    vector<Student_format> students;
-    {
-        ifstream inFile("../data/Student_Data.bin", ios::binary);
-        if (!inFile) {
-            MessageBoxA(NULL, "Error", "Student_Data.bin not found", MB_OK);
-            return;
-        }
-
-        Student_format s;
-        while (inFile.read(reinterpret_cast<char*>(&s), sizeof(Student_format))) {
-            if (strcmp(s.grade, grade) == 0) {
-                students.push_back(s);
-            }
-        }
-        inFile.close();
-    }
-
-    if (students.empty()) {
-        MessageBoxA(NULL, "No matching students found", "Info", MB_OK);
-        return;
-    }
-
-    // 2. Load existing ManageScore_data.bin records
-    vector<MainHeadOF_ManageScore> scoresExisting;
-    {
-        ifstream inFile("../data/ManageScore_data.bin", ios::binary);
-        if (inFile) {
-            MainHeadOF_ManageScore temp;
-            while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MainHeadOF_ManageScore))) {
-                // Only load records for this teacher + grade
-                if (strcmp(temp.assignBY, teacherID) == 0 &&
-                    strcmp(temp.strgrade, grade) == 0) {
-                    scoresExisting.push_back(temp);
-                }
-            }
-            inFile.close();
-        }
-    }
-
-    // 3. Create a new synced list (for this teacher + grade)
-    vector<MainHeadOF_ManageScore> newScores;
-    for (auto &s : students) {
-        bool found = false;
-        for (auto &old : scoresExisting) {
-            if (strcmp(old.strID, s.id) == 0) {
-                newScores.push_back(old); 
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            MainHeadOF_ManageScore fresh;
-            fresh.setData(s.name, s.id, s.grade,teacherID,subject); 
-            newScores.push_back(fresh);
-        }
-    }
-
-    // 4. Merge back into full file (preserve other teachers/grades)
-    {
-        vector<MainHeadOF_ManageScore> allRecords;
-        ifstream inFile("../data/ManageScore_data.bin", ios::binary);
-        if (inFile) {
-            MainHeadOF_ManageScore temp;
-            while (inFile.read(reinterpret_cast<char*>(&temp), sizeof(MainHeadOF_ManageScore))) {
-                // keep other teacher/grade combos
-                if (!(strcmp(temp.assignBY, teacherID) == 0 &&
-                      strcmp(temp.strgrade, grade) == 0)) {
-                    allRecords.push_back(temp);
-                }
-            }
-            inFile.close();
-        }
-
-        // then add the updated grade data for this teacher
-        allRecords.insert(allRecords.end(), newScores.begin(), newScores.end());
-
-        // overwrite file with merged data
-        ofstream outFile("../data/ManageScore_data.bin", ios::binary | ios::trunc);
-        if (!outFile) {
-            MessageBoxA(NULL, "Error", "Cannot create ManageScore_data", MB_OK);
-            return;
-        }
-        outFile.write(reinterpret_cast<char*>(allRecords.data()), sizeof(MainHeadOF_ManageScore) * allRecords.size());
-        outFile.close();
-    }
-}
-
-
-void MainHeadOF_ManageScore::readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage) {
-    ifstream inFile("../data/ManageScore_data.bin", ios::binary);
-    if (!inFile) {
-        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
-        return;
-    }
-
-    vector<MainHeadOF_ManageScore> list;
-    MainHeadOF_ManageScore s;
-
-    // ✅ Load only records for this teacher and grade
-    while (inFile.read(reinterpret_cast<char*>(&s), sizeof(MainHeadOF_ManageScore))) {
-        if (strcmp(s.strgrade, grade) == 0 && strcmp(s.assignBY, teacherID) == 0) {
-            list.push_back(s);
-        }
-    }
-    inFile.close();
-
-    int totalStudents = list.size();
-    if (totalStudents == 0) {
-        H::gotoxy(75, 20);
-        cout << "No students to show.";
-        return;
-    }
-
-    int totalPages = (totalStudents + rowsPerPage - 1) / rowsPerPage;
-    if (totalPages == 0) totalPages = 1;
-
-    if (pageIndex < 0) pageIndex = 0;
-    if (pageIndex >= totalPages) pageIndex = totalPages - 1;
-
-    int start = pageIndex * rowsPerPage;
-    int end   = min(start + rowsPerPage, totalStudents);
-    int row   = 20;
-
-    for (int i = start; i < end; i++, row += 3) {
-        int color = (i % 2 == 0) ? 6 : 3;
-        H::setcolor(color);
-
-        H::gotoxy(18, row);
-        cout << setw(2) << setfill('0') << i + 1;
-        H::gotoxy(26, row);
-        cout << list[i].strname;
-        H::gotoxy(48, row);
-        cout << list[i].strID;
-        H::gotoxy(75, row);
-        cout << " " << list[i].score_sch << " ";
-        H::gotoxy(91, row);
-        cout << " " << list[i].sc_h1  << " ";
-        H::gotoxy(103, row);
-        cout << " " << list[i].sc_h2  << " ";
-        H::gotoxy(116, row);
-        cout << list[i].sc_q1;
-        H::gotoxy(127, row);
-        cout << list[i].sc_q2;
-        H::gotoxy(137, row);
-        cout << list[i].sc_q3;
-        H::gotoxy(149, row);
-        cout << list[i].toalScore;
-        H::gotoxy(165, row);
-        cout << list[i].avgScore;
-        H::gotoxy(179, row);
-        cout << list[i].gr;
-    }
-
-    // Page info
-    H::setcolor(6);
-    H::gotoxy(92, 39);
-    cout << "PAGE: " << pageIndex + 1 << " / " << totalPages;
-}
 
 
 int MainHeadOF_ManageScore::countRecords(const char* teacherID, const char* grade) {
