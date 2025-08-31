@@ -625,11 +625,11 @@ void Edu_Main_Menu::LetterFromUs(){
 	H::setcolor(7); 
 	cout << " ..!";
 
-	H::foreColor(7); H::gotoxy(38,13); 
+	H::foreColor(7); H::gotoxy(30,13); 
 	VN("We are "); 
 	
 	H::foreColor(4); H::foreColor(199); 
-	VN("Second~Generation scholarship students");
+  	VN("The Second~Generation scholarship students");
 	
 	H::foreColor(7); 
 	VN(" at ANT Technology Training Center, learning ");  // normal part

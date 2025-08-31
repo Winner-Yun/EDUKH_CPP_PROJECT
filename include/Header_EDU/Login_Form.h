@@ -48,7 +48,7 @@ class Login_Design {
         char ch;
 
         // Draw initial [SHOW] button in green
-        H::gotoxy(169, 34); H::setcolor(2); cout << "[SHOW]";
+        H::gotoxy(169, 34); H::setcolor(6); cout << "[SHOW]";
 
         H::setcolor(7); // reset to white for input
         H::gotoxy(x, y);
@@ -74,7 +74,7 @@ class Login_Design {
                 showPassword = !showPassword; 
 
                 // update [SHOW]/[HIDE] button in green
-                H::gotoxy(169, 34); H::setcolor(2); cout << (showPassword ? "[HIDE]" : "[SHOW]");
+                H::gotoxy(169, 34); H::setcolor(6); cout << (showPassword ? "[HIDE]" : "[SHOW]");
 
                 // go back to white for input
                 H::setcolor(7);
@@ -111,6 +111,7 @@ class Login_Design {
             H::setcursor(true,1);
             if(trueInput){
                 loginDesignCon();
+                H::gotoxy(123,36); H::setcolor(1); cout << " TAP TO SHOW/HIDE PASSWORD ";
             }   //call design of  login
           
             H::drawBoxSingleLineWithBG(123,26,53,1,0);
@@ -139,28 +140,29 @@ class Login_Design {
         }
         else if (startsWith(inputEmail, "stu")) {
             if (compareCredentials_STU(inputEmail, inputPassword)) {
+                H::setcursor(false, 0);
                 trueInput = true;
                 H::cls();
                 LoadingHeader(2);
                 EdumasterCustom::LoadingPage(30, 21, 135, 20);
                 H::cls();
                 Student_MainMenu::Main(inputEmail);
-
-
             }
             else {
+                H::setcursor(false, 0);
                 trueInput = false;
                 attmp++;
                 H::setcolor(4);
-                H::gotoxy(120, 39);
+                H::gotoxy(120, 38);
                 cout << "             [!] INVALID EMAIL OR PASSWORD               ";
                 H::delay(1000);
-                H::gotoxy(120, 39);
+                H::gotoxy(120, 38);
                 cout << "                                                         ";
             }
         }
         else if (startsWith(inputEmail, "te")) {
             if (compareCredentials_TECH(inputEmail, inputPassword)) {
+                H::setcursor(false, 0);
                 trueInput = true;
                 H::cls();
                 LoadingHeader(2);
@@ -169,24 +171,26 @@ class Login_Design {
                 Teach_MainMenu::Main(inputEmail);
             }
             else {
+                H::setcursor(false, 0);
                 trueInput = false;
                 attmp++;
                 H::setcolor(4);
-                H::gotoxy(120, 39);
+                H::gotoxy(120, 38);
                 cout << "             [!] INVALID EMAIL OR PASSWORD               ";
                 H::delay(1000);
-                H::gotoxy(120, 39);
+                H::gotoxy(120, 38);
                 cout << "                                                         ";
             }
         }
         else {
+            H::setcursor(false, 0);
             trueInput = false;
             attmp++;
             H::setcolor(4);
-            H::gotoxy(120, 39);
+            H::gotoxy(120, 38);
             cout << "             [!] INVALID EMAIL OR PASSWORD               ";
             H::delay(1000);
-            H::gotoxy(120, 39);
+            H::gotoxy(120, 38);
             cout << "                                                         ";
         }
 
