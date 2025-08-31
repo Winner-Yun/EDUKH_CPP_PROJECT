@@ -47,7 +47,11 @@ class Login_Design {
         bool showPassword = false;  // start hidden
         char ch;
 
-        H::gotoxy(x, y);  // move cursor to position
+        // Draw initial [SHOW] button in green
+        H::gotoxy(169, 34); H::setcolor(2); cout << "[SHOW]";
+
+        H::setcolor(7); // reset to white for input
+        H::gotoxy(x, y);
 
         while (true) {
             ch = _getch(); // read key without echo
@@ -65,15 +69,22 @@ class Login_Design {
                     cout << "\b \b"; // erase last char
                 }
             }
-            // Toggle password visibility (example: press TAB key)
+            // Toggle password visibility (TAB key)
             else if (ch == 9) {
                 showPassword = !showPassword; 
-                // redraw password
+
+                // update [SHOW]/[HIDE] button in green
+                H::gotoxy(169, 34); H::setcolor(2); cout << (showPassword ? "[HIDE]" : "[SHOW]");
+
+                // go back to white for input
+                H::setcolor(7);
                 H::gotoxy(x, y);
+
+                // redraw password
                 for (int j = 0; j < i; j++) {
                     cout << (showPassword ? password[j] : '*');
                 }
-                // clear the rest if needed
+                // clear the rest
                 cout << string(maxLen - i, ' ');
                 H::gotoxy(x + i, y);
             }
@@ -81,11 +92,11 @@ class Login_Design {
             else if (i < maxLen - 1 && isprint(ch)) {
                 password[i++] = ch;
                 password[i] = '\0';
+                H::setcolor(7); // white for input
                 cout << (showPassword ? ch : '*');
             }
         }
     }
-
 
    void Login_Design::MainLogin(){
 
@@ -100,7 +111,6 @@ class Login_Design {
             H::setcursor(true,1);
             if(trueInput){
                 loginDesignCon();
-                H::gotoxy(123,37); H::setcolor(2); cout << "TAP TO SHOW/HIDE PASSWORD";
             }   //call design of  login
           
             H::drawBoxSingleLineWithBG(123,26,53,1,0);

@@ -990,7 +990,7 @@ void Student::Main_StudentManage() {
     int totalStudents = s.getTotalStudents();
     int maxPage = (totalStudents + 10) / 11 - 1;
     char option;
-    // Student::System();
+    Student::System();
     H::cls();
     s.Menu("DEFAULT",pageIndex);
     while(loop) {

@@ -28,7 +28,7 @@ int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
     H::setFixedScreenConsole(200,45);
-    SetConsoleTitle(TEXT("My C++ Console Application"));
+    SetConsoleTitle(TEXT("EDUMASTER-KH INFORMATION SYSTEM  (EMIS)"));
     H::setFont(15);
    	EDUSYSTEM::DisplayStartScreen();
     getch();
