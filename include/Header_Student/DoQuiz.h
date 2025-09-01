@@ -20,16 +20,16 @@ class DoQuiz{
 };
 
 struct StudentQuizResult {
-    char studentID[20];
-    char className[20];
-    char subject[30];
-    char quizID[20];
-    char totalScore[3];
-    char teacherID[20];
+   char studentID[20];
+   char className[20];
+   char subject[30];
+   char quizID[20];
+   char totalScore[5];
+   char teacherID[20];
 
-    char dateTaken[20];
-    char startTime[20];
-    char endTime[20];
+   char dateTaken[20];
+   char startTime[20];
+   char endTime[20];
 };
 
 string getCurrentDate() {

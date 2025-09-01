@@ -166,6 +166,7 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID ,const char*
 void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* grade ,const char* subject) {
     vector<string> studentIDs;
     managePro.writeDatatoFile(teacherID,grade,subject);
+    managePro.storeQuiz(teacherID,grade);
 
     ifstream inFile("../data/Student_Data.bin", ios::binary);
     if (!inFile) {

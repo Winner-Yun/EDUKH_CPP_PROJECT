@@ -37,9 +37,7 @@ class MainHeadOF_ManageScore{
         void writeDatatoFile(const char* teacherID, const char* grade,const char* subject);
         int countRecords(const char* teacherID, const char* grade);
         void clearScore(const char* teacherID, const char* grade);
-        void storeQuiz1(const char* teacherID, const char* grade, const char* studentID);
-        void storeQuiz2(const char* teacherID, const char* grade, const char* studentID);
-        void storeQuiz3(const char* teacherID, const char* grade, const char* studentID);
+        void storeQuiz(const char* teacherID, const char* grade);
 };
 //Student Format
  struct Student_format {
@@ -48,15 +46,17 @@ class MainHeadOF_ManageScore{
         static int lastId;
 };
 
-struct StudentQuizResult {
-    char studentID[20];
-    char className[20];
-    char subject[30];
-    char quizID[20];
-    char totalScore[3];
-    char dateTaken[20];
-    char startTime[20];
-    char endTime[20];
+struct StudentQuizResult_copy {
+       char studentID[20];
+   char className[20];
+   char subject[30];
+   char quizID[20];
+   char totalScore[5];
+   char teacherID[20];
+
+   char dateTaken[20];
+   char startTime[20];
+   char endTime[20];
 };
 
 
@@ -198,7 +198,7 @@ void MainHeadOF_ManageScore::searchRecords(const char* teacherID, const char* gr
 void MainHeadOF_ManageScore::clearScore(const char* teacherID, const char* grade) {
 
     int choice = MessageBoxA(
-        NULL,
+        GetConsoleWindow(),
         "Are you sure you want to clear ALL scores for this teacher and grade?",
         "Confirm Clear",
         MB_YESNO | MB_ICONQUESTION
@@ -432,8 +432,45 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* 
 
         if (!found) {
             MainHeadOF_ManageScore fresh;
-            fresh.setData(s.name, s.id, s.grade,teacherID,subject); 
+            fresh.setData(s.name, s.id, s.grade, teacherID, subject); 
             newScores.push_back(fresh);
+        }
+    }
+
+    // ✅ 3.5 Update quiz scores for each record (filtered by teacherID too)
+    {
+        ifstream quizFile("../data/StudentQuizResults.bin", ios::binary);
+        if (quizFile) {
+            StudentQuizResult_copy quizRec;
+            while (quizFile.read(reinterpret_cast<char*>(&quizRec), sizeof(quizRec))) {
+                // Match teacher, grade, and student
+                for (auto &rec : newScores) {
+                    if (strcmp(rec.strID, quizRec.studentID) == 0 &&
+                        strcmp(rec.strgrade, quizRec.className) == 0 &&
+                        strcmp(quizRec.teacherID, teacherID) == 0) 
+                    {
+                        int score = atoi(quizRec.totalScore);
+                        char normalized[8];
+                        snprintf(normalized, sizeof(normalized), "%d", score);
+
+                        if (strcmp(quizRec.quizID, "1") == 0) {
+                            strncpy(rec.sc_q1, normalized, sizeof(rec.sc_q1) - 1);
+                            rec.sc_q1[sizeof(rec.sc_q1) - 1] = '\0';
+                        } 
+                        else if (strcmp(quizRec.quizID, "2") == 0) {
+                            strncpy(rec.sc_q2, normalized, sizeof(rec.sc_q2) - 1);
+                            rec.sc_q2[sizeof(rec.sc_q2) - 1] = '\0';
+                        } 
+                        else if (strcmp(quizRec.quizID, "3") == 0) {
+                            strncpy(rec.sc_q3, normalized, sizeof(rec.sc_q3) - 1);
+                            rec.sc_q3[sizeof(rec.sc_q3) - 1] = '\0';
+                        }
+
+                        rec.updateTotals();
+                    }
+                }
+            }
+            quizFile.close();
         }
     }
 
@@ -467,8 +504,84 @@ void MainHeadOF_ManageScore::writeDatatoFile(const char* teacherID, const char* 
     }
 }
 
+void MainHeadOF_ManageScore::storeQuiz(const char* teacherID, const char* grade) {
+    // Open ManageScore_data for update
+    fstream file("../data/ManageScore_data.bin", ios::in | ios::out | ios::binary);
+    if (!file) {
+        MessageBoxA(GetConsoleWindow(), "Error", "ManageScore_data.bin not found", MB_OK | MB_ICONERROR);
+        return;
+    }
+
+    // Open StudentQuizResults for reading
+    ifstream quizFile("../data/StudentQuizResults.bin", ios::binary);
+    if (!quizFile) {
+        MessageBoxA(GetConsoleWindow(), "Error", "StudentQuizResults.bin not found", MB_OK | MB_ICONERROR);
+        file.close();
+        return;
+    }
+
+    MainHeadOF_ManageScore rec;
+    bool updated = false;
+
+    // Loop through all records in ManageScore_data
+    while (file.read(reinterpret_cast<char*>(&rec), sizeof(rec))) {
+        if (strcmp(rec.assignBY, teacherID) == 0 &&
+            strcmp(rec.strgrade, grade) == 0) 
+        {
+            // Reset quiz file for each student
+            quizFile.clear();
+            quizFile.seekg(0, ios::beg);
+
+            StudentQuizResult_copy quizRec;
+            while (quizFile.read(reinterpret_cast<char*>(&quizRec), sizeof(quizRec))) {
+                if (strcmp(quizRec.studentID, rec.strID) == 0 &&
+                    strcmp(quizRec.className, grade) == 0 &&
+                    strcmp(quizRec.teacherID, teacherID) == 0) 
+                {
+                    int score = atoi(quizRec.totalScore);
+                    char normalized[8];
+                    snprintf(normalized, sizeof(normalized), "%d", score);
+
+                    if (strcmp(quizRec.quizID, "1") == 0) {
+                        strncpy(rec.sc_q1, normalized, sizeof(rec.sc_q1) - 1);
+                        rec.sc_q1[sizeof(rec.sc_q1) - 1] = '\0';
+                    }
+                    else if (strcmp(quizRec.quizID, "2") == 0) {
+                        strncpy(rec.sc_q2, normalized, sizeof(rec.sc_q2) - 1);
+                        rec.sc_q2[sizeof(rec.sc_q2) - 1] = '\0';
+                    }
+                    else if (strcmp(quizRec.quizID, "3") == 0) {
+                        strncpy(rec.sc_q3, normalized, sizeof(rec.sc_q3) - 1);
+                        rec.sc_q3[sizeof(rec.sc_q3) - 1] = '\0';
+                    }
+                }
+            }
+
+            rec.updateTotals();
+
+            // Move back and overwrite the updated record
+            file.clear();
+            file.seekp(-static_cast<streamoff>(sizeof(rec)), ios::cur);
+            file.write(reinterpret_cast<char*>(&rec), sizeof(rec));
+            file.flush();
+
+            updated = true;
+        }
+    }
+
+    if (!updated) {
+        MessageBoxA(GetConsoleWindow(), "Notice", "No matching records found for teacher/grade in ManageScore_data.bin", MB_OK | MB_ICONINFORMATION);
+    }
+
+    file.close();
+    quizFile.close();
+}
+
+
 
 void MainHeadOF_ManageScore::readFile(const char* teacherID, const char* grade, int pageIndex, int rowsPerPage) {
+    
+    Mscore.storeQuiz(teacherID,grade);
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
         MessageBoxA(GetConsoleWindow(), "Error", "ManageScore_data.bin not found", MB_OK);
@@ -504,6 +617,7 @@ void MainHeadOF_ManageScore::readFile(const char* teacherID, const char* grade, 
     int row   = 20;
 
     for (int i = start; i < end; i++, row += 3) {
+        
         int color = (i % 2 == 0) ? 6 : 3;
         H::setcolor(color);
 

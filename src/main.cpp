@@ -30,6 +30,9 @@ int main() {
     H::setFixedScreenConsole(200, 45);
     SetConsoleTitle(TEXT("EDUMASTER-KH INFORMATION SYSTEM  (EMIS)"));
     H::setFont(15);
+          Teach_MainMenu::Main("te.lyuttakra@gmail.com");
+          Student_MainMenu::Main("stu.rykimchhay@gmail.com");
+          Student_MainMenu::Main("stu.yunwinner@gmail.com");
    	EDUSYSTEM::DisplayStartScreen();
     getch();
     return 0;
