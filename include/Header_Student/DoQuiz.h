@@ -25,6 +25,7 @@ struct StudentQuizResult {
     char subject[30];
     char quizID[20];
     char totalScore[3];
+    char teacherID[20];
 
     char dateTaken[20];
     char startTime[20];
@@ -438,6 +439,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     strcpy(result.subject, subject);
     strcpy(result.quizID, q.getQuizID());
     sprintf(result.totalScore, "%d", totalScore);
+    strcpy(result.teacherID, q.getTeacherID());
 
     strcpy(result.dateTaken, dateTaken.c_str());
     strcpy(result.startTime, startTime.c_str());

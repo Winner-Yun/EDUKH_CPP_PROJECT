@@ -42,6 +42,7 @@ class Quiz {
         bool isComplete() const;
 
         // Getters
+        const char* getTeacherID() const { return teacherID; }
         const char* getClassName() const { return className; }
         const char* getSubject() const { return subject; }
         const char* getPublish() const { return publish; }
