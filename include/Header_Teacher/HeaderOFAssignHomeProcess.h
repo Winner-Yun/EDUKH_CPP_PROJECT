@@ -267,14 +267,14 @@ void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, con
     // Copy all other homework entries to temp
     ifstream inFile(filePath, ios::binary);
     if (!inFile) {
-        MessageBoxA(GetConsoleWindow(), "Cannot open AssignCHomeWork.bin!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot open AssignCHomeWork.bin!", "Error", MB_ICONERROR);
         cleanupTemp();
         return;
     }
 
     ofstream tempFile(tempFilePath, ios::binary);
     if (!tempFile) {
-        MessageBoxA(GetConsoleWindow(), "Cannot create temp file!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot create temp file!", "Error", MB_ICONERROR);
         inFile.close();
         cleanupTemp();
         return;
@@ -298,7 +298,7 @@ void AssignHomeWorkProcess::recreateHomework(const char* tID, const char* g, con
     // Replace original file
     remove(filePath);
     if (rename(tempFilePath, filePath) != 0) {
-        MessageBoxA(GetConsoleWindow(), "Error updating homework file!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Error updating homework file!", "Error", MB_ICONERROR);
         cleanupTemp();
     }
 }
@@ -318,14 +318,14 @@ void AssignHomeWorkProcess::clearHomework(const char* tID, const char* g, const 
 
     ifstream inFile(filePath, ios::binary);
     if (!inFile) {
-        MessageBoxA(GetConsoleWindow(), "Cannot open AssignCHomeWork.bin!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot open AssignCHomeWork.bin!", "Error", MB_ICONERROR);
         cleanupTemp();
         return;
     }
 
     ofstream tempFile(tempFilePath, ios::binary);
     if (!tempFile) {
-        MessageBoxA(GetConsoleWindow(), "Cannot create temp file!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot create temp file!", "Error", MB_ICONERROR);
         inFile.close();
         cleanupTemp();
         return;
@@ -349,7 +349,7 @@ void AssignHomeWorkProcess::clearHomework(const char* tID, const char* g, const 
     // Replace original file
     remove(filePath);
     if (rename(tempFilePath, filePath) != 0) {
-        MessageBoxA(GetConsoleWindow(), "Error updating homework file!", "Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Error updating homework file!", "Error", MB_ICONERROR);
         cleanupTemp();
     }
 }
@@ -450,7 +450,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
     if (alreadyPublished) { 
         remove(filePath);
         rename(tempFilePath, filePath);
-        MessageBoxA(GetConsoleWindow(), "Homework unpublished successfully!", "Unpublish", MB_ICONINFORMATION);
+        MessageBoxA(NULL, "Homework unpublished successfully!", "Unpublish", MB_ICONINFORMATION);
         return; // done, temp already renamed, no cleanup needed
     }
 
@@ -469,7 +469,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
             if (strcmp(tmp.homeworkDescription, "None") == 0 ||
                 strcmp(tmp.homeWorkNote, "None") == 0 ||
                 strcmp(tmp.deadLineDate, "None") == 0) {
-                MessageBoxA(GetConsoleWindow(), "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
+                MessageBoxA(NULL, "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
                 inFile.close();
                 cleanupTemp();
                 return;
@@ -477,7 +477,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
 
             // Check deadline
             if (!tmp.canPublish(tID, g, hwID)) {
-                MessageBoxA(GetConsoleWindow(), "Cannot publish: Deadline expired!", "Publish Error", MB_ICONERROR);
+                MessageBoxA(NULL, "Cannot publish: Deadline expired!", "Publish Error", MB_ICONERROR);
                 inFile.close();
                 cleanupTemp();
                 return;
@@ -489,13 +489,13 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
             outFile.write(reinterpret_cast<char*>(&tmp), sizeof(tmp));
             outFile.close();
 
-            MessageBoxA(GetConsoleWindow(), "Homework published successfully!", "Publish", MB_ICONINFORMATION);
+            MessageBoxA(NULL, "Homework published successfully!", "Publish", MB_ICONINFORMATION);
             break;
         }
     }
 
     if (!found) {
-        MessageBoxA(GetConsoleWindow(), "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
+        MessageBoxA(NULL, "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
     }
 
     inFile.close();

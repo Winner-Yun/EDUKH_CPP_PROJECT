@@ -37,12 +37,26 @@ class MainHeadOF_ManageScore{
         void writeDatatoFile(const char* teacherID, const char* grade,const char* subject);
         int countRecords(const char* teacherID, const char* grade);
         void clearScore(const char* teacherID, const char* grade);
+        void storeQuiz1(const char* teacherID, const char* grade, const char* studentID);
+        void storeQuiz2(const char* teacherID, const char* grade, const char* studentID);
+        void storeQuiz3(const char* teacherID, const char* grade, const char* studentID);
 };
 //Student Format
  struct Student_format {
         char id[6], name[19], gender[7], bdate[15], grade[3], tel[10], sYear[5], email[30], pw[19];
 		int No;
         static int lastId;
+};
+
+struct StudentQuizResult {
+    char studentID[20];
+    char className[20];
+    char subject[30];
+    char quizID[20];
+    char totalScore[3];
+    char dateTaken[20];
+    char startTime[20];
+    char endTime[20];
 };
 
 

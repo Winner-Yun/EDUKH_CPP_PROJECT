@@ -522,7 +522,7 @@ void Student_MainMenu::ReadData(const char* email){
 
     H::setcolor(3);
     H::gotoxy(idX, 18);
-    cout <<" ~ "<< teacherID;
+    cout <<" ~ "<< studentID;
 
 }
 
