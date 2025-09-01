@@ -27,7 +27,7 @@ Schedule_Management schdule;
 int main() {
     H::DisableScreenResize();
     H::DisableButtonMaximized();
-    H::setFixedScreenConsole(200,45);
+    H::setFixedScreenConsole(200, 45);
     SetConsoleTitle(TEXT("EDUMASTER-KH INFORMATION SYSTEM  (EMIS)"));
     H::setFont(15);
    	EDUSYSTEM::DisplayStartScreen();

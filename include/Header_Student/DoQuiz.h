@@ -25,7 +25,27 @@ struct StudentQuizResult {
     char subject[30];
     char quizID[20];
     int totalScore;
+
+    char dateTaken[20];
+    char startTime[20];
+    char endTime[20];
 };
+
+string getCurrentDate() {
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    char buf[20];
+    sprintf(buf, "%02d/%02d/%04d", ltm->tm_mday, ltm->tm_mon+1, 1900+ltm->tm_year);
+    return string(buf);
+}
+
+string getCurrentTime() {
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    char buf[20];
+    sprintf(buf, "%02d:%02d:%02d", ltm->tm_hour, ltm->tm_min, ltm->tm_sec);
+    return string(buf);
+}
 
 bool isDeadlinePassed(const char* deadline) {
     int d, m, y;
@@ -251,7 +271,6 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
                 running = false; // go back to subject menu
             } else {
                 size_t quizIndex = currentSelection;
-                system("cls");
                 doQ.StartQuiz(studentID, className, subject, quizIndex);
                 H::cls();
                 running = false;
@@ -300,6 +319,9 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         return;
     }
 
+    string startTime = getCurrentTime();
+    string dateTaken = getCurrentDate();
+
     // --- Check if student already completed this quiz ---
     ifstream resultFile("../data/StudentQuizResults.dat", ios::binary);
     if (resultFile) {
@@ -307,9 +329,21 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         while (resultFile.read((char*)&existing, sizeof(existing))) {
             if (strcmp(existing.studentID, studentID) == 0 && strcmp(existing.quizID, q.getQuizID()) == 0) 
             {
-                MessageBoxA(NULL, "You have already completed this quiz!", "Notice", MB_OK | MB_ICONINFORMATION);
+                char msg[300];
+                sprintf(msg,
+                    "You already completed this quiz!\n\n"
+                    "Total Score : %d\n"
+                    "Date Taken  : %s\n"
+                    "Start Time  : %s\n"
+                    "End Time    : %s",
+                    existing.totalScore,
+                    existing.dateTaken,
+                    existing.startTime,
+                    existing.endTime
+                );
+                MessageBoxA(GetConsoleWindow(), msg, "Quiz Info", MB_OK | MB_ICONINFORMATION);
                 resultFile.close();
-                return; // prevent retake
+                return;
             }
         }
         resultFile.close();
@@ -348,6 +382,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 
         int option;
         int choice = 1; // start at first answer
+        H::cls();
         QuizDesign::DesginDoQuizPage(className, q.getQuizID());
         H::setcolor(7); H::gotoxy(171, 22); cout << q.getlastUpdateDate();
         H::setcolor(7); H::gotoxy(165, 12); cout << "10";
@@ -397,6 +432,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
             H::cls();
         }
     }
+    string endTime = getCurrentTime();
 
     // Store the result once all questions are done
     StudentQuizResult result;
@@ -405,6 +441,10 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     strcpy(result.subject, subject);
     strcpy(result.quizID, q.getQuizID());
     result.totalScore = totalScore;
+
+    strcpy(result.dateTaken, dateTaken.c_str());
+    strcpy(result.startTime, startTime.c_str());
+    strcpy(result.endTime, endTime.c_str());
 
     H::cls();
     system("chcp 65001 > nul");
@@ -424,6 +464,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         H::setcolor(2); H::gotoxy(40, 24); cout << R"(   ██║   ╚██████╔╝╚██████╔╝██║  ██║    ███████║╚██████╗╚██████╔╝██║  ██║███████╗     ╚═╝      ██║╚██████╔╝╚██████╔╝)";
         H::setcolor(2); H::gotoxy(40, 25); cout << R"(   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝              ╚═╝ ╚═════╝  ╚═════╝ )";
         system("chcp 437 >nul");
+        H::gotoxy(30, 20); 
     } else if (totalScore >= 90) {
         system("chcp 65001 > nul");
         H::setcolor(2); H::gotoxy(40, 20); cout << R"(██╗   ██╗ ██████╗ ██╗   ██╗██████╗     ███████╗ ██████╗ ██████╗ ██████╗ ███████╗              █████╗  ██████╗ )";
@@ -524,17 +565,8 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 	H::setcolor(3); H::gotoxy(40, 25); cout << R"(   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝        )";
 	system("chcp 437 >nul");
 
-    H::gotoxy(0, 45);
+    H::gotoxy(80, 40); H::setcolor(6); cout << "<<<   PRESS ANY KEY TO GO BACK   >>>";
     getch();
-
-    ofstream outFile("../data/StudentQuizResults.dat", ios::binary | ios::app);
-    if (outFile) {
-        outFile.write(reinterpret_cast<char*>(&result), sizeof(result));
-        outFile.close();
-        MessageBoxA(NULL, "Your quiz result has been saved!", "Success", MB_OK | MB_ICONINFORMATION);
-    } else {
-        MessageBoxA(NULL, "Failed to save result!", "Error", MB_OK | MB_ICONERROR);
-    }
 }
 
 void DoQuiz::MenuGradeDesignDesign(){
