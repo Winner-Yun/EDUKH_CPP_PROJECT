@@ -327,19 +327,17 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         while (resultFile.read((char*)&existing, sizeof(existing))) {
             if (strcmp(existing.studentID, studentID) == 0 && strcmp(existing.quizID, q.getQuizID()) == 0) 
             {
-                char msg[300];
-                sprintf(msg,
-                    "You already completed this quiz!\n\n"
-                    "Total Score : %s\n"
-                    "Date Taken  : %s\n"
-                    "Start Time  : %s\n"
-                    "End Time    : %s",
-                    existing.totalScore,
-                    existing.dateTaken,
-                    existing.startTime,
-                    existing.endTime
-                );
-                MessageBoxA(GetConsoleWindow(), msg, "Quiz Info", MB_OK | MB_ICONINFORMATION);
+                H::drawBoxDoubleLineWithBG(69, 15, 60, 14, 247);
+                H::drawBoxDoubleLineWithBG(69, 15, 60, 1, 170);
+                H::setcolor(167); H::gotoxy(84, 16); cout << "YOU ALREADY COMPLETED THIS QUIZ!";
+                H::setcolor(242); H::gotoxy(79, 19); cout << "Total Score : " << existing.totalScore;
+                H::setcolor(242); H::gotoxy(79, 21); cout << "Date Taken  : " << existing.dateTaken;
+                H::setcolor(242); H::gotoxy(79, 23); cout << "Start Time  : " << existing.startTime;
+                H::setcolor(242); H::gotoxy(79, 25); cout << "End Time    : " << existing.endTime;
+                H::drawBoxDoubleLineWithBG(88, 27, 22, 1, 153);
+                H::setcolor(151); H::gotoxy(98, 28); cout << "OK";
+                H::setcolor(7);
+                getch();
                 resultFile.close();
                 return;
             }
@@ -418,7 +416,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
                 H::setcolor(7); H::gotoxy(50, 42); cout << "                                                                                  ";
                 H::setcolor(7); H::gotoxy(65, 42);
                 H::setcolor(39);
-                cout << "Correct! +" << ques.score << " points\n";
+                cout << "Correct! + " << ques.score << " points\n ";
             } else {
                 H::setcolor(7); H::gotoxy(50, 42); cout << "                                                                                  ";
                 H::setcolor(7); H::gotoxy(56, 42);
@@ -571,9 +569,6 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     if (outFile) {
         outFile.write(reinterpret_cast<char*>(&result), sizeof(result));
         outFile.close();
-        MessageBoxA(NULL, "Your quiz result has been saved!", "Success", MB_OK | MB_ICONINFORMATION);
-    } else {
-        MessageBoxA(NULL, "Failed to save result!", "Error", MB_OK | MB_ICONERROR);
     }
 }
 

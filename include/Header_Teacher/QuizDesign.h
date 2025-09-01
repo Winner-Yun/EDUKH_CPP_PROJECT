@@ -469,7 +469,7 @@ void QuizDesign::DesginQuizPage(const char* className, const char* quizID) {
 	H::drawBoxSingleLineWithBG(165, 8, 18, 1, 14);
 	H::setcolor(7); H::gotoxy(167, 9); cout << "PAGE";
 	H::setcolor(2); H::gotoxy(155, 12); cout << "SCORE  :";
-	H::setcolor(6); H::gotoxy(155, 14); cout << "TIME   :        (s)";
+	H::setcolor(6); H::gotoxy(155, 14); cout << "TIME   :";
 	
 	H::drawBoxDoubleLine(153, 20, 35, 5, 7);
 	H::drawBoxSingleLineWithBG(167, 18, 8, 1, 14);
