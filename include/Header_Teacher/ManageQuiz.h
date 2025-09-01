@@ -123,7 +123,7 @@ Quiz q;
 // ===================== CREATE / RESUME WITH PAGE-LEVEL SCORE/TIME =====================
 void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* quizID, const char* subject) {
     if (Quiz::isPublished(teacherID, className, quizID)) {
-        MessageBoxA(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
+        CustomMessageBox(80, 20, 60, "ALERT", "Cannot edit a published quiz!", ICON_WARNING);
         return;
     }
 
@@ -183,8 +183,7 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
     // Check if all 10 questions are already filled
     if (page == 10) {
         int overwriteChoice = MessageBoxA(
-            NULL,
-            "All 10 questions already exist. Do you want to Re-Create and start over?", "Re-Create Quiz?", MB_YESNO | MB_ICONQUESTION
+            GetConsoleWindow(), "All 10 questions already exist. Do you want to Re-Create and start over?", "Re-Create Quiz?", MB_YESNO | MB_ICONQUESTION
         );
         if (overwriteChoice == IDYES) {
             for (int i = 0; i < 10; i++) {
@@ -286,7 +285,7 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
 // ===================== UPDATE =====================
 void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* quizID) {
     if (Quiz::isPublished(teacherID, className, quizID)) {
-        MessageBoxA(NULL, "Cannot edit a published quiz!", "Error", MB_OK | MB_ICONERROR);
+        CustomMessageBox(80, 20, 60, "ALERT", "Cannot edit a published quiz!", ICON_WARNING);
         return;
     }
     const char* filename = getFileName(className);
@@ -313,16 +312,15 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
     }
 
     if (quizIndex == -1) {
-        MessageBoxA(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
+        CustomMessageBox(80, 20, 60, "ALERT", "You have not yet created the quiz!", ICON_WARNING);
         return;
     }
 
     int page = 0;
     bool deadlineShown = false;
-
+    H::cls();
     QuizDesign::DesginQuizPage(className, quizID);
     H::setcursor(false, 0);
-
     while (true) {
         H::setcursor(false, 0);
         // Show last update and deadline
@@ -488,22 +486,21 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
     }
 
     if (quizIndex == -1) {
-        MessageBoxA(NULL, "You have not yet created the quiz!", "Error", MB_OK | MB_ICONERROR);
+        CustomMessageBox(80, 18, 60, "ALERT", "You have not yet created the quiz!", ICON_WARNING);
         return;
     }
-
     // Toggle publish/unpublish
     if (strcmp(q.publish, "1") == 0) {
     // Published → unpublish
-        strcpy(q.publish, "0"); // use "0" for unpublished instead of "2"
-        MessageBoxA(NULL, "Quiz unpublished successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+        strcpy(q.publish, "0");
+        CustomMessageBox(80, 20, 60, "UNPUBLISED", "Quiz unpublished successfully!", ICON_INFO);
     } else {
         if (!q.isComplete()) {
-            MessageBoxA(NULL, "Cannot publish! All 10 pages must be fully created.", "Error", MB_OK | MB_ICONERROR);
+            CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish! All 10 pages must be fully created.", ICON_WARNING);
             return;
         }
         strcpy(q.publish, "1"); // published
-        MessageBoxA(NULL, "Quiz published successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+        CustomMessageBox(80, 20, 60, "PUBLISED", "Quiz published successfully!", ICON_INFO);
     }
 
     quizzes[quizIndex] = q;

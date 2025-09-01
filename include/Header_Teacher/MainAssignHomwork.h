@@ -57,8 +57,7 @@ void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subjec
     if (!found || grades.empty()) {
         H::setcolor(14);
         H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(NULL,"SORRY YOU NOT ASSIGNED TO THE CLASS YET.","Notice",MB_OK | MB_ICONASTERISK);
-
+        CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
         return;
     }
 
@@ -402,7 +401,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
             switch (activeIndex) {
                 case 0: // Recreate
                     if (isPublished) {
-                        MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
+                        CustomMessageBox(80, 20, 60, "ACTION DENIED", "You need to UNPUBLISH the homework first!", ICON_WARNING);
                     }else{
                         if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to RECREATE this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                         H::setcursor(true,1);
@@ -416,7 +415,7 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
 
                case 1: // Clear
                     if (isPublished) {
-                        MessageBoxA(NULL, "You need to UNPUBLISH the homework first!", "Action Denied", MB_ICONWARNING);
+                        CustomMessageBox(80, 20, 60, "ACTION DENIED", "You need to UNPUBLISH the homework first!", ICON_WARNING);
                     } else {
                         if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to CLEAR this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.clearHomework(teacherID, grade, homeWorkID, subject);

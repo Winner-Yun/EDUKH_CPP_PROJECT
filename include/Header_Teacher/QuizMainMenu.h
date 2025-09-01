@@ -300,7 +300,6 @@ void QuizMenu::QuizManageMenu(const char* teacherID, const char* className, cons
 
     } while (option != 13 && option != 27) ;
 
-    H::cls();
     H::setcursor(true, 1);
 
     if (option == 13) {
