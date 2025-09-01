@@ -24,7 +24,7 @@ struct StudentQuizResult {
     char className[20];
     char subject[30];
     char quizID[20];
-    int totalScore;
+    char totalScore[3];
 
     char dateTaken[20];
     char startTime[20];
@@ -280,9 +280,6 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
     }
 }
 
-#include <algorithm>
-#include <random>
-
 void DoQuiz::StartQuiz(const char* studentID, const char* className, const char* subject, size_t quizIndex) {
     const char* filename = Quiz::getFileName(className);
     if (!filename) {
@@ -323,7 +320,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     string dateTaken = getCurrentDate();
 
     // --- Check if student already completed this quiz ---
-    ifstream resultFile("../data/StudentQuizResults.dat", ios::binary);
+    ifstream resultFile("../data/StudentQuizResults.bin", ios::binary);
     if (resultFile) {
         StudentQuizResult existing;
         while (resultFile.read((char*)&existing, sizeof(existing))) {
@@ -332,7 +329,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
                 char msg[300];
                 sprintf(msg,
                     "You already completed this quiz!\n\n"
-                    "Total Score : %d\n"
+                    "Total Score : %s\n"
                     "Date Taken  : %s\n"
                     "Start Time  : %s\n"
                     "End Time    : %s",
@@ -386,7 +383,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         QuizDesign::DesginDoQuizPage(className, q.getQuizID());
         H::setcolor(7); H::gotoxy(171, 22); cout << q.getlastUpdateDate();
         H::setcolor(7); H::gotoxy(165, 12); cout << "10";
-        H::setcolor(7); H::gotoxy(165, 14); cout << "60";
+        H::setcolor(7); H::gotoxy(165, 14); cout << getCurrentDate();
         H::setcolor(7); H::gotoxy(171, 24); cout << q.getDeadline();
         H::setcolor(7); H::gotoxy(50, 42); cout << "PRESS "; H::setcolor(151); cout << "[Left]"; H::setcolor(7); cout << " | "; H::setcolor(151); cout << "[Right]"; H::setcolor(7); cout << " TO MOVE, PRESS "; H::setcolor(167); cout << "[ENTER]"; H::setcolor(7); cout << " TO CHOOSE THE ANSWER";
 
@@ -440,7 +437,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     strcpy(result.className, className);
     strcpy(result.subject, subject);
     strcpy(result.quizID, q.getQuizID());
-    result.totalScore = totalScore;
+    sprintf(result.totalScore, "%d", totalScore);
 
     strcpy(result.dateTaken, dateTaken.c_str());
     strcpy(result.startTime, startTime.c_str());
@@ -567,6 +564,15 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 
     H::gotoxy(80, 40); H::setcolor(6); cout << "<<<   PRESS ANY KEY TO GO BACK   >>>";
     getch();
+
+    ofstream outFile("../data/StudentQuizResults.bin", ios::binary | ios::app);
+    if (outFile) {
+        outFile.write(reinterpret_cast<char*>(&result), sizeof(result));
+        outFile.close();
+        MessageBoxA(NULL, "Your quiz result has been saved!", "Success", MB_OK | MB_ICONINFORMATION);
+    } else {
+        MessageBoxA(NULL, "Failed to save result!", "Error", MB_OK | MB_ICONERROR);
+    }
 }
 
 void DoQuiz::MenuGradeDesignDesign(){

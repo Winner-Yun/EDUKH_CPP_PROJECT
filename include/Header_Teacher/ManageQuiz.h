@@ -212,7 +212,7 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         QuizDesign::DesginQuizPage(className, quizID);
         H::setcursor(true, 1);
         H::setcolor(7); H::gotoxy(165, 12); cout << "10";
-        H::setcolor(7); H::gotoxy(165, 14); cout << "60";
+        H::setcolor(7); H::gotoxy(165, 14); cout << getTodayDate();
         H::setcolor(7); H::gotoxy(171, 22); cout << q.lastUpdateDate;
         H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
 
@@ -323,7 +323,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
     H::setcursor(false, 0);
     while (true) {
         H::setcursor(false, 0);
-        // Show last update and deadline
+        H::setcolor(7); H::gotoxy(165, 14); cout << getTodayDate();
         H::setcolor(7); H::gotoxy(171, 22); cout << q.lastUpdateDate;
         H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
 
@@ -331,18 +331,18 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
 
         // Show existing page data
         H::setcolor(7); H::gotoxy(165, 12); cout << "    ";
-        H::setcolor(7); H::gotoxy(165, 12); cout << q.questions[page].score;
         H::setcolor(7); H::gotoxy(165, 14); cout << "     ";
-        H::setcolor(7); H::gotoxy(165, 14); cout << q.questions[page].timeQuiz;
         H::setcolor(7); H::gotoxy(20, 11); cout << "                                                                                                                        ";
-        H::setcolor(7); H::gotoxy(20, 11); cout << q.questions[page].text;
         H::setcolor(7); H::gotoxy(40, 17); cout << "                                                                                ";
-        H::setcolor(7); H::gotoxy(40, 17); cout << q.questions[page].answer1;
         H::setcolor(7); H::gotoxy(40, 23); cout << "                                                                                ";
-        H::setcolor(7); H::gotoxy(40, 23); cout << q.questions[page].answer2;
         H::setcolor(7); H::gotoxy(40, 29); cout << "                                                                                ";
-        H::setcolor(7); H::gotoxy(40, 29); cout << q.questions[page].answer3;
         H::setcolor(7); H::gotoxy(40, 35); cout << "                                                                                ";
+        H::setcolor(7); H::gotoxy(165, 12); cout << q.questions[page].score;
+        H::setcolor(7); H::gotoxy(165, 14); cout << q.questions[page].timeQuiz;
+        H::setcolor(7); H::gotoxy(20, 11); cout << q.questions[page].text;
+        H::setcolor(7); H::gotoxy(40, 17); cout << q.questions[page].answer1;
+        H::setcolor(7); H::gotoxy(40, 23); cout << q.questions[page].answer2;
+        H::setcolor(7); H::gotoxy(40, 29); cout << q.questions[page].answer3;
         H::setcolor(7); H::gotoxy(40, 35); cout << q.questions[page].answer4;
 
         H::setcolor(7); H::gotoxy(30, 42); cout << "PRESS "; H::setcolor(151); cout << "[Left]"; H::setcolor(7); cout << " | "; H::setcolor(151); cout << "[Right]"; H::setcolor(7); cout << " TO MOVE,      "; H::setcolor(167); cout << "[ENTER]"; H::setcolor(7); cout << " TO UPDATE PAGE,      "; H::setcolor(103); cout << "[D]"; H::setcolor(7); cout << " TO CHANGE DEADLINE,      "; H::setcolor(199); cout << "[ESC]"; H::setcolor(7); cout << " TO EXIT";
