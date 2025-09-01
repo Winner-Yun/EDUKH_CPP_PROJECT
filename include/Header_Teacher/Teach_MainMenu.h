@@ -15,7 +15,6 @@ public:
     static void Main(const char* email);
     static void Header(const char* email);
     static void Menu();
-    static void Footer();
     static void ReadData(const char* email);
     static void drawTime(int x, int y);
     static void LoadingHeader(int id);
@@ -35,8 +34,7 @@ void Teach_MainMenu::Main(const char* email){
     H::setcursor(false,0);
     do{
 
-        Header(email);
-        Footer();        
+        Header(email);      
 
         do{
             H::drawBoxDoubleLineWithBG(25,17,40,1,47);
@@ -141,14 +139,7 @@ void Teach_MainMenu::Main(const char* email){
 
             choice = EdumasterCustom::ArrowKeyConTrol(6,1,choice,option);    // usage here :)
             
-        }while(option != 27 && option != 13);
-
-        if(option==27){
-            H::cls();
-            LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,5);
-            system("cls");
-        }
+        }while(option != 0 && option != 13);
 
         if (option == 13) {
                 switch (choice) {
@@ -168,18 +159,9 @@ void Teach_MainMenu::Main(const char* email){
                 }
 
                 case 2:{
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
 
                     MainHeaderOFManageScore::ManageScoreMain(teacherID,subject);
 
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    H::cls();
                     break;
                 }
 
@@ -200,19 +182,9 @@ void Teach_MainMenu::Main(const char* email){
                     break;
                 }
                 case 4:{
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    H::cls();
 
                     MainAssignHomwork::AssignHMain(teacherID,subject);
 
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    system("cls");
                     break;
                 }
                 case 5:{
@@ -239,7 +211,7 @@ void Teach_MainMenu::Main(const char* email){
                     {
                         H::setcolor(7);
                         system("cls");
-                        option = 27;
+                        option = 0;
                         LoadingHeader(1);
                         EdumasterCustom::LoadingPage(30, 30, 135, 5);
                         H::cls();
@@ -251,7 +223,7 @@ void Teach_MainMenu::Main(const char* email){
 
             }
         }
-    }while(option != 27);
+    }while(option != 0);
     H::setcolor(7);
 }
 
@@ -497,9 +469,6 @@ void Teach_MainMenu::ReadData(const char* email){
 
 }
 
-void Teach_MainMenu::Footer(){
- 
-}
   
 void Teach_MainMenu::LoadingHeader(int id){
     if(id == 1){

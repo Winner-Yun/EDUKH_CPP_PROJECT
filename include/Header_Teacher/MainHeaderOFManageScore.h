@@ -29,21 +29,20 @@ MainHeadOF_ManageScore managePro;
 
 
 void MainHeaderOFManageScore::ManageScoreMain(const char* teacherID ,const char* subject){                                                                                                                                                                               
-   H::setcursor(false,0);
-   ReadFileAssMenu(teacherID,subject);
+    H::setcursor(false,0);
+    ReadFileAssMenu(teacherID,subject);
 }
 
 
 void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID ,const char* subject) {
     const int consoleWidth = 199;
     const int consoleHeight = 45;
-    H::cls();
 
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(consoleWidth / 2 - 5, consoleHeight / 2);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -62,11 +61,15 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID ,const char*
 
     if (!found || grades.empty()) {
         H::setcolor(14);
-        H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(NULL,"SORRY YOU NOT ASSIGNED TO THE CLASS YET.","Notice",MB_OK | MB_ICONASTERISK);
-
+        CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
         return;
     }
+
+    H::setcolor(7);
+    system("cls");
+    LoadingHeader(2);
+    EdumasterCustom::LoadingPage(30,30,135,5);
+    H::cls();
 
     grades.push_back("<| BACK");
 
@@ -149,6 +152,11 @@ void MainHeaderOFManageScore::ReadFileAssMenu(const char* teacherID ,const char*
             }
         } else if (key == 27) { // ESC
             running = false;
+            H::setcolor(7);
+            system("cls");
+            LoadingHeader(2);
+            EdumasterCustom::LoadingPage(30,30,135,5);
+            H::cls();
         }
         
     }
@@ -161,7 +169,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
 
     ifstream inFile("../data/Student_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Error", "Student_Data.bin not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "Student_Data.bin not found", MB_OK);
         return;
     }
 
@@ -177,7 +185,7 @@ void MainHeaderOFManageScore::MenuProcess(const char* teacherID, const char* gra
     inFile.close();
 
     if (studentIDs.empty()) {
-        MessageBoxA(NULL, "No Student found", "Info", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "No Student found", "Info", MB_OK);
         return;
     }
 
@@ -433,7 +441,7 @@ void MainHeaderOFManageScore::MenuSelect(const char* teacherID,const char* grade
    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
         H::setcolor(12);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
     vector<string> grades;

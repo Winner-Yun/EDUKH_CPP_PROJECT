@@ -18,7 +18,7 @@ class QuizMenu {
 bool isTeacherAssignedToClass(const char* teacherID, const char* className) {
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "File not found", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "File not found", "Error", MB_OK | MB_ICONERROR);
         return false;
     }
 
@@ -94,7 +94,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                         QuizMenu::QuizChooseMenu(teacherID, "10", subject);
                         break;
                     } else {
-                        MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 10.", "Notice", MB_OK | MB_ICONASTERISK);
+                       CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
                     }
                     break;
                 }
@@ -105,7 +105,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                         QuizMenu::QuizChooseMenu(teacherID, "11", subject);
                         break;
                     } else {
-                        MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 11.", "Notice", MB_OK | MB_ICONASTERISK);
+                        CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
                     }
                     break;
                 }
@@ -116,7 +116,7 @@ void QuizMenu::QuizGradeMenu(const char* teacherID, const char* subject) {
                         QuizMenu::QuizChooseMenu(teacherID, "12", subject);
                         break;
                     } else {
-                        MessageBoxA(NULL, "SORRY, YOU ARE NOT ASSIGNED TO GRADE 12.", "Notice", MB_OK | MB_ICONASTERISK);
+                        CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
                     }
                     break;
                 }

@@ -45,7 +45,7 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(consoleWidth / 2 - 5, consoleHeight / 2);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -64,7 +64,7 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
     if (!found || subjects.empty()) {
         H::setcolor(14);
         H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(NULL, "NO HOMEWORK ASSIGN YET !", "Notice", MB_OK | MB_ICONASTERISK);
+        MessageBoxA(GetConsoleWindow(), "NO HOMEWORK ASSIGN YET !", "Notice", MB_OK | MB_ICONASTERISK);
         return;
     }
 
@@ -224,7 +224,7 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(100, 22);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -244,7 +244,7 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
     if (!found || homeworks.empty()) {
         H::setcolor(14);
         H::gotoxy(100, 22);
-        MessageBoxA(NULL, "NO HOMEWORK ASSIGN YET !", "Notice", MB_OK | MB_ICONASTERISK);
+        MessageBoxA(GetConsoleWindow(), "NO HOMEWORK ASSIGN YET !", "Notice", MB_OK | MB_ICONASTERISK);
         return;
     }
 
@@ -262,7 +262,7 @@ void ViewHomeWork::ViewHomeWorkDetails(const char* subject, const char* grade){
     if (!teacherFile) {
         H::setcolor(12);
         H::gotoxy(100, 22);
-        MessageBoxA(NULL, "Error", "Teacher file not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "Teacher file not found", MB_OK);
         return;
     }
 

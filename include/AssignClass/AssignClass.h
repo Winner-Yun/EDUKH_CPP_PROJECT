@@ -44,7 +44,7 @@ void AssignClass::SearchClass(const char* className, string& keyword) const
 {
 	ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
 	    if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -98,13 +98,13 @@ void AssignClass::DeleteClass(const char* className)
 	
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
 	ofstream outFile("../data/temp.bin", ios::binary);
     if (!outFile) {
-        MessageBoxA(NULL, "Error", "Cannot create temp file", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "Cannot create temp file", MB_OK);
         inFile.close();
         return;
     }
@@ -141,7 +141,7 @@ void AssignClass::DisplayAll(const char* className, int page, int sortMethod) co
         H::setcolor(12);
         H::gotoxy(70, 37);
         //cout << "Cannot open data file.";
-		MessageBoxA(NULL,"Error", "File not found", MB_OK);
+		MessageBoxA(GetConsoleWindow(),"Error", "File not found", MB_OK);
         return;
     }
 
@@ -228,7 +228,7 @@ void AssignClass::InputClass(const char* className)
 	if(!fin){
 		H::setcolor(250);
     	H::gotoxy(86,37);
-		MessageBoxA(NULL,"Error", "File not found", MB_OK);
+		MessageBoxA(GetConsoleWindow(),"Error", "File not found", MB_OK);
 		return;
 	}
 

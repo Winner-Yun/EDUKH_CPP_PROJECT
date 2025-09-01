@@ -27,18 +27,18 @@ void MainAssignHomwork::AssignHMain(const char* teacherID,const char* subject ){
    transform(upperSubject.begin(), upperSubject.end(), upperSubject.begin(), ::toupper);                                                                                                                                                                          
    H::setcursor(false,0);
    ReadFileAssMenu(teacherID,upperSubject.c_str());
+  
 }
 
 void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subject) {
     const int consoleWidth = 199;
     const int consoleHeight = 45;
-    H::cls();
 
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(consoleWidth / 2 - 5, consoleHeight / 2);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -60,6 +60,12 @@ void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subjec
         CustomMessageBox(80, 20, 60, "ALERT", "SORRY YOU NOT ASSIGNED TO THE CLASS YET.", ICON_WARNING);
         return;
     }
+
+    H::setcolor(7);
+    system("cls");
+    LoadingHeader(2);
+    EdumasterCustom::LoadingPage(30,30,135,5);
+    H::cls();
 
     grades.push_back("<| BACK");
 
@@ -142,6 +148,11 @@ void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subjec
                 }
             } else if (key == 27) { // ESC
                 running = false;
+                H::setcolor(7);
+                system("cls");
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30,30,135,5);
+                H::cls();
             }
             
     }

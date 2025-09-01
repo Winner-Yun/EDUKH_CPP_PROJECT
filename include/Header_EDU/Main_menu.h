@@ -239,7 +239,7 @@ void Edu_Main_Menu::MainProfile(){
 	H::setcolor(5); H::gotoxy(41, 6); cout << R"(|____| |____||______.'|_____||_____||_____||_____|\____|       |_____|  |____| |___|`.___.'|_____|   |_____||________||________|)";
 
 
-	H::drawBoxDoubleLineWithBG(4,10,102,22,111);
+	H::drawBoxDoubleLineWithBG(4,10,102,22,6);
 	H::drawBoxDoubleLineWithBG(8,12,24,3,196);
 	H::drawBoxDoubleLineWithBG(42,20,24,3,196);
 	H::drawBoxDoubleLineWithBG(78,28,24,3,196);

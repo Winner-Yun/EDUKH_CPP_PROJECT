@@ -293,7 +293,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
 
     ifstream in(filename, ios::binary);
     if (!in) {
-        MessageBoxA(NULL, "No quiz file found for this class!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "No quiz file found for this class!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -365,7 +365,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
             for (auto &quizItem : quizzes) out.write((char*)&quizItem, sizeof(Quiz));
             out.close();
 
-            MessageBoxA(NULL, "Deadline updated successfully!", "Info", MB_OK | MB_ICONINFORMATION);
+            MessageBoxA(GetConsoleWindow(), "Deadline updated successfully!", "Info", MB_OK | MB_ICONINFORMATION);
             QuizDesign::DesginQuizPage(className, quizID);
         }
         else if (ch == 13) { // ENTER to edit page
@@ -467,7 +467,7 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
 
     ifstream in(filename, ios::binary);
     if (!in) {
-        MessageBoxA(NULL, "No quiz file found!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "No quiz file found!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 

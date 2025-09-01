@@ -2,6 +2,8 @@
 #define __TEACHERMANAGEMENT_H__
 
 #include "../Header_School/ANTHinsyOOP"
+#include "CustomHeader.h"
+
 using namespace ANTHinsyOOP;
 
 class Teacher{
@@ -255,8 +257,7 @@ void  Teacher::input(){
     H::setcursor(true, 1);
 
     // ------------------ Date of Birth ------------------
-    H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->dateOfBirth,false);
+    EdumasterCustom::inputDate(startX + 98, startY + 2,this->dateOfBirth, false);
 
     // ------------------ Subject ------------------
 	H::setcursor(false, 0);
@@ -443,8 +444,7 @@ void Teacher::newInput(){
     H::setcursor(true, 1);
 
     // ------------------ Date of Birth ------------------
-    H::gotoxy(startX + 98, startY + 2);
-    H::inputDate(this->dateOfBirth, false);
+    EdumasterCustom::inputDate(startX + 98, startY + 2,this->dateOfBirth, false);
 
     // ------------------ Subject Selection ------------------
 	H::setcursor(false, 0);

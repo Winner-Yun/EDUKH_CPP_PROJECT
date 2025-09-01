@@ -81,7 +81,7 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
     // Use your helper to get the correct file name
     const char* filename = Quiz::getFileName(grade);
     if (!filename) {
-        MessageBoxA(NULL, "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -89,7 +89,7 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(consoleWidth / 2 - 5, consoleHeight / 2);
-        MessageBoxA(NULL, "No quiz file found for this grade", "File Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "No quiz file found for this grade", "File Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -110,7 +110,7 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
     if (!found || subjects.empty()) {
         H::setcolor(14);
         H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(NULL, "NO QUIZ AVAILABLE!", "Notice", MB_OK | MB_ICONASTERISK);
+        MessageBoxA(GetConsoleWindow(), "NO QUIZ AVAILABLE!", "Notice", MB_OK | MB_ICONASTERISK);
         return;
     }
 
@@ -187,13 +187,13 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
 
     const char* filename = Quiz::getFileName(className);
     if (!filename) {
-        MessageBoxA(NULL, "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
     ifstream inFile(filename, ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Quiz file not found", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Quiz file not found", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -209,7 +209,7 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
     inFile.close();
 
     if (quizzes.empty()) {
-        MessageBoxA(NULL, "No quizzes found for this subject!", "Notice", MB_OK | MB_ICONASTERISK);
+        MessageBoxA(GetConsoleWindow(), "No quizzes found for this subject!", "Notice", MB_OK | MB_ICONASTERISK);
         return;
     }
 
@@ -286,13 +286,13 @@ void DoQuiz::MenuByQuiz(const char* studentID, const char* className, const char
 void DoQuiz::StartQuiz(const char* studentID, const char* className, const char* subject, size_t quizIndex) {
     const char* filename = Quiz::getFileName(className);
     if (!filename) {
-        MessageBoxA(NULL, "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Invalid class/grade!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
     ifstream inFile(filename, ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Quiz file not found", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Quiz file not found", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -307,7 +307,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     inFile.close();
 
     if (quizzes.empty()) {
-        MessageBoxA(NULL, "No published quiz found for this subject!", "Notice", MB_OK | MB_ICONASTERISK);
+        MessageBoxA(GetConsoleWindow(), "No published quiz found for this subject!", "Notice", MB_OK | MB_ICONASTERISK);
         return;
     }
 
@@ -315,7 +315,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
     q = quizzes[quizIndex];
 
     if (isDeadlinePassed(q.getDeadline())) {
-        MessageBoxA(NULL, "This quiz is past the deadline and cannot be taken.", "Deadline Passed", MB_OK | MB_ICONWARNING);
+        MessageBoxA(GetConsoleWindow(), "This quiz is past the deadline and cannot be taken.", "Deadline Passed", MB_OK | MB_ICONWARNING);
         return;
     }
 
@@ -351,7 +351,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 
     int totalQuestions = q.getQuestionCount();
     if (totalQuestions == 0) {
-        MessageBoxA(NULL, "Quiz has no questions!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Quiz has no questions!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 

@@ -32,6 +32,8 @@ class Login_Design {
     // Define the Student structure used for binary reading
     struct Student_form {
         char id[6], name[19], gender[7], bdate[15], grade[3], tel[10], sYear[5], email[30], pw[19];
+		int No;
+        static int lastId;
     };
     struct Teacher_form { 
     char teacherId[20], teacherName[20],gender[20],subject[20],phoneNumber[15],dateOfBirth[20],email[40],pw[20],academyYear[10];

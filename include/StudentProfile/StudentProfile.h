@@ -138,7 +138,7 @@ void StudentProfile::changePasswordForm()
         // Verify the password
         fstream file(STUDENT_DATA_FILE, ios::binary | ios::in | ios::out);
         if (!file) {
-            MessageBoxA(NULL, "Cannot open Student_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+            MessageBoxA(GetConsoleWindow(), "Cannot open Student_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
             return;
         }
 
@@ -159,7 +159,7 @@ void StudentProfile::changePasswordForm()
         file.close();
         
         if (!found) {
-            MessageBoxA(NULL, "Student not found!", "Error", MB_OK | MB_ICONERROR);
+            MessageBoxA(GetConsoleWindow(), "Student not found!", "Error", MB_OK | MB_ICONERROR);
             return;
         }
         
@@ -206,7 +206,7 @@ void StudentProfile::changePasswordForm()
     // Update password in object
     fstream file(STUDENT_DATA_FILE, ios::binary | ios::in | ios::out);
     if (!file) {
-        MessageBoxA(NULL, "Cannot open Student_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Cannot open Student_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -232,7 +232,7 @@ void StudentProfile::changePasswordForm()
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Student not found!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Student not found!", "Error", MB_OK | MB_ICONERROR);
         file.close();
     }
 }
@@ -284,7 +284,7 @@ void StudentProfile::displayByEmail(const char* email)
 {
     ifstream file(STUDENT_DATA_FILE, ios::binary);
     if (!file) {
-        MessageBoxA(NULL, "Cannot open student data file!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Cannot open student data file!", "Error", MB_OK | MB_ICONERROR);
         return;
     }
 

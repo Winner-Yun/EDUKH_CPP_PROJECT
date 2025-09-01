@@ -148,7 +148,7 @@ void TeacherProfile::changePassword()
         // Verify the password
         fstream file("../data/Teacher_Data.bin", ios::binary | ios::in | ios::out);
         if (!file) {
-            MessageBoxA(NULL, "Cannot open Teacher_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+            MessageBoxA(GetConsoleWindow(), "Cannot open Teacher_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
             return;
         }
 
@@ -169,7 +169,7 @@ void TeacherProfile::changePassword()
         file.close();
         
         if (!found) {
-            MessageBoxA(NULL, "Teacher not found!", "Error", MB_OK | MB_ICONERROR);
+            MessageBoxA(GetConsoleWindow(), "Teacher not found!", "Error", MB_OK | MB_ICONERROR);
             return;
         }
         
@@ -216,7 +216,7 @@ void TeacherProfile::changePassword()
     // Update password in object
     fstream file("../data/Teacher_Data.bin", ios::binary | ios::in | ios::out);
     if (!file) {
-        MessageBoxA(NULL, "Cannot open Teacher_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Cannot open Teacher_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -242,7 +242,7 @@ void TeacherProfile::changePassword()
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Teacher not found!", "Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Teacher not found!", "Error", MB_OK | MB_ICONERROR);
         file.close();
     }
 }
@@ -301,7 +301,7 @@ void TeacherProfile::showAssignedClassesPaginate()
     ifstream fin("../data/AssignClass_Data.bin", ios::binary);
 
     if (!fin) {
-        MessageBoxA(NULL, "Error opening AssignClass_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Error opening AssignClass_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
         return;
     }
 
@@ -316,7 +316,7 @@ void TeacherProfile::showAssignedClassesPaginate()
     fin.close();
 
     if (assignedClasses.empty()) {
-        MessageBoxA(NULL, "No assigned classes found!", "Information", MB_OK | MB_ICONINFORMATION);
+        MessageBoxA(GetConsoleWindow(), "No assigned classes found!", "Information", MB_OK | MB_ICONINFORMATION);
         return;
     }
 
@@ -378,7 +378,7 @@ void TeacherProfile::showAssignedClasses()
 
     if (!fin) {
         cerr << "Error opening AssignClass_Data.bin" << endl;
-        MessageBoxA(NULL, "Error opening AssignClass_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
+        MessageBoxA(GetConsoleWindow(), "Error opening AssignClass_Data.bin!", "File Error", MB_OK | MB_ICONERROR);
         return;
     }
 

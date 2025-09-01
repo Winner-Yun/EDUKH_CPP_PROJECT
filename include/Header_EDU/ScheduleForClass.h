@@ -932,7 +932,7 @@ void Schedule_Management::ReadAssClassFileDesign(const char* grade) {
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(70, 37);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -972,7 +972,7 @@ void Schedule_Management::CheckSubjectofCLass(const char* grade){
     if (!inFile) {
         H::setcolor(12);
         H::gotoxy(70, 37);
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
@@ -996,7 +996,7 @@ bool Schedule_Management::IsSubjectInGrade(const char* grade, const char* subjec
     
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Error", "File not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return false;
     }
 

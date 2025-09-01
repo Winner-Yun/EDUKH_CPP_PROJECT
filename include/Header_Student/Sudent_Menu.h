@@ -15,7 +15,6 @@ public:
     static void Main(const char* email);
     static void Header(const char* email);
     static void Menu();
-    static void Footer();
     static void ReadData(const char* email);
     static void drawTime(int x, int y);
     static void LoadingHeader(int id);
@@ -37,8 +36,7 @@ void Student_MainMenu::Main(const char* email){
     H::setcursor(false,0);
     do{
 
-        Header(email);
-        Footer();        
+        Header(email); 
 
         do{
             H::drawBoxDoubleLineWithBG(43,17,40,1,31);
@@ -490,22 +488,23 @@ void Student_MainMenu::Header(const char* email){
 void Student_MainMenu::ReadData(const char* email){
     
 
+    
     ifstream file("../data/Student_Data.bin", ios::binary);
     if (!file) {
         cout << "Failed to open file.\n";
     }
 
-    Student_form_Stu s;
-    while (file.read(reinterpret_cast<char*>(&s), sizeof(Student_form_Stu))) {
-        if (strcmp(s.email, email) == 0) {
-            strcpy(studentName , s.name);
-            strcpy(studentID , s.id);
-            strcpy(grade , s.grade);
+    Student_form_Stu stu;
+    while (file.read(reinterpret_cast<char*>(&stu), sizeof(Student_form_Stu))) {
+        if (strcmp(stu.email, email) == 0) {
+            strcpy(studentName , stu.name);
+            strcpy(studentID , stu.id);
+            strcpy(grade, stu.grade);
         }
     }
     H::setcolor(7);
     H::gotoxy(110, 18);
-    cout << "HELLO....! :         ";
+    cout << "WELCOME, STUDENT :               ID :";
 
     char upperName[40];
     strcpy(upperName, studentName);
@@ -514,22 +513,19 @@ void Student_MainMenu::ReadData(const char* email){
     }
 
     H::setcolor(2);
-    int nameX = 121;
+    int nameX = 129;
     H::gotoxy(nameX, 18);
     cout << upperName;
 
     int nameLength = strlen(upperName);
-    int idX = nameX + nameLength + 19;
+    int idX = nameX + nameLength + 8;
 
     H::setcolor(3);
     H::gotoxy(idX, 18);
-    cout <<" ID : ~ "<< studentID;
+    cout <<" ~ "<< teacherID;
 
 }
 
-void Student_MainMenu::Footer(){
- 
-}
   
 void Student_MainMenu::LoadingHeader(int id){
     if(id == 1){

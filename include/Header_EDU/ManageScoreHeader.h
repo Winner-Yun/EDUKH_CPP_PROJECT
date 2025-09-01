@@ -160,7 +160,7 @@ void MainManageScore::MenuGradeChoice(){
 void MainManageScore::WriteSummaryToFile(const MainManageScore& data) {
     ofstream outFile("../data/ManageScoreBYAdmin.bin", ios::binary | ios::app);
     if (!outFile) {
-        MessageBoxA(NULL, "Error", "Cannot open file", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "Cannot open file", MB_OK);
         return;
     }
 
@@ -171,7 +171,7 @@ void MainManageScore::WriteSummaryToFile(const MainManageScore& data) {
 void MainManageScore::ClearSummaryFile() {
     ofstream outFile("../data/ManageScoreBYAdmin.bin", ios::binary | ios::trunc);
     if (!outFile) {
-        MessageBoxA(NULL, "Error", "Cannot clear file", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "Cannot clear file", MB_OK);
         return;
     }
     outFile.close();
@@ -216,29 +216,18 @@ void MainManageScore::MainControlScore(const char* grade) {
         else if (key == 130 || key == 112) { 
             if (!IsPublished(grade)) {
                 int result = MessageBoxA(
-                    NULL,
+                    GetConsoleWindow(),
                     "Do you really want to publish the scores?",
                     "Confirm Publish",
                     MB_YESNO | MB_ICONQUESTION
                 );
-
-                if (result == IDYES) {
-                    for (int i = 0; i < manageScoreCount; i++) {
-                        WriteSummaryToFile(manageScores[i]);
-                    }
-                    MessageBoxA(NULL, "Scores have been published.", "Success", MB_OK | MB_ICONINFORMATION);
-                }
             } else {
                 int result = MessageBoxA(
-                    NULL,
-                    "Scores are already published. Do you want to unpublish them?",
+                    GetConsoleWindow(),
+                    "Do you want to unpublish them?",
                     "Confirm Unpublish",
                     MB_YESNO | MB_ICONQUESTION
                 );
-                if (result == IDYES) {
-                    ClearSummaryFile();
-                    MessageBoxA(NULL, "Scores have been unpublish.", "Unpublished", MB_OK | MB_ICONINFORMATION);
-                }
             }
     }
 
@@ -278,7 +267,7 @@ void MainManageScore::ManageScoreDesign(const char* grade) {
 
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "ManageScore_data.bin not found", MB_OK);
         return;
     }
 
@@ -333,7 +322,7 @@ inFile.close();
 void MainManageScore::ReadAVGScore(const char* grade) {
     ifstream inFile("../data/ManageScore_data.bin", ios::binary);
     if (!inFile) {
-        MessageBoxA(NULL, "Error", "ManageScore_data.bin not found", MB_OK);
+        MessageBoxA(GetConsoleWindow(), "Error", "ManageScore_data.bin not found", MB_OK);
         return;
     }
 
@@ -445,6 +434,7 @@ void MainManageScore::ReadAVGScore(const char* grade) {
 
             manageScoreCount++;
         }
+        cout<< setfill('\0');
 
     }
 
