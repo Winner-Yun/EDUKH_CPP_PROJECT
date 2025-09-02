@@ -329,7 +329,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
             {
                 H::drawBoxDoubleLineWithBG(69, 15, 60, 14, 247);
                 H::drawBoxDoubleLineWithBG(69, 15, 60, 1, 170);
-                H::setcolor(167); H::gotoxy(84, 16); cout << "YOU ALREADY COMPLETED THIS QUIZ!";
+                H::setcolor(167); H::gotoxy(84, 16); cout << "YOU ALREADY COMPLETED QUIZ "; H::setcolor(165); cout << q.getQuizID(); H::setcolor(167); cout << " !";
                 H::setcolor(242); H::gotoxy(79, 19); cout << "Total Score : " << existing.totalScore;
                 H::setcolor(242); H::gotoxy(79, 21); cout << "Date Taken  : " << existing.dateTaken;
                 H::setcolor(242); H::gotoxy(79, 23); cout << "Start Time  : " << existing.startTime;
@@ -388,6 +388,7 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 
         do {
             H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (i + 1) << " / " << totalQuestions;
+            cout << setfill('\0');
             H::setcolor(7); H::gotoxy(20, 11); cout << ques.text;
 
             // Draw answer boxes and highlight current choice
@@ -416,12 +417,11 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
                 H::setcolor(7); H::gotoxy(50, 42); cout << "                                                                                  ";
                 H::setcolor(7); H::gotoxy(65, 42);
                 H::setcolor(39);
-                cout << "Correct! + " << ques.score << " points\n ";
+                cout << " Correct! + " << ques.score << " points ";
             } else {
                 H::setcolor(7); H::gotoxy(50, 42); cout << "                                                                                  ";
                 H::setcolor(7); H::gotoxy(56, 42);
-                H::setcolor(4);
-                cout << "Wrong! No points.    "; H::setcolor(39); cout << " Correct answer: " << ques.correctAnswer;
+                H::setcolor(4); cout << "Wrong! No points.    "; H::setcolor(39); cout << " Correct answer: " << ques.correctAnswer << " ";
             }
             H::setcolor(7);
             H::delay(1000);
@@ -562,7 +562,9 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
 	H::setcolor(3); H::gotoxy(40, 25); cout << R"(   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝        )";
 	system("chcp 437 >nul");
 
-    H::gotoxy(80, 40); H::setcolor(6); cout << "<<<   PRESS ANY KEY TO GO BACK   >>>";
+    H::gotoxy(89, 33); H::setcolor(3); cout << "Start Time :  " << startTime;
+    H::gotoxy(89, 35); H::setcolor(2); cout << "End Time   :  " << endTime;
+    H::gotoxy(82, 40); H::setcolor(6); cout << "<<<   PRESS ANY KEY TO GO BACK   >>>";
     getch();
 
     ofstream outFile("../data/StudentQuizResults.bin", ios::binary | ios::app);

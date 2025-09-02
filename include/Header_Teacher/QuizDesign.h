@@ -426,7 +426,7 @@ void QuizDesign::DesginQuizPage(const char* className, const char* quizID) {
 	H::drawBoxSingleLine(18, 9, 124, 3, 145);
 	H::VLine(17, 8, 5, 145, 119);
 	H::VLine(144, 8, 5, 145, 119);
-	H::setcolor(7); H::gotoxy(16, 8);  cout << "QUESTION :";
+	H::setcolor(7); H::gotoxy(16, 7);  cout << "QUESTION :";
 	
 	//correct answer
 	H::drawBoxSingleLineWithBG(38, 15, 84, 3, 7);
@@ -469,7 +469,7 @@ void QuizDesign::DesginQuizPage(const char* className, const char* quizID) {
 	H::drawBoxSingleLineWithBG(165, 8, 18, 1, 14);
 	H::setcolor(7); H::gotoxy(167, 9); cout << "PAGE";
 	H::setcolor(2); H::gotoxy(155, 12); cout << "SCORE  :";
-	H::setcolor(6); H::gotoxy(155, 14); cout << "TIME   :";
+	H::setcolor(6); H::gotoxy(155, 14); cout << "DATE   :";
 	
 	H::drawBoxDoubleLine(153, 20, 35, 5, 7);
 	H::drawBoxSingleLineWithBG(167, 18, 8, 1, 14);
@@ -591,7 +591,7 @@ void QuizDesign::DesginDoQuizPage(const char* className, const char* quizID) {
 	H::drawBoxSingleLine(18, 9, 124, 3, 145);
 	H::VLine(17, 8, 5, 145, 119);
 	H::VLine(144, 8, 5, 145, 119);
-	H::setcolor(7); H::gotoxy(16, 8);  cout << "QUESTION :";
+	H::setcolor(7); H::gotoxy(16, 7);  cout << "QUESTION :";
 	
 	//correct answer
 	H::drawBoxSingleLineWithBG(38, 15, 84, 3, 7);
