@@ -52,7 +52,7 @@ Navigate through the program using:
 - Password : admin123
 
 + Role As Teacher
-- Email : te.@gmail.com
+- Email : te.rykimchhay@gmail.com
 - Password : 123
 
 
