@@ -450,7 +450,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
     if (alreadyPublished) { 
         remove(filePath);
         rename(tempFilePath, filePath);
-        MessageBoxA(NULL, "Homework unpublished successfully!", "Unpublish", MB_ICONINFORMATION);
+        MessageBoxA(GetConsoleWindow(), "Homework unpublished successfully!", "Unpublish", MB_ICONINFORMATION);
         return; // done, temp already renamed, no cleanup needed
     }
 
@@ -469,7 +469,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
             if (strcmp(tmp.homeworkDescription, "None") == 0 ||
                 strcmp(tmp.homeWorkNote, "None") == 0 ||
                 strcmp(tmp.deadLineDate, "None") == 0) {
-                MessageBoxA(NULL, "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
+                CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
                 inFile.close();
                 cleanupTemp();
                 return;
@@ -477,7 +477,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
 
             // Check deadline
             if (!tmp.canPublish(tID, g, hwID)) {
-                MessageBoxA(NULL, "Cannot publish: Deadline expired!", "Publish Error", MB_ICONERROR);
+                CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish: Deadline expired!", ICON_WARNING);
                 inFile.close();
                 cleanupTemp();
                 return;
@@ -489,13 +489,14 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
             outFile.write(reinterpret_cast<char*>(&tmp), sizeof(tmp));
             outFile.close();
 
-            MessageBoxA(NULL, "Homework published successfully!", "Publish", MB_ICONINFORMATION);
+            MessageBoxA(GetConsoleWindow(), "Homework published successfully!", "Publish", MB_ICONINFORMATION);
+            
             break;
         }
     }
 
     if (!found) {
-        MessageBoxA(NULL, "Cannot publish: Description, Note, or Deadline is empty!", "Publish Error", MB_ICONERROR);
+        CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
     }
 
     inFile.close();

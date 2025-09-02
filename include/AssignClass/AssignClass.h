@@ -113,10 +113,13 @@ void AssignClass::DeleteClass(const char* className)
     bool deleted = false;
 
 	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
-        if (strcmp(ac.className, className) == 0 && strcmp(ac.gradeID, gradeID) == 0) {
-            deleted = true; // Found and skip writing
-            continue;
-        }
+        int confirm = MessageBoxA(GetConsoleWindow(), 
+									"Do you really want to remove this Teacher from this Class?", 
+									"Confirm Delete", MB_YESNO | MB_ICONQUESTION);
+		if (confirm == IDYES) {
+			deleted = true;
+			continue;
+		}
         outFile.write(reinterpret_cast<const char*>(&ac), sizeof(AssignClass));
     }
 

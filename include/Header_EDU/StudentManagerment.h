@@ -848,8 +848,8 @@ void Student::Update(int pageIndex) {
 void Student::Delete(int pageIndex) {
     char deleteId[10];
     H::cls();
-    Menu("DELETE",pageIndex);
-    H::gotoxy(73, 11);cout<< "              ";
+    Menu("DELETE", pageIndex);
+    H::gotoxy(73, 11); cout << "              ";
     H::drawBoxDoubleLine(84, 10, 36, 1, 3);
     H::gotoxy(85, 11); H::setcolor(7); cout << "ENTER TEACHER ID TO DELETE: S-";
     H::inputUNumber(deleteId, 4);
@@ -860,25 +860,33 @@ void Student::Delete(int pageIndex) {
 
     while (file.read(reinterpret_cast<char*>(&s), sizeof(Student))) {
         if (strcmp(s.id + 2, deleteId) == 0) {
-            deleted = true;
-        } else {
-            temp.write(reinterpret_cast<char*>(&s), sizeof(Student));
+            int confirm = MessageBoxA(GetConsoleWindow(),
+                                      "Do you really want to delete this Student?",
+                                      "Confirm Delete", MB_YESNO | MB_ICONQUESTION);
+            if (confirm == IDYES) {
+                deleted = true;
+                continue;
+            }
         }
+        temp.write(reinterpret_cast<char*>(&s), sizeof(Student));
     }
+
     file.close();
     temp.close();
+
     remove("../data/Student_Data.bin");
     rename("../data/Temp.bin", "../data/Student_Data.bin");
+
     if (deleted) {
         H::cls();
-        Delete_Loading();
+        Delete_Loading(); // ✅ Your animation for successful delete
     } else {
-    	H::clearBox(16, 19, 168, 22, 3);
+        H::clearBox(16, 19, 168, 22, 3);
         s.NotFound();
         getch();
     }
-
 }
+
 string toUpperr(const char* str) {
     std::string result;
     for (int i = 0; str[i] != '\0'; ++i)
@@ -1051,9 +1059,7 @@ void Student::Main_StudentManage() {
                         break;
 
                     case 4: // DELETE
-                        if(MessageBoxA(GetConsoleWindow(), "Do you really want to delete?", "Confirm", MB_ICONQUESTION | MB_YESNO) == IDYES) {
                             s.Delete(pageIndex);
-                        }
                         break;
 
                     case 5: // SEARCH

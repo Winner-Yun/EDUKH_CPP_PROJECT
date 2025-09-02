@@ -448,8 +448,8 @@ struct MenuItem {
 
 MenuItem menuItems[] = {
     {31, 12, "Add Class", 55},       // stays same
-    {118, 12, "Delete Class", 55},     // moved here (from index 2)
-    {138, 12, "Sort Class", 55},   // moved here (from index 3)
+    {119, 12, "Delete Class", 55},     // moved here (from index 2)
+    {140, 12, "Sort Class", 55},   // moved here (from index 3)
     {158, 12, "Search Class", 55},           // reused position for Search Class from before
     {89, 40, "<---", 55},            // bottom arrows stay same
     {108, 40, "--->", 55}

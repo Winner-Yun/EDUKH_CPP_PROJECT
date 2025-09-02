@@ -438,13 +438,13 @@ void MainAssignHomwork::AssignHomeWorkMainDesign(const char* teacherID, const ch
                     break;
                 case 2: // Publish / Unpublish
                     if (isPublished) {
-                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to UNPUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to UNPUBLISH this Homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.unpublishHomework(teacherID, grade, homeWorkID);
                             isPublished = false;
                             menuItems[2] = "PUBLISH";
                         }
                     } else {
-                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to PUBLISH this homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+                        if(MessageBoxA(GetConsoleWindow(), "Are you sure you want to PUBLISH this Homework?", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
                             assH.publishHomework(teacherID, grade, homeWorkID);
                             isPublished = true;
                             menuItems[2] = "UNPUBLISH";
