@@ -155,16 +155,17 @@ void CustomMessageBox(int x, int y,int w, string title, string message, IconType
     int h = 10;
     auto bg = saveBackground(x - 1, y - 1, w + 2, h + 5);
 
-    int headerBG = 153, headerFG = 151;
-    if (icon == ICON_WARNING) { headerBG = 170; headerFG = 175; }
+    int headerBG = 153, headerFG = 151, bodyFG = 244;
+    if (icon == ICON_WARNING) { headerBG = 204; headerFG = 207; }
     else if (icon == ICON_ERROR) { headerBG = 204; headerFG = 207; }
+    else if (icon == ICON_INFO) { headerBG = 170; headerFG = 167; bodyFG = 250; }
 
     H::drawBoxDoubleLineWithBG(x, y, w, 1, headerBG);
     H::setcolor(headerFG);
     H::gotoxy(x + 2, y + 1); cout << title;
 
     H::drawBoxDoubleLineWithBG(x, y + 3, w, 7, 247);
-    H::setcolor(244);
+    H::setcolor(bodyFG);
     H::gotoxy(x + 10, y + 5); cout << message;
 
     int buttonWidth = 20, buttonHeight = 1;
@@ -193,11 +194,13 @@ void CustomMessageBox(int x, int y,int w, string title, string message, IconType
 // --- drawIcon ---
 void drawIcon(int x, int y, IconType type) {
     if (type == ICON_INFO) {
-        H::setcolor(249);
+        H::setcolor(250);
+        system("chcp 65001 > nul");
         H::gotoxy(x, y+0); cout << "  ___";
         H::gotoxy(x, y+1); cout << " /   \\";
-        H::gotoxy(x, y+2); cout << "|  !  |";
+        H::gotoxy(x, y+2); cout << "|  ✓  |";
         H::gotoxy(x, y+3); cout << " \\___/";
+        system("chcp 437 >nul");
     } else if (type == ICON_WARNING) {
         H::setcolor(244);
         H::gotoxy(x, y+0); cout << "   _";
