@@ -292,6 +292,7 @@ void  Teacher::input(){
             break;
         }
     }
+     H::setcursor(true, 1);
     // ------------------ Phone Number ------------------
     H::gotoxy(startX + 98, startY + 8);
     H::input4Tel(this->phoneNumber, 10);
