@@ -206,7 +206,13 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
     string today = getTodayDate();
     strcpy(q.lastUpdateDate, today.c_str());
 
-    bool deadlineSet = (strlen(q.deadline) > 0);
+    bool deadlineSet = false;
+
+    if (partialFound) {
+        if (strcmp(q.className, className) == 0 && strcmp(q.quizID, quizID) == 0) {
+            deadlineSet = (strlen(q.deadline) > 0);
+        }
+    }
 
     while (page < 10) {
         system("cls");
@@ -215,11 +221,16 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(165, 12); cout << "10";
         H::setcolor(7); H::gotoxy(165, 14); cout << getTodayDate();
         H::setcolor(7); H::gotoxy(171, 22); cout << q.lastUpdateDate;
-        H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
+
+        if (!deadlineSet) {
+            H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
+            deadlineSet = true;
+        } else {
+            H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
+        }
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
         cout << setfill('\0');
-        // Input page-level score and time
         strcpy(q.questions[page].score, "10");
         strcpy(q.questions[page].timeQuiz, "60");
 
