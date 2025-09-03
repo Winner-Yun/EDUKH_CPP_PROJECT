@@ -45,6 +45,16 @@ class StudentProfile
         void inputPasswordMask(int x, int y, char* password, int maxLen);
 };
 
+struct ManagementAdminGetAVG{
+    int pageIndex = 0;  
+    int totalPages = 1;  
+    char studentID[15];
+    char studentName[20];
+    char grade[3];
+    char AvgScore[20];
+    char rank[2];
+};
+
 void StudentProfile::loadFromStruct(const Student& s) 
 {
         strcpy(id, s.getId().c_str());
@@ -65,11 +75,11 @@ void StudentProfile::displayRow()
     // === Load score data from ManageScoreBYAdmin.bin ===
     ifstream file(SCORE_FILE, std::ios::binary);
     if (file) {
-        MainManageScore ms;
-        while (file.read(reinterpret_cast<char*>(&ms), sizeof(MainManageScore))) {
-            if (strcmp(ms.getStudentID(), id) == 0) {
-                strcpy(avgStr, ms.getAvgScore());
-                strcpy(rankStr, ms.getRank());
+        ManagementAdminGetAVG ms;
+        while (file.read(reinterpret_cast<char*>(&ms), sizeof(ManagementAdminGetAVG))) {
+            if (strcmp(ms.studentID, id) == 0) {
+                strcpy(avgStr, ms.AvgScore);
+                strcpy(rankStr, ms.rank);
                 break;
             }
         }

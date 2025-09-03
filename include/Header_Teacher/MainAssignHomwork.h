@@ -133,6 +133,11 @@ void MainAssignHomwork::ReadFileAssMenu(const char* teacherID,const char* subjec
             } else if (key == 13) {
                 if (grades[currentSelection] == "<| BACK") {
                     running = false;
+                    H::setcolor(7);
+                    system("cls");
+                    LoadingHeader(2);
+                    EdumasterCustom::LoadingPage(30,30,135,5);
+                    H::cls();
                 } else {
                     H::setcolor(7);
                     system("cls");

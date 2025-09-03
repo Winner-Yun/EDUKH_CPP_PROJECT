@@ -84,59 +84,58 @@ void AssignClass::SearchClass(const char* className, string& keyword) const
 
 void AssignClass::DeleteClass(const char* className) 
 {
-	H::setcursor(true,1);
+    H::setcursor(true,1);
+    AssignClassDesign::DeleteClassDesign();
 
-	AssignClassDesign::DeleteClassDesign();
+    char gradeID[20];
+    char inputNumber[20];
+    
+    H::setcolor(151);
+    H::setcolor(3); H::gotoxy(72,23); cout<<"Enter Grade ID To Delete: G"; H::inputNumber(inputNumber,20); 
+    sprintf(gradeID, "G%s", inputNumber);
 
-	char gradeID[20];
-	char inputNumber[20];
-	
-	H::setcolor(151);
-	H::setcolor(3); H::gotoxy(72,23); cout<<"Enter Grade ID To Delete: G"; H::inputNumber(inputNumber,20); 
-	sprintf(gradeID, "G%s", inputNumber);
-
-	
     ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
     if (!inFile) {
         MessageBoxA(GetConsoleWindow(), "Error", "File not found", MB_OK);
         return;
     }
 
-	ofstream outFile("../data/temp.bin", ios::binary);
+    ofstream outFile("../data/temp.bin", ios::binary);
     if (!outFile) {
         MessageBoxA(GetConsoleWindow(), "Error", "Cannot create temp file", MB_OK);
         inFile.close();
         return;
     }
 
-	AssignClass ac;
+    AssignClass ac;
     bool deleted = false;
 
-	while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
-        int confirm = MessageBoxA(GetConsoleWindow(), 
-									"Do you really want to remove this Teacher from this Class?", 
-									"Confirm Delete", MB_YESNO | MB_ICONQUESTION);
-		if (confirm == IDYES) {
-			deleted = true;
-			continue;
-		}
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClass))) {
+        if (strcmp(ac.gradeID, gradeID) == 0) {
+            int confirm = MessageBoxA(GetConsoleWindow(),
+                "Do you really want to remove this Teacher from this Class?",
+                "Confirm Delete", MB_YESNO | MB_ICONQUESTION);
+            if (confirm == IDYES) {
+                deleted = true;
+                continue;
+            }
+        }
         outFile.write(reinterpret_cast<const char*>(&ac), sizeof(AssignClass));
     }
 
-	inFile.close();
+    inFile.close();
     outFile.close();
 
-	remove("../data/AssignClass_Data.bin");
+    remove("../data/AssignClass_Data.bin");
     rename("../data/temp.bin", "../data/AssignClass_Data.bin");
 
-	if (deleted) {
-        //MessageBox(NULL, "Teacher deleted successfully", "Success", MB_OK);
-		H::setcolor(2); H::gotoxy(86,38); cout<<"Teacher deleted successfully";
-	} else {
-        //MessageBox(NULL, "Teacher not found", "Info", MB_OK);
-		H::setcolor(4); H::gotoxy(90,38); cout<<"Teacher not found";
+    if (deleted) {
+        H::setcolor(2); H::gotoxy(86,38); cout<<"Teacher deleted successfully";
+    } else {
+        H::setcolor(4); H::gotoxy(90,38); cout<<"Teacher not found";
     }
 }
+
 
 void AssignClass::DisplayAll(const char* className, int page, int sortMethod) const {
 	ifstream inFile("../data/AssignClass_Data.bin", ios::binary);

@@ -30,6 +30,22 @@ int main() {
     H::setFixedScreenConsole(200, 45);
     SetConsoleTitle(TEXT("EDUMASTER-KH INFORMATION SYSTEM  (EMIS)"));
     H::setFont(15);
+        //  Student_MainMenu::Main("stu.yunwinner@gmail.com");
+    // QuizDesign::Quiz_Select();
+//       td.teacherManagement();
+    // EdumasterCustom::LoadingPage(23,3,140,20);
+    //   subSche.Main_ScheduleSubMenu();    
+    //MainManageScore::ManageScoreProcess(); 
+     menu.Main_menu();;
+//  EDUSYSTEM::DisplayStartScreen();
+//      MainAssignHomwork::AssignHMain("T-011");
+//     MainAssignHomwork::AssignHMainProcess("T-011","11");
+//MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
+    // MainHeaderOFManageScore::ManageScoreMain("T-003","MATH");
+//        s.Main_StudentManage();
+//     Teach_MainMenu::Main("te.lyuttakra@gmail.com");
+//    schdule.InterfaceADD_update("10");
+
    	EDUSYSTEM::DisplayStartScreen();
     getch();
     return 0;

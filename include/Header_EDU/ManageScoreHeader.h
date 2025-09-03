@@ -29,10 +29,6 @@ class MainManageScore{
         bool IsPublished(const char* grade);
         void ReadAVGScore(const char* grade);
         void MainControlScore(const char* grade);
-        // Getter ================
-        const char* getStudentID() const { return studentID; }
-        const char* getAvgScore() const { return AvgScore; }
-        const char* getRank() const { return rank; }
 };
 struct ManageScore {
     char strname[20], strID[15], strgrade[3], assignBY[20],atSubject[20],score_sch[30] , sc_q1[5], sc_q2[5], sc_q3[5], sc_h1[5], sc_h2[5], toalScore[15], avgScore[15], gr[2];  
@@ -189,13 +185,13 @@ void MainManageScore::MainControlScore(const char* grade) {
         ReadAVGScore(grade);
         if(!IsPublished(grade)) {
             H::setcolor(4);
-            H::drawBoxSingleLineWithBG(2, 39, 20, 3, 4);
-            H::gotoxy(5, 41); cout << " UNPUBLISHED ";
+            H::drawBoxSingleLineWithBG(2, 39, 20, 1, 4);
+            H::gotoxy(5, 40); cout << " UNPUBLISHED ";
             H::setcolor(2);
         } else {
             H::setcolor(2);
-            H::drawBoxSingleLineWithBG(2, 39, 20, 3, 6);
-            H::gotoxy(7, 41); cout << " PUBLISHED ";
+            H::drawBoxSingleLineWithBG(2, 39, 20, 1, 6);
+            H::gotoxy(7, 40); cout << " PUBLISHED ";
             H::setcolor(4);
         }
         H::VLine(193, 19, 16, 2, 179);
@@ -213,7 +209,7 @@ void MainManageScore::MainControlScore(const char* grade) {
         else if (key == 77) { // RIGHT arrow
             if (pageIndex < totalPages - 1) pageIndex++;
         }
-        else if (key == 130 || key == 112) { 
+        else if (key == 'P' || key == 'p') {
             if (!IsPublished(grade)) {
                 int result = MessageBoxA(
                     GetConsoleWindow(),
@@ -221,6 +217,12 @@ void MainManageScore::MainControlScore(const char* grade) {
                     "Confirm Publish",
                     MB_YESNO | MB_ICONQUESTION
                 );
+
+                if (result == IDYES) {
+                    for (int i = 0; i < manageScoreCount; i++) {
+                        WriteSummaryToFile(manageScores[i]);
+                    }
+                }
             } else {
                 int result = MessageBoxA(
                     GetConsoleWindow(),
@@ -228,6 +230,10 @@ void MainManageScore::MainControlScore(const char* grade) {
                     "Confirm Unpublish",
                     MB_YESNO | MB_ICONQUESTION
                 );
+
+                if (result == IDYES) {
+                    ClearSummaryFile();
+                }
             }
     }
 
@@ -423,6 +429,7 @@ void MainManageScore::ReadAVGScore(const char* grade) {
         H::setcolor(2);
         H::gotoxy(195, row);
         cout << grd;
+        cout<<setfill('\0');
 
 
         if (manageScoreCount < 100) {
@@ -434,7 +441,6 @@ void MainManageScore::ReadAVGScore(const char* grade) {
 
             manageScoreCount++;
         }
-        cout<< setfill('\0');
 
     }
 

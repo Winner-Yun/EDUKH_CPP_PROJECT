@@ -469,7 +469,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
             if (strcmp(tmp.homeworkDescription, "None") == 0 ||
                 strcmp(tmp.homeWorkNote, "None") == 0 ||
                 strcmp(tmp.deadLineDate, "None") == 0) {
-                CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
+                CustomMessageBox(72, 20, 68, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
                 inFile.close();
                 cleanupTemp();
                 return;
@@ -496,7 +496,7 @@ void AssignHomeWorkProcess::publishHomework(const char* tID, const char* g, cons
     }
 
     if (!found) {
-        CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
+        CustomMessageBox(72, 20, 68, "ALERT", "Cannot publish: Description, Note, or Deadline is empty!", ICON_WARNING);
     }
 
     inFile.close();
