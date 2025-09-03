@@ -490,7 +490,7 @@ void Quiz::PublishQuiz(const char* teacherID, const char* className, const char*
         CustomMessageBox(80, 20, 60, "UNPUBLISED", "Quiz unpublished successfully!", ICON_INFO);
     } else {
         if (!q.isComplete()) {
-            CustomMessageBox(80, 20, 60, "ALERT", "Cannot publish! All 10 pages must be fully created.", ICON_WARNING);
+            CustomMessageBox(80, 20, 62, "ALERT", "Cannot publish! All 10 pages must be fully created.", ICON_WARNING);
             return;
         }
         strcpy(q.publish, "1"); // published
