@@ -223,19 +223,19 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(171, 22); cout << q.lastUpdateDate;
 
         if (!deadlineSet) {
-            H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
+            H::setcolor(7); EdumasterCustom::inputDeadline(171 ,24,q.deadline);
             deadlineSet = true;
         } else {
             H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
         }
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
-        cout << setfill('\0');
+        cout<<setfill('\0');
         strcpy(q.questions[page].score, "10");
         strcpy(q.questions[page].timeQuiz, "60");
 
         if (!deadlineSet) {
-            H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
+            H::setcolor(7); EdumasterCustom::inputDeadline(171 ,24,q.deadline);
             deadlineSet = true;
         } else {
             H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
@@ -340,7 +340,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
-        cout << setfill('\0');
+        cout<<setfill('\0');
         // Show existing page data
         H::setcolor(7); H::gotoxy(165, 12); cout << "    ";
         H::setcolor(7); H::gotoxy(20, 11); cout << "                                                                                                                        ";
@@ -367,7 +367,7 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         else if (ch == 'D' || ch == 'd') { // 🔹 Update deadline
             H::setcursor(true, 1);
             H::setcolor(7); H::gotoxy(171, 24); cout << "          ";
-            H::setcolor(7); H::gotoxy(171, 24); H::inputDate(q.deadline, true);
+            H::setcolor(7); EdumasterCustom::inputDeadline(171 ,24,q.deadline);
 
             // Save immediately
             quizzes[quizIndex] = q;
