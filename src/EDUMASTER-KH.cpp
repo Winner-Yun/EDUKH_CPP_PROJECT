@@ -43,7 +43,7 @@ int main() {
 //MainAssignHomwork::AssignHMainProcess("T-011","11","khmer");
     // MainHeaderOFManageScore::ManageScoreMain("T-003","MATH");
 //        s.Main_StudentManage();
-//     Teach_MainMenu::Main("te.lyuttakra@gmail.com");
+    // Teach_MainMenu::Main("te.lyuttakra@gmail.com");
 //    schdule.InterfaceADD_update("10");
 
    	EDUSYSTEM::DisplayStartScreen();

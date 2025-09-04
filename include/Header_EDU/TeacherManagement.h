@@ -1073,16 +1073,6 @@ void TeacherDesign::updateTeacher(int pageindex) {
 
 fstream backup;
 void TeacherDesign::deletedTeacher(int pageIndex) {
-    H::cls();
-    H::foreColor(3); H::gotoxy(60, 9); cout << R"( ______   ________  _____     ________  _________   _____  ____  _____    ______  )";
-    H::foreColor(3); H::gotoxy(60, 10); cout << R"(|_   _ `.|_   __  ||_   _|   |_   __  ||  _   _  ||_   _||_   \|_   _| .' ___  | )";
-    H::foreColor(3); H::gotoxy(60, 11); cout << R"(  | | `. \ | |_ \_|  | |       | |_ \_||_/ | | \_|  | |    |   \ | |  / .'   \_| )";
-    H::foreColor(3); H::gotoxy(60, 12); cout << R"(  | |  | | |  _| _   | |   _   |  _| _     | |      | |    | |\ \| |  | |   ____ )";
-    H::foreColor(3); H::gotoxy(60, 13); cout << R"( _| |_.' /_| |__/ | _| |__/ | _| |__/ |   _| |_    _| |_  _| |_\   |_ \ `.___]  |)";
-    H::foreColor(7); H::gotoxy(60, 14); cout << R"(|______.'|________||________||________|  |_____|  |_____||_____|\____| `._____.' )";
-    TeacherDesign::loading();
-    H::cls();
-
     do {
         bool isDeleted = false;
         char deleteId[20];
@@ -1124,6 +1114,17 @@ void TeacherDesign::deletedTeacher(int pageIndex) {
         remove("../data/Teacher_Data.bin");
         rename("../data/backup_data.bin", "../data/Teacher_Data.bin");
 
+        H::cls();
+        H::setcursor(false, 0);
+        H::foreColor(3); H::gotoxy(60, 9); cout << R"( ______   ________  _____     ________  _________   _____  ____  _____    ______  )";
+        H::foreColor(3); H::gotoxy(60, 10); cout << R"(|_   _ `.|_   __  ||_   _|   |_   __  ||  _   _  ||_   _||_   \|_   _| .' ___  | )";
+        H::foreColor(3); H::gotoxy(60, 11); cout << R"(  | | `. \ | |_ \_|  | |       | |_ \_||_/ | | \_|  | |    |   \ | |  / .'   \_| )";
+        H::foreColor(3); H::gotoxy(60, 12); cout << R"(  | |  | | |  _| _   | |   _   |  _| _     | |      | |    | |\ \| |  | |   ____ )";
+        H::foreColor(3); H::gotoxy(60, 13); cout << R"( _| |_.' /_| |__/ | _| |__/ | _| |__/ |   _| |_    _| |_  _| |_\   |_ \ `.___]  |)";
+        H::foreColor(7); H::gotoxy(60, 14); cout << R"(|______.'|________||________||________|  |_____|  |_____||_____|\____| `._____.' )";
+        TeacherDesign::loading();
+        H::cls();
+
         if (isDeleted) {
             H::foreColor(2);
             TeacherDesign::designTable();
@@ -1138,7 +1139,6 @@ void TeacherDesign::deletedTeacher(int pageIndex) {
             cout << "TEACHER ID " << deleteId << " DELETE SUCCESSFULLY!";
             break;
         } else {
-            // ❌ Teacher not found animation
             H::cls();
             H::setcolor(4);
             cout << R"( | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |)";

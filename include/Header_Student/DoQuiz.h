@@ -389,7 +389,8 @@ void DoQuiz::StartQuiz(const char* studentID, const char* className, const char*
         do {
             H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (i + 1) << " / " << totalQuestions;
             cout << setfill('\0');
-            H::setcolor(7); H::gotoxy(20, 11); cout << ques.text;
+            H::setcolor(7); H::gotoxy(20, 11); cout << (i + 1) << ". ";
+            H::setcolor(7); H::gotoxy(24, 11); cout << ques.text;
 
             // Draw answer boxes and highlight current choice
             for (int j = 1; j <= 4; j++) {

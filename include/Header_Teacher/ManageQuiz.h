@@ -230,7 +230,6 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         }
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
-        cout<<setfill('\0');
         strcpy(q.questions[page].score, "10");
         strcpy(q.questions[page].timeQuiz, "60");
 
@@ -240,8 +239,8 @@ void Quiz::CreateQuiz(const char* teacherID, const char* className, const char* 
         } else {
             H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
         }
-
-        H::setcolor(7); H::gotoxy(20, 11); H::inputAll(q.questions[page].text, 121);
+        H::setcolor(7); H::gotoxy(20, 11); cout << (page + 1) << ". ";
+        H::setcolor(7); H::gotoxy(24, 11); H::inputAll(q.questions[page].text, 117);
 
         H::setcolor(7); H::gotoxy(40, 17); H::inputAll(q.questions[page].answer1, 81);
 
@@ -340,7 +339,6 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(171, 24); cout << q.deadline;
 
         H::setcolor(7); H::gotoxy(173, 9); cout << setw(2) << setfill('0') << (page + 1) << " / 10";
-        cout<<setfill('\0');
         // Show existing page data
         H::setcolor(7); H::gotoxy(165, 12); cout << "    ";
         H::setcolor(7); H::gotoxy(20, 11); cout << "                                                                                                                        ";
@@ -349,7 +347,8 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
         H::setcolor(7); H::gotoxy(40, 29); cout << "                                                                                ";
         H::setcolor(7); H::gotoxy(40, 35); cout << "                                                                                ";
         H::setcolor(7); H::gotoxy(165, 12); cout << q.questions[page].score;
-        H::setcolor(7); H::gotoxy(20, 11); cout << q.questions[page].text;
+        H::setcolor(7); H::gotoxy(20, 11); cout << (page + 1) << ". ";
+        H::setcolor(7); H::gotoxy(24, 11); cout << q.questions[page].text;
         H::setcolor(7); H::gotoxy(40, 17); cout << q.questions[page].answer1;
         H::setcolor(7); H::gotoxy(40, 23); cout << q.questions[page].answer2;
         H::setcolor(7); H::gotoxy(40, 29); cout << q.questions[page].answer3;
@@ -387,7 +386,8 @@ void Quiz::UpdateQuiz(const char* teacherID, const char* className, const char* 
             H::setcolor(7); H::gotoxy(40, 23); cout << "                                                                                ";
             H::setcolor(7); H::gotoxy(40, 29); cout << "                                                                                ";
             H::setcolor(7); H::gotoxy(40, 35); cout << "                                                                                ";
-            H::setcolor(7); H::gotoxy(20, 11); H::inputAll(q.questions[page].text, 121);
+            H::setcolor(7); H::gotoxy(20, 11); cout << (page + 1) << ". ";
+            H::setcolor(7); H::gotoxy(24, 11); H::inputAll(q.questions[page].text, 117);
             H::setcolor(7); H::gotoxy(40, 17); H::inputAll(q.questions[page].answer1, 81);
             H::setcolor(7); H::gotoxy(40, 23); H::inputAll(q.questions[page].answer2, 81);
             H::setcolor(7); H::gotoxy(40, 29); H::inputAll(q.questions[page].answer3, 81);
