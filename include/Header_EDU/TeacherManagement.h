@@ -263,7 +263,7 @@ void  Teacher::input(){
 	H::setcursor(false, 0);
     const char* subjects[] = {
         "KHMER",
-        "MATHEMATICS",
+        "MATH",
         "PHYSICS",
         "CHEMISTRY",
         "BIOLOGY",
@@ -449,7 +449,7 @@ void Teacher::newInput(){
 	H::setcursor(false, 0);
     const char* subjects[] = {
         "KHMER",
-        "MATHEMATICS",
+        "MATH",
         "PHYSICS",
         "CHEMISTRY",
         "BIOLOGY",
