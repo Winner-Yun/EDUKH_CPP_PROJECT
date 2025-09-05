@@ -88,14 +88,14 @@ void StudentProfile::displayRow()
     StudentProfileDesign::HeaderText(1,1);
 
     setConsoleColor(0, 11);
-    H::gotoxy(90,10); cout  << id;
-    H::gotoxy(135,10);cout << name;
-    H::gotoxy(90,14);cout << grade;
-    H::gotoxy(135,14);cout << academicYear;
-    H::gotoxy(90,17);cout << gender;
-    H::gotoxy(135,17);cout << birthDate;
-    H::gotoxy(135,20);cout << telephone;
-    H::gotoxy(90,20); cout << email ;
+    H::gotoxy(82,10); cout  << id;
+    H::gotoxy(82,14);cout << grade;
+    H::gotoxy(82,17);cout << gender;
+    H::gotoxy(82,20); cout << email ;
+    H::gotoxy(137,10);cout << name;
+    H::gotoxy(137,14);cout << academicYear;
+    H::gotoxy(137,17);cout << birthDate;
+    H::gotoxy(137,20);cout << telephone;
     setConsoleColor(GRAY, 14);
 	H::gotoxy(69,27); cout<<"AVERAGE : ";
 	H::gotoxy(114,27); cout<<"GRADE LETTER : ";

@@ -36,7 +36,7 @@ int main() {
     // EdumasterCustom::LoadingPage(23,3,140,20);
     //   subSche.Main_ScheduleSubMenu();    
     //MainManageScore::ManageScoreProcess(); 
-     menu.Main_menu();;
+    menu.Main_menu();;
 //  EDUSYSTEM::DisplayStartScreen();
 //      MainAssignHomwork::AssignHMain("T-011");
 //     MainAssignHomwork::AssignHMainProcess("T-011","11");

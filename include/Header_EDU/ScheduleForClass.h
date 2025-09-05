@@ -36,6 +36,7 @@ class Schedule_Management{
 
         // PhySic Method Work with Class
         void ReadFile_Display(const char* grade); // read file display
+        void ReadFile_Display_ByTeacher(const char* teacherID, const char* grade); // New read file display by teacher
         void DeleteRowDataBYGRADE(const char* grade);
         void AddToFileRow(int rowIndex , const char* grade);   // update file for each row
         void LoadScheduleDataFromFile(const char* targetTimeZone,const char* grade);   // count rows of file
@@ -760,7 +761,12 @@ void Schedule_Management::ReadFile_Display(const char* grade) {
     for (int f = 0; f < 2; f++) {
         FILE* file = fopen(files[f], "rb");
         if (!file) {
-            cerr << "Failed to open file: " << files[f] << endl;
+            MessageBoxA(
+                GetConsoleWindow(),
+                "No schedule data found. Please create a schedule first.",
+                "File Not Found",
+                MB_OK | MB_ICONERROR
+            );
             continue;
         }
 
@@ -812,6 +818,111 @@ void Schedule_Management::ReadFile_Display(const char* grade) {
         }
     }
 }
+
+void Schedule_Management::ReadFile_Display_ByTeacher(const char* teacherId, const char* grade) {
+    Schedule_Management schedules[MAX];
+    const char* files[2] = {
+        "../data/schedule_data_AM.bin",
+        "../data/schedule_data_PM.bin"
+    };
+    const int startY[2] = {15, 32};
+
+    // Load subject list for teacher in this grade
+    vector<string> teacherSubjects;
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    AssignClassForm ac;
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClassForm))) {
+        if (strcmp(ac.teacherID, teacherId) == 0 && strcmp(ac.className, grade) == 0) {
+            teacherSubjects.push_back(ac.subject);
+        }
+    }
+    inFile.close();
+
+    // Lambda to center text
+    auto centerText = [](const string& str, int width = 17) -> string {
+        int len = str.length();
+        if (len >= width) return str.substr(0, width);
+        int padding = width - len;
+        int padLeft = padding / 2;
+        int padRight = padding - padLeft;
+        return string(padLeft, ' ') + str + string(padRight, ' ');
+    };
+
+    // Lambda to check if subject belongs to teacher
+    auto filterSubject = [&](const char* subject) -> string {
+        if (strlen(subject) == 0) return centerText("__________");
+        for (auto &sub : teacherSubjects) {
+            if (strcmp(subject, sub.c_str()) == 0) {
+                return centerText(subject); // ✅ Show only teacher's subject
+            }
+        }
+        return centerText("__________"); // ❌ Not teacher's subject → show "__________"
+    };
+
+    for (int f = 0; f < 2; f++) {
+        FILE* file = fopen(files[f], "rb");
+        if (!file) continue;
+
+        int count = fread(schedules, sizeof(Schedule_Management), MAX, file);
+        fclose(file);
+
+        int firstIdx = 0;
+        for (; firstIdx < count; ++firstIdx) {
+            if (strlen(schedules[firstIdx].getStartTime()) != 0 &&
+                strcmp(schedules[firstIdx].getGrade(), grade) == 0) {
+                break;
+            }
+        }
+
+        string lastTimeZone = "";
+        int boxY = startY[f];
+
+        for (int i = firstIdx; i < count; i++) {
+            if (strlen(schedules[i].getStartTime()) == 0) continue;
+            if (strcmp(schedules[i].getGrade(), grade) != 0) continue;
+
+            // Only print rows that contain at least 1 subject of teacher
+            bool match = false;
+            const char* days[6] = {
+                schedules[i].getMon(), schedules[i].getTus(),
+                schedules[i].getWed(), schedules[i].getThu(),
+                schedules[i].getFri(), schedules[i].getSat()
+            };
+            for (auto &sub : teacherSubjects) {
+                for (int d = 0; d < 6; d++) {
+                    if (strcmp(days[d], sub.c_str()) == 0) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) break;
+            }
+            if (!match) continue; // skip rows with no teacher subject
+
+            if (lastTimeZone != schedules[i].getTimeZone()) {
+                lastTimeZone = schedules[i].getTimeZone();
+                if (i != firstIdx) boxY += 3;
+            }
+
+            // Print time
+            H::setcolor(7);
+            H::gotoxy(12, boxY + 1);
+            cout << schedules[i].getStartTime() << " ~ " << schedules[i].getEndTime() 
+                 << " " << schedules[i].getTimeZone();
+
+            // Print subjects per day
+            H::gotoxy(35,  boxY + 1); cout << filterSubject(schedules[i].getMon());
+            H::gotoxy(58,  boxY + 1); cout << filterSubject(schedules[i].getTus());
+            H::gotoxy(81,  boxY + 1); cout << filterSubject(schedules[i].getWed());
+            H::gotoxy(104, boxY + 1); cout << filterSubject(schedules[i].getThu());
+            H::gotoxy(127, boxY + 1); cout << filterSubject(schedules[i].getFri());
+            H::gotoxy(150, boxY + 1); cout << filterSubject(schedules[i].getSat());
+
+            boxY += 3;
+        }
+    }
+}
+
 
 void Schedule_Management::DeleteRowDataBYGRADE(const char* grade) {
     const char* files[2] = {

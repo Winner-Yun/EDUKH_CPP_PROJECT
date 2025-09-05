@@ -6,13 +6,7 @@
 #include "../AssignClass/AssignClass.h"
 #include "TeacherProfileDesign.h"
 #include "ConsoleColor.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <windows.h>
-#include <conio.h>
+#include "../Header_Student/DisplaySchedule.h"
 using namespace ANTHinsyOOP;
 
 class TeacherProfile
@@ -54,6 +48,8 @@ class TeacherProfile
         // ---------------------------------------
         const Teacher& getTeacher() const { return teacher; }
         const char* getTeacherId() const { return teacherId;} 
+        // ---------------------------------------
+        void DisplaySchedules();
 };
 
 TeacherProfile::TeacherProfile(const Teacher& t) {
@@ -117,6 +113,13 @@ bool TeacherProfile::ProfileMenu(bool& shouldExit) {
                 showAssignedClassesPaginate();
                 H::setcolor(7);
                 H::cls();
+                ProfileDesign(); 
+                break;
+            }
+            case 2: {
+                DisplaySchedules();
+                H::setcolor(7);
+                H::cls();
                 ProfileDesign();
                 break;
             }
@@ -127,6 +130,53 @@ bool TeacherProfile::ProfileMenu(bool& shouldExit) {
 
 
 // ---- Display: call on *this* ----
+
+void TeacherProfile::DisplaySchedules()
+{
+        // 1. Collect grades teacher teaches
+    vector<string> teacherGrades;
+    ifstream inFile("../data/AssignClass_Data.bin", ios::binary);
+    AssignClassForm ac;
+
+    while (inFile.read(reinterpret_cast<char*>(&ac), sizeof(AssignClassForm))) {
+        if (strcmp(ac.teacherID, this->teacherId) == 0) {
+            teacherGrades.push_back(ac.className); // e.g. "10", "11"
+        }
+    }
+    inFile.close();
+
+    if (teacherGrades.empty()) {
+        MessageBoxA(GetConsoleWindow(), "No schedule found", "Info", MB_OK);
+        return;
+    }
+
+    int gradeIndex = 0;
+    int option;
+    H::setcursor(false, 0);
+
+    do {
+        system("cls"); // clear screen
+
+        const char* currentGrade = teacherGrades[gradeIndex].c_str();
+
+        H::drawBoxDoubleLine(2,6,30,1,2); // Arow back
+        H::drawBoxDoubleLine(168,6,30,1,2); // Arrow next
+        H::gotoxy(3,7); cout << "Use arrow left for [Prvious]";
+        H::gotoxy(169,7); cout << "Use arrow right for [Next]";
+        DisplaySchedule::Title_heading(currentGrade);
+        DisplaySchedule::DisplaySchecduleIF();
+
+        Schedule_Management scmanage;
+        scmanage.ReadFile_Display_ByTeacher(this->teacherId, currentGrade);
+
+        option = getch();
+        if (option == 75) { // left
+            gradeIndex = (gradeIndex - 1 + teacherGrades.size()) % teacherGrades.size();
+        } else if (option == 77) { // right
+            gradeIndex = (gradeIndex + 1) % teacherGrades.size();
+        }
+    } while (option != 27);
+}
 
 void TeacherProfile::changePassword()
 {
@@ -409,21 +459,21 @@ void TeacherProfile::showAssignClass(int No, int y, const AssignClass& assign) {
 
 void TeacherProfile::display()
 {
-	H::setcolor(233); H::gotoxy(35,24); cout << "ID : "; 
+	H::setcolor(233); H::gotoxy(36,24); cout << "ID : "; 
     H::setcolor(234); cout << getTeacherId();
-    H::setcolor(233); H::gotoxy(21,26); cout << "Name : "; 
+    H::setcolor(233); H::gotoxy(19,26); cout << "Name : "; 
     H::setcolor(234); cout << teacherName;
     H::setcolor(233); H::gotoxy(46,26); cout << "Gender : "; 
     H::setcolor(234); cout << gender;
-    H::setcolor(233); H::gotoxy(22,30); cout << "Subject       : ";
+    H::setcolor(233); H::gotoxy(19,30); cout << "Subject       : ";
     H::setcolor(234); cout << subject;
-    H::setcolor(233); H::gotoxy(22,32); cout << "Date Of Birth : ";
+    H::setcolor(233); H::gotoxy(19,32); cout << "Date Of Birth : ";
     H::setcolor(234); cout << dateOfBirth;
-    H::setcolor(233); H::gotoxy(22,34); cout << "Study Year    : "; 
+    H::setcolor(233); H::gotoxy(19,34); cout << "Study Year    : "; 
     H::setcolor(234); cout << academyYear;
-    H::setcolor(233); H::gotoxy(22,36); cout << "Email         : "; 
+    H::setcolor(233); H::gotoxy(19,36); cout << "Email         : "; 
     H::setcolor(234); cout << email;
-    H::setcolor(233); H::gotoxy(22,38); cout << "Phone         : "; 
+    H::setcolor(233); H::gotoxy(19,38); cout << "Phone         : "; 
     H::setcolor(234); cout << phoneNumber;
     
     //
@@ -475,8 +525,8 @@ void TeacherProfile::ProfileDesign()
 	H::drawBoxDoubleLineWithBG(36,13,10,2,145);
 	H::drawBoxDoubleLineWithBG(28,18,26,2,145);
 	//
-	H::drawBoxDoubleLineWithBG(21,23,40,3,230);
-	H::drawBoxDoubleLineWithBG(21,29,40,9,230);
+	H::drawBoxDoubleLineWithBG(19,23,44,3,230);
+	H::drawBoxDoubleLineWithBG(19,29,44,9,230);
 	
 	// display
 	display();
@@ -504,20 +554,21 @@ void TeacherProfile::ProfileDesign()
 	H::drawBoxSingleLineWithBG(146, 14, 38, 25,145);
 	H::drawBoxSingleLineWithBG(146, 38, 38, 1,247); 
 	//
-	for(int i=14;i<20;i++)
+	for(int i=14;i<18;i++)
 	{
 		H::HLine(164,i,2,247,177);
 	}
-	H::HLine(145,20,40,247,177);
-	for(int i=32;i<38;i++)
+	H::HLine(145,18,40,247,177);
+	for(int i=34;i<38;i++)
 	{
 		H::HLine(164,i,2,247,177);
 	}
-	H::HLine(145,31,40,247,177);
+	H::HLine(145,33,40,247,177);
 
-	//
-	H::drawBoxSingleLineWithBG(149,22,32,1,233);
-	H::drawBoxSingleLineWithBG(149,27,32,1,233);
+	// Menu
+	H::drawBoxSingleLineWithBG(149,20,32,1,233); // Change Password
+	H::drawBoxSingleLineWithBG(149,24,32,1,233); // Asign Class
+	H::drawBoxSingleLineWithBG(149,28,32,1,233); // Schedule
 	
 	
 	// Footer
@@ -531,13 +582,14 @@ void TeacherProfile::ProfileDesign()
 
 // ========================== Draw Menu ==========================
 
-const int SIZES = 2;
+const int SIZES = 3;
 string settingMenu[SIZES] = {
     "1. Change Password",
-    "2. View Assigned Classes"
+    "2. View Assigned Classes",
+    "3. View Schedule"
 };
 int menuX = 151;
-int menuY[SIZES] = {23, 28};
+int menuY[SIZES] = {21, 25, 29};
 
 // Draw menu with arrow highlighting
 void TeacherProfile::drawMenu(int selected) {

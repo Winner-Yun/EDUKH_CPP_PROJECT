@@ -69,37 +69,38 @@ void StudentProfileDesign::HeaderText(int x, int y)
     system("chcp 437  > nul");
 	
 	// Profile
-	H::drawBoxSingleLineWithBG(45,8,110,22,179);
-	H::HLine(44,8,112,178,223);
-	//
-	H::drawBoxDoubleLineWithBG(46,9,30,11,119);
-	H::drawBoxDoubleLineWithBG(56,10,10,2,145);
-	H::drawBoxDoubleLineWithBG(49,15,24,5,145);
-	// Field
-	H::drawBoxDoubleLineWithBG(80,9,35,1,185); // ID
-	H::drawBoxDoubleLineWithBG(118,9,35,1,185); // Name
-	H::HLine(79,12,75,183,205);
-	H::drawBoxDoubleLineWithBG(80,13,35,1,185); // Grade
-	H::drawBoxDoubleLineWithBG(118,13,35,1,185); // Academic Year
-	H::drawBoxDoubleLineWithBG(80,16,35,1,185); // Gender
-	H::drawBoxDoubleLineWithBG(118,16,35,1,185); // Birth Date
-	H::drawBoxDoubleLineWithBG(80,19,35,1,185); // Email
-	H::drawBoxDoubleLineWithBG(118,19,35,1,185); // Tel
+	H::drawBoxSingleLineWithBG(35,8,130,22,179); // change
+	H::HLine(34,8,132,178,223);
 	
-	H::HLine(44,23,112,178,223);
+	//
+	H::drawBoxDoubleLineWithBG(38,9,30,11,119);
+	H::drawBoxDoubleLineWithBG(48,10,10,2,145);
+	H::drawBoxDoubleLineWithBG(41,15,24,5,145);
+	// Field
+	H::drawBoxDoubleLineWithBG(72,9,42,1,185); // ID
+	H::drawBoxDoubleLineWithBG(120,9,42,1,185); // Name
+	H::HLine(71,12,92,183,205);
+	H::drawBoxDoubleLineWithBG(72,13,42,1,185); // Grade
+	H::drawBoxDoubleLineWithBG(120,13,42,1,185); // Academic Year
+	H::drawBoxDoubleLineWithBG(72,16,42,1,185); // Gender
+	H::drawBoxDoubleLineWithBG(120,16,42,1,185); // Birth Date
+	H::drawBoxDoubleLineWithBG(72,19,42,1,185); // Email
+	H::drawBoxDoubleLineWithBG(120,19,42,1,185); // Tel
+	
+	H::HLine(34,23,132,178,223);
 	
 	H::drawBoxDoubleLineWithBG(60,26,35,1,230);
 	H::drawBoxDoubleLineWithBG(105,26,35,1,230);
 	
 	setConsoleColor(8, 11);
-	H::gotoxy(81,10); cout<<"ID     : ";
-	H::gotoxy(81,14); cout<<"GRADE  : ";
-	H::gotoxy(81,17); cout<<"GENDER : ";
-	H::gotoxy(81,20); cout<<"EMAIL  : ";
-	H::gotoxy(119,10); cout<<"NAME          : ";
-	H::gotoxy(119,14); cout<<"ACADEMIC YEAR : ";
-	H::gotoxy(119,17); cout<<"BIRTH DATE    : ";
-	H::gotoxy(119,20); cout<<"TELEPHONE     : ";
+	H::gotoxy(73,10); cout<<"ID     : ";
+	H::gotoxy(73,14); cout<<"GRADE  : ";
+	H::gotoxy(73,17); cout<<"GENDER : ";
+	H::gotoxy(73,20); cout<<"EMAIL  : ";
+	H::gotoxy(121,10); cout<<"NAME          : ";
+	H::gotoxy(121,14); cout<<"ACADEMIC YEAR : ";
+	H::gotoxy(121,17); cout<<"BIRTH DATE    : ";
+	H::gotoxy(121,20); cout<<"TELEPHONE     : ";
     // Data below
 }
 
@@ -113,21 +114,19 @@ void StudentProfileDesign::FooterText()
 	//
 	H::drawBoxDoubleLineWithBG(75,36,50,1,1); // For Tip
 	setConsoleColor(7, 0);
-	H::gotoxy(77,37); cout<<"Tip: Use arrow key [Left] & [Right} for move!";
+	H::gotoxy(77,37); cout<<"Tip: Use arrow key [Left] & [Right] for move!";
 	// Left
-	H::drawBoxDoubleLineWithBG(38,7,5,24,162);
-	H::drawBoxDoubleLineWithBG(31,9,5,20,145);
-	H::drawBoxDoubleLineWithBG(24,11,5,16,187);
-	H::drawBoxDoubleLineWithBG(17,13,5,12,196);
-	H::drawBoxDoubleLineWithBG(10,15,5,8,247);
-	H::drawBoxDoubleLineWithBG(3,17,5,4,230);
+	H::drawBoxDoubleLineWithBG(29,7,5,24,162);   
+	H::drawBoxDoubleLineWithBG(22,9,5,20,145);  
+	H::drawBoxDoubleLineWithBG(15,11,5,16,187); 
+	H::drawBoxDoubleLineWithBG(8,13,5,12,196); 
+	H::drawBoxDoubleLineWithBG(1,15,5,8,247); 
 	// Right
-	H::drawBoxDoubleLineWithBG(157,7,5,24,162);
-	H::drawBoxDoubleLineWithBG(164,9,5,20,145);
-	H::drawBoxDoubleLineWithBG(171,11,5,16,187);
-	H::drawBoxDoubleLineWithBG(178,13,5,12,196);
-	H::drawBoxDoubleLineWithBG(185,15,5,8,247);
-	H::drawBoxDoubleLineWithBG(192,17,5,4,230);
+	H::drawBoxDoubleLineWithBG(166,7,5,24,162);
+	H::drawBoxDoubleLineWithBG(173,9,5,20,145);
+	H::drawBoxDoubleLineWithBG(180,11,5,16,187);
+	H::drawBoxDoubleLineWithBG(187,13,5,12,196);
+	H::drawBoxDoubleLineWithBG(194,15,5,8,247);
 	
     SchoolText(1,35);
     SchoolText(153,35);
