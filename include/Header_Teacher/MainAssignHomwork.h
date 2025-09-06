@@ -280,10 +280,7 @@ void MainAssignHomwork::AssignHMainProcess(const char* id , const char* grade,co
         }while(option != 27 && option != 13);
 
         if(option==27){
-            H::cls();
-            LoadingHeader(1);
-            EdumasterCustom::LoadingPage(30,30,135,5);
-            system("cls");
+            H::cls();;
         }
 
         if (option == 13) {

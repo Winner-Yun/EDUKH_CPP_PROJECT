@@ -166,10 +166,6 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
                 H::setcolor(7);
                 system("cls");
                 ViewHomeWorkDetails(subjects[currentSelection].c_str(), grade);
-                H::cls();
-                LoadingHeader(2);
-                EdumasterCustom::LoadingPage(30, 30, 135, 5);
-                H::cls();
                 running = false;
                 ViewHomeMain(grade);
             }
