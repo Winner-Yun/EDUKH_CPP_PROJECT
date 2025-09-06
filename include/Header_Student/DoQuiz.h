@@ -17,6 +17,7 @@ class DoQuiz{
         static void StartQuiz(const char* studentID, const char* className, const char* subject, size_t quizIndex);
         static void MenuGradeDesignDesign();
         static void MenuQuizDesignDesign();
+        static void LoadingHeader(int id);
 };
 
 struct StudentQuizResult {
@@ -77,7 +78,6 @@ void DoQuiz::MenuBySubject(const char* studentID, const char* grade){
 void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
     const int consoleWidth = 202;
     const int consoleHeight = 45;
-    H::cls();
 
     // Use your helper to get the correct file name
     const char* filename = Quiz::getFileName(grade);
@@ -111,9 +111,15 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
     if (!found || subjects.empty()) {
         H::setcolor(14);
         H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(GetConsoleWindow(), "NO QUIZ AVAILABLE!", "Notice", MB_OK | MB_ICONASTERISK);
+        CustomMessageBox(80, 20, 40, "ALERT", "NO QUIZ ASSIGN YET !", ICON_WARNING);
         return;
     }
+
+    H::setcolor(7);
+    system("cls");
+    LoadingHeader(2);
+    EdumasterCustom::LoadingPage(30,30,135,5);
+    H::cls();
 
     subjects.push_back("<| BACK");
 
@@ -168,6 +174,11 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
             if (subjects[currentSelection] == "<| BACK"){
                 H::setcolor(7);
                 running = false;
+                H::setcolor(7);
+                system("cls");
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30,30,135,5);
+                H::cls();
             } 
             else {
                 system("cls");
@@ -177,7 +188,14 @@ void DoQuiz::ViewHomeMain(const char* studentID, const char* grade) {
                 running = false;
                 ViewHomeMain(studentID, grade);
             }
-        } else if (key == 27) running = false; // ESC
+        } else if (key == 27) {
+            running = false; // ESC
+            H::setcolor(7);
+            system("cls");
+            LoadingHeader(2);
+            EdumasterCustom::LoadingPage(30,30,135,5);
+            H::cls();
+        }
     }
 }
 
@@ -657,6 +675,26 @@ void DoQuiz::MenuQuizDesignDesign(){
     H::HLine(189, 15, 4, 7, 219);
     H::HLine(189, 27, 4, 7, 219);
     H::HLine(189, 39, 4, 7, 219);
+}
+
+void DoQuiz::LoadingHeader(int id){
+    if(id == 1){
+         H::setcolor(4);H::gotoxy(70,16);cout << R"( ____   ____________________________________              )";
+         H::setcolor(4);H::gotoxy(70,17);cout << R"( 7  7   7     77     77     77  7  77      7              )";
+         H::setcolor(4);H::gotoxy(70,18);cout << R"( |  |   |  7  ||   __!|  7  ||  |  |!__  __!              )";
+         H::setcolor(4);H::gotoxy(70,19);cout << R"( |  !___|  |  ||  !  7|  |  ||  |  |  7  7                )";
+         H::setcolor(7);H::gotoxy(70,20);cout << R"( |     7|  !  ||     ||  !  ||  !  |  |  |  ____________  )";
+         H::setcolor(7);H::gotoxy(70,21);cout << R"( !_____!!_____!!_____!!_____!!_____!  !__!  7__77__77__7  )";
+    }
+    else if(id == 2){
+        H::setcolor(2);H::gotoxy(49,12);cout << R"( ______________     ___________________________________________________________________                    )";
+        H::setcolor(2);H::gotoxy(49,13);cout << R"( 7     77     7     7     77  _  77     77     77     77     77     77  77     77     7                    )";
+        H::setcolor(2);H::gotoxy(49,14);cout << R"( |  7  ||  _  |     |  -  ||    _||  7  ||  ___!|  ___!|  ___!|  ___!|  ||  _  ||   __!                    )";
+        H::setcolor(2);H::gotoxy(49,15);cout << R"( |  |  ||  7  |     |  ___!|  _ \ |  |  ||  7___|  __|_!__   7!__   7|  ||  7  ||  !  7                    )";
+        H::setcolor(7);H::gotoxy(49,16);cout << R"( |  !  ||  |  |     |  7   |  7  ||  !  ||     7|     77     |7     ||  ||  |  ||     |     ____________   )";
+        H::setcolor(7);H::gotoxy(49,17);cout << R"( !_____!!__!__!     !__!   !__!__!!_____!!_____!!_____!!_____!!_____!!__!!__!__!!_____!     7__77__77__7   )";
+    }
+
 }
 
 #endif

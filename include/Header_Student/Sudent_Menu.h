@@ -192,35 +192,15 @@ void Student_MainMenu::Main(const char* email){
                 }
 
                 case 3:{
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    H::cls();
 
                    ViewHomeWork::ViewHomeMain(grade);
 
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    system("cls");
                     break;
                 }
                 case 4:{
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    H::cls();
 
                     DoQuiz::MenuBySubject(studentID, grade);
 
-                    H::setcolor(7);
-                    system("cls");
-                    LoadingHeader(2);
-                    EdumasterCustom::LoadingPage(30,30,135,5);
-                    system("cls");
                     break;
                 }
                 case 5:{

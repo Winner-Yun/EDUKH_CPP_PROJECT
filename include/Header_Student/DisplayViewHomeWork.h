@@ -39,7 +39,6 @@ void ViewHomeWork::MenuBySubject(const char* grade){
 void ViewHomeWork::ViewHomeMain(const char* grade) {
     const int consoleWidth = 202;
     const int consoleHeight = 45;
-    H::cls();
 
     ifstream inFile("../data/AssignCHomeWorkPUBLISH.bin", ios::binary);
     if (!inFile) {
@@ -64,9 +63,15 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
     if (!found || subjects.empty()) {
         H::setcolor(14);
         H::gotoxy(consoleWidth / 2 - 10, consoleHeight / 2);
-        MessageBoxA(GetConsoleWindow(), "NO HOMEWORK ASSIGN YET !", "Notice", MB_OK | MB_ICONASTERISK);
+        CustomMessageBox(80, 20, 40, "ALERT", "NO HOMEWORK ASSIGN YET !", ICON_WARNING);
         return;
     }
+
+    H::setcolor(7);
+    system("cls");
+    LoadingHeader(2);
+    EdumasterCustom::LoadingPage(30,30,135,5);
+    H::cls();    
 
     subjects.push_back("<| BACK");
 
@@ -152,6 +157,11 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
         } else if (key == 13) { // Enter
             if (subjects[currentSelection] == "<| BACK") {
                 running = false;
+                H::setcolor(7);
+                system("cls");
+                LoadingHeader(2);
+                EdumasterCustom::LoadingPage(30,30,135,5);
+                H::cls();
             } else {
                 H::setcolor(7);
                 system("cls");
@@ -165,6 +175,11 @@ void ViewHomeWork::ViewHomeMain(const char* grade) {
             }
         } else if (key == 27) { // ESC
             running = false;
+            H::setcolor(7);
+            system("cls");
+            LoadingHeader(2);
+            EdumasterCustom::LoadingPage(30,30,135,5);
+            H::cls();
         }
     }
 }
